@@ -60,5 +60,8 @@
   "os": [
     "darwin",
     "linux"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
