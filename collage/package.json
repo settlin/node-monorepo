@@ -1,0 +1,38 @@
+{
+  "name": "@settlin/collage",
+  "version": "1.2.0",
+  "description": "Turns an array of images into a photo collage",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/settlin/node-monorepo/collage.git"
+  },
+  "keywords": [
+    "photo",
+    "image",
+    "mosaic",
+    "collage",
+    "canvas",
+    "tile"
+  ],
+  "author": "Settlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/settlin/node-monorepo/collage/issues"
+  },
+  "homepage": "https://github.com/settlin/node-monorepo/collage#readme",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "canvas": "^2.1.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "buffer-equal": "^1.0.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "mocha": "^2.4.5"
+  }
+}
