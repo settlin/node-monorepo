@@ -1,6 +1,7 @@
 {
   "packages": [
-    "collage"
+    "collage",
+    "mongo-backup"
   ],
   "version": "independent"
 }
