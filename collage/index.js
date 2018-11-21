@@ -4,6 +4,7 @@ const Promise  = require("bluebird");
 const request  = require("request");
 const {createCanvas, Canvas, Image} = require('canvas')
 const fs       = Promise.promisifyAll(require("fs"));
+const cloneDeep = require('lodash.clonedeep');
 
 function downloadPhoto (uri) {
   return new Promise((resolve, reject) => {
@@ -65,10 +66,11 @@ const PARAMS = [
   {field: "spacing", default: 0},
   {field: "backgroundColor", default: "#eeeeee"},
   {field: "lines", default: []},
-  {field: "textStyle", default: {}},
+  {field: "textStyle", default: {height: 0}},
+  {field: "header", default: {height: 0}},
 ];
 
-module.exports = function (options) {
+module.exports = function (options = {}) {
   if (Array.isArray(options)) {
     options = {sources: options};
   }
@@ -77,15 +79,16 @@ module.exports = function (options) {
     if (options[param.field]) {
       return;
     } else if (param.default != null) {
-      options[param.field] = param.default;
+      options[param.field] = cloneDeep(param.default);
     } else if (param.required) {
       throw new Error(`Missing required option: ${param.field}`);
     }
   });
 
-  const headerHeight = (options.header || {}).height || 0;
+  if ((options.text || options.lines.length) && !options.textStyle.height) options.textStyle.height = 200;
+
   const canvasWidth = options.width * options.imageWidth + (options.width - 1) * (options.spacing);
-  const canvasHeight = headerHeight  + options.height * options.imageHeight + (options.height - 1) * (options.spacing) + (options.textStyle.height || 200);
+  const canvasHeight = options.header.height  + options.height * options.imageHeight + (options.height - 1) * (options.spacing) + (options.textStyle.height);
   const canvas = createCanvas(canvasWidth, canvasHeight);
 
   const ctx = canvas.getContext("2d");
@@ -116,7 +119,7 @@ module.exports = function (options) {
 
       const x = (i % options.width) * (options.imageWidth + options.spacing);
       const y = Math.floor(i / options.width) * (options.imageHeight + options.spacing);
-      ctx.drawImage(img, x, y + headerHeight, options.imageWidth, options.imageHeight);
+      ctx.drawImage(img, x, y + options.header.height, options.imageWidth, options.imageHeight);
     })
     .then(() => {
       if (options.text) {

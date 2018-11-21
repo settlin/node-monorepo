@@ -27,6 +27,7 @@
   "dependencies": {
     "bluebird": "^3.5.3",
     "canvas": "^2.1.0",
+    "lodash.clonedeep": "^4.5.0",
     "request": "^2.88.0"
   },
   "devDependencies": {

@@ -19,6 +19,36 @@ const sources = [
   "https://github.com/classdojo/photo-collage/blob/master/img/src6.jpg?raw=true",
 ];
 
+it("2x3 collage with text", () => {
+  const options = {
+    sources: [
+      "./img/src1.jpg",
+      "./img/src2.jpg",
+      "./img/src3.jpg",
+      "./img/src4.jpg",
+      "./img/src5.jpg",
+    ],
+    width: 3,
+    height: 2,
+    imageWidth: 350,
+    imageHeight: 250,
+    backgroundColor: "#cccccc",
+    spacing: 2,
+    lines: [
+      {font: "", color: "", text: "Sometimes we want to find out when a single one time event has"},
+      {font: "", color: "", text: "Sometimes we want to find out when a single one time event has"},
+      {font: "", color: "", text: "Sometimes we want to find out when a single one time event has"},
+      {font: "", color: "", text: "Sometimes we want to find out when a single one time event has"},
+      {font: "", color: "", text: "Sometimes we want to find out when a single one time event has"},
+    ],
+  };
+
+  return createCollage(options)
+    .then((canvas) => canvas.toBuffer())
+    .then((buffer) => bufferEqual(buffer, fs.readFileSync("./img/result_with_text.png")))
+    .should.eventually.equal(true);
+});
+
 it("2x3 collage with no spacing matches reference", () => {
   const options = {
     sources: sources,
