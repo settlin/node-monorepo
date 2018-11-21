@@ -18,7 +18,7 @@
     "canvas",
     "tile"
   ],
-  "author": "Settlin",
+  "author": "Settlin <developers@settlin.in>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/settlin/node-monorepo/collage/issues"
