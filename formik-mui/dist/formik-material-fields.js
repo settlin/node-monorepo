@@ -214,6 +214,181 @@
     throw new TypeError("Invalid attempt to spread non-iterable instance");
   }
 
+  function validateEmail (v, msg) {
+    return !/^.+@.+\..+$/.test(v) && msg;
+  }
+
+  function validateMobile (v, msg) {
+    return !/^\d{10}$/.test(v) && msg;
+  }
+
+  function validateDob (v) {
+    var d = new Date(),
+        dateTo = new Date(),
+        dateFrom = new Date();
+    var currentyear = new Date(v);
+    dateFrom.setFullYear(d.getFullYear() - 57);
+    dateTo.setFullYear(d.getFullYear() - 18);
+    return currentyear.getFullYear() > dateFrom.getFullYear() && currentyear.getFullYear() < dateTo.getFullYear();
+  }
+
+  var Input = function Input(_ref) {
+    var typeOrig = _ref.type,
+        container = _ref.container,
+        required = _ref.required,
+        validateOrig = _ref.validate,
+        _ref$label = _ref.label,
+        labelOrig = _ref$label === void 0 ? '' : _ref$label,
+        mui = _ref.mui,
+        rest = _objectWithoutProperties(_ref, ["type", "container", "required", "validate", "label", "mui"]);
+
+    var Grid = container ? require('@material-ui/core/Grid').default : function (_ref2) {
+      var children = _ref2.children;
+      return children;
+    };
+
+    var label = labelOrig,
+        type,
+        validateFunc = function validateFunc() {},
+        validateReq = function validateReq() {},
+        Field;
+
+    if (typeof validateOrig === 'function') validateFunc = validateOrig; // original validate function
+    else if (validateOrig) {
+        switch (typeOrig) {
+          case 'aadhar':
+            validateFunc = function validateFunc(v) {
+              return !/^\d{4}\s\d{4}\s\d{4}$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Aadhar Number');
+            };
+
+            break;
+
+          case 'dob':
+            validateFunc = function validateFunc(v) {
+              return !validateDob(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid DOB Age Limit (18 to 57)');
+            };
+
+            break;
+
+          case 'pincode':
+            validateFunc = function validateFunc(v) {
+              return !/^[1-9][0-9]{5}$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Pincode');
+            };
+
+            break;
+
+          case 'pan':
+            validateFunc = function validateFunc(v) {
+              return !/[A-Za-z]{5}\d{4}[A-Za-z]{1}/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid PAN Number');
+            };
+
+            break;
+
+          case 'inr':
+            validateFunc = function validateFunc(v) {
+              return !/^\d*$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Amount');
+            };
+
+            break;
+
+          case 'mobile':
+          case 'otp':
+            validateFunc = function validateFunc(v) {
+              return validateMobile(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Indian Mobile');
+            };
+
+            break;
+
+          case 'email':
+            validateFunc = function validateFunc(v) {
+              return validateEmail(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Email');
+            };
+
+            break;
+        }
+      }
+
+    if (required) {
+      validateReq = function validateReq(v) {
+        return typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
+      };
+
+      label += ' *';
+    }
+
+    switch (typeOrig) {
+      case 'switch':
+        type = 'checkbox';
+        Field = require('./formik/Switch').default;
+        break;
+
+      case 'checkbox':
+        type = 'checkbox';
+        Field = rest.options ? require('./formik/CheckboxGroup').default : require('./formik/Checkbox').default;
+        break;
+
+      case 'radio':
+        type = 'radio';
+        Field = require('./formik/Radio').default;
+        break;
+
+      case 'buttons':
+        type = 'buttons';
+        Field = require('./formik/ButtonGroup').default;
+        break;
+
+      case 'otp':
+        Field = require('./formik/OtpField').default;
+        break;
+
+      case 'inr':
+        type = 'number';
+        Field = require('./formik/CurrencyField').default;
+        break;
+
+      case 'select':
+        Field = mui ? require('./formik/Select').default : require('./formik/FilterField').default;
+        break;
+
+      case 'mobile':
+        type = 'number';
+        Field = require('./formik/TextField').default;
+        break;
+
+      case 'dob':
+        type = 'date';
+        Field = require('./formik/TextField').default;
+        break;
+
+      case 'email':
+        Field = require('./formik/TextField').default;
+        break;
+
+      case 'pincode':
+        type = 'number';
+        Field = require('./formik/TextField').default;
+        break;
+
+      default:
+        type = typeOrig || 'text';
+        Field = require('./formik/TextField').default;
+        break;
+    }
+
+    var validate = function validate(v) {
+      return validateReq(v) || validateFunc(v);
+    };
+
+    return React__default.createElement(Grid, _extends({
+      item: true
+    }, container), React__default.createElement(Field, _extends({
+      validate: validate,
+      label: label,
+      type: type,
+      compact: true
+    }, rest)));
+  };
+
   var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
   function createCommonjsModule(fn, module) {
@@ -922,7 +1097,7 @@
     }, props.selectProps.TextFieldProps));
   }
 
-  var Input = function Input(props) {
+  var Input$1 = function Input(props) {
     return React__default.createElement(ReactSelect.components.Input, _extends({}, props, {
       autoComplete: "none"
     }));
@@ -977,7 +1152,7 @@
 
   var components = {
     Control: Control,
-    Input: Input,
+    Input: Input$1,
     Menu: Menu,
     MultiValue: MultiValue,
     NoOptionsMessage: NoOptionsMessage,
@@ -1235,181 +1410,6 @@
 
   CircularIntegration.displayName = 'FButton';
   var FButton = styles$7.withStyles(styles$3)(CircularIntegration);
-
-  function validateEmail (v, msg) {
-    return !/^.+@.+\..+$/.test(v) && msg;
-  }
-
-  function validateMobile (v, msg) {
-    return !/^\d{10}$/.test(v) && msg;
-  }
-
-  function validateDob (v) {
-    var d = new Date(),
-        dateTo = new Date(),
-        dateFrom = new Date();
-    var currentyear = new Date(v);
-    dateFrom.setFullYear(d.getFullYear() - 57);
-    dateTo.setFullYear(d.getFullYear() - 18);
-    return currentyear.getFullYear() > dateFrom.getFullYear() && currentyear.getFullYear() < dateTo.getFullYear();
-  }
-
-  var Input$1 = function Input(_ref) {
-    var typeOrig = _ref.type,
-        container = _ref.container,
-        required = _ref.required,
-        validateOrig = _ref.validate,
-        _ref$label = _ref.label,
-        labelOrig = _ref$label === void 0 ? '' : _ref$label,
-        mui = _ref.mui,
-        rest = _objectWithoutProperties(_ref, ["type", "container", "required", "validate", "label", "mui"]);
-
-    var Grid = container ? require('@material-ui/core/Grid').default : function (_ref2) {
-      var children = _ref2.children;
-      return children;
-    };
-
-    var label = labelOrig,
-        type,
-        validateFunc = function validateFunc() {},
-        validateReq = function validateReq() {},
-        Field;
-
-    if (typeof validateOrig === 'function') validateFunc = validateOrig; // original validate function
-    else if (validateOrig) {
-        switch (typeOrig) {
-          case 'aadhar':
-            validateFunc = function validateFunc(v) {
-              return !/^\d{4}\s\d{4}\s\d{4}$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Aadhar Number');
-            };
-
-            break;
-
-          case 'dob':
-            validateFunc = function validateFunc(v) {
-              return !validateDob(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid DOB Age Limit (18 to 57)');
-            };
-
-            break;
-
-          case 'pincode':
-            validateFunc = function validateFunc(v) {
-              return !/^[1-9][0-9]{5}$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Pincode');
-            };
-
-            break;
-
-          case 'pan':
-            validateFunc = function validateFunc(v) {
-              return !/[A-Za-z]{5}\d{4}[A-Za-z]{1}/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid PAN Number');
-            };
-
-            break;
-
-          case 'inr':
-            validateFunc = function validateFunc(v) {
-              return !/^\d*$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Amount');
-            };
-
-            break;
-
-          case 'mobile':
-          case 'otp':
-            validateFunc = function validateFunc(v) {
-              return validateMobile(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Indian Mobile');
-            };
-
-            break;
-
-          case 'email':
-            validateFunc = function validateFunc(v) {
-              return validateEmail(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Email');
-            };
-
-            break;
-        }
-      }
-
-    if (required) {
-      validateReq = function validateReq(v) {
-        return typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
-      };
-
-      label += ' *';
-    }
-
-    switch (typeOrig) {
-      case 'switch':
-        type = 'checkbox';
-        Field = require('./formik/Switch').default;
-        break;
-
-      case 'checkbox':
-        type = 'checkbox';
-        Field = rest.options ? require('./formik/CheckboxGroup').default : require('./formik/Checkbox').default;
-        break;
-
-      case 'radio':
-        type = 'radio';
-        Field = require('./formik/Radio').default;
-        break;
-
-      case 'buttons':
-        type = 'buttons';
-        Field = require('./formik/ButtonGroup').default;
-        break;
-
-      case 'otp':
-        Field = require('./formik/OtpField').default;
-        break;
-
-      case 'inr':
-        type = 'number';
-        Field = require('./formik/CurrencyField').default;
-        break;
-
-      case 'select':
-        Field = mui ? require('./formik/Select').default : require('./formik/FilterField').default;
-        break;
-
-      case 'mobile':
-        type = 'number';
-        Field = require('./formik/TextField').default;
-        break;
-
-      case 'dob':
-        type = 'date';
-        Field = require('./formik/TextField').default;
-        break;
-
-      case 'email':
-        Field = require('./formik/TextField').default;
-        break;
-
-      case 'pincode':
-        type = 'number';
-        Field = require('./formik/TextField').default;
-        break;
-
-      default:
-        type = typeOrig || 'text';
-        Field = require('./formik/TextField').default;
-        break;
-    }
-
-    var validate = function validate(v) {
-      return validateReq(v) || validateFunc(v);
-    };
-
-    return React__default.createElement(Grid, _extends({
-      item: true
-    }, container), React__default.createElement(Field, _extends({
-      validate: validate,
-      label: label,
-      type: type,
-      compact: true
-    }, rest)));
-  };
 
   var FormikTextField = function FormikTextField(_ref) {
     var children = _ref.children,
@@ -1864,7 +1864,7 @@
               "aria-label": "Verified"
             }, React__default.createElement(DoneAll, null)))
           }
-        })), (user || {})._id && React__default.createElement(Input$1, {
+        })), (user || {})._id && React__default.createElement(Input, {
           value: user._id,
           name: "userId",
           label: "",
@@ -2740,6 +2740,7 @@
     }), children);
   };
 
+  exports.Input = Input;
   exports.ButtonGroup = FormikRadio;
   exports.Checkbox = FormikCheckbox;
   exports.CheckboxGroup = CheckboxGroup$1;
@@ -2751,7 +2752,12 @@
   exports.Select = FormikSelect;
   exports.Switch = FormikCheckbox$1;
   exports.TextField = FormikTextField;
-  exports.Input = Input$1;
+  exports.Button = FButton;
+  exports.formikToMuiProps = formikToMuiProps;
+  exports.currencify = currencify;
+  exports.validateDob = validateDob;
+  exports.validateEmail = validateEmail;
+  exports.validateMobile = validateMobile;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
