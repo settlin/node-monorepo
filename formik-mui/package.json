@@ -1,0 +1,64 @@
+{
+  "name": "@settlin/formik-mui",
+  "version": "0.0.3",
+  "description": "A set of material style fields for formik",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --presets=@babel/preset-env,@babel/preset-react",
+    "build:es": "babel src --out-dir es",
+    "build:umd": "cross-env NODE_ENV=development rollup -c -o dist/formik-material-fields.js",
+    "build:umd:min": "cross-env NODE_ENV=production rollup -c -o dist/formik-material-fields.min.js",
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "clean": "rimraf lib dist es coverage",
+    "prepare": "npm run clean && npm run build",
+    "dev": "rollup -c -w",
+    "test": "node tests/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daixianceng/formik-material-fields.git"
+  },
+  "keywords": [
+    "formik",
+    "material",
+    "form",
+    "field"
+  ],
+  "author": {
+    "name": "Cosmo",
+    "email": "daixianceng@gmail.com"
+  },
+  "license": "FSB License",
+  "bugs": {
+    "url": "https://github.com/daixianceng/formik-material-fields/issues"
+  },
+  "homepage": "https://github.com/daixianceng/formik-material-fields#readme",
+  "peerDependencies": {
+    "@material-ui/core": "^3.0.0",
+    "formik": ">=1",
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "prop-types": "^15.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "cross-env": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "rollup-plugin-babel": "^4.0.3-0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-uglify": "^6.0.0"
+  }
+}
