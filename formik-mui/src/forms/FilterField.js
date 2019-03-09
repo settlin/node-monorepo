@@ -9,6 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {emphasize} from '@material-ui/core/styles/colorManipulator';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const styles = theme => ({
 	root: {
@@ -77,11 +78,13 @@ function inputComponent({inputRef, ...props}) {
 }
 
 function Control(props) {
+	const {label, compact, ...TextFieldProps} = props.selectProps.TextFieldProps;
 	return (
 		<TextField
 			fullWidth
 			InputProps={{
 				inputComponent,
+				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
 				inputProps: {
 					className: props.selectProps.classes.input,
 					inputRef: props.innerRef,
@@ -90,7 +93,7 @@ function Control(props) {
 				},
 			}}
 			InputLabelProps={{shrink: props.isFocused || props.hasValue}}
-			{...props.selectProps.TextFieldProps}
+			{...TextFieldProps}
 		/>
 	);
 }
@@ -191,6 +194,7 @@ class Select extends React.PureComponent {
 			defaultValue,
 			creatable,
 			valueWithLabel = Boolean(optionsAsync),
+			InputAdornmentProps,
 			compact, // eslint-disable-line no-unused-vars
   		...props
   	} = this.props;
@@ -206,7 +210,7 @@ class Select extends React.PureComponent {
 			}),
 			dropdownIndicator: base => ({...base, padding: '6.5px'}),
 		};
-		const TextFieldProps = {label, placeholder, error: Boolean(message), helperText: message || helperText};
+		const TextFieldProps = {label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
 		const commonProps = {
 			...props,
 			classes, placeholder, autocomplete: 'off', styles: selectStyles, components, TextFieldProps, name,
@@ -223,6 +227,7 @@ class Select extends React.PureComponent {
 			return <AsyncSelect
 				loadOptions={optionsAsync}
 				cacheOptions
+				isClearable
 				defaultOptions
 				{...commonProps}
 			/>;
@@ -236,6 +241,5 @@ class Select extends React.PureComponent {
 		);
 	}
 }
-
 
 export default withStyles(styles, {withTheme: true})(Select);
