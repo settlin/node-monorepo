@@ -94,19 +94,8 @@ var Input = function Input(_ref) {
   }
 
   switch (typeOrig) {
-    case 'switch':
-      type = 'checkbox';
-      Field = require('./formik/Switch').default;
-      break;
-
-    case 'checkbox':
-      type = 'checkbox';
-      Field = rest.options ? require('./formik/CheckboxGroup').default : require('./formik/Checkbox').default;
-      break;
-
-    case 'radio':
-      type = 'radio';
-      Field = require('./formik/Radio').default;
+    case 'array':
+      Field = require('./formik/InputArray').default;
       break;
 
     case 'buttons':
@@ -114,8 +103,9 @@ var Input = function Input(_ref) {
       Field = require('./formik/ButtonGroup').default;
       break;
 
-    case 'otp':
-      Field = require('./formik/OtpField').default;
+    case 'checkbox':
+      type = 'checkbox';
+      Field = rest.options ? require('./formik/CheckboxGroup').default : require('./formik/Checkbox').default;
       break;
 
     case 'inr':
@@ -123,27 +113,32 @@ var Input = function Input(_ref) {
       Field = require('./formik/CurrencyField').default;
       break;
 
-    case 'select':
-      Field = mui ? require('./formik/Select').default : require('./formik/FilterField').default;
-      break;
-
     case 'mobile':
       type = 'number';
       Field = require('./formik/TextField').default;
       break;
 
-    case 'dob':
-      type = 'date';
-      Field = require('./formik/TextField').default;
-      break;
-
-    case 'email':
-      Field = require('./formik/TextField').default;
+    case 'otp':
+      Field = require('./formik/OtpField').default;
       break;
 
     case 'pincode':
       type = 'number';
       Field = require('./formik/TextField').default;
+      break;
+
+    case 'radio':
+      type = 'radio';
+      Field = require('./formik/Radio').default;
+      break;
+
+    case 'select':
+      Field = mui ? require('./formik/Select').default : require('./formik/FilterField').default;
+      break;
+
+    case 'switch':
+      type = 'checkbox';
+      Field = require('./formik/Switch').default;
       break;
 
     default:

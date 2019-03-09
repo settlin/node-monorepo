@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('@material-ui/lab/ToggleButton'), require('@material-ui/lab/ToggleButtonGroup'), require('@material-ui/core/FormControl'), require('@material-ui/core/FormHelperText'), require('@material-ui/core/FormLabel'), require('formik'), require('@material-ui/core/styles'), require('@material-ui/core/Checkbox'), require('@material-ui/core/FormControlLabel'), require('@material-ui/core/FormGroup'), require('@material-ui/core/TextField'), require('@material-ui/core/InputAdornment'), require('react-select'), require('@material-ui/core/Typography'), require('@material-ui/core/Paper'), require('@material-ui/core/Chip'), require('@material-ui/core/MenuItem'), require('@material-ui/icons/Cancel'), require('@material-ui/core/styles/colorManipulator'), require('@material-ui/core/CircularProgress'), require('@material-ui/core/colors/green'), require('@material-ui/core/Button'), require('@material-ui/core/Fab'), require('@material-ui/icons/Check'), require('@material-ui/icons/Save'), require('@material-ui/icons/Clear'), require('@material-ui/core/Grid'), require('@material-ui/core/IconButton'), require('@material-ui/core/Icon'), require('@material-ui/icons/DoneAll'), require('react-fast-compare'), require('@material-ui/core/Radio'), require('@material-ui/core/RadioGroup'), require('@material-ui/core/Switch')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'react', '@material-ui/lab/ToggleButton', '@material-ui/lab/ToggleButtonGroup', '@material-ui/core/FormControl', '@material-ui/core/FormHelperText', '@material-ui/core/FormLabel', 'formik', '@material-ui/core/styles', '@material-ui/core/Checkbox', '@material-ui/core/FormControlLabel', '@material-ui/core/FormGroup', '@material-ui/core/TextField', '@material-ui/core/InputAdornment', 'react-select', '@material-ui/core/Typography', '@material-ui/core/Paper', '@material-ui/core/Chip', '@material-ui/core/MenuItem', '@material-ui/icons/Cancel', '@material-ui/core/styles/colorManipulator', '@material-ui/core/CircularProgress', '@material-ui/core/colors/green', '@material-ui/core/Button', '@material-ui/core/Fab', '@material-ui/icons/Check', '@material-ui/icons/Save', '@material-ui/icons/Clear', '@material-ui/core/Grid', '@material-ui/core/IconButton', '@material-ui/core/Icon', '@material-ui/icons/DoneAll', 'react-fast-compare', '@material-ui/core/Radio', '@material-ui/core/RadioGroup', '@material-ui/core/Switch'], factory) :
-  (global = global || self, factory(global.FormikMaterialFields = {}, global.React, global.ToggleButton, global.MuiToggleButtonGroup, global.FormControl, global.FormHelperText, global.FormLabel, global.formik, global.styles$7, global.MuiCheckbox, global.FormControlLabel, global.FormGroup, global.MuiTextField, global.InputAdornment, global.ReactSelect, global.Typography, global.Paper, global.Chip, global.MenuItem, global.CancelIcon, global.colorManipulator, global.CircularProgress, global.green, global.Button, global.Fab, global.CheckIcon, global.SaveIcon, global.Clear, global.Grid, global.IconButton, global.Icon, global.DoneAll, global.isEqual, global.MuiRadio, global.MuiRadioGroup, global.MuiSwitch));
-}(this, function (exports, React, ToggleButton, MuiToggleButtonGroup, FormControl, FormHelperText, FormLabel, formik, styles$7, MuiCheckbox, FormControlLabel, FormGroup, MuiTextField, InputAdornment, ReactSelect, Typography, Paper, Chip, MenuItem, CancelIcon, colorManipulator, CircularProgress, green, Button, Fab, CheckIcon, SaveIcon, Clear, Grid, IconButton, Icon, DoneAll, isEqual, MuiRadio, MuiRadioGroup, MuiSwitch) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('@material-ui/lab/ToggleButton'), require('@material-ui/lab/ToggleButtonGroup'), require('@material-ui/core/FormControl'), require('@material-ui/core/FormHelperText'), require('@material-ui/core/FormLabel'), require('formik'), require('@material-ui/core/styles'), require('@material-ui/core/Checkbox'), require('@material-ui/core/FormControlLabel'), require('@material-ui/core/FormGroup'), require('@material-ui/core/TextField'), require('@material-ui/core/InputAdornment'), require('@material-ui/core/Grid'), require('../../../common/components/formik/Input'), require('@material-ui/icons/Add'), require('@material-ui/icons/Delete'), require('@material-ui/core/IconButton'), require('react-select'), require('@material-ui/core/Typography'), require('@material-ui/core/Paper'), require('@material-ui/core/Chip'), require('@material-ui/core/MenuItem'), require('@material-ui/icons/Cancel'), require('@material-ui/core/styles/colorManipulator'), require('@material-ui/core/CircularProgress'), require('@material-ui/core/colors/green'), require('@material-ui/core/Button'), require('@material-ui/core/Fab'), require('@material-ui/icons/Check'), require('@material-ui/icons/Save'), require('@material-ui/icons/Clear'), require('@material-ui/core/Icon'), require('@material-ui/icons/DoneAll'), require('react-fast-compare'), require('@material-ui/core/Radio'), require('@material-ui/core/RadioGroup'), require('@material-ui/core/Switch')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react', '@material-ui/lab/ToggleButton', '@material-ui/lab/ToggleButtonGroup', '@material-ui/core/FormControl', '@material-ui/core/FormHelperText', '@material-ui/core/FormLabel', 'formik', '@material-ui/core/styles', '@material-ui/core/Checkbox', '@material-ui/core/FormControlLabel', '@material-ui/core/FormGroup', '@material-ui/core/TextField', '@material-ui/core/InputAdornment', '@material-ui/core/Grid', '../../../common/components/formik/Input', '@material-ui/icons/Add', '@material-ui/icons/Delete', '@material-ui/core/IconButton', 'react-select', '@material-ui/core/Typography', '@material-ui/core/Paper', '@material-ui/core/Chip', '@material-ui/core/MenuItem', '@material-ui/icons/Cancel', '@material-ui/core/styles/colorManipulator', '@material-ui/core/CircularProgress', '@material-ui/core/colors/green', '@material-ui/core/Button', '@material-ui/core/Fab', '@material-ui/icons/Check', '@material-ui/icons/Save', '@material-ui/icons/Clear', '@material-ui/core/Icon', '@material-ui/icons/DoneAll', 'react-fast-compare', '@material-ui/core/Radio', '@material-ui/core/RadioGroup', '@material-ui/core/Switch'], factory) :
+  (global = global || self, factory(global.FormikMaterialFields = {}, global.React, global.ToggleButton, global.MuiToggleButtonGroup, global.FormControl, global.FormHelperText, global.FormLabel, global.formik, global.styles$7, global.MuiCheckbox, global.FormControlLabel, global.FormGroup, global.MuiTextField, global.InputAdornment, global.Grid, global.Input$2, global.Add, global.Delete, global.IconButton, global.ReactSelect, global.Typography, global.Paper, global.Chip, global.MenuItem, global.CancelIcon, global.colorManipulator, global.CircularProgress, global.green, global.Button, global.Fab, global.CheckIcon, global.SaveIcon, global.Clear, global.Icon, global.DoneAll, global.isEqual, global.MuiRadio, global.MuiRadioGroup, global.MuiSwitch));
+}(this, function (exports, React, ToggleButton, MuiToggleButtonGroup, FormControl, FormHelperText, FormLabel, formik, styles$7, MuiCheckbox, FormControlLabel, FormGroup, MuiTextField, InputAdornment, Grid, Input$2, Add, Delete, IconButton, ReactSelect, Typography, Paper, Chip, MenuItem, CancelIcon, colorManipulator, CircularProgress, green, Button, Fab, CheckIcon, SaveIcon, Clear, Icon, DoneAll, isEqual, MuiRadio, MuiRadioGroup, MuiSwitch) { 'use strict';
 
   var React__default = 'default' in React ? React['default'] : React;
   ToggleButton = ToggleButton && ToggleButton.hasOwnProperty('default') ? ToggleButton['default'] : ToggleButton;
@@ -15,6 +15,11 @@
   FormGroup = FormGroup && FormGroup.hasOwnProperty('default') ? FormGroup['default'] : FormGroup;
   MuiTextField = MuiTextField && MuiTextField.hasOwnProperty('default') ? MuiTextField['default'] : MuiTextField;
   InputAdornment = InputAdornment && InputAdornment.hasOwnProperty('default') ? InputAdornment['default'] : InputAdornment;
+  Grid = Grid && Grid.hasOwnProperty('default') ? Grid['default'] : Grid;
+  Input$2 = Input$2 && Input$2.hasOwnProperty('default') ? Input$2['default'] : Input$2;
+  Add = Add && Add.hasOwnProperty('default') ? Add['default'] : Add;
+  Delete = Delete && Delete.hasOwnProperty('default') ? Delete['default'] : Delete;
+  IconButton = IconButton && IconButton.hasOwnProperty('default') ? IconButton['default'] : IconButton;
   var ReactSelect__default = 'default' in ReactSelect ? ReactSelect['default'] : ReactSelect;
   Typography = Typography && Typography.hasOwnProperty('default') ? Typography['default'] : Typography;
   Paper = Paper && Paper.hasOwnProperty('default') ? Paper['default'] : Paper;
@@ -28,8 +33,6 @@
   CheckIcon = CheckIcon && CheckIcon.hasOwnProperty('default') ? CheckIcon['default'] : CheckIcon;
   SaveIcon = SaveIcon && SaveIcon.hasOwnProperty('default') ? SaveIcon['default'] : SaveIcon;
   Clear = Clear && Clear.hasOwnProperty('default') ? Clear['default'] : Clear;
-  Grid = Grid && Grid.hasOwnProperty('default') ? Grid['default'] : Grid;
-  IconButton = IconButton && IconButton.hasOwnProperty('default') ? IconButton['default'] : IconButton;
   Icon = Icon && Icon.hasOwnProperty('default') ? Icon['default'] : Icon;
   DoneAll = DoneAll && DoneAll.hasOwnProperty('default') ? DoneAll['default'] : DoneAll;
   isEqual = isEqual && isEqual.hasOwnProperty('default') ? isEqual['default'] : isEqual;
@@ -317,19 +320,8 @@
     }
 
     switch (typeOrig) {
-      case 'switch':
-        type = 'checkbox';
-        Field = require('./formik/Switch').default;
-        break;
-
-      case 'checkbox':
-        type = 'checkbox';
-        Field = rest.options ? require('./formik/CheckboxGroup').default : require('./formik/Checkbox').default;
-        break;
-
-      case 'radio':
-        type = 'radio';
-        Field = require('./formik/Radio').default;
+      case 'array':
+        Field = require('./formik/InputArray').default;
         break;
 
       case 'buttons':
@@ -337,8 +329,9 @@
         Field = require('./formik/ButtonGroup').default;
         break;
 
-      case 'otp':
-        Field = require('./formik/OtpField').default;
+      case 'checkbox':
+        type = 'checkbox';
+        Field = rest.options ? require('./formik/CheckboxGroup').default : require('./formik/Checkbox').default;
         break;
 
       case 'inr':
@@ -346,27 +339,32 @@
         Field = require('./formik/CurrencyField').default;
         break;
 
-      case 'select':
-        Field = mui ? require('./formik/Select').default : require('./formik/FilterField').default;
-        break;
-
       case 'mobile':
         type = 'number';
         Field = require('./formik/TextField').default;
         break;
 
-      case 'dob':
-        type = 'date';
-        Field = require('./formik/TextField').default;
-        break;
-
-      case 'email':
-        Field = require('./formik/TextField').default;
+      case 'otp':
+        Field = require('./formik/OtpField').default;
         break;
 
       case 'pincode':
         type = 'number';
         Field = require('./formik/TextField').default;
+        break;
+
+      case 'radio':
+        type = 'radio';
+        Field = require('./formik/Radio').default;
+        break;
+
+      case 'select':
+        Field = mui ? require('./formik/Select').default : require('./formik/FilterField').default;
+        break;
+
+      case 'switch':
+        type = 'checkbox';
+        Field = require('./formik/Switch').default;
         break;
 
       default:
@@ -1013,6 +1011,93 @@
     return React__default.createElement(Field, _extends({}, props, {
       component: CurrencyField
     }));
+  };
+
+  var Item = function Item(_ref) {
+    var prefix = _ref.prefix,
+        index = _ref.index,
+        remove = _ref.remove,
+        commonProps = _ref.commonProps,
+        metaList = _ref.metaList;
+    return React__default.createElement(React.Fragment, null, metaList.map(function (_ref2, i) {
+      var name = _ref2.name,
+          container = _ref2.container,
+          p = _objectWithoutProperties(_ref2, ["name", "container"]);
+
+      return React__default.createElement(Input$2, _extends({
+        key: i,
+        name: "".concat(prefix).concat(name ? '.' + name : '')
+      }, _objectSpread({}, commonProps, p, {
+        container: container
+      })));
+    }), Boolean(index) && React__default.createElement(IconButton, {
+      size: "small",
+      "aria-label": "Delete",
+      style: {
+        margin: '8px 0'
+      },
+      onClick: function onClick() {
+        return remove(index);
+      }
+    }, React__default.createElement(Delete, {
+      fontSize: "small"
+    })));
+  };
+
+  var ItemList = function ItemList(_ref3) {
+    var name = _ref3.name,
+        metaList = _ref3.metaList,
+        commonProps = _ref3.commonProps,
+        _ref3$faProps = _ref3.faProps,
+        remove = _ref3$faProps.remove,
+        push = _ref3$faProps.push,
+        form = _ref3$faProps.form;
+    var values = formik.getIn(form.values, name) || [''];
+    if (!values.length) values = [''];
+    return React__default.createElement("div", null, values.map(function (v, index) {
+      return React__default.createElement(Grid, {
+        key: index,
+        container: true,
+        spacing: 24
+      }, React__default.createElement(Item, _extends({
+        prefix: "".concat(name, ".").concat(index)
+      }, {
+        metaList: metaList,
+        commonProps: commonProps,
+        remove: remove,
+        index: index
+      })), index >= values.length - 1 && Boolean(v) && React__default.createElement(IconButton, {
+        size: "small",
+        "aria-label": "Add",
+        onClick: function onClick() {
+          return push('');
+        },
+        style: {
+          margin: '8px 0'
+        }
+      }, React__default.createElement(Add, {
+        fontSize: "small"
+      })));
+    }));
+  };
+
+  var InputArray = function InputArray(_ref4) {
+    var name = _ref4.name,
+        metaList = _ref4.metaList,
+        props = _objectWithoutProperties(_ref4, ["name", "metaList"]);
+
+    if (!metaList) return null;
+    return React__default.createElement(formik.FieldArray, {
+      name: name,
+      render: function render(p) {
+        return React__default.createElement(ItemList, {
+          name: name,
+          metaList: metaList,
+          commonProps: _objectSpread({}, props),
+          faProps: p
+        });
+      }
+    });
   };
 
   var styles$2 = function styles(theme) {
@@ -2745,6 +2830,7 @@
   exports.Checkbox = FormikCheckbox;
   exports.CheckboxGroup = CheckboxGroup$1;
   exports.CurrencyField = FormikCurrencyField;
+  exports.InputArra = InputArray;
   exports.FilterField = FormikFilter;
   exports.OtpField = FormikOTPField;
   exports.Persist = Persist$1;

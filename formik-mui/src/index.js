@@ -4,6 +4,7 @@ export {default as ButtonGroup} from './formik/ButtonGroup';
 export {default as Checkbox} from './formik/Checkbox';
 export {default as CheckboxGroup} from './formik/CheckboxGroup';
 export {default as CurrencyField} from './formik/CurrencyField';
+export {default as InputArra} from './formik/InputArray';
 export {default as FilterField} from './formik/FilterField';
 export {default as OtpField} from  './formik/OtpField';
 export {default as Persist} from './formik/Persist';

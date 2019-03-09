@@ -33,6 +33,12 @@ Object.defineProperty(exports, "CurrencyField", {
     return _CurrencyField.default;
   }
 });
+Object.defineProperty(exports, "InputArra", {
+  enumerable: true,
+  get: function get() {
+    return _InputArray.default;
+  }
+});
 Object.defineProperty(exports, "FilterField", {
   enumerable: true,
   get: function get() {
@@ -121,6 +127,8 @@ var _Checkbox = _interopRequireDefault(require("./formik/Checkbox"));
 var _CheckboxGroup = _interopRequireDefault(require("./formik/CheckboxGroup"));
 
 var _CurrencyField = _interopRequireDefault(require("./formik/CurrencyField"));
+
+var _InputArray = _interopRequireDefault(require("./formik/InputArray"));
 
 var _FilterField = _interopRequireDefault(require("./formik/FilterField"));
 
