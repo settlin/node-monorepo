@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {FieldArray, getIn} from 'formik';
 import Grid from '@material-ui/core/Grid';
-import Input from '/common/components/formik/Input';
+import Input from '../Input';
 import Add from '@material-ui/icons/Add';
 import Delete from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';

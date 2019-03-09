@@ -4,7 +4,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '../Input';
 import Clear from '@material-ui/icons/Clear';
 import TextField from '../formik/TextField';
-import Select from '../forms/filter';
+import Select from './FilterField';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
