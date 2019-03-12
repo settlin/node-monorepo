@@ -12,7 +12,6 @@ export default function({
 	const {errors = {}, touched = {}, isSubmitting, dirty} = form;
 
 	const fErr = getIn(errors, name);
-	console.log(errors, name, fErr);
 	window.getIn = getIn;
 	const fieldError = (dirty || getIn(touched, name)) && typeof fErr === 'string' ? fErr : null;
 

@@ -103,7 +103,6 @@ class DropzoneArea extends React.PureComponent {
 	render() {
 		const {classes, cs = {}, FormHelperTextProps, error, helperText, value, showPreviews} = this.props;
 		const {errors = []} = this.state;
-		console.log(1, value);
 		return (
 			<Fragment>
 				<Dropzone
