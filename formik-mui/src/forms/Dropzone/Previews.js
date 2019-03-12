@@ -1,5 +1,5 @@
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/styles';
 import isImage from '../../utils/isImage';
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';

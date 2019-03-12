@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/styles';
 import Dropzone from 'react-dropzone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Grid from '@material-ui/core/Grid';

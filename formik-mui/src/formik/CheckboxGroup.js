@@ -7,7 +7,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import {connect, getIn, Field} from 'formik';
-import {withStyles} from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/styles';
 
 const styles = () => ({
 	formControl: {
