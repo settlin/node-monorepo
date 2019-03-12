@@ -28,10 +28,12 @@ class Switch extends React.PureComponent {
   	if (this.props.onBlur) this.props.onBlur(event);
 	}
 	render() {
-  	const {fullWidth = true, classes, inputProps = {}, label, compact, ...props} = this.props; // eslint-disable-line no-unused-vars
+  	const {fullWidth = true, classes, inputProps = {}, label, compact, FormHelperTextProps, ...props} = this.props; // eslint-disable-line no-unused-vars
 		inputProps.classes = {...classes, ...inputProps.classes};
 
-		const {error = false, helperText, ...fp} = formikToMuiProps(props);
+		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'checkbox'});  // eslint-disable-line no-unused-vars
+		// removed type from props to ensure proper working of checkbox in formik
+
   	return <FormControl fullWidth={fullWidth}>
   		<FormControlLabel
 				control={
@@ -43,7 +45,7 @@ class Switch extends React.PureComponent {
 				}
 				label={label}
 			/>
-			{helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
+			{helperText && <FormHelperText {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}
   	</FormControl>;
 	}
 }

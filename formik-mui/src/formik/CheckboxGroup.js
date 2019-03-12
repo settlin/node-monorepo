@@ -108,7 +108,12 @@ class CheckboxGroup extends React.Component {
   			</FormGroup>
   			{helperText && (
   				<FormHelperText
-  					{...FormHelperTextProps}
+						{...FormHelperTextProps}
+						error={error}
+						className={cx(
+							{[classes.rowHelperText]: row === 'all'},
+							FormHelperTextProps && FormHelperTextProps.className,
+						)}
   				>
   					{helperText}
   				</FormHelperText>

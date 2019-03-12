@@ -15,27 +15,25 @@ const styles = () => ({
 	},
 	formLabel: {
 		display: 'flex',
-		'flex-direction': 'row',
-		'align-items': 'center',
+		'flex-direction': 'column',
+		'align-items': 'left',
 		'margin-right': '20px',
+	},
+	button: {
+		height: '100%',
 	},
 });
 
 class ToggleButtonGroup extends React.Component {
-  state = {
-  	dirty: false,
-	}
-	
 	constructor(p) {
 		super(p);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
 	}
 
-  handleChange(event, value) {
+	handleChange(event, value) {
   	if (this.props.field) this.props.form.setFieldValue(this.props.field.name, value);
   	if (this.props.onChange) this.props.onChange(event.target.value);
-  	if (!this.state.dirty) this.setState({dirty: true});
 	}
 
 	handleBlur() {
@@ -43,22 +41,24 @@ class ToggleButtonGroup extends React.Component {
 		if (this.props.field) this.props.form.setFieldTouched(this.props.field.name, true);
 	}
 
-  render() {
+	render() {
   	let {
   		label,
   		FormControlProps,
   		FormLabelProps,
   		FormHelperTextProps,
-  		ToggleButtonProps,
+  		ToggleButtonProps = {},
   		ToggleButtonGroupProps,
   		compact,
   		classes,
 			options,
+			row,
 			exclusive = true,
   		...props
   	} = this.props;
 
-  	const {error, helperText, ...fp} = formikToMuiProps(props);
+		const {error, helperText, ...fp} = formikToMuiProps(props);
+		ToggleButtonProps.classes = {...ToggleButtonProps.classes, root: cx(classes.button, (ToggleButtonProps.classes || {}).root)};
 
   	return (
   		<FormControl
@@ -71,15 +71,27 @@ class ToggleButtonGroup extends React.Component {
   					{...FormLabelProps}
   					classes={{...(FormLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
   				>
-  					{label}
+						{label}
+						{helperText && (
+							<FormHelperText
+								{...FormHelperTextProps}
+								error={error}
+								className={cx(
+									{[classes.rowHelperText]: row === 'all'},
+									FormHelperTextProps && FormHelperTextProps.className,
+								)}
+							>
+								{helperText}
+							</FormHelperText>
+						)}
   				</FormLabel>
-  			)}
+				)}
   			<MuiToggleButtonGroup
   				{...ToggleButtonGroupProps}
   				{...fp}
 					exclusive={exclusive}
 					onChange={this.handleChange}
-					onChange={this.handleBlur}
+					onBlur={this.handleBlur}
   			>
   				{options.map(option => (
   					<ToggleButton
@@ -89,20 +101,9 @@ class ToggleButtonGroup extends React.Component {
   					>{option.label}</ToggleButton>
   				))}
   			</MuiToggleButtonGroup>
-  			{helperText && (
-  				<FormHelperText
-  					{...FormHelperTextProps}
-  					className={cx(
-  						{[classes.rowHelperText]: row === 'all'},
-  						FormHelperTextProps && FormHelperTextProps.className,
-  					)}
-  				>
-  					{helperText}
-  				</FormHelperText>
-  			)}
   		</FormControl>
   	);
-  }
+	}
 }
 
 export default withStyles(styles)(ToggleButtonGroup);

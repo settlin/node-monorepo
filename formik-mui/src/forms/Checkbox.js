@@ -29,7 +29,8 @@ class Checkbox extends React.PureComponent {
   		...props
 		} = this.props;
 
-		const {error, helperText, ...fp} = formikToMuiProps(props);
+		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'checkbox'});  // eslint-disable-line no-unused-vars
+		// removed type from props to ensure proper working of checkbox in formik
 		return (
 			<FormControl component='fieldset' error={error} {...FormControlProps}>
 				<FormControlLabel
@@ -43,7 +44,7 @@ class Checkbox extends React.PureComponent {
 						/>
 					)}
 				/>
-				{(error || helperText) && <FormHelperText {...FormHelperTextProps}>{helperText}</FormHelperText>}
+				{helperText && <FormHelperText {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}
 			</FormControl>
 		);
 	}

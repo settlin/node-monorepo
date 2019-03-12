@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CancelIcon from '@material-ui/icons/Cancel';
 import {emphasize} from '@material-ui/core/styles/colorManipulator';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import {getIn} from 'formik';
 
 const styles = theme => ({
 	root: {
@@ -78,7 +79,7 @@ function inputComponent({inputRef, ...props}) {
 }
 
 function Control(props) {
-	const {label, compact, ...TextFieldProps} = props.selectProps.TextFieldProps;
+	const {label, compact, InputAdornmentProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
 	return (
 		<TextField
 			fullWidth
@@ -189,7 +190,7 @@ class Select extends React.PureComponent {
 		const {
 			classes, theme, label, options = [], optionsAsync, placeholder = '',
   		field: {value, name} = {},
-  		form: {touched, errors, setFieldValue, setFieldTouched} = {},
+  		form: {dirty, touched, errors, setFieldValue, setFieldTouched} = {},
   		helperText,
 			defaultValue,
 			creatable,
@@ -198,7 +199,7 @@ class Select extends React.PureComponent {
 			compact, // eslint-disable-line no-unused-vars
   		...props
   	} = this.props;
-		const message = touched && touched[name] && errors[name];
+		const message = (dirty || getIn(touched, name)) && getIn(errors, name);
 
 		const selectStyles = {
 			input: base => ({
@@ -208,7 +209,7 @@ class Select extends React.PureComponent {
 					font: 'inherit',
 				},
 			}),
-			dropdownIndicator: base => ({...base, padding: '6.5px'}),
+			dropdownIndicator: base => ({...base, padding: '6px'}),
 		};
 		const TextFieldProps = {label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
 		const commonProps = {

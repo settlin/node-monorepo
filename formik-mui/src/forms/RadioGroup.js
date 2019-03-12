@@ -23,23 +23,19 @@ const styles = () => ({
 });
 
 class RadioGroup extends React.Component {
-  state = {
-  	dirty: false,
-	}
 	constructor(p) {
-		super(p);
-		this.handleChange = this.handleChange.bind(this);
-		this.handleBlur = this.handleBlur.bind(this);
+  	super(p);
+  	this.handleChange = this.handleChange.bind(this);
+  	this.handleBlur = this.handleBlur.bind(this);
 	}
   handleChange = event => {
   	if (this.props.field) this.props.field.onChange(event);
   	if (this.props.onChange) this.props.onChange(event.target.value);
-  	if (!this.state.dirty) this.setState({dirty: true});
-	}
-	handleBlur() {
-		// take care of touched
-		if (this.props.field) this.props.form.setFieldTouched(this.props.field.name, true);
-	}
+  }
+  handleBlur() {
+  	// take care of touched
+  	if (this.props.field) this.props.form.setFieldTouched(this.props.field.name, true);
+  }
   render() {
   	let {
   		label,
@@ -91,6 +87,7 @@ class RadioGroup extends React.Component {
   			{helperText && (
   				<FormHelperText
   					{...FormHelperTextProps}
+  					error={error}
   					className={cx(
   						{[classes.rowHelperText]: row === 'all'},
   						FormHelperTextProps && FormHelperTextProps.className,

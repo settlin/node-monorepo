@@ -1,6 +1,7 @@
 {
   "packages": [
     "collage",
+    "formik-mui",
     "mongo-backup"
   ],
   "version": "independent"

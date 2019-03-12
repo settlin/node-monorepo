@@ -44,12 +44,16 @@ const Input = ({type: typeOrig, container, required, validate: validateOrig, lab
 			Field = Field || require('./formik/InputArray').default;
 			break;
 		case 'buttons':
-			type = 'buttons';
+			type = typeOrig;
 			Field = Field || require('./formik/ButtonGroup').default;
 			break;
 		case 'checkbox':
-			type = 'checkbox';
+			type = typeOrig;
 			Field = Field || (rest.options ? require('./formik/CheckboxGroup').default : require('./formik/Checkbox').default);
+			break;
+		case 'file':
+			type = typeOrig;
+			Field = Field || require('./formik/Dropzone').default;
 			break;
 		case 'inr':
 			type = 'number';
@@ -67,10 +71,11 @@ const Input = ({type: typeOrig, container, required, validate: validateOrig, lab
 			Field = Field || require('./formik/TextField').default;
 			break;
 		case 'radio':
-			type = 'radio';
+			type = typeOrig;
 			Field = Field || require('./formik/Radio').default;
 			break;
 		case 'select':
+			type = typeOrig;
 			Field = Field || (mui ? require('./formik/Select').default : require('./formik/FilterField').default);
 			break;
 		case 'switch':
@@ -83,7 +88,7 @@ const Input = ({type: typeOrig, container, required, validate: validateOrig, lab
 			break;
 	}
 	const validate = v => validateReq(v) || validateFunc(v);
-	return <Grid item={true} {...container}><Field {...{validate, label, type, compact: true}} {...rest}/></Grid>;
+	return <Grid item={true} {...container}><Field {...{validate, label, type, compact: true, fast: false}} {...rest}/></Grid>;
 };
 
 export default Input;
