@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import green from '@material-ui/core/colors/green';
 import DoneAll from '@material-ui/icons/DoneAll';
-import {withStyles} from '@material-ui/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = () => ({
 	doneAll: {

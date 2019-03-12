@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ReactSelect, {components as comps} from 'react-select';
-import {withStyles} from '@material-ui/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';

@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 import PropTypes from 'prop-types';
-import {withStyles} from '@material-ui/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Dropzone from 'react-dropzone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Grid from '@material-ui/core/Grid';
@@ -13,7 +13,7 @@ import convertBytesToMbsOrKbs from '../../utils/convertBytesToMbsOrKbs';
 import Previews from './Previews';
 import classNames from 'classnames';
 
-const styles = {
+const styles = () => ({
 	'@keyframes progress': {
 		'0%': {
 			backgroundPosition: '0 0',
@@ -51,7 +51,7 @@ const styles = {
 		height: 51,
 		color: '#909090',
 	},
-};
+});
 
 
 class DropzoneArea extends React.PureComponent {

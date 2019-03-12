@@ -1,5 +1,5 @@
 import React from 'react';
-import {withStyles} from '@material-ui/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import isImage from '../../utils/isImage';
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -9,7 +9,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import grey from '@material-ui/core/colors/grey';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-const styles = {
+const styles = () => ({
 	preview: {
 		display: 'flex',
 		alignItems: 'center',
@@ -56,7 +56,7 @@ const styles = {
 			opacity: 1,
 		},
 	},
-};
+});
 
 const opacity = file => ({opacity: file.uploaded ? file.error ? 0.1 : 1 : 0.5});
 function PreviewList(props) {

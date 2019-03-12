@@ -7,9 +7,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import {connect, getIn, Field} from 'formik';
-import {withStyles} from '@material-ui/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-const styles = () => ({
+const styles = {
 	formControl: {
 		'flex-direction': 'row',
 	},
@@ -19,7 +19,7 @@ const styles = () => ({
 		'align-items': 'center',
 		'margin-right': '20px',
 	},
-});
+};
 
 class CheckboxGroup extends React.Component {
 	constructor(p) {
@@ -123,4 +123,4 @@ class CheckboxGroup extends React.Component {
 	}
 }
 
-export default connect(withStyles(styles)(CheckboxGroup));
+export default withStyles(styles)(connect(CheckboxGroup));
