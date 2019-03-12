@@ -209,6 +209,7 @@ class Select extends React.PureComponent {
 					font: 'inherit',
 				},
 			}),
+			clearIndicator: base => ({...base, padding: '6px'}),
 			dropdownIndicator: base => ({...base, padding: '6px'}),
 		};
 		const TextFieldProps = {label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
