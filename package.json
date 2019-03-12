@@ -7,7 +7,7 @@
   "dependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy-storybook": "storybook-to-ghpages -- packages ."
+    "deploy-storybook": "storybook-to-ghpages --packages ."
   },
   "repository": {
     "type": "git",
