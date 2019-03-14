@@ -14,6 +14,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+# [1.3.0](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.2.3...@settlin/collage@1.3.0) (2019-03-14)
+
+
+### Features
+
+* changes for lerna independent version commits ([502234c](http://github.com/settlin/node-monorepo/collage/commit/502234c))
+
+
+
+
+
 ## [1.2.4](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.2.3...@settlin/collage@1.2.4) (2019-03-14)
 
 **Note:** Version bump only for package @settlin/collage
