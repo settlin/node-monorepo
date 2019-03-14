@@ -9,7 +9,8 @@
     "publish": {
       "conventionalCommits": true,
       "githubRelease": true,
-      "yes": true
+      "yes": true,
+      "message": "chore(release): publish %v"
     }
   }
 }
