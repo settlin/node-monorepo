@@ -33,6 +33,7 @@ const styles = () => ({
 		right: -5,
 		width: 40,
 		height: 40,
+		zIndex: 1,
 	},
 	smallPreviewImg: {
 		height: 100,
@@ -43,11 +44,9 @@ const styles = () => ({
 		boxSizing: 'border-box',
 		boxShadow: 'rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px',
 		borderRadius: 2,
-		zIndex: 5,
 	},
 	imageContainer: {
 		position: 'relative',
-		zIndex: 10,
 		textAlign: 'center',
 		'&:hover $smallPreviewImg': {
 			opacity: 0.3,
@@ -58,9 +57,10 @@ const styles = () => ({
 	},
 });
 
-const opacity = file => ({opacity: file.uploaded ? file.error ? 0.1 : 1 : 0.5});
-function PreviewList(props) {
-	const {files = [], handleRemove, showFileNames, FormHelperTextProps, classes} = props;
+const opacity = file => ({opacity: file.processing ? 0.5 : file.error ? 0.1 : 1});
+const Previews = props => {
+	const {files = [], handleDelete, showFileNames, FormHelperTextProps, classes} = props;
+	const onClick = i => e => {e.preventDefault(); e.stopPropagation(); handleDelete(i);};
 	if (!files.length) return null;
 	return (
 		<Grid container style={{padding: '8px'}}>
@@ -73,10 +73,10 @@ function PreviewList(props) {
 								:
 								<AttachFileIcon className={classes.smallPreviewImg} style={opacity(file)}/>
 							)}
-							{!file.uploaded && <LinearProgress classes={{root: classes.progress, colorPrimary: classes.progressColor, barColorPrimary: classes.progressBarColor}}/>}
+							{file.processing && <LinearProgress classes={{root: classes.progress, colorPrimary: classes.progressColor, barColorPrimary: classes.progressBarColor}}/>}
 							{(file.error || showFileNames) && <FormHelperText {...FormHelperTextProps} error={Boolean(file.error)}>{file.error || file.name}</FormHelperText>}
 						</div>
-						<Fab onClick={handleRemove(i)}
+						<Fab onClick={onClick(i)}
 							aria-label='Delete'
 							className={classes.removeBtn}>
 							<DeleteIcon/>
@@ -86,6 +86,6 @@ function PreviewList(props) {
 			}
 		</Grid>
 	);
-}
+};
 
-export default withStyles(styles)(PreviewList);
+export default withStyles(styles)(Previews);

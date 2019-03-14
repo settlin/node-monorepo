@@ -11,10 +11,12 @@ class DemoForm extends PureComponent {
 		this.validate = this.validate.bind(this);
 	}
 	static arrayMeta = [
-		{name: 'type', label: 'Type', required: true, type: 'select', container: {xs: 4}, options: [
-			{value: 'p', label: 'Personal'},
-			{value: 'w', label: 'Work'},
-		]},
+		{
+			name: 'type', label: 'Type', required: true, type: 'select', container: {xs: 4}, options: [
+				{value: 'p', label: 'Personal'},
+				{value: 'w', label: 'Work'},
+			],
+		},
 		{name: 'mobile', label: 'Mobile', required: true, type: 'mobile', container: {xs: 7}},
 	]
 	validate(values) {
@@ -42,44 +44,41 @@ class DemoForm extends PureComponent {
 		return (
 			<Grid container item spacing={8} style={{padding: '2rem'}}>
 				<Formik initialValues={initialValues} enableReinitialize={true} isInitialValid={false} onSubmit={this.hSubmit} validate={this.validate}>
-					{({isSubmitting, values, errors, isValid}) => <Form  autoComplete='off' style={{width: '100%'}}>
-						<Grid container item spacing={8} xs={12}>
-							<Grid item xs={6}>
-								<Typography>Phones (Array of Inputs)</Typography>
-								<Input type='array' name='phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
-								<Input type='file' name='files' label='File Drop' container={{xs: 12}}
-									handleUpload={(file, cb) => setTimeout(() => {
-										cb(new Error(403, 'failed'));
-									}, 1000)}
-									handleDelete={(file, cb) => setTimeout(() => {
-										cb(new Error(403, 'failed'));
-									}, 1000)}
-								/>
+					{({isSubmitting, values, errors, isValid}) => <Form autoComplete='off' style={{width: '100%'}}>
+						<Grid item xs={12}>
+							<Typography variant='h5'>Compact: true (default)</Typography>
+							<Grid container>
+								<Input name='checkboxGroup.optional' type='checkbox' container={{xs: 4}} label='Checkbox Group' options={[
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You'},
+								]}/>
+								<Input name='checkbox.optional' type='checkbox' container={{xs: 2}} label='Checkbox'/>
+								<Input name='switch.optional' type='switch' container={{xs: 3}} label='Switch'/>
 							</Grid>
-							<Grid item xs={6}>
-								<Grid container direction='column'>
-									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
-										<Input name='month' type='month' label='Month' container={{xs: 4}}/>
-										<Input name='date' type='date' label='Date' container={{xs: 4}}/>
-										<Input name='currency' type='inr' label='Currency' container={{xs: 4}}/>
-									</Grid>
-									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
-										<Input required mui name='mui' type='select' label='Select (Material UI)' helperText='`prop: mui` to use mui select (default: false)' container={{xs: 6}} options={[
-											{value: '1', label: 'Reason 1'},
-											{value: '2', label: 'Reason 2'},
-										]}/>
-										<Input required name='react.select' type='select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
-											cb([
-												{value: '1', label: '1'},
-												{value: '2', label: '2'},
-											].filter(({value}) => !v || value === v));
-										}}/>
-									</Grid>
-									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
-										<Input name='textArea' multiline label='Text Area' multiline container={{xs: 6}}/>
-										<Input name='textBox' label='Text Box' container={{xs: 6}}/>
-									</Grid>
-								</Grid>
+							<Grid container>
+								<Input required name='checkboxGroup.required' type='checkbox' container={{xs: 4}} label='Checkbox Group' options={[
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You'},
+								]}/>
+								<Input required name='checkbox.required' type='checkbox' container={{xs: 2}} label='Checkbox'/>
+								<Input required name='switch.required' type='switch' container={{xs: 3}} label='Switch'/>
+							</Grid>
+							<Typography variant='h5' style={{marginTop: '16px'}}>Compact: false</Typography>
+							<Grid container>
+								<Input compact={false} name='checkboxGroup.optional' type='checkbox' container={{xs: 4}} label='Checkbox Group' options={[
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You'},
+								]}/>
+								<Input compact={false} name='checkbox.optional' type='checkbox' container={{xs: 2}} label='Checkbox'/>
+								<Input compact={false} name='switch.optional' type='switch' container={{xs: 3}} label='Switch'/>
+							</Grid>
+							<Grid container>
+								<Input required compact={false} name='checkboxGroup.required' type='checkbox' container={{xs: 4}} label='Checkbox Group' options={[
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You'},
+								]}/>
+								<Input required compact={false} name='checkbox.required' type='checkbox' container={{xs: 2}} label='Checkbox'/>
+								<Input required compact={false} name='switch.required' type='switch' container={{xs: 3}} label='Switch'/>
 							</Grid>
 							<Grid container item xs={12} justify='center'>
 								<Button type='submit' variant='contained' size='small' disabled={!isValid || isSubmitting} processing={isSubmitting} label='Submit'/>

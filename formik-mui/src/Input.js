@@ -2,93 +2,119 @@ import React from 'react';
 import validateEmail from './utils/validate/email';
 import validateMobile from './utils/validate/mobile';
 import validateDob from './utils/validate/dob';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-const Input = ({type: typeOrig, container, required, validate: validateOrig, label: labelOrig = '', mui, component: Field, ...rest}) => {
-	let Grid = container ? require('@material-ui/core/Grid').default : ({children}) => children;
+class Input extends React.Component {
+	state = {}
+	extraProps() {
+		let {type: typeOrig, label, required, validate: validateOrig, compact = true, formik = true} = this.props;
 
-	let label = labelOrig, type, validateFunc = () => {}, validateReq = () => {};
-	if (typeof validateOrig === 'function') validateFunc = validateOrig; // original validate function
-	else if (validateOrig) {
-		switch (typeOrig) {
-			case 'aadhar':
-				validateFunc = v => !/^\d{4}\s\d{4}\s\d{4}$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Aadhar Number');
-				break;
-			case 'dob':
-				validateFunc = v => !validateDob(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid DOB Age Limit (18 to 57)');
-				break;
-			case 'pincode':
-				validateFunc = v => !/^[1-9][0-9]{5}$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Pincode');
-				break;
-			case 'pan':
-				validateFunc = v => !/[A-Za-z]{5}\d{4}[A-Za-z]{1}/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid PAN Number');
-				break;
+		const props = {label, compact};
+		if (!formik) return props;
+		let validateFunc = () => { }, validateReq = () => { };
+		if (typeof validateOrig === 'function') validateFunc = validateOrig; // original validate function
+		else if (validateOrig) {
+			switch (typeOrig) {
+				case 'aadhar':
+					validateFunc = v => !/^\d{4}\s\d{4}\s\d{4}$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Aadhar Number');
+					break;
+				case 'dob':
+					validateFunc = v => !validateDob(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid DOB Age Limit (18 to 57)');
+					break;
+				case 'pincode':
+					validateFunc = v => !/^[1-9][0-9]{5}$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Pincode');
+					break;
+				case 'pan':
+					validateFunc = v => !/[A-Za-z]{5}\d{4}[A-Za-z]{1}/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid PAN Number');
+					break;
+				case 'inr':
+					validateFunc = v => !/^\d*$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Amount');
+					break;
+				case 'mobile':
+				case 'otp':
+					validateFunc = v => validateMobile(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Indian Mobile');
+					break;
+				case 'email':
+					validateFunc = v => validateEmail(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Email');
+					break;
+			}
+		}
+		if (required) {
+			validateReq = v => typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
+			label += ' *';
+		}
+		return {
+			...props,
+			fast: true,
+			validate: v => validateReq(v) || validateFunc(v),
+		};
+	}
+	type() {
+		const {type} = this.props;
+		switch (type) {
+			case 'array': return null;
 			case 'inr':
-				validateFunc = v => !/^\d*$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Amount');
-				break;
 			case 'mobile':
-			case 'otp':
-				validateFunc = v => validateMobile(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Indian Mobile');
-				break;
-			case 'email':
-				validateFunc = v => validateEmail(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Email');
-				break;
+			case 'pincode': return 'number';
+			case 'otp': return null;
+			case 'switch': return 'checkbox';
+			default: return type || 'text';
 		}
 	}
-	if (required) {
-		validateReq = v => typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
-		label += ' *';
-	}
+	module() {
+		let {type, mui, formik = true, options} = this.props;
 
-	switch (typeOrig) {
-		case 'array':
-			Field = Field || require('./formik/InputArray').default;
-			break;
-		case 'buttons':
-			type = typeOrig;
-			Field = Field || require('./formik/ButtonGroup').default;
-			break;
-		case 'checkbox':
-			type = typeOrig;
-			Field = Field || (rest.options ? require('./formik/CheckboxGroup').default : require('./formik/Checkbox').default);
-			break;
-		case 'file':
-			type = typeOrig;
-			Field = Field || require('./formik/Dropzone').default;
-			break;
-		case 'inr':
-			type = 'number';
-			Field = Field || require('./formik/CurrencyField').default;
-			break;
-		case 'mobile':
-			type = 'number';
-			Field = Field || require('./formik/TextField').default;
-			break;
-		case 'otp':
-			Field = Field || require('./formik/OtpField').default;
-			break;
-		case 'pincode':
-			type = 'number';
-			Field = Field || require('./formik/TextField').default;
-			break;
-		case 'radio':
-			type = typeOrig;
-			Field = Field || require('./formik/Radio').default;
-			break;
-		case 'select':
-			type = typeOrig;
-			Field = Field || (mui ? require('./formik/Select').default : require('./formik/FilterField').default);
-			break;
-		case 'switch':
-			type = 'checkbox';
-			Field = Field || require('./formik/Switch').default;
-			break;
-		default:
-			type = typeOrig || 'text';
-			Field = Field || require('./formik/TextField').default;
-			break;
+		switch (type) {
+			case 'array':
+				if (!formik) return {error: '`array` type is only supported via formik. `formik` prop must be set to true in order to use it.'};
+				return {file: './formik/InputArray'};
+			case 'buttons':
+				return {file: `./${formik ? 'formik' : 'forms'}/ButtonGroup`};
+			case 'checkbox':
+				return {file: `./${formik ? 'formik' : 'forms'}/${options ? 'CheckboxGroup' : 'Checkbox'}`};
+			case 'file':
+				return {file: `./${formik ? 'formik' : 'forms'}/Dropzone`};
+			case 'inr':
+				return {file: `./${formik ? 'formik' : 'forms'}/CurrencyField`};
+			case 'otp':
+				return {file: `./${formik ? 'formik' : 'forms'}/OtpField`};
+			case 'radio':
+				return {file: `./${formik ? 'formik' : 'forms'}/${options ? 'RadioGroup' : 'Radio'}`};
+			case 'select':
+				return {file: `./${formik ? 'formik' : 'forms'}/${mui ? 'Select' : 'FilterField'}`};
+			case 'switch':
+				return {file: `./${formik ? 'formik' : 'forms'}/Switch`};
+			default:
+				return {file: `./${formik ? 'formik' : 'forms'}/TextField`};
+		}
 	}
-	const validate = v => validateReq(v) || validateFunc(v);
-	return <Grid item={true} {...container}><Field {...{validate, label, type, compact: true, fast: false}} {...rest}/></Grid>;
-};
+	componentDidMount() {
+		if (this.props.component) return;
+		const {file, error} = this.module();
+		if (error) this.setState({component: error});
+		else {
+			import(file)
+				.then(({default: component}) => this.setState({component}))
+				.catch(e => {
+					console.error(e);  // eslint-disable-line no-console
+					this.setState({component: e.message});
+				});
+		}
+	}
+	render() {
+		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, ...rest} = this.props;  // eslint-disable-line no-unused-vars
+		const Grid = container ? require('@material-ui/core/Grid').default : ({children}) => children;
+
+		const type = this.type();
+		const extraProps = this.extraProps();
+
+		return <Grid item={true} {...container}>
+			{Field
+				? <Field {...rest} {...(type ? {type} : {})} {...extraProps}/>
+				: <Loader/>
+			}
+		</Grid>;
+	}
+}
 
 export default Input;

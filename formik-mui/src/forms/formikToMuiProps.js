@@ -23,11 +23,6 @@ export default function({
 				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;
 				break;
 
-			case 'radio':
-				field.value = field.value || '';
-				extraProps.checked = checked || (field.value ? 'checked' : '');
-				break;
-
 			case 'checkbox':
 				field.value = typeof field.value === 'undefined' ? '' : field.value === true ? 'checked' : field.value || '';
 				extraProps.checked = typeof checked !== 'undefined' ? checked : field.value ? 'checked' : '';

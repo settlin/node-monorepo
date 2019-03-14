@@ -8,21 +8,21 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import formikToMuiProps from '../forms/formikToMuiProps';
 import withStyles from '@material-ui/core/styles/withStyles';
+import formControl from '../styles/formControl';
+import formLabel from '../styles/formLabel';
 
-const styles = () => ({
-	formControl: {
-		'flex-direction': 'row',
-	},
-	formLabel: {
-		display: 'flex',
-		'flex-direction': 'column',
-		'align-items': 'left',
-		'margin-right': '20px',
-	},
+const styles = {
+	formControlCompact: formControl.compact,
+	formControlNormal: formControl.normal,
+	formLabel,
 	button: {
 		height: '100%',
 	},
-});
+	buttonGroup: {
+		marginTop: '8px',
+		width: 'max-content',
+	},
+};
 
 class ToggleButtonGroup extends React.Component {
 	constructor(p) {
@@ -44,15 +44,14 @@ class ToggleButtonGroup extends React.Component {
 	render() {
   	let {
   		label,
-  		FormControlProps,
+			FormControlProps: {classes: fClasses = {}, ...FormControlProps} = {},
   		FormLabelProps,
-  		FormHelperTextProps,
+  		FormHelperTextProps = {},
   		ToggleButtonProps = {},
-  		ToggleButtonGroupProps,
+  		ToggleButtonGroupProps: {classes: tClasses = {}, ...ToggleButtonGroupProps} = {},
   		compact,
   		classes,
 			options,
-			row,
 			exclusive = true,
   		...props
   	} = this.props;
@@ -64,7 +63,7 @@ class ToggleButtonGroup extends React.Component {
   		<FormControl
   			error={error}
   			{...FormControlProps}
-  			classes={{...(FormControlProps || {}).classes, ...(compact ? {root: classes.formControl} : {})}}
+				classes={{...fClasses, root: cx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
   		>
   			{label && (
   				<FormLabel
@@ -76,10 +75,7 @@ class ToggleButtonGroup extends React.Component {
 							<FormHelperText
 								{...FormHelperTextProps}
 								error={error}
-								className={cx(
-									{[classes.rowHelperText]: row === 'all'},
-									FormHelperTextProps && FormHelperTextProps.className,
-								)}
+								className={FormHelperTextProps.className}
 							>
 								{helperText}
 							</FormHelperText>
@@ -92,6 +88,7 @@ class ToggleButtonGroup extends React.Component {
 					exclusive={exclusive}
 					onChange={this.handleChange}
 					onBlur={this.handleBlur}
+					classes={compact ? {} : {root: cx(tClasses.root, classes.buttonGroup)}}
   			>
   				{options.map(option => (
   					<ToggleButton

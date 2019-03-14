@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import MuiCheckbox from '@material-ui/core/Checkbox';
 import formikToMuiProps from '../forms/formikToMuiProps';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -24,7 +24,7 @@ class Checkbox extends React.PureComponent {
 			label,
 			compact, // eslint-disable-line no-unused-vars
 			FormControlProps,
-  		FormHelperTextProps,
+  		FormHelperTextProps = {},
   		FormControlLabelProps,
   		...props
 		} = this.props;
@@ -34,7 +34,17 @@ class Checkbox extends React.PureComponent {
 		return (
 			<FormControl component='fieldset' error={error} {...FormControlProps}>
 				<FormControlLabel
-					label={label}
+					label={
+						<Fragment>
+							{label}
+							{helperText && <FormHelperText
+								{...FormHelperTextProps}
+								error={error}
+								className={FormHelperTextProps.className}>
+								{helperText}
+							</FormHelperText>}
+						</Fragment>
+					}
 					{...FormControlLabelProps}
 					control={(
 						<MuiCheckbox
@@ -44,7 +54,6 @@ class Checkbox extends React.PureComponent {
 						/>
 					)}
 				/>
-				{helperText && <FormHelperText {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}
 			</FormControl>
 		);
 	}

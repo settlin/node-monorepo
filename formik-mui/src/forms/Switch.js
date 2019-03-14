@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import MuiSwitch from '@material-ui/core/Switch';
 import formikToMuiProps from '../forms/formikToMuiProps';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -28,7 +28,7 @@ class Switch extends React.PureComponent {
   	if (this.props.onBlur) this.props.onBlur(event);
 	}
 	render() {
-  	const {fullWidth = true, classes, inputProps = {}, label, compact, FormHelperTextProps, ...props} = this.props; // eslint-disable-line no-unused-vars
+  	const {fullWidth = true, classes, inputProps = {}, label, compact, FormHelperTextProps = {}, ...props} = this.props; // eslint-disable-line no-unused-vars
 		inputProps.classes = {...classes, ...inputProps.classes};
 
 		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'checkbox'});  // eslint-disable-line no-unused-vars
@@ -43,9 +43,18 @@ class Switch extends React.PureComponent {
 						onBlur={this.handleBlur}
 					/>
 				}
-				label={label}
+				label={
+					<Fragment>
+						{label}
+						{helperText && <FormHelperText
+							{...FormHelperTextProps}
+							error={error}
+							className={FormHelperTextProps.className}>
+							{helperText}
+						</FormHelperText>}
+					</Fragment>
+				}
 			/>
-			{helperText && <FormHelperText {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}
   	</FormControl>;
 	}
 }

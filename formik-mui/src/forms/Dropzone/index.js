@@ -13,7 +13,7 @@ import convertBytesToMbsOrKbs from '../../utils/convertBytesToMbsOrKbs';
 import Previews from './Previews';
 import classNames from 'classnames';
 
-const styles = () => ({
+const styles = {
 	'@keyframes progress': {
 		'0%': {
 			backgroundPosition: '0 0',
@@ -21,6 +21,9 @@ const styles = () => ({
 		'100%': {
 			backgroundPosition: '-70px 0',
 		},
+	},
+	formLabel: {
+		margin: '16px 0 8px 0',
 	},
 	dropzone: {
 		position: 'relative',
@@ -51,8 +54,15 @@ const styles = () => ({
 		height: 51,
 		color: '#909090',
 	},
-});
+};
 
+const callbackOnFile = function(file, cb) {
+	return function(e) {
+		const f = new File([file], file.name, {type: file.type});
+		if (e) f.error = f.name + ' - ' + e.message;
+		return cb(f);
+	};
+};
 
 class DropzoneArea extends React.PureComponent {
 	state = {
@@ -69,21 +79,14 @@ class DropzoneArea extends React.PureComponent {
 		}
 	}
 	onDrop(files) {
-		const {filesLimit, value, onError, onChange, onDrop} = this.props;
+		const {filesLimit, value, onError, onAdd, onDrop} = this.props;
 		if (value.length + files.length > filesLimit && onError) onError(`Maximum allowed number of files exceeded. Only ${this.props.filesLimit} allowed`);
 		files.slice(0, Math.max(filesLimit - value.length, 0)).forEach((file) => {
 			file.preview = URL.createObjectURL(file);
-			if (onChange) onChange(file);
-			if (onDrop) onDrop(file, onChange);
+			file.processing = true;
+			if (onAdd) onAdd(file);
+			if (onDrop) onDrop(file, callbackOnFile(file, onAdd));
 		});
-	}
-	handleRemove = fileIndex => event => {
-		event.stopPropagation();
-		const {value: [...files], onDelete, onChange} = this.props;
-		const file = files[fileIndex];
-		if (onDelete) onDelete(file);
-		files.splice(fileIndex, 1);
-		if (onChange) onChange(files);
 	}
 	handleDropRejected(rejectedFiles) {
 		let errors = [];
@@ -101,7 +104,7 @@ class DropzoneArea extends React.PureComponent {
 		this.setState({errors});
 	}
 	render() {
-		const {classes, cs = {}, FormHelperTextProps, error, helperText, value, showPreviews} = this.props;
+		const {classes, cs = {}, FormHelperTextProps, error, helperText, value, showPreviews, components: {PreviewsComponent = Previews} = {}} = this.props;
 		const {errors = []} = this.state;
 		return (
 			<Fragment>
@@ -126,9 +129,9 @@ class DropzoneArea extends React.PureComponent {
 								</Grid>
 								<Grid item xs={12}>
 									{showPreviews &&
-										<Previews
+										<PreviewsComponent
 											files={value}
-											handleRemove={this.handleRemove.bind(this)}
+											handleDelete={this.props.onDelete}
 											showFileNames={this.props.showFileNamesInPreview}
 										/>
 									}
@@ -151,10 +154,6 @@ DropzoneArea.defaultProps = {
 	showFileNamesInPreview: true,
 	showAlerts: true,
 	clearOnUnmount: true,
-	onChange: () => { },
-	onDrop: () => { },
-	onDropRejected: () => { },
-	onDelete: () => { },
 };
 DropzoneArea.propTypes = {
 	acceptedFiles: PropTypes.array,
@@ -165,26 +164,46 @@ DropzoneArea.propTypes = {
 	showFileNamesInPreview: PropTypes.bool,
 	showAlerts: PropTypes.bool,
 	clearOnUnmount: PropTypes.bool,
-	onChange: PropTypes.func,
+	onAdd: PropTypes.func,
+	onDelete: PropTypes.func,
 	onDrop: PropTypes.func,
 	onDropRejected: PropTypes.func,
-	onDelete: PropTypes.func,
 };
-const DropzoneArea1 = withStyles(styles)(DropzoneArea);
-DropzoneArea = ({classes, ...props}) => <DropzoneArea1 cs={classes} {...props}/>;
 
 class FormikMaterialUIDropzone extends React.PureComponent {
 	constructor(props) {
 		super(props);
-		this.handleChange = this.handleChange.bind(this);
+		this.handleAdd = this.handleAdd.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 		this.handleError = this.handleError.bind(this);
+		this.postDelete = this.postDelete.bind(this);
 	}
-	handleChange(file) {
+	handleAdd(file) {
 		const {field = {}, form, onChange, value} = this.props;
 		let files = value || field.value;
 		files = files.find(f => f.name === file.name) ? files.map(f => f.name === file.name ? file : f) : [...files, file];
 		if (field) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
-		if (onChange) onChange(file, files);
+		if (onChange) onChange(files);
+	}
+	postDelete(file) {
+		if (file.error) {
+			this.handleAdd(file);
+			return;
+		}
+		const {field = {}, form, onChange, value} = this.props;
+		let files = value || field.value;
+		files = files.filter(f => f.name !== file.name);
+		if (field) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
+		if (onChange) onChange(files);
+	}
+	handleDelete(index) {
+		const {field = {}, value, handleDelete} = this.props;
+		let files = value || field.value;
+		const file = new File([files[index]], files[index].name, {type: files[index].type});
+		file.processing = true;
+		this.handleAdd(file);
+		if (handleDelete) handleDelete(file, callbackOnFile(file, this.postDelete));
+		else this.postDelete(file);
 	}
 	handleError(msg) {
 		const {field, form, onError} = this.props;
@@ -199,8 +218,10 @@ class FormikMaterialUIDropzone extends React.PureComponent {
 			label,
 			compact, // eslint-disable-line no-unused-vars
 			FormControlProps,
-			FormLabelProps,
+			FormLabelProps: {classes: fClasses, ...FormLabelProps} = {},
 			handleUpload,
+			handleDelete, // eslint-disable-line no-unused-vars
+			classes: {formLabel, ...classes},
 			...props
 		} = this.props;
 
@@ -208,12 +229,14 @@ class FormikMaterialUIDropzone extends React.PureComponent {
 		return (
 			<FormControl component='fieldset' error={props.error} {...FormControlProps}>
 				<FormLabel
-					style={{margin: '1rem 0 8px 0'}}
 					{...FormLabelProps}
+					classes={{...fClasses, ...(compact ? {root: formLabel} : {})}}
 				>{label}</FormLabel>
 				<DropzoneArea
 					{...fp}
-					onChange={this.handleChange}
+					classes={classes}
+					onAdd={this.handleAdd}
+					onDelete={this.handleDelete}
 					onError={this.handleError}
 					onDrop={handleUpload}
 				/>
@@ -222,5 +245,8 @@ class FormikMaterialUIDropzone extends React.PureComponent {
 	}
 }
 
-FormikMaterialUIDropzone.displayName = 'FormikMaterialUIDropzone';
+const FormikMaterialUIDropzone1 = withStyles(styles)(FormikMaterialUIDropzone);
+FormikMaterialUIDropzone = ({classes, ...props}) => <FormikMaterialUIDropzone1 cs={classes} {...props}/>;
+
+FormikMaterialUIDropzone1.displayName = 'FormikMaterialUIDropzone';
 export default FormikMaterialUIDropzone;

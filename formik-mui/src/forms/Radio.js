@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import MuiRadio from '@material-ui/core/Radio';
 import formikToMuiProps from '../forms/formikToMuiProps';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -26,8 +26,9 @@ class Radio extends React.PureComponent {
 			row,
 			classes = {},
 			value = 'on',
+			compact,  // eslint-disable-line no-unused-vars
 			FormControlProps,
-  		FormHelperTextProps,
+  		FormHelperTextProps = {},
   		FormControlLabelProps,
   		...props
 		} = this.props;
@@ -40,7 +41,17 @@ class Radio extends React.PureComponent {
 				FormControlProps && FormControlProps.className,
 			)}>
 				<FormControlLabel
-					label={label}
+					label={(
+						<Fragment>
+							{label}
+							{helperText && <FormHelperText
+								{...FormHelperTextProps}
+								error={error}
+								className={FormHelperTextProps.className}>
+								{helperText}
+							</FormHelperText>}
+						</Fragment>
+					)}
 					className={cx(
 						{[classes.rowLabel]: row === 'all'},
 						FormControlLabelProps && FormControlLabelProps.className,
@@ -55,13 +66,6 @@ class Radio extends React.PureComponent {
 						/>
 					)}
 				/>
-				{helperText && <FormHelperText
-					{...FormHelperTextProps}
-					error={error}
-					className={cx(
-						{[classes.rowHelperText]: row === 'all'},
-						FormHelperTextProps && FormHelperTextProps.className,
-					)}>{helperText}</FormHelperText>}
 			</FormControl>
 		);
 	}
