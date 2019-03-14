@@ -4,5 +4,10 @@
     "formik-mui",
     "mongo-backup"
   ],
-  "version": "independent"
+  "version": "independent",
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    }
+  }
 }
