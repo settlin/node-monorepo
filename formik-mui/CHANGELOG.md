@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.2.0...@settlin/formik-mui@1.3.0) (2019-03-15)
+
+
+### Features
+
+* **formik-mui:** offlabel in switch ([1419eb5](http://github.com/settlin/node-monorepo/formik-mui/commit/1419eb5))
+
+
+
+
+
 # 1.2.0 (2019-03-14)
 
 
