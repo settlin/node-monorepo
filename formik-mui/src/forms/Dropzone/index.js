@@ -11,7 +11,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Grid from '@material-ui/core/Grid';
 import convertBytesToMbsOrKbs from '../../utils/convertBytesToMbsOrKbs';
 import Previews from './Previews';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 const styles = {
 	'@keyframes progress': {
@@ -118,7 +118,7 @@ class DropzoneArea extends React.PureComponent {
 				>
 					{({getRootProps, getInputProps}) => (
 						<Fragment>
-							<Grid container {...getRootProps()} className={classNames(classes.dropzone, cs.dropzone, classes.helperTextStyle)}>
+							<Grid container {...getRootProps()} className={clsx(classes.dropzone, cs.dropzone, classes.helperTextStyle)}>
 								<input {...getInputProps()}/>
 								<Grid item xs={12}>
 									{helperText && <FormHelperText style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}

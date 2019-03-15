@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import green from '@material-ui/core/colors/green';
@@ -51,7 +51,7 @@ const styles = () => ({
 class CircularIntegration extends React.Component {
 	render() {
   	const {classes, fab, processing, success, color = 'primary', variant = 'contained', children = 'Submit', fullWidth, ...rest} = this.props;
-  	const buttonClassname = classNames({
+  	const buttonClassname = clsx({
   		[classes.buttonSuccess]: success,
   	});
 

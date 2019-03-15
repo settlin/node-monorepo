@@ -53,7 +53,7 @@ class DemoForm extends PureComponent {
 									{value: 'you', label: 'You'},
 								]}/>
 								<Input name='checkbox.optional' type='checkbox' container={{xs: 2}} label='Checkbox'/>
-								<Input name='switch.optional' type='switch' container={{xs: 3}} label='Switch'/>
+								<Input name='switch.optional' type='switch' container={{xs: 3}} label='On' offLabel='Off'/>
 							</Grid>
 							<Grid container>
 								<Input required name='checkboxGroup.required' type='checkbox' container={{xs: 4}} label='Checkbox Group' options={[

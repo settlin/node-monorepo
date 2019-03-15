@@ -32,7 +32,7 @@
     "field"
   ],
   "author": {
-    "name": "Cosmo",
+    "name": "Settlin",
     "email": "developers@settlin.in"
   },
   "license": "MIT",
@@ -51,7 +51,7 @@
     "react-select": ">=2"
   },
   "dependencies": {
-    "classnames": "^2.2.6"
+    "clsx": "^1.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",

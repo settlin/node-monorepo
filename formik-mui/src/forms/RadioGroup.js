@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+import clsx from 'clsx';
 
 import Radio from '@material-ui/core/Radio';
 import MuiRadioGroup from '@material-ui/core/RadioGroup';
@@ -61,7 +61,7 @@ class RadioGroup extends React.Component {
   		<FormControl
   			error={error}
   			{...FormControlProps}
-  			classes={{...fClasses, root: cx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
+  			classes={{...fClasses, root: clsx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
   		>
   			{label && (
   				<FormLabel
