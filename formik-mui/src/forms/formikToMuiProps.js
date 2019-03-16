@@ -1,4 +1,5 @@
 import {getIn} from 'formik';
+
 export default function({
 	field = {},
 	form = {},
@@ -25,7 +26,6 @@ export default function({
 
 			case 'checkbox':
 				field.value = typeof field.value === 'undefined' ? '' : field.value === true ? 'checked' : field.value || '';
-				extraProps.checked = typeof checked !== 'undefined' ? checked : field.value ? 'checked' : '';
 				break;
 
 			case 'file':
@@ -34,6 +34,11 @@ export default function({
 
 			default: typeof field.value === 'undefined' ? '' : field.value;
 		}
+	}
+	switch (props.type) {
+		case 'checkbox':
+			extraProps.checked = typeof checked !== 'undefined' ? checked : (field || {}).value || props.value ? 'checked' : '';
+			break;
 	}
 
 	return {

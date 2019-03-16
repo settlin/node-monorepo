@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {Formik, Form, setIn} from 'formik';
-import {Input, Button, currencify} from '../src';
+import {Input, Button, currencify} from '../../src';
 
 class DemoForm extends PureComponent {
 	constructor(props) {

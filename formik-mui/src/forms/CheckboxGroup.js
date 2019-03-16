@@ -51,7 +51,7 @@ class CheckboxGroup extends React.Component {
   		CheckboxProps,
   		FormGroupProps,
 			classes,
-			Field = Fragment,
+			Field = () => <span/>,
 			value,
 			error,
   		...props
