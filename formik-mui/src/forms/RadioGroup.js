@@ -44,9 +44,9 @@ class RadioGroup extends React.Component {
   	let {
   		label,
   		FormControlProps: {classes: fClasses = {}, ...FormControlProps} = {},
-  		FormLabelProps,
+  		RadioGroupLabelProps,
   		FormHelperTextProps = {},
-  		FormControlLabelProps,
+  		RadioLabelProps,
   		RadioProps,
   		RadioGroupProps: {row, ...RadioGroupProps} = {},
   		compact,
@@ -65,8 +65,8 @@ class RadioGroup extends React.Component {
   		>
   			{label && (
   				<FormLabel
-  					{...FormLabelProps}
-  					classes={{...(FormLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
+  					{...RadioGroupLabelProps}
+  					classes={{...(RadioGroupLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
   				>
 						{label}
 						{helperText && (
@@ -94,17 +94,16 @@ class RadioGroup extends React.Component {
 								{...RadioProps}
 								checked={fp.value === option.value}
 							/>}
-  						{...FormControlLabelProps}
+  						{...RadioLabelProps}
   						value={option.value}
   						label={option.label}
   					/>
 					))}
   				<FormControlLabel
-						inputRef={null}
+						{...RadioLabelProps}
 						control={<IconButton onClick={this.handleClear}>
 							<Clear/>
 						</IconButton>}
-  					{...FormControlLabelProps}
   				/>
   			</MuiRadioGroup>
   		</FormControl>

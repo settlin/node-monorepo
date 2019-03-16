@@ -41,6 +41,7 @@ class Radio extends React.PureComponent {
 				FormControlProps && FormControlProps.className,
 			)}>
 				<FormControlLabel
+					{...FormControlLabelProps}
 					label={(
 						<Fragment>
 							{label}
@@ -56,7 +57,6 @@ class Radio extends React.PureComponent {
 						{[classes.rowLabel]: row === 'all'},
 						FormControlLabelProps && FormControlLabelProps.className,
 					)}
-					{...FormControlLabelProps}
 					control={(
 						<MuiRadio
 							{...fp}
