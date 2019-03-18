@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.2](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.1...@settlin/formik-mui@1.3.2) (2019-03-18)
+
+
+### Bug Fixes
+
+* check name while setting error ([2cca678](http://github.com/settlin/node-monorepo/formik-mui/commit/2cca678))
+
+
+
+
+
 ## [1.3.1](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.0...@settlin/formik-mui@1.3.1) (2019-03-16)
 
 
