@@ -36,6 +36,8 @@ class Switch extends React.PureComponent {
 
   	return <FormControl fullWidth={fullWidth}>
   		<FormControlLabel
+				style={{height: '30px'}}
+				classes={inputProps.formControlLabel || {}}
 				control={
 					<MuiSwitch
 						{...fp}

@@ -1,4 +1,6 @@
 import {getIn} from 'formik';
+import dateFormat from '../date/toStr';
+
 export default function({
 	field = {},
 	form = {},
@@ -30,6 +32,10 @@ export default function({
 
 			case 'file':
 				field.value = typeof field.value === 'undefined' ? [] : field.value;
+				break;
+
+			case 'date':
+				field.value = typeof field.value === 'undefined' ? '' : dateFormat(field.value, 'YYYY-MM-DD');
 				break;
 
 			default: typeof field.value === 'undefined' ? '' : field.value;
