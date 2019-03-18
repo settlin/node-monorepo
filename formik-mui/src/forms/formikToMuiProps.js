@@ -12,9 +12,9 @@ export default function({
 	const {name, onChange} = field;
 	const {errors = {}, touched = {}, isSubmitting, dirty} = form;
 
-	const fErr = getIn(errors, name);
+	const fErr = name && getIn(errors, name);
 	window.getIn = getIn;
-	const fieldError = (dirty || getIn(touched, name)) && typeof fErr === 'string' ? fErr : null;
+	const fieldError = (dirty || (name && getIn(touched, name))) && typeof fErr === 'string' ? fErr : null;
 
 	const extraProps = {};
 
