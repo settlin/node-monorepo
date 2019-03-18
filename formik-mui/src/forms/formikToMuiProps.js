@@ -1,5 +1,4 @@
 import {getIn} from 'formik';
-import dateFormat from '../date/toStr';
 
 export default function({
 	field = {},
