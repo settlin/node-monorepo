@@ -3,7 +3,7 @@ import MuiSwitch from '@material-ui/core/Switch';
 import formikToMuiProps from '../forms/formikToMuiProps';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from './FormControlLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 
