@@ -33,11 +33,9 @@ class Switch extends React.PureComponent {
 
 		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'checkbox'});  // eslint-disable-line no-unused-vars
 		// removed type from props to ensure proper working of checkbox in formik
-
   	return <FormControl fullWidth={fullWidth}>
   		<FormControlLabel
-				style={{height: '30px'}}
-				classes={inputProps.formControlLabel || {}}
+				{...inputProps}
 				control={
 					<MuiSwitch
 						{...fp}
