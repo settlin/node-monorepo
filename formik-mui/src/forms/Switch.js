@@ -3,7 +3,7 @@ import MuiSwitch from '@material-ui/core/Switch';
 import formikToMuiProps from '../forms/formikToMuiProps';
 import withStyles from '@material-ui/core/styles/withStyles';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from './FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 
@@ -28,14 +28,24 @@ class Switch extends React.PureComponent {
   	if (this.props.onBlur) this.props.onBlur(event);
 	}
 	render() {
-  	const {fullWidth = true, classes, inputProps = {}, label, compact, FormHelperTextProps = {}, offLabel, ...props} = this.props; // eslint-disable-line no-unused-vars
+  	const {
+			fullWidth = true, classes, inputProps = {},
+			label,
+			compact, // eslint-disable-line no-unused-vars
+			FormHelperTextProps = {},
+			FormControlProps,
+			FormControlLabelProps,
+			offLabel,
+			...props
+		} = this.props;
 		inputProps.classes = {...classes, ...inputProps.classes};
 
 		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'checkbox'});  // eslint-disable-line no-unused-vars
 		// removed type from props to ensure proper working of checkbox in formik
-  	return <FormControl fullWidth={fullWidth}>
+
+  	return <FormControl {...FormControlProps} fullWidth={fullWidth}>
   		<FormControlLabel
-				{...inputProps}
+				{...FormControlLabelProps}
 				control={
 					<MuiSwitch
 						{...fp}

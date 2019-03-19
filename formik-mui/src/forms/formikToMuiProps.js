@@ -12,9 +12,9 @@ export default function({
 	const {name, onChange} = field;
 	const {errors = {}, touched = {}, isSubmitting, dirty} = form;
 
-	const fErr = getIn(errors, name);
+	const fErr = name && getIn(errors, name);
 	window.getIn = getIn;
-	const fieldError = (dirty || getIn(touched, name)) && typeof fErr === 'string' ? fErr : null;
+	const fieldError = (dirty || (name && getIn(touched, name))) && typeof fErr === 'string' ? fErr : null;
 
 	const extraProps = {};
 
@@ -26,7 +26,6 @@ export default function({
 
 			case 'checkbox':
 				field.value = typeof field.value === 'undefined' ? '' : field.value === true ? 'checked' : field.value || '';
-				extraProps.checked = typeof checked !== 'undefined' ? checked : field.value ? 'checked' : '';
 				break;
 
 			case 'file':
@@ -35,6 +34,11 @@ export default function({
 
 			default: typeof field.value === 'undefined' ? '' : field.value;
 		}
+	}
+	switch (props.type) {
+		case 'checkbox':
+			extraProps.checked = typeof checked !== 'undefined' ? checked : (field || {}).value || props.value ? 'checked' : '';
+			break;
 	}
 
 	return {

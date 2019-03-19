@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
+import clsx from 'clsx';
 
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import MuiToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
@@ -57,13 +57,13 @@ class ToggleButtonGroup extends React.Component {
   	} = this.props;
 
 		const {error, helperText, ...fp} = formikToMuiProps(props);
-		ToggleButtonProps.classes = {...ToggleButtonProps.classes, root: cx(classes.button, (ToggleButtonProps.classes || {}).root)};
+		ToggleButtonProps.classes = {...ToggleButtonProps.classes, root: clsx(classes.button, (ToggleButtonProps.classes || {}).root)};
 
   	return (
   		<FormControl
   			error={error}
   			{...FormControlProps}
-				classes={{...fClasses, root: cx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
+				classes={{...fClasses, root: clsx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
   		>
   			{label && (
   				<FormLabel
@@ -88,7 +88,7 @@ class ToggleButtonGroup extends React.Component {
 					exclusive={exclusive}
 					onChange={this.handleChange}
 					onBlur={this.handleBlur}
-					classes={compact ? {} : {root: cx(tClasses.root, classes.buttonGroup)}}
+					classes={compact ? {} : {root: clsx(tClasses.root, classes.buttonGroup)}}
   			>
   				{options.map(option => (
   					<ToggleButton

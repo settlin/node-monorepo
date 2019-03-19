@@ -34,6 +34,7 @@ class Checkbox extends React.PureComponent {
 		return (
 			<FormControl component='fieldset' error={error} {...FormControlProps}>
 				<FormControlLabel
+					{...FormControlLabelProps}
 					label={
 						<Fragment>
 							{label}
@@ -45,7 +46,6 @@ class Checkbox extends React.PureComponent {
 							</FormHelperText>}
 						</Fragment>
 					}
-					{...FormControlLabelProps}
 					control={(
 						<MuiCheckbox
 							{...fp}

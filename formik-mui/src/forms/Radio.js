@@ -4,7 +4,7 @@ import formikToMuiProps from '../forms/formikToMuiProps';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import cx from 'classnames';
+import clsx from 'clsx';
 
 class Radio extends React.PureComponent {
 	constructor(p) {
@@ -36,11 +36,12 @@ class Radio extends React.PureComponent {
 		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'radio'});  // eslint-disable-line no-unused-vars
 		// removed type from props to ensure proper working of checkbox in formik
 		return (
-			<FormControl component='fieldset' error={error} {...FormControlProps} className={cx(
+			<FormControl component='fieldset' error={error} {...FormControlProps} className={clsx(
 				{[classes.rowLabel]: row === 'all'},
 				FormControlProps && FormControlProps.className,
 			)}>
 				<FormControlLabel
+					{...FormControlLabelProps}
 					label={(
 						<Fragment>
 							{label}
@@ -52,11 +53,10 @@ class Radio extends React.PureComponent {
 							</FormHelperText>}
 						</Fragment>
 					)}
-					className={cx(
+					className={clsx(
 						{[classes.rowLabel]: row === 'all'},
 						FormControlLabelProps && FormControlLabelProps.className,
 					)}
-					{...FormControlLabelProps}
 					control={(
 						<MuiRadio
 							{...fp}

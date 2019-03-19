@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import cx from 'classnames';
+import clsx from 'clsx';
 
 import Checkbox from '../forms/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
@@ -51,7 +51,7 @@ class CheckboxGroup extends React.Component {
   		CheckboxProps,
   		FormGroupProps,
 			classes,
-			Field = Fragment,
+			Field = () => <span/>,
 			value,
 			error,
   		...props
@@ -66,7 +66,7 @@ class CheckboxGroup extends React.Component {
   		<FormControl
   			error={Boolean(errStr)}
   			{...FormControlProps}
-				classes={{...fClasses, root: cx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
+				classes={{...fClasses, root: clsx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
   		>
   			{label && (
   				<FormLabel
@@ -77,7 +77,7 @@ class CheckboxGroup extends React.Component {
 						{helperText && (
 							<FormHelperText
 								{...FormHelperTextProps}
-								error={error}
+								error={Boolean(errStr)}
 								className={FormHelperTextProps.className}
 							>
 								{helperText}

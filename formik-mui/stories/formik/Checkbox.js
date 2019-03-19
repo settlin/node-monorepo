@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {Formik, Form, setIn} from 'formik';
-import {Input, Button, currencify} from '../src';
+import {Input, Button, currencify} from '../../src';
 
 class DemoForm extends PureComponent {
 	constructor(props) {
@@ -53,7 +53,7 @@ class DemoForm extends PureComponent {
 									{value: 'you', label: 'You'},
 								]}/>
 								<Input name='checkbox.optional' type='checkbox' container={{xs: 2}} label='Checkbox'/>
-								<Input name='switch.optional' type='switch' container={{xs: 3}} label='Switch'/>
+								<Input name='switch.optional' type='switch' container={{xs: 3}} label='On' offLabel='Off'/>
 							</Grid>
 							<Grid container>
 								<Input required name='checkboxGroup.required' type='checkbox' container={{xs: 4}} label='Checkbox Group' options={[
