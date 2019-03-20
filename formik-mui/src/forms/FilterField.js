@@ -194,6 +194,9 @@ class Select extends React.PureComponent {
   		helperText,
 			defaultValue,
 			creatable,
+			disabled,
+			isClearable = true,
+			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
 			InputAdornmentProps,
 			compact, // eslint-disable-line no-unused-vars
@@ -215,6 +218,8 @@ class Select extends React.PureComponent {
 		const TextFieldProps = {label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
 		const commonProps = {
 			...props,
+			isDisabled: disabled || readOnly,
+			isClearable,
 			classes, placeholder, autocomplete: 'off', styles: selectStyles, components, TextFieldProps, name,
 			...(defaultValue ? {defaultValue: valueWithLabel ? defaultValue : options.find(o => o.value == defaultValue.value)} : {}), // eslint-disable-line eqeqeq
 			...(value ? {value: valueWithLabel ? value : options.find(o => o.value == value)} : {}), // eslint-disable-line eqeqeq
@@ -229,7 +234,6 @@ class Select extends React.PureComponent {
 			return <AsyncSelect
 				loadOptions={optionsAsync}
 				cacheOptions
-				isClearable
 				defaultOptions
 				{...commonProps}
 			/>;

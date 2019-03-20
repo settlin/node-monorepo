@@ -23,7 +23,6 @@ class TextField extends React.PureComponent {
 			InputProps = {...InputProps, startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>};
 			label = '';
 		}
-		InputProps = {...InputProps, classes: {input: 'mui'}};
 
 		const fp = formikToMuiProps(props);
 		return (

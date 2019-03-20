@@ -29,6 +29,7 @@ export {default as RawSwitch} from './forms/Switch';
 export {default as RawTextField} from './forms/TextField';
 
 export {default as currencify} from './utils/currencify';
+export {default as isImage} from './utils/isImage';
 export {default as validateDob} from './utils/validate/dob';
 export {default as validateEmail} from './utils/validate/email';
 export {default as validateMobile} from './utils/validate/mobile';

@@ -76,6 +76,20 @@ class DemoForm extends PureComponent {
 										}}/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
+										<Input required disabled name='react.select' type='select' label='Select (React Select)' helperText='disabled react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
+											cb([
+												{value: '1', label: '1'},
+												{value: '2', label: '2'},
+											].filter(({value}) => !v || value === v));
+										}}/>
+										<Input required readOnly name='react.select' type='select' label='Select (React Select)' helperText='readOnly react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
+											cb([
+												{value: '1', label: '1'},
+												{value: '2', label: '2'},
+											].filter(({value}) => !v || value === v));
+										}}/>
+									</Grid>
+									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
 										<Input name='textArea' multiline label='Text Area' multiline container={{xs: 6}}/>
 										<Input name='textBox' label='Text Box' container={{xs: 6}}/>
 									</Grid>

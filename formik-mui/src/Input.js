@@ -4,13 +4,12 @@ import validateMobile from './utils/validate/mobile';
 import validateDob from './utils/validate/dob';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-class Input extends React.Component {
+class Input extends React.PureComponent {
 	state = {}
 	extraProps() {
-		let {type: typeOrig, label, required, validate: validateOrig, compact = true, formik = true} = this.props;
+		let {type: typeOrig, label, required, validate: validateOrig, formik = true} = this.props;
 
-		const props = {label, compact};
-		if (!formik) return props;
+		if (!formik) return {label};
 		let validateFunc = () => { }, validateReq = () => { };
 		if (typeof validateOrig === 'function') validateFunc = validateOrig; // original validate function
 		else if (validateOrig) {
@@ -44,8 +43,7 @@ class Input extends React.Component {
 			label += ' *';
 		}
 		return {
-			...props,
-			fast: true,
+			label,
 			validate: v => validateReq(v) || validateFunc(v),
 		};
 	}
@@ -102,11 +100,11 @@ class Input extends React.Component {
 		}
 	}
 	render() {
-		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, ...rest} = this.props;  // eslint-disable-line no-unused-vars
+		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
 		const Grid = container ? require('@material-ui/core/Grid').default : ({children}) => children;
 
 		const type = this.type();
-		const extraProps = this.extraProps();
+		const extraProps = {fast, compact, ...this.extraProps()};
 
 		return <Grid item={true} {...container}>
 			{Field
