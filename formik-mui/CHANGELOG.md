@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.3](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.2...@settlin/formik-mui@1.3.3) (2019-03-20)
+
+
+### Bug Fixes
+
+* disabled/readOnly in react-select, remove mui className ([1b9a011](http://github.com/settlin/node-monorepo/formik-mui/commit/1b9a011))
+
+
+
+
+
 ## [1.3.2](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.1...@settlin/formik-mui@1.3.2) (2019-03-18)
 
 
