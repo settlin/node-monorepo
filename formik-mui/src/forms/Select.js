@@ -15,6 +15,8 @@ const Select = ({
 	return (
 		<TextField
 			{...props}
+			multiple={multiple}
+			select
 			InputLabelProps={{
 				...(isNative === true ? {shrink: true} : {}),
 				...InputLabelProps,
@@ -24,7 +26,6 @@ const Select = ({
 				multiple,
 				native: isNative,
 			}}
-			select
 		>
 			{isNative
 				? options.map((option, i) => (

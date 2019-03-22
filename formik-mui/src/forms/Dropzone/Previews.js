@@ -23,7 +23,6 @@ const styles = () => ({
 		padding: 8,
 		wordBreak: 'break-all',
 		position: 'relative',
-		textAlign: 'center',
 		'&:hover $smallPreviewImg': {
 			opacity: 0.3,
 		},

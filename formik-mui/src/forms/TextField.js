@@ -20,7 +20,7 @@ class TextField extends React.PureComponent {
 	render() {
 		let {children, fullWidth = true, compact, InputProps, InputAdornmentProps, label, ...props} = this.props;
 		if (compact) {
-			InputProps = {...InputProps, startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>};
+			InputProps = {...InputProps, ...(label ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {})};
 			label = '';
 		}
 
