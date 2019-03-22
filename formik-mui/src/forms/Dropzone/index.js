@@ -108,7 +108,7 @@ class DropzoneArea extends React.PureComponent {
 		this.setState({errors});
 	}
 	render() {
-		const {classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunc = () => '', previewFunc = f => f.name} = this.props;
+		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunc = () => '', previewFunc = f => f.name} = this.props;
 		const {errors = []} = this.state;
 		const files = value.map(f => ({
 			name: f.name,
@@ -147,6 +147,7 @@ class DropzoneArea extends React.PureComponent {
 				<Grid item className={clsx(classes.previewsContainer, cs.previewsContainer)}>
 					{showPreviews &&
 						<PreviewsComponent
+							name={name}
 							files={files}
 							handleDelete={this.props.onDelete}
 							showFileNames={this.props.showFileNamesInPreview}
