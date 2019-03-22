@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.9](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.8...@settlin/formik-mui@1.3.9) (2019-03-22)
+
+
+### Bug Fixes
+
+* dropzone ([aa925ea](http://github.com/settlin/node-monorepo/formik-mui/commit/aa925ea))
+
+
+
+
+
 ## [1.3.8](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.7...@settlin/formik-mui@1.3.8) (2019-03-22)
 
 
