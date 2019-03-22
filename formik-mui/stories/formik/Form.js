@@ -43,7 +43,7 @@ class DemoForm extends PureComponent {
 		];
 	}
 	render() {
-		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000};
+		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000, files: [{name: '1.pdf'}, {name: 'very very very very long file name.pdf'}, {name: '2.json'}]};
 
 		return (
 			<Grid container item spacing={8} style={{padding: '2rem'}}>
@@ -53,7 +53,7 @@ class DemoForm extends PureComponent {
 							<Grid item xs={6}>
 								<Typography>Phones (Array of Inputs)</Typography>
 								<Input type='array' name='phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
-								<Input type='file' name='files' label='File Drop' container={{xs: 12}}
+								<Input type='file' name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(() => {
 										cb(new Error(403, 'failed'));
 									}, 1000)}

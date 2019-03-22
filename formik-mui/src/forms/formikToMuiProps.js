@@ -13,8 +13,8 @@ export default function({
 	const {errors = {}, touched = {}, isSubmitting, dirty} = form;
 
 	const fErr = name && getIn(errors, name);
-	window.getIn = getIn;
-	const fieldError = (dirty || (name && getIn(touched, name))) && typeof fErr === 'string' ? fErr : null;
+	const fieldTouched = (name && getIn(touched, name));
+	const fieldError = (dirty || fieldTouched) && typeof fErr === 'string' ? fErr : null;
 
 	const extraProps = {};
 
@@ -46,6 +46,7 @@ export default function({
 		...props,
 		...field,
 		...extraProps,
+		fieldTouched,
 		error: error || Boolean(fieldError),
 		helperText: fieldError || props.helperText,
 	};

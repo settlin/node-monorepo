@@ -110,7 +110,7 @@ class DropzoneArea extends React.PureComponent {
 	render() {
 		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunc = () => '', previewFunc = f => f.name} = this.props;
 		const {errors = []} = this.state;
-		const files = value.map(f => ({
+		const files = value.map(f => (f instanceof File ? f : {
 			name: f.name,
 			path: prefixFunc(f) + f.name,
 			preview: previewFunc(f),
