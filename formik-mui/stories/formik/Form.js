@@ -60,7 +60,7 @@ class DemoForm extends PureComponent {
 								<Grid container direction='column'>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
 										<Input name='month' type='month' label='Month' container={{xs: 4}}/>
-										<Input name='date' type='date' label='Date' container={{xs: 4}}/>
+										<Input name='date' fast={false} type='date' label='Date' container={{xs: 4}}/>
 										<Input name='currency' type='inr' label='Currency' container={{xs: 4}}/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>

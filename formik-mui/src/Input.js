@@ -72,6 +72,8 @@ class Input extends React.PureComponent {
 				return {file: `./${formik ? 'formik' : 'forms'}/${options ? 'CheckboxGroup' : 'Checkbox'}`};
 			case 'file':
 				return {file: `./${formik ? 'formik' : 'forms'}/Dropzone`};
+			case 'hidden':
+				return p => <input {...p}/>;
 			case 'inr':
 				return {file: `./${formik ? 'formik' : 'forms'}/CurrencyField`};
 			case 'otp':

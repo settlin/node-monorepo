@@ -25,7 +25,7 @@ const styles = {
 	formLabel: {
 		margin: '16px 0 8px 0',
 	},
-	dropzone: {
+	dropzoneContainer: {
 		position: 'relative',
 		width: '100%',
 		minHeight: '100px',
@@ -54,12 +54,16 @@ const styles = {
 		height: 51,
 		color: '#909090',
 	},
+	previewsContainer: {
+		padding: 8,
+	},
 };
 
 const callbackOnFile = function(file, cb) {
 	return function(e) {
 		const f = new File([file], file.name, {type: file.type});
 		if (e) f.error = f.name + ' - ' + e.message;
+		else f.uploaded = true;
 		return cb(f);
 	};
 };
@@ -104,43 +108,54 @@ class DropzoneArea extends React.PureComponent {
 		this.setState({errors});
 	}
 	render() {
-		const {classes, cs = {}, FormHelperTextProps, error, helperText, value, showPreviews, components: {PreviewsComponent = Previews} = {}} = this.props;
+		const {classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, components: {PreviewsComponent = Previews} = {}, uploadDirDoc, createVersions} = this.props;
 		const {errors = []} = this.state;
+		const uploadDir = getUploadDir(uploadDirDoc);
+		const prefix = Config.upload.s3Prefix + uploadDir;
+		const files = value.map(f => ({
+			name: f.name,
+			path: prefix + f.name,
+			preview: prefix + f.name.replace('.', createVersions ? '-100.' : '.'),
+			uploaded: true,
+		}));
+
 		return (
-			<Fragment>
-				<Dropzone
-					accept={this.props.acceptedFiles.join(',')}
-					onDrop={this.onDrop.bind(this)}
-					onDropRejected={this.handleDropRejected.bind(this)}
-					acceptClassName={classes.stripes}
-					rejectClassName={classes.rejectStripes}
-					maxSize={this.props.maxFileSize}
-				>
-					{({getRootProps, getInputProps}) => (
-						<Fragment>
-							<Grid container {...getRootProps()} className={clsx(classes.dropzone, cs.dropzone, classes.helperTextStyle)}>
-								<input {...getInputProps()}/>
-								<Grid item xs={12}>
-									{helperText && <FormHelperText style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}
-									{errors.map(e => <FormHelperText key={e} style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={true}>{e}</FormHelperText>)}
+			<Grid container direction='column' className={clsx(classes.dropzoneContainer, cs.dropzoneContainer)}>
+				<Grid item>
+					<Dropzone
+						accept={this.props.acceptedFiles.join(',')}
+						onDrop={this.onDrop.bind(this)}
+						onDropRejected={this.handleDropRejected.bind(this)}
+						acceptClassName={classes.stripes}
+						rejectClassName={classes.rejectStripes}
+						maxSize={this.props.maxFileSize}
+					>
+						{({getRootProps, getInputProps}) => (
+							<Fragment>
+								<Grid container {...getRootProps()} className={clsx(cs.dropzone, classes.helperTextStyle)}>
+									<input {...getInputProps()}/>
+									<Grid item xs={12}>
+										{helperText && <FormHelperText style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}
+										{errors.map(e => <FormHelperText key={e} style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={true}>{e}</FormHelperText>)}
+									</Grid>
+									<Grid item xs={12}>
+										<CloudUploadIcon className={classes.uploadIconSize}/>
+									</Grid>
 								</Grid>
-								<Grid item xs={12}>
-									<CloudUploadIcon className={classes.uploadIconSize}/>
-								</Grid>
-								<Grid item xs={12}>
-									{showPreviews &&
-										<PreviewsComponent
-											files={value}
-											handleDelete={this.props.onDelete}
-											showFileNames={this.props.showFileNamesInPreview}
-										/>
-									}
-								</Grid>
-							</Grid>
-						</Fragment>
-					)}
-				</Dropzone>
-			</Fragment>
+							</Fragment>
+						)}
+					</Dropzone>
+				</Grid>
+				<Grid item className={clsx(classes.previewsContainer, cs.previewsContainer)}>
+					{showPreviews &&
+						<PreviewsComponent
+							files={files}
+							handleDelete={this.props.onDelete}
+							showFileNames={this.props.showFileNamesInPreview}
+						/>
+					}
+				</Grid>
+			</Grid>
 		);
 	}
 }
@@ -157,6 +172,7 @@ DropzoneArea.defaultProps = {
 };
 DropzoneArea.propTypes = {
 	acceptedFiles: PropTypes.array,
+	components: PropTypes.object,
 	filesLimit: PropTypes.number,
 	maxFileSize: PropTypes.number,
 	helperText: PropTypes.string,

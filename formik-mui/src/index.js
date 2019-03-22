@@ -28,6 +28,7 @@ export {default as RawSelect} from './forms/Select';
 export {default as RawSwitch} from './forms/Switch';
 export {default as RawTextField} from './forms/TextField';
 
+export {default as convertBytesToMbsOrKbs} from './utils/convertBytesToMbsOrKbs';
 export {default as currencify} from './utils/currencify';
 export {default as isImage} from './utils/isImage';
 export {default as validateDob} from './utils/validate/dob';
