@@ -19,7 +19,7 @@ const styles = () => ({
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'stretch',
-		width: 100,
+		width: 200,
 		padding: 8,
 		wordBreak: 'break-all',
 		position: 'relative',
@@ -63,10 +63,13 @@ const styles = () => ({
 	center: {
 		textAlign: 'center',
 	},
+	selfCenter: {
+		textAlign: 'center',
+	},
 });
 
 const opacity = file => ({opacity: file.processing ? 0.5 : file.error ? 0.1 : 1});
-const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps = {}, classes, children, cs, ...props}) => {
+const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps = {}, classes, children, cs = {}, ...props}) => {
 	const onClick = i => e => { e.preventDefault(); e.stopPropagation(); handleDelete(i); };
 	if (!files.length) return null;
 
@@ -76,7 +79,7 @@ const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps 
 			{
 				files.map((file, i) => (
 					<div key={i} className={clsx(classes.onePreviewContainer, cs.onePreviewContainer)}>
-						<Grid item xs={12}>
+						<Grid item xs={12} className={classes.selfCenter}>
 							{(isImage(file) ?
 								<img className={clsx(classes.smallPreviewImg, cs.smallPreviewImg)} role='presentation' src={file.preview} style={opacity(file)}/>
 								:
@@ -103,6 +106,5 @@ const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps 
 };
 
 const Previews1 = withStyles(styles)(Previews);
-Previews = ({classes, ...props}) => <Previews1 cs={classes} {...props}/>;
-export default Previews;
+export default ({classes, ...props}) => <Previews1 cs={classes} {...props}/>;
 
