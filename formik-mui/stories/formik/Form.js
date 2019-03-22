@@ -36,6 +36,12 @@ class DemoForm extends PureComponent {
 			setSubmitting(false);
 		}, 1000);
 	}
+	PreviewsChildren({name, file, index}) {
+		return [
+			<Input type='hidden' name={`${name}.${index}.file`} value={file.name}/>,
+			<Input type='select' name={`${name}.${index}.tags`} placeholder='Tag' options={[{value: 1, label: '1'}]} TextFieldProps={{InputProps: {classes: {input: 'font-small'}}}}/>,
+		];
+	}
 	render() {
 		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000};
 
@@ -54,6 +60,7 @@ class DemoForm extends PureComponent {
 									handleDelete={(file, cb) => setTimeout(() => {
 										cb(new Error(403, 'failed'));
 									}, 1000)}
+									comps={{PreviewsChildren: this.PreviewsChildren}}
 								/>
 							</Grid>
 							<Grid item xs={6}>

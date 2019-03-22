@@ -108,14 +108,12 @@ class DropzoneArea extends React.PureComponent {
 		this.setState({errors});
 	}
 	render() {
-		const {classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, comps: {PreviewsComponent = Previews} = {}, uploadDirDoc, createVersions} = this.props;
+		const {classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunc = () => '', previewFunc = f => f.name} = this.props;
 		const {errors = []} = this.state;
-		const uploadDir = getUploadDir(uploadDirDoc);
-		const prefix = Config.upload.s3Prefix + uploadDir;
 		const files = value.map(f => ({
 			name: f.name,
-			path: prefix + f.name,
-			preview: prefix + f.name.replace('.', createVersions ? '-100.' : '.'),
+			path: prefixFunc(f) + f.name,
+			preview: previewFunc(f),
 			uploaded: true,
 		}));
 
@@ -152,7 +150,9 @@ class DropzoneArea extends React.PureComponent {
 							files={files}
 							handleDelete={this.props.onDelete}
 							showFileNames={this.props.showFileNamesInPreview}
-						/>
+						>
+							{PreviewsChildren && <PreviewsChildren/>}
+						</PreviewsComponent>
 					}
 				</Grid>
 			</Grid>

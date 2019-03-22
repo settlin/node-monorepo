@@ -79,11 +79,12 @@ function inputComponent({inputRef, ...props}) {
 }
 
 function Control(props) {
-	const {label, compact, InputAdornmentProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
+	const {label, compact, InputAdornmentProps, InputProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
 	return (
 		<TextField
 			fullWidth
 			InputProps={{
+				...InputProps,
 				inputComponent,
 				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
 				inputProps: {
@@ -199,7 +200,7 @@ class Select extends React.PureComponent {
 			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
 			InputAdornmentProps,
-			TextFieldProps,
+			TextFieldProps: tp,
 			compact, // eslint-disable-line no-unused-vars
   		...props
   	} = this.props;
@@ -216,7 +217,7 @@ class Select extends React.PureComponent {
 			clearIndicator: base => ({...base, padding: '6px'}),
 			dropdownIndicator: base => ({...base, padding: '6px'}),
 		};
-		TextFieldProps = {...TextFieldProps, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
+		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
 		const commonProps = {
 			...props,
 			isDisabled: disabled || readOnly,
