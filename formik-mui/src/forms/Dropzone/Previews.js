@@ -66,21 +66,21 @@ const styles = () => ({
 });
 
 const opacity = file => ({opacity: file.processing ? 0.5 : file.error ? 0.1 : 1});
-const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps = {}, classes, children, ...props}) => {
+const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps = {}, classes, children, cs, ...props}) => {
 	const onClick = i => e => { e.preventDefault(); e.stopPropagation(); handleDelete(i); };
 	if (!files.length) return null;
 
 	FormHelperTextProps.classes = {...FormHelperTextProps.classes, root: clsx(classes.center, (FormHelperTextProps.classes || {}).root)};
 	return (
-		<div className={classes.allPreviewsContainer}>
+		<div className={clsx(classes.allPreviewsContainer, cs.allPreviewsContainer)}>
 			{
 				files.map((file, i) => (
-					<div key={i} className={classes.onePreviewContainer}>
+					<div key={i} className={clsx(classes.onePreviewContainer, cs.onePreviewContainer)}>
 						<Grid item xs={12}>
 							{(isImage(file) ?
-								<img className={classes.smallPreviewImg} role='presentation' src={file.preview} style={opacity(file)}/>
+								<img className={clsx(classes.smallPreviewImg, cs.smallPreviewImg)} role='presentation' src={file.preview} style={opacity(file)}/>
 								:
-								<AttachFileIcon className={classes.smallPreviewImg} style={opacity(file)}/>
+								<AttachFileIcon className={clsx(classes.smallPreviewImg, cs.smallPreviewImg)} style={opacity(file)}/>
 							)}
 						</Grid>
 						{file.processing && <LinearProgress classes={{root: classes.progress, colorPrimary: classes.progressColor, barColorPrimary: classes.progressBarColor}}/>}
@@ -102,4 +102,7 @@ const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps 
 	);
 };
 
-export default withStyles(styles)(Previews);
+const Previews1 = withStyles(styles)(Previews);
+Previews = ({classes, ...props}) => <Previews1 cs={classes} {...props}/>;
+export default Previews;
+

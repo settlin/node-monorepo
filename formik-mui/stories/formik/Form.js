@@ -75,6 +75,10 @@ class DemoForm extends PureComponent {
 											{value: '1', label: 'Reason 1'},
 											{value: '2', label: 'Reason 2'},
 										]}/>
+										<Input mui multiple name='mui.multi' type='select' helperText='`prop: mui` to use mui select (default: false)' container={{xs: 6}} options={[
+											{value: '', label: 'Multiple Mui'},
+											{value: '2', label: 'Reason 2'},
+										]}/>
 										<Input required name='react.select' type='select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
 											cb([
 												{value: '1', label: '1'},

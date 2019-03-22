@@ -7,7 +7,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 class Input extends React.PureComponent {
 	state = {}
 	extraProps() {
-		let {type: typeOrig, label, required, validate: validateOrig, formik = true} = this.props;
+		let {type: typeOrig, label = '', required, validate: validateOrig, formik = true} = this.props;
 
 		if (!formik) return {label};
 		let validateFunc = () => { }, validateReq = () => { };
