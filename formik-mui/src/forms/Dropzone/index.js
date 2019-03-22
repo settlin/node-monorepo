@@ -108,7 +108,7 @@ class DropzoneArea extends React.PureComponent {
 		this.setState({errors});
 	}
 	render() {
-		const {classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, components: {PreviewsComponent = Previews} = {}, uploadDirDoc, createVersions} = this.props;
+		const {classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, comps: {PreviewsComponent = Previews} = {}, uploadDirDoc, createVersions} = this.props;
 		const {errors = []} = this.state;
 		const uploadDir = getUploadDir(uploadDirDoc);
 		const prefix = Config.upload.s3Prefix + uploadDir;
@@ -172,7 +172,7 @@ DropzoneArea.defaultProps = {
 };
 DropzoneArea.propTypes = {
 	acceptedFiles: PropTypes.array,
-	components: PropTypes.object,
+	comps: PropTypes.object,
 	filesLimit: PropTypes.number,
 	maxFileSize: PropTypes.number,
 	helperText: PropTypes.string,
