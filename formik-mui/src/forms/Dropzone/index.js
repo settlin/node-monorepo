@@ -110,12 +110,19 @@ class DropzoneArea extends React.PureComponent {
 	render() {
 		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunc = () => '', previewFunc = f => f.name} = this.props;
 		const {errors = []} = this.state;
-		const files = value.map(f => (f instanceof File ? f : {
-			name: f.name,
-			path: prefixFunc(f) + f.name,
-			preview: previewFunc(f),
-			uploaded: true,
-		}));
+		const files = value.map(f => {
+			if (f instanceof File) {
+				f.path = prefixFunc(f) + f.name;
+				f.preview = previewFunc(f);
+				return f;
+			}
+			return {
+				...f,
+				path: prefixFunc(f) + f.name,
+				preview: previewFunc(f),
+				uploaded: true,
+			};
+		});
 
 		return (
 			<Grid container direction='column' className={clsx(classes.dropzoneContainer, cs.dropzoneContainer)}>

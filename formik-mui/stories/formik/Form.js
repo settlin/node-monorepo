@@ -39,7 +39,7 @@ class DemoForm extends PureComponent {
 	PreviewsChildren({name, file, index}) {
 		return [
 			<Input type='hidden' name={`${name}.${index}.file`} value={file.name}/>,
-			<Input type='select' name={`${name}.${index}.tags`} mui multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} InputProps={{classes: {input: 'font-small'}}}/>,
+			<Input type='select' name={`${name}.${index}.tags`} isMulti placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} InputProps={{classes: {input: 'font-small'}}}/>,
 		];
 	}
 	render() {

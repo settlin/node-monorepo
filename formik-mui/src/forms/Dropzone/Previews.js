@@ -44,8 +44,8 @@ const styles = () => ({
 		transition: '.5s ease',
 		position: 'absolute',
 		opacity: 0,
-		top: -5,
-		right: -5,
+		top: 0,
+		right: 10,
 		width: 40,
 		height: 40,
 		zIndex: 1,
@@ -80,18 +80,22 @@ const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps 
 				files.map((file, i) => (
 					<div key={i} className={clsx(classes.onePreviewContainer, cs.onePreviewContainer)}>
 						<Grid item xs={12} className={classes.selfCenter}>
-							{(isImage(file) ?
-								<img className={clsx(classes.smallPreviewImg, cs.smallPreviewImg)} role='presentation' src={file.preview} style={opacity(file)}/>
-								:
-								<AttachFileIcon className={clsx(classes.smallPreviewImg, cs.smallPreviewImg)} style={opacity(file)}/>
-							)}
+							<a target='_blank' aria-text={file.name} href={file.path}>
+								{(isImage(file) ?
+									<img className={clsx(classes.smallPreviewImg, cs.smallPreviewImg)} role='presentation' src={file.preview} style={opacity(file)}/>
+									:
+									<AttachFileIcon className={clsx(classes.smallPreviewImg, cs.smallPreviewImg)} style={opacity(file)}/>
+								)}
+							</a>
 						</Grid>
 						{file.processing && <LinearProgress classes={{root: classes.progress, colorPrimary: classes.progressColor, barColorPrimary: classes.progressBarColor}}/>}
 						{(file.error || showFileNames) && <Grid item xs={12}>
-							<FormHelperText {...FormHelperTextProps} error={Boolean(file.error)}>{file.error || file.name}</FormHelperText>
+							<a target='_blank' aria-text={file.name} href={file.path}>
+								<FormHelperText {...FormHelperTextProps} error={Boolean(file.error)}>{file.error || file.name}</FormHelperText>
+							</a>
 						</Grid>}
 						{file.uploaded && <Grid item xs={12}>
-							{React.Children.map(children, child => React.cloneElement(child, {...props, key: i, file, index: i}))}
+							{React.Children.map(children, (child, j) => React.cloneElement(child, {...props, key: j, file, index: i}))}
 						</Grid>}
 						<Fab onClick={onClick(i)}
 							aria-label='Delete'
