@@ -37,10 +37,7 @@ class DemoForm extends PureComponent {
 		}, 1000);
 	}
 	PreviewsChildren({name, file, index}) {
-		return [
-			<Input type='hidden' name={`${name}.${index}.file`} value={file.name}/>,
-			<Input type='select' name={`${name}.${index}.tags`} multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} InputProps={{classes: {input: 'font-small'}}}/>,
-		];
+		return <Input type='select' name={`${name}.${index}.tags`} multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} InputProps={{classes: {input: 'font-small'}}}/>;
 	}
 	render() {
 		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000, files: [{name: '1.pdf'}, {name: 'very very very very long file name.pdf'}, {name: '2.json'}]};
