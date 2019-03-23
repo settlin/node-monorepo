@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.16](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.15...@settlin/formik-mui@1.3.16) (2019-03-23)
+
+
+### Bug Fixes
+
+* dropzone & select ([5c38d1f](http://github.com/settlin/node-monorepo/formik-mui/commit/5c38d1f))
+
+
+
+
+
 ## [1.3.15](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.14...@settlin/formik-mui@1.3.15) (2019-03-23)
 
 
