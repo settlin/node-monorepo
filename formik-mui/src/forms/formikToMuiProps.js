@@ -30,7 +30,7 @@ export default function({
 				break;
 
 			case 'file':
-				field.value = typeof field.value === 'undefined' ? props.limit === 1 ? '' : [] : field.value;
+				field.value = typeof field.value === 'undefined' ? [] : field.value;
 				break;
 
 			case 'date':

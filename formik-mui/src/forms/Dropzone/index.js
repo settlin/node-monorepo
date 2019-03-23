@@ -72,16 +72,10 @@ const callbackOnFile = function(file, cb) {
 class DropzoneArea extends React.PureComponent {
 	state = {}
 	onDrop(acceptedFiles, rejectedFiles) {
-		const {limit, value, onError, onAdd, onDrop, accept, maxSize} = this.props;
-		if (value.length + acceptedFiles.length > limit && onError) onError(`Only ${limit} files can be uploaded at max`);
-		acceptedFiles.slice(0, Math.max(limit - value.length, 0)).forEach((f) => {
-			f.preview = URL.createObjectURL(f);
-			f.processing = true;
-			if (onAdd) onAdd(f);
-			if (onDrop) onDrop(f, callbackOnFile(f, onAdd));
-		});
+		const {limit, value = [], onError, onAdd, onDrop, accept, maxSize} = this.props;
 
 		let errors = [];
+		if (value.length + acceptedFiles.length > limit && onError) errors.push(`Only ${limit} files can be uploaded at max`);
 		rejectedFiles.map(f => {
 			let message = `Rejected ${f.name}`;
 			if (!acceptable(f, accept)) message += ': file type not supported';
@@ -89,16 +83,23 @@ class DropzoneArea extends React.PureComponent {
 			errors.push(message);
 		});
 		this.setState({errors});
+
+		acceptedFiles.slice(0, Math.max(limit - value.length, 0)).forEach((f) => {
+			f.preview = URL.createObjectURL(f);
+			f.processing = true;
+			if (onAdd) onAdd(f);
+			if (onDrop) onDrop(f, callbackOnFile(f, onAdd));
+		});
 	}
 	render() {
-		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value, limit, showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name} = this.props;
+		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name} = this.props;
 		const {errors = []} = this.state;
-		const files = (limit === 1 ? [value] : value).map(f => {
+		if (!Array.isArray(value)) console.error('Received value is not an array', value); // eslint-disable-line no-console
+		const files = value.map(f => {
 			if (f instanceof File) {
 				f.preview = previewFunction(f);
 				return f;
 			}
-			if (limit === 1) f = {name: f};
 			return {
 				...f,
 				path: prefixFunction(f) + f.name,
@@ -185,34 +186,34 @@ class FormikMaterialUIDropzone extends React.PureComponent {
 	}
 	handleAdd(file) {
 		const {field = {}, form, onChange, value} = this.props;
-		let files = value || field.value;
+		let files = value || field.value || [];
 		files = files.find(f => f.name === file.name) ? files.map(f => f.name === file.name ? file : f) : [...files, file];
-		if (field) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
+		if (form) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
 		if (onChange) onChange(files);
 	}
 	postDelete(file) {
 		if (file.error) {
-			this.handleAdd(file);
+			this.handleAdd(file); // to update error
 			return;
 		}
 		const {field = {}, form, onChange, value} = this.props;
-		let files = value || field.value;
+		let files = value || field.value || [];
 		files = files.filter(f => f.name !== file.name);
-		if (field) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
+		if (form) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
 		if (onChange) onChange(files);
 	}
 	handleDelete(index) {
 		const {field = {}, value, handleDelete} = this.props;
-		let files = value || field.value;
+		let files = value || field.value || [];
 		const file = new File([files[index]], files[index].name, {type: files[index].type});
 		file.processing = true;
-		this.handleAdd(file);
+		this.handleAdd(file); // to update processing
 		if (handleDelete) handleDelete(file, callbackOnFile(file, this.postDelete));
 		else this.postDelete(file);
 	}
 	handleError(msg) {
 		const {field, form, onError} = this.props;
-		if (field) {
+		if (form) {
 			form.setFieldTouched(field.name, true, false); // third argument is to skip validate form
 			form.setFieldError(field.name, msg);
 		}
