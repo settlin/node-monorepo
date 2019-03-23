@@ -104,7 +104,7 @@ class Input extends React.PureComponent {
 		const Grid = container ? require('@material-ui/core/Grid').default : ({children}) => children;
 
 		const type = this.type();
-		const extraProps = {fast, compact, ...this.extraProps()};
+		const extraProps = {...(formik ? {fast} : {}), compact, ...this.extraProps()};
 
 		return <Grid item={true} {...container}>
 			{Field

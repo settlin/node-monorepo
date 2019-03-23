@@ -1,4 +1,5 @@
 import {getIn} from 'formik';
+import isDate from '../utils/isDate';
 
 export default function({
 	field = {},
@@ -32,6 +33,10 @@ export default function({
 				field.value = typeof field.value === 'undefined' ? [] : field.value;
 				break;
 
+			case 'date':
+				field.value = typeof field.value === 'undefined' ? '' : isDate(field.value) ? field.value.toLocaleString() : field.value;
+				break;
+
 			default: typeof field.value === 'undefined' ? '' : field.value;
 		}
 	}
@@ -46,7 +51,7 @@ export default function({
 		...props,
 		...field,
 		...extraProps,
-		fieldTouched,
+		touched: fieldTouched,
 		error: error || Boolean(fieldError),
 		helperText: fieldError || props.helperText,
 	};

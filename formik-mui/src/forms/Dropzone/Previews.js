@@ -80,7 +80,7 @@ const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps 
 				files.map((file, i) => (
 					<div key={i} className={clsx(classes.onePreviewContainer, cs.onePreviewContainer)}>
 						<Grid item xs={12} className={classes.selfCenter}>
-							<a target='_blank' aria-text={file.name} href={file.path}>
+							<a target='_blank' aria-label={file.name} href={file.path}>
 								{(isImage(file) ?
 									<img className={clsx(classes.smallPreviewImg, cs.smallPreviewImg)} role='presentation' src={file.preview} style={opacity(file)}/>
 									:
@@ -90,12 +90,12 @@ const Previews = ({files = [], handleDelete, showFileNames, FormHelperTextProps 
 						</Grid>
 						{file.processing && <LinearProgress classes={{root: classes.progress, colorPrimary: classes.progressColor, barColorPrimary: classes.progressBarColor}}/>}
 						{(file.error || showFileNames) && <Grid item xs={12}>
-							<a target='_blank' aria-text={file.name} href={file.path}>
+							<a target='_blank' aria-label={file.name} href={file.path}>
 								<FormHelperText {...FormHelperTextProps} error={Boolean(file.error)}>{file.error || file.name}</FormHelperText>
 							</a>
 						</Grid>}
 						{file.uploaded && <Grid item xs={12}>
-							{React.Children.map(children, (child, j) => React.cloneElement(child, {...props, key: j, file, index: i}))}
+							{React.Children.map(children, (child, j) => React.cloneElement(child, {...props, key: i + '' + j, file, index: i}))}
 						</Grid>}
 						<Fab onClick={onClick(i)}
 							aria-label='Delete'

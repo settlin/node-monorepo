@@ -187,6 +187,15 @@ class Select extends React.PureComponent {
   	} = this.props;
 		if (defaultValue) setFieldValue(name, defaultValue);
 	}
+	getValueProp(value) {
+		const {options, optionsAsync, multiple, valueWithLabel = Boolean(optionsAsync)} = this.props;
+		if (!value) return null;
+		return valueWithLabel
+			? value
+			: multiple
+				? options.filter(o => Boolean(value.filter(v => v == o.value).length)) // eslint-disable-line eqeqeq
+				: options.find(o => value == o.value); // eslint-disable-line eqeqeq
+	}
 	render() {
 		const {
 			classes, theme, label, options = [], optionsAsync, placeholder = '',
@@ -194,9 +203,10 @@ class Select extends React.PureComponent {
   		form: {dirty, touched, errors, setFieldValue, setFieldTouched} = {},
   		helperText,
 			defaultValue,
+			multiple,
 			creatable,
 			disabled,
-			isClearable = true,
+			isClearable,
 			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
 			InputAdornmentProps,
@@ -218,15 +228,18 @@ class Select extends React.PureComponent {
 			dropdownIndicator: base => ({...base, padding: '6px'}),
 		};
 		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
+
+		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
+		const valueProp = value ? {value: this.getValueProp(value)} : {};
 		const commonProps = {
 			...props,
+			isMulti: multiple,
 			isDisabled: disabled || readOnly,
 			isClearable,
 			classes, placeholder, autocomplete: 'off', styles: selectStyles, components, TextFieldProps, name,
-			...(defaultValue ? {defaultValue: valueWithLabel ? defaultValue : options.find(o => o.value == defaultValue.value)} : {}), // eslint-disable-line eqeqeq
-			...(value ? {value: valueWithLabel ? value : options.find(o => o.value == value)} : {}), // eslint-disable-line eqeqeq
-			// ...(value ? {value: options.find(o => o.value == value)} : {}), // eslint-disable-line eqeqeq
-			onChange(v) {setFieldValue(name, valueWithLabel ? v : v.value);},
+			...(defaultValueProp),
+			...(valueProp),
+			onChange(v) {setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : v.value);},
 			onBlur() {setFieldTouched(name);},
 		};
 
