@@ -36,7 +36,7 @@ class DemoForm extends PureComponent {
 			setSubmitting(false);
 		}, 1000);
 	}
-	PreviewsChildren({name, file, index}) {
+	PreviewsChildren({name, index}) {
 		return <Input type='select' name={`${name}.${index}.tags`} multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} InputProps={{classes: {input: 'font-small'}}}/>;
 	}
 	render() {

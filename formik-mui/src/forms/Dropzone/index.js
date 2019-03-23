@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import convertBytesToMbsOrKbs from '../../utils/convertBytesToMbsOrKbs';
 import Previews from './Previews';
 import clsx from 'clsx';
+import acceptable from 'attr-accept';
 
 const styles = {
 	'@keyframes progress': {
@@ -69,57 +70,39 @@ const callbackOnFile = function(file, cb) {
 };
 
 class DropzoneArea extends React.PureComponent {
-	state = {
-		fileObjects: [],
-	};
-	constructor(props) {
-		super(props);
-	}
-	componentWillUnmount() {
-		if (this.props.clearOnUnmount) {
-			this.setState({
-				fileObjects: [],
-			});
-		}
-	}
-	onDrop(files) {
-		const {filesLimit, value, onError, onAdd, onDrop} = this.props;
-		if (value.length + files.length > filesLimit && onError) onError(`Maximum allowed number of files exceeded. Only ${this.props.filesLimit} allowed`);
-		files.slice(0, Math.max(filesLimit - value.length, 0)).forEach((file) => {
-			file.preview = URL.createObjectURL(file);
-			file.processing = true;
-			if (onAdd) onAdd(file);
-			if (onDrop) onDrop(file, callbackOnFile(file, onAdd));
+	state = {}
+	onDrop(acceptedFiles, rejectedFiles) {
+		const {limit, value, onError, onAdd, onDrop, accept, maxSize} = this.props;
+		if (value.length + acceptedFiles.length > limit && onError) onError(`Only ${limit} files can be uploaded at max`);
+		acceptedFiles.slice(0, Math.max(limit - value.length, 0)).forEach((f) => {
+			f.preview = URL.createObjectURL(f);
+			f.processing = true;
+			if (onAdd) onAdd(f);
+			if (onDrop) onDrop(f, callbackOnFile(f, onAdd));
 		});
-	}
-	handleDropRejected(rejectedFiles) {
-		let errors = [];
 
-		rejectedFiles.forEach((rejectedFile) => {
-			let message = `File ${rejectedFile.name} was rejected. `;
-			if (!this.props.acceptedFiles.includes(rejectedFile.type)) {
-				message += 'File type not supported. ';
-			}
-			if (rejectedFile.size > this.props.fileSizeLimit) {
-				message += 'File is too big. Size limit is ' + convertBytesToMbsOrKbs(this.props.fileSizeLimit) + '. ';
-			}
+		let errors = [];
+		rejectedFiles.map(f => {
+			let message = `Rejected ${f.name}`;
+			if (!acceptable(f, accept)) message += ': file type not supported';
+			else if (f.size > maxSize) message += `: file too big. Limit: ${convertBytesToMbsOrKbs(maxSize)}`;
 			errors.push(message);
 		});
 		this.setState({errors});
 	}
 	render() {
-		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunc = () => '', previewFunc = f => f.name} = this.props;
+		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value, limit, showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name} = this.props;
 		const {errors = []} = this.state;
-		const files = value.map(f => {
+		const files = (limit === 1 ? [value] : value).map(f => {
 			if (f instanceof File) {
-				f.path = prefixFunc(f) + f.name;
-				f.preview = previewFunc(f);
+				f.preview = previewFunction(f);
 				return f;
 			}
+			if (limit === 1) f = {name: f};
 			return {
 				...f,
-				path: prefixFunc(f) + f.name,
-				preview: previewFunc(f),
+				path: prefixFunction(f) + f.name,
+				preview: previewFunction(f),
 				uploaded: true,
 			};
 		});
@@ -130,10 +113,9 @@ class DropzoneArea extends React.PureComponent {
 					<Dropzone
 						accept={this.props.acceptedFiles.join(',')}
 						onDrop={this.onDrop.bind(this)}
-						onDropRejected={this.handleDropRejected.bind(this)}
 						acceptClassName={classes.stripes}
 						rejectClassName={classes.rejectStripes}
-						maxSize={this.props.maxFileSize}
+						maxSize={this.props.maxSize}
 					>
 						{({getRootProps, getInputProps}) => (
 							<Fragment>
@@ -171,23 +153,21 @@ class DropzoneArea extends React.PureComponent {
 
 DropzoneArea.defaultProps = {
 	acceptedFiles: ['image/*', 'video/*', 'application/*'],
-	filesLimit: 3,
-	maxFileSize: 3000000,
-	helperText: 'Drag and drop an image file here or click',
+	limit: 20,
+	maxSize: 50000000,
+	helperText: 'Drag and drop a file here or click',
 	showPreviews: true,
 	showFileNamesInPreview: true,
-	showAlerts: true,
 	clearOnUnmount: true,
 };
 DropzoneArea.propTypes = {
 	acceptedFiles: PropTypes.array,
 	comps: PropTypes.object,
-	filesLimit: PropTypes.number,
-	maxFileSize: PropTypes.number,
+	limit: PropTypes.number,
+	maxSize: PropTypes.number,
 	helperText: PropTypes.string,
 	showPreviews: PropTypes.bool,
 	showFileNamesInPreview: PropTypes.bool,
-	showAlerts: PropTypes.bool,
 	clearOnUnmount: PropTypes.bool,
 	onAdd: PropTypes.func,
 	onDelete: PropTypes.func,

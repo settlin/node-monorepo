@@ -30,11 +30,11 @@ export default function({
 				break;
 
 			case 'file':
-				field.value = typeof field.value === 'undefined' ? [] : field.value;
+				field.value = typeof field.value === 'undefined' ? props.limit === 1 ? '' : [] : field.value;
 				break;
 
 			case 'date':
-				field.value = typeof field.value === 'undefined' ? '' : isDate(field.value) ? field.value.toLocaleString() : field.value;
+				field.value = typeof field.value === 'undefined' ? '' : isDate(field.value) ? field.value.toISOString().split('T')[0] : field.value;
 				break;
 
 			default: typeof field.value === 'undefined' ? '' : field.value;
@@ -51,7 +51,7 @@ export default function({
 		...props,
 		...field,
 		...extraProps,
-		touched: fieldTouched,
+		// touched: fieldTouched,
 		error: error || Boolean(fieldError),
 		helperText: fieldError || props.helperText,
 	};
