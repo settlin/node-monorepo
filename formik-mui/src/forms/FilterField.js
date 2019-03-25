@@ -239,7 +239,7 @@ class Select extends React.PureComponent {
 			classes, placeholder, autocomplete: 'off', styles: selectStyles, components, TextFieldProps, name,
 			...(defaultValueProp),
 			...(valueProp),
-			onChange(v) {setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : v.value);},
+			onChange(v) {setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);},
 			onBlur() {setFieldTouched(name);},
 		};
 
