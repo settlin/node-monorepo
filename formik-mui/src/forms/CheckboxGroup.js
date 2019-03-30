@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 
 import Checkbox from '../forms/Checkbox';
@@ -58,8 +58,8 @@ class CheckboxGroup extends React.Component {
   	} = this.props;
 
   	value = value || getIn(values, name) || [];
-  	error = error || getIn(errors, name);
-		const errStr = (dirty || getIn(touched, name) && typeof error === 'string' ? error : null);
+  	error = error || (name && getIn(errors, name));
+		const errStr = (dirty || (name && getIn(touched, name)) && typeof error === 'string' ? error : null);
   	const helperText = errStr || props.helperText;
 
   	return (
