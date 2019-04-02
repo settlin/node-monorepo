@@ -87,7 +87,7 @@ class Input extends React.PureComponent {
 		}
 	}
 	componentDidMount() {
-		const {component: c, formik} = this.props;
+		const {component: c, formik = true} = this.props;
 		if (c) return;
 		const {file, error} = this.module();
 		if (error) this.setState({component: error});

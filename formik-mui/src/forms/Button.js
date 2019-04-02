@@ -53,7 +53,7 @@ const styles = (theme) => ({
 
 class CircularIntegration extends React.Component {
 	render() {
-  	const {classes, cs = {}, fab, processing, success, label = '', color = 'primary', variant = 'contained', children = 'Submit', Icon, fullWidth, ...rest} = this.props;
+  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', children = 'Submit', Icon, fullWidth, ...rest} = this.props;
   	const buttonClassname = clsx({
   		[classes.buttonSuccess]: success,
 		});
@@ -75,7 +75,6 @@ class CircularIntegration extends React.Component {
   					<div className={fullWidth ? classes.wrapperFullWidth : classes.wrapper}>
   						<Button fullWidth={fullWidth} variant={variant} color={color} classes={{root: clsx(buttonClassname, cs.button)}} disabled={processing} {...rest}>
 								{IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}}/>}
-								{label}
 								{children}
   						</Button>
   						{processing && <CircularProgress size={24} className={classes.buttonProgress}/>}
