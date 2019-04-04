@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import convertBytesToMbsOrKbs from '../../utils/convertBytesToMbsOrKbs';
 import Previews from './Previews';
 import clsx from 'clsx';
+import acceptable from 'attr-accept';
 
 const styles = {
 	'@keyframes progress': {
@@ -25,7 +26,7 @@ const styles = {
 	formLabel: {
 		margin: '16px 0 8px 0',
 	},
-	dropzone: {
+	dropzoneContainer: {
 		position: 'relative',
 		width: '100%',
 		minHeight: '100px',
@@ -54,115 +55,120 @@ const styles = {
 		height: 51,
 		color: '#909090',
 	},
+	previewsContainer: {
+		padding: 8,
+	},
 };
 
 const callbackOnFile = function(file, cb) {
 	return function(e) {
 		const f = new File([file], file.name, {type: file.type});
 		if (e) f.error = f.name + ' - ' + e.message;
+		else f.uploaded = true;
 		return cb(f);
 	};
 };
 
 class DropzoneArea extends React.PureComponent {
-	state = {
-		fileObjects: [],
-	};
-	constructor(props) {
-		super(props);
-	}
-	componentWillUnmount() {
-		if (this.props.clearOnUnmount) {
-			this.setState({
-				fileObjects: [],
-			});
-		}
-	}
-	onDrop(files) {
-		const {filesLimit, value, onError, onAdd, onDrop} = this.props;
-		if (value.length + files.length > filesLimit && onError) onError(`Maximum allowed number of files exceeded. Only ${this.props.filesLimit} allowed`);
-		files.slice(0, Math.max(filesLimit - value.length, 0)).forEach((file) => {
-			file.preview = URL.createObjectURL(file);
-			file.processing = true;
-			if (onAdd) onAdd(file);
-			if (onDrop) onDrop(file, callbackOnFile(file, onAdd));
-		});
-	}
-	handleDropRejected(rejectedFiles) {
-		let errors = [];
+	state = {}
+	onDrop(acceptedFiles, rejectedFiles) {
+		const {limit, value = [], onError, onAdd, onDrop, accept, maxSize} = this.props;
 
-		rejectedFiles.forEach((rejectedFile) => {
-			let message = `File ${rejectedFile.name} was rejected. `;
-			if (!this.props.acceptedFiles.includes(rejectedFile.type)) {
-				message += 'File type not supported. ';
-			}
-			if (rejectedFile.size > this.props.fileSizeLimit) {
-				message += 'File is too big. Size limit is ' + convertBytesToMbsOrKbs(this.props.fileSizeLimit) + '. ';
-			}
+		let errors = [];
+		if (value.length + acceptedFiles.length > limit && onError) errors.push(`Only ${limit} files can be uploaded at max`);
+		rejectedFiles.map(f => {
+			let message = `Rejected ${f.name}`;
+			if (!acceptable(f, accept)) message += ': file type not supported';
+			else if (f.size > maxSize) message += `: file too big. Limit: ${convertBytesToMbsOrKbs(maxSize)}`;
 			errors.push(message);
 		});
 		this.setState({errors});
+
+		acceptedFiles.slice(0, Math.max(limit - value.length, 0)).forEach((f) => {
+			f.preview = URL.createObjectURL(f);
+			f.processing = true;
+			if (onAdd) onAdd(f);
+			if (onDrop) onDrop(f, callbackOnFile(f, onAdd));
+		});
 	}
 	render() {
-		const {classes, cs = {}, FormHelperTextProps, error, helperText, value, showPreviews, components: {PreviewsComponent = Previews} = {}} = this.props;
+		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name} = this.props;
 		const {errors = []} = this.state;
+		if (!Array.isArray(value)) console.error('Received value is not an array', value); // eslint-disable-line no-console
+		const files = value.map(f => {
+			if (f instanceof File) {
+				f.preview = previewFunction(f);
+				return f;
+			}
+			return {
+				...f,
+				path: prefixFunction(f) + f.name,
+				preview: previewFunction(f),
+				uploaded: true,
+			};
+		});
+
 		return (
-			<Fragment>
-				<Dropzone
-					accept={this.props.acceptedFiles.join(',')}
-					onDrop={this.onDrop.bind(this)}
-					onDropRejected={this.handleDropRejected.bind(this)}
-					acceptClassName={classes.stripes}
-					rejectClassName={classes.rejectStripes}
-					maxSize={this.props.maxFileSize}
-				>
-					{({getRootProps, getInputProps}) => (
-						<Fragment>
-							<Grid container {...getRootProps()} className={clsx(classes.dropzone, cs.dropzone, classes.helperTextStyle)}>
-								<input {...getInputProps()}/>
-								<Grid item xs={12}>
-									{helperText && <FormHelperText style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}
-									{errors.map(e => <FormHelperText key={e} style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={true}>{e}</FormHelperText>)}
+			<Grid container direction='column' className={clsx(classes.dropzoneContainer, cs.dropzoneContainer)}>
+				<Grid item>
+					<Dropzone
+						accept={this.props.acceptedFiles.join(',')}
+						onDrop={this.onDrop.bind(this)}
+						acceptClassName={classes.stripes}
+						rejectClassName={classes.rejectStripes}
+						maxSize={this.props.maxSize}
+					>
+						{({getRootProps, getInputProps}) => (
+							<Fragment>
+								<Grid container {...getRootProps()} className={clsx(cs.dropzone, classes.helperTextStyle)}>
+									<input {...getInputProps()}/>
+									<Grid item xs={12}>
+										{helperText && <FormHelperText style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={error}>{helperText}</FormHelperText>}
+										{errors.map(e => <FormHelperText key={e} style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={true}>{e}</FormHelperText>)}
+									</Grid>
+									<Grid item xs={12}>
+										<CloudUploadIcon className={classes.uploadIconSize}/>
+									</Grid>
 								</Grid>
-								<Grid item xs={12}>
-									<CloudUploadIcon className={classes.uploadIconSize}/>
-								</Grid>
-								<Grid item xs={12}>
-									{showPreviews &&
-										<PreviewsComponent
-											files={value}
-											handleDelete={this.props.onDelete}
-											showFileNames={this.props.showFileNamesInPreview}
-										/>
-									}
-								</Grid>
-							</Grid>
-						</Fragment>
-					)}
-				</Dropzone>
-			</Fragment>
+							</Fragment>
+						)}
+					</Dropzone>
+				</Grid>
+				<Grid item className={clsx(classes.previewsContainer, cs.previewsContainer)}>
+					{showPreviews &&
+						<PreviewsComponent
+							name={name}
+							files={files}
+							handleDelete={this.props.onDelete}
+							showFileNames={this.props.showFileNamesInPreview}
+							{...PreviewsComponentProps}
+						>
+							{PreviewsChildren && <PreviewsChildren/>}
+						</PreviewsComponent>
+					}
+				</Grid>
+			</Grid>
 		);
 	}
 }
 
 DropzoneArea.defaultProps = {
 	acceptedFiles: ['image/*', 'video/*', 'application/*'],
-	filesLimit: 3,
-	maxFileSize: 3000000,
-	helperText: 'Drag and drop an image file here or click',
+	limit: 20,
+	maxSize: 50000000,
+	helperText: 'Drag and drop a file here or click',
 	showPreviews: true,
 	showFileNamesInPreview: true,
-	showAlerts: true,
 	clearOnUnmount: true,
 };
 DropzoneArea.propTypes = {
 	acceptedFiles: PropTypes.array,
-	filesLimit: PropTypes.number,
-	maxFileSize: PropTypes.number,
+	comps: PropTypes.object,
+	limit: PropTypes.number,
+	maxSize: PropTypes.number,
 	helperText: PropTypes.string,
 	showPreviews: PropTypes.bool,
 	showFileNamesInPreview: PropTypes.bool,
-	showAlerts: PropTypes.bool,
 	clearOnUnmount: PropTypes.bool,
 	onAdd: PropTypes.func,
 	onDelete: PropTypes.func,
@@ -180,34 +186,34 @@ class FormikMaterialUIDropzone extends React.PureComponent {
 	}
 	handleAdd(file) {
 		const {field = {}, form, onChange, value} = this.props;
-		let files = value || field.value;
+		let files = value || field.value || [];
 		files = files.find(f => f.name === file.name) ? files.map(f => f.name === file.name ? file : f) : [...files, file];
-		if (field) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
+		if (form) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
 		if (onChange) onChange(files);
 	}
 	postDelete(file) {
 		if (file.error) {
-			this.handleAdd(file);
+			this.handleAdd(file); // to update error
 			return;
 		}
 		const {field = {}, form, onChange, value} = this.props;
-		let files = value || field.value;
+		let files = value || field.value || [];
 		files = files.filter(f => f.name !== file.name);
-		if (field) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
+		if (form) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
 		if (onChange) onChange(files);
 	}
 	handleDelete(index) {
 		const {field = {}, value, handleDelete} = this.props;
-		let files = value || field.value;
+		let files = value || field.value || [];
 		const file = new File([files[index]], files[index].name, {type: files[index].type});
 		file.processing = true;
-		this.handleAdd(file);
+		this.handleAdd(file); // to update processing
 		if (handleDelete) handleDelete(file, callbackOnFile(file, this.postDelete));
 		else this.postDelete(file);
 	}
 	handleError(msg) {
 		const {field, form, onError} = this.props;
-		if (field) {
+		if (form) {
 			form.setFieldTouched(field.name, true, false); // third argument is to skip validate form
 			form.setFieldError(field.name, msg);
 		}

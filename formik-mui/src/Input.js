@@ -4,13 +4,12 @@ import validateMobile from './utils/validate/mobile';
 import validateDob from './utils/validate/dob';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-class Input extends React.Component {
+class Input extends React.PureComponent {
 	state = {}
 	extraProps() {
-		let {type: typeOrig, label, required, validate: validateOrig, compact = true, formik = true} = this.props;
+		let {type: typeOrig, label = '', required, validate: validateOrig, formik = true} = this.props;
 
-		const props = {label, compact};
-		if (!formik) return props;
+		if (!formik) return {label};
 		let validateFunc = () => { }, validateReq = () => { };
 		if (typeof validateOrig === 'function') validateFunc = validateOrig; // original validate function
 		else if (validateOrig) {
@@ -44,8 +43,7 @@ class Input extends React.Component {
 			label += ' *';
 		}
 		return {
-			...props,
-			fast: true,
+			label,
 			validate: v => validateReq(v) || validateFunc(v),
 		};
 	}
@@ -67,34 +65,35 @@ class Input extends React.Component {
 		switch (type) {
 			case 'array':
 				if (!formik) return {error: '`array` type is only supported via formik. `formik` prop must be set to true in order to use it.'};
-				return {file: './formik/InputArray'};
+				return {file: 'InputArray'};
 			case 'buttons':
-				return {file: `./${formik ? 'formik' : 'forms'}/ButtonGroup`};
+				return {file: 'ButtonGroup'};
 			case 'checkbox':
-				return {file: `./${formik ? 'formik' : 'forms'}/${options ? 'CheckboxGroup' : 'Checkbox'}`};
+				return {file: `${options ? 'CheckboxGroup' : 'Checkbox'}`};
 			case 'file':
-				return {file: `./${formik ? 'formik' : 'forms'}/Dropzone`};
+				return {file: 'Dropzone'};
 			case 'inr':
-				return {file: `./${formik ? 'formik' : 'forms'}/CurrencyField`};
+				return {file: 'CurrencyField'};
 			case 'otp':
-				return {file: `./${formik ? 'formik' : 'forms'}/OtpField`};
+				return {file: 'OtpField'};
 			case 'radio':
-				return {file: `./${formik ? 'formik' : 'forms'}/${options ? 'RadioGroup' : 'Radio'}`};
+				return {file: `${options ? 'RadioGroup' : 'Radio'}`};
 			case 'select':
-				return {file: `./${formik ? 'formik' : 'forms'}/${mui ? 'Select' : 'FilterField'}`};
+				return {file: `${mui ? 'Select' : 'FilterField'}`};
 			case 'switch':
-				return {file: `./${formik ? 'formik' : 'forms'}/Switch`};
+				return {file: 'Switch'};
 			default:
-				return {file: `./${formik ? 'formik' : 'forms'}/TextField`};
+				return {file: 'TextField'};
 		}
 	}
 	componentDidMount() {
-		if (this.props.component) return;
+		const {component: c, formik = true} = this.props;
+		if (c) return;
 		const {file, error} = this.module();
 		if (error) this.setState({component: error});
 		else {
-			import(file)
-				.then(({default: component}) => this.setState({component}))
+			const p = formik ? import(`./formik/${file}`) : import(`./forms/${file}`);
+			p.then(({default: component}) => this.setState({component}))
 				.catch(e => {
 					console.error(e);  // eslint-disable-line no-console
 					this.setState({component: e.message});
@@ -102,11 +101,11 @@ class Input extends React.Component {
 		}
 	}
 	render() {
-		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, ...rest} = this.props;  // eslint-disable-line no-unused-vars
+		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
 		const Grid = container ? require('@material-ui/core/Grid').default : ({children}) => children;
 
 		const type = this.type();
-		const extraProps = this.extraProps();
+		const extraProps = {...(formik ? {fast} : {}), compact, ...this.extraProps()};
 
 		return <Grid item={true} {...container}>
 			{Field

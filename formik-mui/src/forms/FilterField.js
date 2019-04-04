@@ -79,11 +79,12 @@ function inputComponent({inputRef, ...props}) {
 }
 
 function Control(props) {
-	const {label, compact, InputAdornmentProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
+	const {label, compact, InputAdornmentProps, InputProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
 	return (
 		<TextField
 			fullWidth
 			InputProps={{
+				...InputProps,
 				inputComponent,
 				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
 				inputProps: {
@@ -186,6 +187,15 @@ class Select extends React.PureComponent {
   	} = this.props;
 		if (defaultValue) setFieldValue(name, defaultValue);
 	}
+	getValueProp(value) {
+		const {options, optionsAsync, multiple, valueWithLabel = Boolean(optionsAsync)} = this.props;
+		if (!value) return null;
+		return valueWithLabel
+			? value
+			: multiple
+				? options.filter(o => Boolean(value.filter(v => v == o.value).length)) // eslint-disable-line eqeqeq
+				: options.find(o => value == o.value); // eslint-disable-line eqeqeq
+	}
 	render() {
 		const {
 			classes, theme, label, options = [], optionsAsync, placeholder = '',
@@ -193,13 +203,20 @@ class Select extends React.PureComponent {
   		form: {dirty, touched, errors, setFieldValue, setFieldTouched} = {},
   		helperText,
 			defaultValue,
+			multiple,
 			creatable,
+			disabled,
+			isClearable,
+			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
 			InputAdornmentProps,
+			TextFieldProps: tp,
+			onChange,
+			components: pc,
 			compact, // eslint-disable-line no-unused-vars
   		...props
   	} = this.props;
-		const message = (dirty || getIn(touched, name)) && getIn(errors, name);
+		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
 
 		const selectStyles = {
 			input: base => ({
@@ -212,15 +229,26 @@ class Select extends React.PureComponent {
 			clearIndicator: base => ({...base, padding: '6px'}),
 			dropdownIndicator: base => ({...base, padding: '6px'}),
 		};
-		const TextFieldProps = {label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
+		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
+
+		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
+		const valueProp = value ? {value: this.getValueProp(value)} : {};
 		const commonProps = {
 			...props,
-			classes, placeholder, autocomplete: 'off', styles: selectStyles, components, TextFieldProps, name,
-			...(defaultValue ? {defaultValue: valueWithLabel ? defaultValue : options.find(o => o.value == defaultValue.value)} : {}), // eslint-disable-line eqeqeq
-			...(value ? {value: valueWithLabel ? value : options.find(o => o.value == value)} : {}), // eslint-disable-line eqeqeq
-			// ...(value ? {value: options.find(o => o.value == value)} : {}), // eslint-disable-line eqeqeq
-			onChange(v) {setFieldValue(name, valueWithLabel ? v : v.value);},
-			onBlur() {setFieldTouched(name);},
+			isMulti: multiple,
+			isDisabled: disabled || readOnly,
+			isClearable,
+			classes, placeholder, autocomplete: 'off', styles: selectStyles, TextFieldProps, name,
+			components: {...components, ...pc},
+			...(defaultValueProp),
+			...(valueProp),
+			onChange(v) {
+				setFieldValue && setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
+				onChange && onChange(valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
+			},
+			onBlur() {
+				setFieldTouched && setFieldTouched(name);
+			},
 		};
 
 		if (optionsAsync) {
@@ -229,7 +257,6 @@ class Select extends React.PureComponent {
 			return <AsyncSelect
 				loadOptions={optionsAsync}
 				cacheOptions
-				isClearable
 				defaultOptions
 				{...commonProps}
 			/>;

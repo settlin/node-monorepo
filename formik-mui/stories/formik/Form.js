@@ -36,8 +36,11 @@ class DemoForm extends PureComponent {
 			setSubmitting(false);
 		}, 1000);
 	}
+	PreviewsChildren({name, index}) {
+		return <Input type='select' name={`${name}.${index}.tags`} multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} InputProps={{classes: {input: 'font-small'}}}/>;
+	}
 	render() {
-		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000};
+		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000, files: [{name: '1.pdf'}, {name: 'very very very very long file name.pdf'}, {name: '2.json'}]};
 
 		return (
 			<Grid container item spacing={8} style={{padding: '2rem'}}>
@@ -47,20 +50,21 @@ class DemoForm extends PureComponent {
 							<Grid item xs={6}>
 								<Typography>Phones (Array of Inputs)</Typography>
 								<Input type='array' name='phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
-								<Input type='file' name='files' label='File Drop' container={{xs: 12}}
+								<Input type='file' name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(() => {
 										cb(new Error(403, 'failed'));
 									}, 1000)}
 									handleDelete={(file, cb) => setTimeout(() => {
 										cb(new Error(403, 'failed'));
 									}, 1000)}
+									comps={{PreviewsChildren: this.PreviewsChildren}}
 								/>
 							</Grid>
 							<Grid item xs={6}>
 								<Grid container direction='column'>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
 										<Input name='month' type='month' label='Month' container={{xs: 4}}/>
-										<Input name='date' type='date' label='Date' container={{xs: 4}}/>
+										<Input name='date' fast={false} type='date' label='Date' container={{xs: 4}}/>
 										<Input name='currency' type='inr' label='Currency' container={{xs: 4}}/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
@@ -68,7 +72,25 @@ class DemoForm extends PureComponent {
 											{value: '1', label: 'Reason 1'},
 											{value: '2', label: 'Reason 2'},
 										]}/>
+										<Input mui multiple name='mui.multi' type='select' helperText='`prop: mui` to use mui select (default: false)' container={{xs: 6}} options={[
+											{value: '', label: 'Multiple Mui'},
+											{value: '2', label: 'Reason 2'},
+										]}/>
 										<Input required name='react.select' type='select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
+											cb([
+												{value: '1', label: '1'},
+												{value: '2', label: '2'},
+											].filter(({value}) => !v || value === v));
+										}}/>
+									</Grid>
+									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
+										<Input required disabled name='react.select' type='select' label='Select (React Select)' helperText='disabled react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
+											cb([
+												{value: '1', label: '1'},
+												{value: '2', label: '2'},
+											].filter(({value}) => !v || value === v));
+										}}/>
+										<Input required readOnly name='react.select' type='select' label='Select (React Select)' helperText='readOnly react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
 											cb([
 												{value: '1', label: '1'},
 												{value: '2', label: '2'},
