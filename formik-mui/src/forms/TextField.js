@@ -18,7 +18,7 @@ class TextField extends React.PureComponent {
 		if (this.props.onBlur) this.props.onBlur(event);
 	}
 	render() {
-		let {children, fullWidth = true, compact, InputProps, InputAdornmentProps, label, ...props} = this.props;
+		let {children, fullWidth = true, fast, validate, compact, InputProps, InputAdornmentProps, label, ...props} = this.props; // eslint-disable-line no-unused-vars
 		if (compact) {
 			InputProps = {...InputProps, ...(label ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {})};
 			label = '';

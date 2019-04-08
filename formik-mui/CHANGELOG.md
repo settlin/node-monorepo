@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.20](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.19...@settlin/formik-mui@1.3.20) (2019-04-02)
+
+
+### Bug Fixes
+
+* multiple fixes ([b4869a2](http://github.com/settlin/node-monorepo/formik-mui/commit/b4869a2))
+
+
+
+
+
+## [1.3.19](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.18...@settlin/formik-mui@1.3.19) (2019-03-30)
+
+
+### Bug Fixes
+
+* filterfield without formik ([3f482f7](http://github.com/settlin/node-monorepo/formik-mui/commit/3f482f7))
+
+
+
+
+
+## [1.3.18](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.17...@settlin/formik-mui@1.3.18) (2019-03-25)
+
+**Note:** Version bump only for package @settlin/formik-mui
+
+
+
+
+
 ## [1.3.17](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.16...@settlin/formik-mui@1.3.17) (2019-03-23)
 
 

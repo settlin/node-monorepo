@@ -211,10 +211,12 @@ class Select extends React.PureComponent {
 			valueWithLabel = Boolean(optionsAsync),
 			InputAdornmentProps,
 			TextFieldProps: tp,
+			onChange,
+			components: pc,
 			compact, // eslint-disable-line no-unused-vars
   		...props
   	} = this.props;
-		const message = (dirty || getIn(touched, name)) && getIn(errors, name);
+		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
 
 		const selectStyles = {
 			input: base => ({
@@ -236,11 +238,17 @@ class Select extends React.PureComponent {
 			isMulti: multiple,
 			isDisabled: disabled || readOnly,
 			isClearable,
-			classes, placeholder, autocomplete: 'off', styles: selectStyles, components, TextFieldProps, name,
+			classes, placeholder, autocomplete: 'off', styles: selectStyles, TextFieldProps, name,
+			components: {...components, ...pc},
 			...(defaultValueProp),
 			...(valueProp),
-			onChange(v) {setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);},
-			onBlur() {setFieldTouched(name);},
+			onChange(v) {
+				setFieldValue && setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
+				onChange && onChange(valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
+			},
+			onBlur() {
+				setFieldTouched && setFieldTouched(name);
+			},
 		};
 
 		if (optionsAsync) {
