@@ -25,7 +25,7 @@ const ItemList = ({name, metaList, commonProps, faProps: {remove, push, form}}) 
 	</div>;
 };
 
-const InputArray = ({name, metaList, ...props}) => {
+const InputArray = ({name, metaList, validate, ...props}) => { // eslint-disable-line no-unused-vars
 	if (!metaList) return null;
 	return <FieldArray name={name}
 		render={p => <ItemList name={name} metaList={metaList} commonProps={{...props}} faProps={p}/>}
