@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import validateEmail from './utils/validate/email';
 import validateMobile from './utils/validate/mobile';
 import validateDob from './utils/validate/dob';
@@ -42,9 +42,11 @@ class Input extends React.PureComponent {
 			validateReq = v => typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
 			label += ' *';
 		}
+
+		const validate = typeOrig === 'array' ? null : v => validateReq(v) || validateFunc(v);
 		return {
 			label,
-			validate: v => validateReq(v) || validateFunc(v),
+			validate,
 		};
 	}
 	type() {
@@ -102,7 +104,7 @@ class Input extends React.PureComponent {
 	}
 	render() {
 		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
-		const Grid = container ? require('@material-ui/core/Grid').default : ({children}) => children;
+		const Grid = container ? require('@material-ui/core/Grid').default : Fragment;
 
 		const type = this.type();
 		const extraProps = {...(formik ? {fast} : {}), compact, ...this.extraProps()};
