@@ -10,6 +10,7 @@ export {default as FilterField} from './formik/FilterField';
 export {default as OtpField} from  './formik/OtpField';
 export {default as Persist} from './formik/Persist';
 export {default as Radio} from './formik/Radio';
+export {default as RadioGroup} from './formik/RadioGroup';
 export {default as Select} from './formik/Select';
 export {default as Switch} from './formik/Switch';
 export {default as TextField} from './formik/TextField';
