@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import clsx from 'clsx';
 
 import Radio from '@material-ui/core/Radio';
@@ -14,13 +14,19 @@ import IconButton from '@material-ui/core/IconButton';
 import formControl from '../styles/formControl';
 import formLabel from '../styles/formLabel';
 
+const ClearButton = memo((p) => (
+	<IconButton onClick={p.onClick}>
+		<Clear/>
+	</IconButton>
+));
+
 const styles = {
 	formControlCompact: formControl.compact,
 	formControlNormal: formControl.normal,
 	formLabel,
 };
 
-class RadioGroup extends React.Component {
+class RadioGroup extends React.PureComponent {
 	constructor(p) {
   	super(p);
   	this.handleChange = this.handleChange.bind(this);
@@ -101,9 +107,7 @@ class RadioGroup extends React.Component {
 					))}
   				<FormControlLabel
 						{...RadioLabelProps}
-						control={<IconButton onClick={this.handleClear}>
-							<Clear/>
-						</IconButton>}
+						control={<ClearButton onClick={this.handleClear}/>}
   				/>
   			</MuiRadioGroup>
   		</FormControl>

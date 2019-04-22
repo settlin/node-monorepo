@@ -53,19 +53,19 @@ export const styles = theme => ({
  */
 const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) {
 	const {
-		checked,
+		checked, // eslint-disable-line no-unused-vars
 		classes,
 		className: classNameProp,
 		control,
 		disabled: disabledProp,
-		inputRef,
+		inputRef, // eslint-disable-line no-unused-vars
 		label,
 		offLabel,
 		labelPlacement,
 		muiFormControl,
-		name,
-		onChange,
-		value,
+		name, // eslint-disable-line no-unused-vars
+		onChange, // eslint-disable-line no-unused-vars
+		value, // eslint-disable-line no-unused-vars
 		...other
 	} = props;
 
