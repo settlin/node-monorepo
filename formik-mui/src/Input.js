@@ -104,17 +104,18 @@ class Input extends React.PureComponent {
 	}
 	render() {
 		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
-		const Grid = container ? require('@material-ui/core/Grid').default : Fragment;
+		const Container = container ? require('@material-ui/core/Grid').default : Fragment;
+		const containerProps = container ? {item: true, ...container} : {};
 
 		const type = this.type();
 		const extraProps = {...(formik ? {fast} : {}), compact, ...this.extraProps()};
 
-		return <Grid item={true} {...container}>
+		return <Container {...containerProps}>
 			{Field
 				? <Field {...rest} {...(type ? {type} : {})} {...extraProps}/>
 				: <Loader/>
 			}
-		</Grid>;
+		</Container>;
 	}
 }
 
