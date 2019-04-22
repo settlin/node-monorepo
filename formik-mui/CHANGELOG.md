@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.24](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.23...@settlin/formik-mui@1.3.24) (2019-04-22)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** fix radio group warning ([d9a1e53](http://github.com/settlin/node-monorepo/formik-mui/commit/d9a1e53))
+
+
+
+
+
 ## [1.3.23](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.22...@settlin/formik-mui@1.3.23) (2019-04-22)
 
 
