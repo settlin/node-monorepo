@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.23](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.22...@settlin/formik-mui@1.3.23) (2019-04-22)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** fix Fragment props ([06d0a94](http://github.com/settlin/node-monorepo/formik-mui/commit/06d0a94))
+
+
+
+
+
 ## [1.3.22](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.21...@settlin/formik-mui@1.3.22) (2019-04-22)
 
 
