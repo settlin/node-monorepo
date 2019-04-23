@@ -37,7 +37,7 @@ export default function({
 				field.value = typeof field.value === 'undefined' ? '' : isDate(field.value) ? field.value.toISOString().split('T')[0] : field.value;
 				break;
 
-			default: typeof field.value === 'undefined' ? '' : field.value;
+			default: field.value = typeof field.value === 'undefined' ? '' : field.value;
 		}
 	}
 	switch (props.type) {
