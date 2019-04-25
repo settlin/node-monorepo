@@ -216,7 +216,7 @@ class Select extends React.PureComponent {
 			InputAdornmentProps,
 			TextFieldProps: tp,
 			onChange,
-			components: pc,
+			selectComponents: pc,
 			compact, // eslint-disable-line no-unused-vars
   		...props
   	} = this.props;
