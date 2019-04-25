@@ -32,6 +32,10 @@ const styles = theme => ({
 	},
 	chip: {
 		margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
+		height: `${32 - theme.spacing.unit}px`,
+	},
+	chipDeleteIcon: {
+		height: '80%',
 	},
 	chipFocused: {
 		backgroundColor: emphasize(
@@ -43,7 +47,7 @@ const styles = theme => ({
 		padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
 	},
 	singleValue: {
-		fontSize: 'inherit',
+		// fontSize: 'inherit',
 	},
 	placeholder: {
 		position: 'absolute',
@@ -153,7 +157,7 @@ function MultiValue(props) {
 				[props.selectProps.classes.chipFocused]: props.isFocused,
 			})}
 			onDelete={props.removeProps.onClick}
-			deleteIcon={<CancelIcon {...props.removeProps}/>}
+			deleteIcon={<CancelIcon className={props.selectProps.classes.chipDeleteIcon} {...props.removeProps}/>}
 		/>
 	);
 }
