@@ -170,7 +170,7 @@ function Menu(props) {
 	);
 }
 
-const components = {
+const modifiedComponents = {
 	Control,
 	Input,
 	Menu,
@@ -193,7 +193,7 @@ class Select extends React.PureComponent {
 	}
 	getValueProp(value) {
 		const {options, optionsAsync, multiple, valueWithLabel = Boolean(optionsAsync)} = this.props;
-		if (!value) return null;
+		if (!value) return multiple ? [] : undefined;  // eslint-disable-line no-undefined
 		return valueWithLabel
 			? value
 			: multiple
@@ -219,7 +219,7 @@ class Select extends React.PureComponent {
 			selectComponents: pc,
 			compact, // eslint-disable-line no-unused-vars
   		...props
-  	} = this.props;
+		} = this.props;
 		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
 
 		const selectStyles = {
@@ -236,14 +236,17 @@ class Select extends React.PureComponent {
 		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
-		const valueProp = value ? {value: this.getValueProp(value)} : {};
+		const valueProp = {value: this.getValueProp(value)};
+
+		const components = {...modifiedComponents, ...pc};
+
 		const commonProps = {
 			...props,
 			isMulti: multiple,
 			isDisabled: disabled || readOnly,
 			isClearable,
 			classes, placeholder, autocomplete: 'off', styles: selectStyles, TextFieldProps, name,
-			components: {...components, ...pc},
+			components,
 			...(defaultValueProp),
 			...(valueProp),
 			onChange(v) {
