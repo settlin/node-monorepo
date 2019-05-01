@@ -203,7 +203,7 @@ class Select extends React.PureComponent {
 	render() {
 		const {
 			classes, theme, label, options = [], optionsAsync, placeholder = '',
-  		field: {value, name} = {},
+  		field = {},
   		form: {dirty, touched, errors, setFieldValue, setFieldTouched} = {},
   		helperText,
 			defaultValue,
@@ -217,6 +217,8 @@ class Select extends React.PureComponent {
 			TextFieldProps: tp,
 			onChange,
 			selectComponents: pc,
+			name = field.name,
+			value = field.value,
 			compact, // eslint-disable-line no-unused-vars
   		...props
 		} = this.props;
@@ -237,6 +239,7 @@ class Select extends React.PureComponent {
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
 		const valueProp = {value: this.getValueProp(value)};
+		console.log(value, valueProp);
 
 		const components = {...modifiedComponents, ...pc};
 
