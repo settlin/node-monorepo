@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.31](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.30...@settlin/formik-mui@1.3.31) (2019-05-01)
+
+
+### Bug Fixes
+
+* **formik-mui:** react-select ([893b7c4](http://github.com/settlin/node-monorepo/formik-mui/commit/893b7c4))
+
+
+
+
+
 ## [1.3.30](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.29...@settlin/formik-mui@1.3.30) (2019-04-27)
 
 
