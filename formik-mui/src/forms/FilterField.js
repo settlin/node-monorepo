@@ -239,7 +239,6 @@ class Select extends React.PureComponent {
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
 		const valueProp = {value: this.getValueProp(value)};
-		console.log(value, valueProp);
 
 		const components = {...modifiedComponents, ...pc};
 
