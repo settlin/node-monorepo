@@ -97,7 +97,7 @@ class DropzoneArea extends React.PureComponent {
 		if (!Array.isArray(value)) console.error('Received value is not an array', value); // eslint-disable-line no-console
 		const files = value.map(f => {
 			if (f instanceof File) {
-				f.preview = previewFunction(f);
+				f.preview = f.preview || previewFunction(f);
 				return f;
 			}
 			return {
