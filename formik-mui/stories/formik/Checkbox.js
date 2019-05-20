@@ -51,7 +51,13 @@ class DemoForm extends PureComponent {
 								<Input name='checkboxGroup.optional' type='checkbox' container={{xs: 4}} label='Checkbox Group' options={[
 									{value: 'me', label: 'Me'},
 									{value: 'you', label: 'You'},
-								]}/>
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You1234'},
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You11W'},
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You'},
+								]} FormGroupProps={{style: {display: 'grid', 'grid-template-columns': 'auto auto auto auto'}}}/>
 								<Input name='checkbox.optional' type='checkbox' container={{xs: 2}} label='Checkbox'/>
 								<Input name='switch.optional' type='switch' container={{xs: 3}} label='On' offLabel='Off'/>
 							</Grid>

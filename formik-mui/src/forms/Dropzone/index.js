@@ -184,9 +184,16 @@ class FormikMaterialUIDropzone extends React.PureComponent {
 		this.handleError = this.handleError.bind(this);
 		this.postDelete = this.postDelete.bind(this);
 	}
-	handleAdd(file) {
+	handleAdd(fileOrig) {
 		const {field = {}, form, onChange, value} = this.props;
 		let files = value || field.value || [];
+		const file = {
+			lastModified: fileOrig.lastModified,
+			lastModifiedDate: fileOrig.lastModifiedDate,
+			name: fileOrig.name,
+			size: fileOrig.size,
+			type: fileOrig.type,
+		};
 		files = files.find(f => f.name === file.name) ? files.map(f => f.name === file.name ? file : f) : [...files, file];
 		if (form) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
 		if (onChange) onChange(files);

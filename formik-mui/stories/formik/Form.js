@@ -4,6 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import {Formik, Form, setIn} from 'formik';
 import {Input, Button, currencify} from '../../src';
 
+const vvv = values => ({...values, files: (values.files || []).map(f => ({
+	name: f.name,
+	...f,
+}))});
 class DemoForm extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -37,7 +41,12 @@ class DemoForm extends PureComponent {
 		}, 1000);
 	}
 	PreviewsChildren({name, index}) {
-		return <Input type='select' name={`${name}.${index}.tags`} multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} InputProps={{classes: {input: 'font-small'}}}/>;
+		return <React.Fragment>
+			<Input type='hidden' name={`${name}.${index}.name`}/>
+			<Input type='date' name={`${name}.${index}.dated`} fast={false} placeholder='Dated' InputProps={{classes: {input: 'mui'}}}/>
+			<Input type='text' name={`${name}.${index}.notes`} fast={false} placeholder='Notes' InputProps={{classes: {input: 'mui'}}}/>
+			<Input type='select' isClearable={false} name={`${name}.${index}.tags`} fast={false} multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} TextFieldProps={{InputProps: {classes: {input: 'font-small'}}}}/>
+		</React.Fragment>;
 	}
 	render() {
 		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000, files: [{name: '1.pdf'}, {name: 'very very very very long file name.pdf'}, {name: '2.json'}]};
@@ -51,12 +60,8 @@ class DemoForm extends PureComponent {
 								<Typography>Phones (Array of Inputs)</Typography>
 								<Input type='array' name='phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
 								<Input type='file' name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
-									handleUpload={(file, cb) => setTimeout(() => {
-										cb(new Error(403, 'failed'));
-									}, 1000)}
-									handleDelete={(file, cb) => setTimeout(() => {
-										cb(new Error(403, 'failed'));
-									}, 1000)}
+									handleUpload={(file, cb) => setTimeout(cb, 1000)}
+									handleDelete={(file, cb) => setTimeout(cb, 1000)}
 									comps={{PreviewsChildren: this.PreviewsChildren}}
 								/>
 							</Grid>
@@ -107,7 +112,7 @@ class DemoForm extends PureComponent {
 								<Button type='submit' variant='contained' size='small' disabled={!isValid || isSubmitting} processing={isSubmitting} label='Submit'/>
 							</Grid>
 							<Grid container item xs={12} justify='center'>
-								Values: {JSON.stringify(values)}
+								Values: {JSON.stringify(vvv(values))}
 							</Grid>
 							<Grid container item xs={12} justify='center'>
 								Errors: {JSON.stringify(errors)}
