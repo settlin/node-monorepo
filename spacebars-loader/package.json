@@ -1,5 +1,5 @@
 {
-  "name": "spacebars-loader",
+  "name": "@settlin/spacebars-loader",
   "version": "1.0.1",
   "description": "blaze templates loader for meteor-webpack",
   "keywords": [
@@ -27,5 +27,6 @@
   },
   "bugs": {
     "url": "https://github.com/settlin/node-monorepo/issues"
-  }
+  },
+  "gitHead": "988440648f1f4681d6aaf536f72fce549c7c34a9"
 }

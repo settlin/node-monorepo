@@ -37,7 +37,7 @@
     "chai-as-promised": "^7.1.1",
     "mocha": "^5.2.0"
   },
-  "gitHead": "b40ad230451155575ec5a4ccf0b58a8e16b59a99",
+  "gitHead": "988440648f1f4681d6aaf536f72fce549c7c34a9",
   "publishConfig": {
     "access": "public"
   }
