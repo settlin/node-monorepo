@@ -1,0 +1,24 @@
+{
+  "name": "@settlin/spacebars-loader",
+  "version": "1.3.0",
+  "description": "Webpack loader plugin for Blaze (Spacebars) templates",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/settlin/node-monorepo/spacebars-loader"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "settlin",
+  "license": "ISC",
+  "dependencies": {
+    "loader-utils": "0.2.x",
+    "lodash": "^3.0.1",
+    "meteor-blaze-tools": "^1.2.4",
+    "meteor-core": "^1.2.4",
+    "meteor-html-tools": "^1.2.4",
+    "meteor-htmljs": "^1.2.4",
+    "meteor-spacebars-compiler": "^1.2.4"
+  },
+  "main": "index.js"
+}

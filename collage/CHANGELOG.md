@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.4.0...@settlin/collage@1.5.0) (2019-05-24)
+
+
+### Features
+
+* **spacebars-loader:** blaze loader for webpack ([b9bf2ff](http://github.com/settlin/node-monorepo/collage/commit/b9bf2ff))
+
+
+
+
+
 # [1.4.0](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.3.0...@settlin/collage@1.4.0) (2019-03-15)
 
 
