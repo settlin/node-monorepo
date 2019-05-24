@@ -1,6 +1,6 @@
 {
   "name": "@settlin/spacebars-loader",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Webpack loader plugin for Blaze (Spacebars) templates",
   "repository": {
     "type": "git",
