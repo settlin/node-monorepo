@@ -2,7 +2,8 @@
   "packages": [
     "collage",
     "formik-mui",
-    "mongo-backup"
+    "mongo-backup",
+    "spacebars-loader"
   ],
   "version": "independent",
   "command": {
