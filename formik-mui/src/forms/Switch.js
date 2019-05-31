@@ -6,12 +6,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from './FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-const styles = () => ({
-	switchBase: {
-		height: 32,
-	},
-});
-
 class Switch extends React.PureComponent {
 	constructor(p) {
 		super(p);
@@ -37,8 +31,6 @@ class Switch extends React.PureComponent {
 			offLabel,
 			...props
 		} = this.props;
-
-		if (props.compact) delete props.classes.switchBase;
 
 		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'checkbox'});  // eslint-disable-line no-unused-vars
 		// removed type from props to ensure proper working of checkbox in formik
@@ -71,4 +63,4 @@ class Switch extends React.PureComponent {
 }
 Switch.displayName = 'FormikMaterialUISwitch';
 
-export default withStyles(styles)(Switch);
+export default Switch;
