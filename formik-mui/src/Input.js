@@ -4,6 +4,20 @@ import validateMobile from './utils/validate/mobile';
 import validateDob from './utils/validate/dob';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+class ErrorBoundary extends React.Component {
+	state = {error: false};
+	static getDerivedStateFromError(error) {
+		return {error};
+	}
+	componentDidCatch(error, info) {
+		console.log(error, info); // eslint-disable-line no-console
+	}
+	render() {
+		if (this.state.error) return <h1>{this.state.error.toString()}</h1>;
+		return this.props.children;
+	}
+}
+
 class Input extends React.PureComponent {
 	state = {}
 	extraProps() {
@@ -63,59 +77,57 @@ class Input extends React.PureComponent {
 	}
 	module() {
 		let {type, mui, formik = true, options} = this.props;
+		let file = 'TextField';
 
 		switch (type) {
 			case 'array':
-				if (!formik) return {error: '`array` type is only supported via formik. `formik` prop must be set to true in order to use it.'};
-				return {file: 'InputArray'};
+				if (!formik) throw new Error('`array` type is only supported via formik. `formik` prop must be set to true in order to use it.');
+				file = 'InputArray';
+				break;
 			case 'buttons':
-				return {file: 'ButtonGroup'};
+				file = 'ButtonGroup';
+				break;
 			case 'checkbox':
-				return {file: `${options ? 'CheckboxGroup' : 'Checkbox'}`};
+				file = options ? 'CheckboxGroup' : 'Checkbox';
+				break;
 			case 'file':
-				return {file: 'Dropzone'};
+				file = 'Dropzone';
+				break;
 			case 'inr':
-				return {file: 'CurrencyField'};
+				file = 'CurrencyField';
+				break;
 			case 'otp':
-				return {file: 'OtpField'};
+				file = 'OtpField';
+				break;
 			case 'radio':
-				return {file: `${options ? 'RadioGroup' : 'Radio'}`};
+				file = `${options ? 'RadioGroup' : 'Radio'}`;
+				break;
 			case 'select':
-				return {file: `${mui ? 'Select' : 'FilterField'}`};
+				file = `${mui ? 'Select' : 'FilterField'}`;
+				break;
 			case 'switch':
-				return {file: 'Switch'};
-			default:
-				return {file: 'TextField'};
+				file = 'Switch';
+				break;
 		}
-	}
-	componentDidMount() {
-		const {component: c, formik = true} = this.props;
-		if (c) return;
-		const {file, error} = this.module();
-		if (error) this.setState({component: error});
-		else {
-			const p = formik ? import(`./formik/${file}`) : import(`./forms/${file}`);
-			p.then(({default: component}) => this.setState({component}))
-				.catch(e => {
-					console.error(e);  // eslint-disable-line no-console
-					this.setState({component: e.message});
-				});
-		}
+
+		return formik ? require(`./formik/${file}`).default : require(`./forms/${file}`).default;
 	}
 	render() {
-		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
+		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.module(), Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
 		const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 		const containerProps = container ? {item: true, ...container} : {};
 
 		const type = this.type();
 		const extraProps = {...(formik ? {fast} : {}), compact, ...this.extraProps()};
 
-		return <Container {...containerProps}>
-			{Field
-				? <Field {...rest} {...(type ? {type} : {})} {...extraProps}/>
-				: <Loader/>
-			}
-		</Container>;
+		return <ErrorBoundary>
+			<Container {...containerProps}>
+				{Field
+					? <Field {...rest} {...(type ? {type} : {})} {...extraProps}/>
+					: <Loader/>
+				}
+			</Container>
+		</ErrorBoundary>;
 	}
 }
 

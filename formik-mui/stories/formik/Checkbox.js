@@ -57,7 +57,7 @@ class DemoForm extends PureComponent {
 									{value: 'you', label: 'You11W'},
 									{value: 'me', label: 'Me'},
 									{value: 'you', label: 'You'},
-								]} FormGroupProps={{style: {display: 'grid', 'grid-template-columns': 'auto auto auto auto'}}}/>
+								]} FormGroupProps={{style: {display: 'grid', gridTemplateColumns: 'auto auto auto auto'}}}/>
 								<Input name='checkbox.optional' type='checkbox' container={{xs: 2}} label='Checkbox'/>
 								<Input name='switch.optional' type='switch' container={{xs: 3}} label='On' offLabel='Off'/>
 							</Grid>
