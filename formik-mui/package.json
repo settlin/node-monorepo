@@ -41,9 +41,9 @@
   },
   "homepage": "https://github.com/settlin/node-monorepo/formik-mui#readme",
   "peerDependencies": {
-    "@material-ui/core": ">=3.0.0",
-    "@material-ui/icons": ">=3",
-    "@material-ui/lab": ">=3",
+    "@material-ui/core": ">=4",
+    "@material-ui/icons": ">=4",
+    "@material-ui/lab": ">=4",
     "formik": ">=1",
     "react": ">=16",
     "react-dom": ">=16",
