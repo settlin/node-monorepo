@@ -19,7 +19,7 @@ const styles = (theme) => ({
 		position: 'relative',
 	},
 	marginRight: {
-		marginRight: theme.spacing,
+		marginRight: theme.spacing(1),
 	},
 	wrapperFullWidth: {
 		margin: 'auto',
