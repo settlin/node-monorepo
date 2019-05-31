@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.34...@settlin/formik-mui@2.0.0) (2019-05-31)
+
+
+### Features
+
+* **formik-mui:** removed lazy loading for ssr ([d2aebe0](http://github.com/settlin/node-monorepo/formik-mui/commit/d2aebe0))
+
+
+### BREAKING CHANGES
+
+* **formik-mui:** upgraded to material-ui v4
+
+
+
+
+
 ## [1.3.34](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.33...@settlin/formik-mui@1.3.34) (2019-05-20)
 
 
