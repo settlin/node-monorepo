@@ -52,10 +52,10 @@ class DemoForm extends PureComponent {
 		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000, files: [{name: '1.pdf'}, {name: 'very very very very long file name.pdf'}, {name: '2.json'}]};
 
 		return (
-			<Grid container item spacing={8} style={{padding: '2rem'}}>
+			<Grid container item spacing={1} style={{padding: '2rem'}}>
 				<Formik initialValues={initialValues} enableReinitialize={true} isInitialValid={false} onSubmit={this.hSubmit} validate={this.validate}>
 					{({isSubmitting, values, errors, isValid}) => <Form  autoComplete='off' style={{width: '100%'}}>
-						<Grid container item spacing={8} xs={12}>
+						<Grid container item spacing={1} xs={12}>
 							<Grid item xs={6}>
 								<Typography>Phones (Array of Inputs)</Typography>
 								<Input type='array' name='phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
@@ -67,12 +67,12 @@ class DemoForm extends PureComponent {
 							</Grid>
 							<Grid item xs={6}>
 								<Grid container direction='column'>
-									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
+									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input name='month' type='month' label='Month' container={{xs: 4}}/>
 										<Input name='date' fast={false} type='date' label='Date' container={{xs: 4}}/>
 										<Input name='currency' type='inr' label='Currency' container={{xs: 4}}/>
 									</Grid>
-									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
+									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input required mui name='mui' type='select' label='Select (Material UI)' helperText='`prop: mui` to use mui select (default: false)' container={{xs: 6}} options={[
 											{value: '1', label: 'Reason 1'},
 											{value: '2', label: 'Reason 2'},
@@ -88,7 +88,7 @@ class DemoForm extends PureComponent {
 											].filter(({value}) => !v || value === v));
 										}}/>
 									</Grid>
-									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
+									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input required disabled name='react.select' type='select' label='Select (React Select)' helperText='disabled react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
 											cb([
 												{value: '1', label: '1'},
@@ -102,7 +102,7 @@ class DemoForm extends PureComponent {
 											].filter(({value}) => !v || value === v));
 										}}/>
 									</Grid>
-									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={8}>
+									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input name='textArea' multiline label='Text Area' multiline container={{xs: 6}}/>
 										<Input name='textBox' label='Text Box' container={{xs: 6}}/>
 									</Grid>

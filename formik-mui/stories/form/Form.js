@@ -9,7 +9,7 @@ class DemoForm extends PureComponent {
 		const {onChange} = this.props;
 		const {'switch.optional': so, 'checkbox.optional': co, 'radio.optional': ro} = this.state;
 		return (
-			<Grid container item spacing={8} style={{padding: '2rem'}}>
+			<Grid container item spacing={1} style={{padding: '2rem'}}>
 				<Grid item xs={12}>
 					<Typography variant='h5'>Compact: true (default)</Typography>
 					<Grid container>

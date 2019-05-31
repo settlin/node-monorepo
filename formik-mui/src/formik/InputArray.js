@@ -18,7 +18,7 @@ const ItemList = ({name, metaList, commonProps, faProps: {remove, push, form}}) 
 	if (!values.length) values = [''];
 
 	return <div>
-		{values.map((v, index) => <Grid key={index} container spacing={24}>
+		{values.map((v, index) => <Grid key={index} container spacing={3}>
 			<Item prefix={`${name}.${index}`} {...{metaList, commonProps, remove, index}}/>
 			{(index >= values.length - 1) && Boolean(v) && <IconButton size='small' aria-label='Add' onClick={() => push('')} style={{margin: '8px 0'}}><Add fontSize='small'/></IconButton>}
 		</Grid>)}

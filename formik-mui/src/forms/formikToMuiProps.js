@@ -42,7 +42,8 @@ export default function({
 	}
 	switch (props.type) {
 		case 'checkbox':
-			extraProps.checked = typeof checked !== 'undefined' ? checked : (field || {}).value || props.value ? 'checked' : '';
+		case 'switch':
+			extraProps.checked = typeof checked !== 'undefined' ? checked : Boolean((field || {}).value || props.value);
 			break;
 	}
 
