@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.5...@settlin/formik-mui@2.0.6) (2019-06-04)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** remove console.log ([550fe2e](http://github.com/settlin/node-monorepo/formik-mui/commit/550fe2e))
+
+
+
+
+
 ## [2.0.5](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.4...@settlin/formik-mui@2.0.5) (2019-06-04)
 
 
