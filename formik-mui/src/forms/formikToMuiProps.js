@@ -29,6 +29,10 @@ export default function({
 				field.value = typeof field.value === 'undefined' ? '' : field.value === true ? 'checked' : field.value || '';
 				break;
 
+			case 'switch':
+				field.value = typeof field.value === 'undefined' ? false : Boolean(field.value);
+				break;
+
 			case 'file':
 				field.value = typeof field.value === 'undefined' ? [] : field.value;
 				break;
