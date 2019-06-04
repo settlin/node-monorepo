@@ -95,7 +95,6 @@ class DropzoneArea extends React.PureComponent {
 		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name} = this.props;
 		const {errors = []} = this.state;
 		if (!Array.isArray(value)) console.error('Received value is not an array', value); // eslint-disable-line no-console
-		console.log(1, value);
 		const files = value.map(f => {
 			if (f.new) {
 				f.preview = f.preview || previewFunction(f);
@@ -108,7 +107,6 @@ class DropzoneArea extends React.PureComponent {
 				uploaded: true,
 			};
 		});
-		console.log(2, files);
 
 		return (
 			<Grid container direction='column' className={clsx(classes.dropzoneContainer, cs.dropzoneContainer)}>
