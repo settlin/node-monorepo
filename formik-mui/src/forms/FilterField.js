@@ -117,6 +117,7 @@ function Option(props) {
 			component='div'
 			style={{
 				fontWeight: props.isSelected ? 500 : 400,
+				zIndex: 2,
 			}}
 			{...props.innerProps}
 		>
@@ -221,6 +222,7 @@ class Select extends React.PureComponent {
 			name = field.name,
 			value = field.value,
 			compact, // eslint-disable-line no-unused-vars
+			 selectStyles: styles = {},
   		...props
 		} = this.props;
 		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
@@ -232,15 +234,17 @@ class Select extends React.PureComponent {
 				'& input': {
 					font: 'inherit',
 				},
+				...styles.selectInput,
 			}),
-			clearIndicator: base => ({...base, padding: '6px'}),
-			dropdownIndicator: base => ({...base, padding: '6px'}),
+			clearIndicator: base => ({...base, padding: '6px', ...styles.clearIndicator}),
+			dropdownIndicator: base => ({...base, padding: '6px', ...styles.dropdownIndicator}),
+			indicatorSeparator: base => ({...base, ...styles.indicatorSeparator}),
+
 		};
 		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
 		const valueProp = {value: this.getValueProp(value)};
-
 		const components = {...modifiedComponents, ...pc};
 
 		const commonProps = {

@@ -59,9 +59,8 @@ class CircularIntegration extends React.Component {
 		});
 
 		const IconComp = success ? CheckIcon : Icon;
-
   	return (
-			<div className={classes.root} style={{width: fullWidth ? '100%' : 'auto'}}>
+			<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}}>
   			{fab
   				? (
   					<div className={classes.wrapper}>
