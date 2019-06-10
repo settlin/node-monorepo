@@ -222,7 +222,7 @@ class Select extends React.PureComponent {
 			name = field.name,
 			value = field.value,
 			compact, // eslint-disable-line no-unused-vars
-			 selectStyles: styles = {},
+			selectStyles: ss = {},
   		...props
 		} = this.props;
 		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
@@ -234,14 +234,14 @@ class Select extends React.PureComponent {
 				'& input': {
 					font: 'inherit',
 				},
-				...styles.selectInput,
+				...ss.selectInput,
 			}),
-			clearIndicator: base => ({...base, padding: '6px', ...styles.clearIndicator}),
-			dropdownIndicator: base => ({...base, padding: '6px', ...styles.dropdownIndicator}),
-			indicatorSeparator: base => ({...base, ...styles.indicatorSeparator}),
+			clearIndicator: base => ({...base, padding: '6px', ...ss.clearIndicator}),
+			dropdownIndicator: base => ({...base, padding: '6px', ...ss.dropdownIndicator}),
+			indicatorSeparator: base => ({...base, ...ss.indicatorSeparator}),
 
 		};
-		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
+		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
 		const valueProp = {value: this.getValueProp(value)};
