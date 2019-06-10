@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.7](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.6...@settlin/formik-mui@2.0.7) (2019-06-10)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** disabled readOnly for filterfield ([89105be](http://github.com/settlin/node-monorepo/formik-mui/commit/89105be))
+
+
+
+
+
 ## [2.0.6](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.5...@settlin/formik-mui@2.0.6) (2019-06-04)
 
 
