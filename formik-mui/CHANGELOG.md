@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.9](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.8...@settlin/formik-mui@2.0.9) (2019-06-12)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** input array label ([ac79ca6](http://github.com/settlin/node-monorepo/formik-mui/commit/ac79ca6))
+
+
+
+
+
 ## [2.0.8](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.7...@settlin/formik-mui@2.0.8) (2019-06-10)
 
 
