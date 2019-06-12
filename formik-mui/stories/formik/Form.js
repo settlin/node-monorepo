@@ -58,7 +58,7 @@ class DemoForm extends PureComponent {
 						<Grid container item spacing={1} xs={12}>
 							<Grid item xs={6}>
 								<Typography>Phones (Array of Inputs)</Typography>
-								<Input type='array' name='phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
+								<Input type='array' name='phones' label='Phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
 								<Input type='file' name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(cb, 1000)}
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
