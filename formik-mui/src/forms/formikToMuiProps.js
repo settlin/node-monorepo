@@ -8,6 +8,7 @@ export default function({
 	error,
 	multiple,
 	checked,
+	defaultValue,
 	...props
 }) {
 	const {name, onChange} = field;
@@ -20,6 +21,8 @@ export default function({
 	const extraProps = {};
 
 	if (onChange) {
+		field.value = defaultValue || field.value;
+
 		switch (props.type) {
 			case 'select':
 				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;

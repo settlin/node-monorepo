@@ -92,7 +92,7 @@ class DropzoneArea extends React.PureComponent {
 		});
 	}
 	render() {
-		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name} = this.props;
+		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name, acceptedFiles, DropzoneProps} = this.props;
 		const {errors = []} = this.state;
 		if (!Array.isArray(value)) console.error('Received value is not an array', value); // eslint-disable-line no-console
 		const files = value.map(f => {
@@ -112,11 +112,12 @@ class DropzoneArea extends React.PureComponent {
 			<Grid container direction='column' className={clsx(classes.dropzoneContainer, cs.dropzoneContainer)}>
 				<Grid item>
 					<Dropzone
-						accept={this.props.acceptedFiles.join(',')}
+						accept={acceptedFiles.join(',')}
 						onDrop={this.onDrop.bind(this)}
 						acceptClassName={classes.stripes}
 						rejectClassName={classes.rejectStripes}
-						maxSize={this.props.maxSize}
+						{...DropzoneProps}
+						maxSize={this.props.maxSize} // to overwrite DropzoneProps.maxSize
 					>
 						{({getRootProps, getInputProps}) => (
 							<Fragment>
