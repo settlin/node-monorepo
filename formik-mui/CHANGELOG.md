@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.11](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.10...@settlin/formik-mui@2.0.11) (2019-07-01)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** click on adornment to focus input ([3258e93](http://github.com/settlin/node-monorepo/formik-mui/commit/3258e93))
+
+
+
+
+
 ## [2.0.10](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.9...@settlin/formik-mui@2.0.10) (2019-06-20)
 
 
