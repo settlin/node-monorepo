@@ -20,7 +20,7 @@ class TextField extends React.PureComponent {
 	render() {
 		let {children, fullWidth = true, fast, validate, compact, InputProps, InputAdornmentProps, label, ...props} = this.props; // eslint-disable-line no-unused-vars
 		if (compact) {
-			InputProps = {...InputProps, ...(label ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {})};
+			InputProps = {...InputProps, ...(label ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' disablePointerEvents={true} {...InputAdornmentProps}>{label}</InputAdornment>} : {})};
 			label = '';
 		}
 
