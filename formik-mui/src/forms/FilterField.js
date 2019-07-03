@@ -267,7 +267,7 @@ class Select extends React.PureComponent {
 		};
 
 		if (optionsAsync) {
-			const {default: AsyncSelect} = creatable ? require('react-select/lib/AsyncCreatable') : require('react-select/lib/Async');
+			const {default: AsyncSelect} = creatable ? require('react-select/async-creatable') : require('react-select/async');
 
 			return <AsyncSelect
 				loadOptions={optionsAsync}
@@ -276,7 +276,7 @@ class Select extends React.PureComponent {
 				{...commonProps}
 			/>;
 		}
-		const SyncSelect = creatable ? require('react-select/lib/Creatable').default : ReactSelect;
+		const SyncSelect = creatable ? require('react-select/creatable').default : ReactSelect;
 		return (
 			<SyncSelect
 				options={options || []}
