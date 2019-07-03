@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.11...@settlin/formik-mui@3.0.0) (2019-07-03)
+
+
+### Features
+
+* **@settlin/formik-mui:** react-select@3 + npm update ([4b8ea43](http://github.com/settlin/node-monorepo/formik-mui/commit/4b8ea43))
+
+
+### BREAKING CHANGES
+
+* **@settlin/formik-mui:** upgraded to react-select v3
+
+
+
+
+
 ## [2.0.11](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.10...@settlin/formik-mui@2.0.11) (2019-07-01)
 
 
