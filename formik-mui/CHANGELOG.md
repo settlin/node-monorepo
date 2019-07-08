@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.0...@settlin/formik-mui@3.0.1) (2019-07-08)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** onclick on label click ([6d7b28a](http://github.com/settlin/node-monorepo/formik-mui/commit/6d7b28a))
+
+
+
+
+
 # [3.0.0](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@2.0.11...@settlin/formik-mui@3.0.0) (2019-07-03)
 
 
