@@ -222,6 +222,7 @@ class Select extends React.PureComponent {
 			name = field.name,
 			value = field.value,
 			compact, // eslint-disable-line no-unused-vars
+			openMenuOnFocus = true,
 			selectStyles: ss = {},
   		...props
 		} = this.props;
@@ -240,7 +241,7 @@ class Select extends React.PureComponent {
 			dropdownIndicator: base => ({...base, padding: '6px', ...ss.dropdownIndicator}),
 			indicatorSeparator: base => ({...base, ...ss.indicatorSeparator}),
 		};
-		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus() || this.selectRef.click()};
+		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus()};
 		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
@@ -254,6 +255,7 @@ class Select extends React.PureComponent {
 			isClearable,
 			classes, placeholder, autocomplete: 'off', styles: selectStyles, TextFieldProps, name,
 			components,
+			openMenuOnFocus,
 			...(defaultValueProp),
 			...(valueProp),
 			onChange(v) {
