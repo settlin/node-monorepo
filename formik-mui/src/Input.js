@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component {
 class Input extends React.PureComponent {
 	state = {}
 	extraProps() {
-		let {type: typeOrig, label = '', required, validate: validateOrig, formik = true} = this.props;
+		let {type: typeOrig, label = '', required, validate: validateOrig, compact = true, formik = true} = this.props;
 
 		if (!formik) return {label};
 		let validateFunc = () => { }, validateReq = () => { };
@@ -54,7 +54,7 @@ class Input extends React.PureComponent {
 		}
 		if (required) {
 			validateReq = v => typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
-			label += ' *';
+			if (compact) label += ' *';
 		}
 
 		const validate = typeOrig === 'array' ? null : v => validateReq(v) || validateFunc(v);

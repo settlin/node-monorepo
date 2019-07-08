@@ -240,7 +240,7 @@ class Select extends React.PureComponent {
 			dropdownIndicator: base => ({...base, padding: '6px', ...ss.dropdownIndicator}),
 			indicatorSeparator: base => ({...base, ...ss.indicatorSeparator}),
 		};
-		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus()};
+		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus() || this.selectRef.click()};
 		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
@@ -272,7 +272,7 @@ class Select extends React.PureComponent {
 			return <AsyncSelect
 				loadOptions={optionsAsync}
 				cacheOptions
-				defaultOptions
+				defaultOptions={[]}
 				{...commonProps}
 			/>;
 		}

@@ -53,7 +53,7 @@ const styles = (theme) => ({
 
 class CircularIntegration extends React.Component {
 	render() {
-  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', children = 'Submit', Icon, fullWidth, ...rest} = this.props;
+  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon, fullWidth, ...rest} = this.props;
   	const buttonClassname = clsx({
   		[classes.buttonSuccess]: success,
 		});
