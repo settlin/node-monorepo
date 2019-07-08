@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.1...@settlin/formik-mui@3.0.2) (2019-07-08)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** openmenuonfocus true by default ([ba80847](http://github.com/settlin/node-monorepo/formik-mui/commit/ba80847))
+
+
+
+
+
 ## [3.0.1](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.0...@settlin/formik-mui@3.0.1) (2019-07-08)
 
 
