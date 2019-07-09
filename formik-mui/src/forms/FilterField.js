@@ -217,7 +217,6 @@ class Select extends React.PureComponent {
 			isClearable,
 			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
-			TextFieldProps: {InputAdornmentProps: iAP, ...tp} = {},
 			onChange,
 			selectComponents: pc,
 			name = field.name,
@@ -225,6 +224,14 @@ class Select extends React.PureComponent {
 			compact, // eslint-disable-line no-unused-vars
 			openMenuOnFocus = true,
 			selectStyles: ss = {},
+			// props for TextField: start
+			FormHelperTextProps,
+			InputAdornmentProps: iAP,
+			InputLabelProps,
+			InputProps,
+			inputProps,
+			inputRef,
+			// props for TextField: end
   		...props
 		} = this.props;
 		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
@@ -243,7 +250,7 @@ class Select extends React.PureComponent {
 			indicatorSeparator: base => ({...base, ...ss.indicatorSeparator}),
 		};
 		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus()};
-		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly};
+		const TextFieldProps = {label, compact, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly, FormHelperTextProps, InputAdornmentProps, InputLabelProps, InputProps, inputProps, inputRef};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
 		const valueProp = {value: this.getValueProp(value)};
