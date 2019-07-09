@@ -81,12 +81,30 @@ class DemoForm extends PureComponent {
 											{value: '', label: 'Multiple Mui'},
 											{value: '2', label: 'Reason 2'},
 										]}/>
-										<Input required name='react.select' type='select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
+										<Input required name='react.select' type='select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}} 
+										optionsAsync={function(v, cb) {
 											cb([
 												{value: '1', label: '1'},
 												{value: '2', label: '2'},
 											].filter(({value}) => !v || value === v));
-										}}/>
+										}}
+										options={[
+											{value: '', label: 'Multiple Mui'},
+											{value: '2', label: 'Reason 2'},
+										]}
+										/>
+										<Input required name='react.select' compact={false} type='select' label='Select (React Select)' helperText='React select without compact' container={{xs: 6}} 
+										options={[
+											{value: '1', label: '1'},
+											{value: '2', label: '2'},
+										]}
+										/>
+										<Input required name='react.select' compact={false} InputLabelProps={{shrink: true}} type='select' label='Select (React Select)' helperText='React select with fixed label' container={{xs: 6}} 
+										options={[
+											{value: '1', label: '1'},
+											{value: '2', label: '2'},
+										]}
+										/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input required disabled name='react.select' type='select' label='Select (React Select)' helperText='disabled react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
@@ -104,7 +122,7 @@ class DemoForm extends PureComponent {
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input name='textArea' multiline label='Text Area' multiline container={{xs: 6}}/>
-										<Input name='textBox' label='Text Box' container={{xs: 6}}/>
+										<Input name='textBox' label='Text Box' container={{xs: 6}} compact={false} InputLabelProps={{shrink: true}}/>
 									</Grid>
 								</Grid>
 							</Grid>
