@@ -58,10 +58,10 @@ class UserPhoneOtp extends React.PureComponent {
 		super(props);
 		this.hSend = this.hSend.bind(this);
 		this.hVerify = this.hVerify.bind(this);
-		this.hSetOtp = this.hSetOtp.bind(this);
 		this.hCancelOtp = this.hCancelOtp.bind(this);
+		this.hSetOtp = this.hSetOtp.bind(this);
+		this.hEnterOnOtp = this.hEnterOnOtp.bind(this);
 		this.hEnterOnMobile = this.hEnterOnMobile.bind(this);
-		this.hent = this.hent.bind(this);
 	}
 	hSend({resend} = {}) {
 		let {otpPurpose = 'verification', onOtpSend, field: {name, value} = {}, form: {errors = {}, setFieldError} = {}} = this.props;
