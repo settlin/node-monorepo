@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.5](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.4...@settlin/formik-mui@3.0.5) (2019-07-09)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** filterfield props - uniform props api ([2a8e20a](http://github.com/settlin/node-monorepo/formik-mui/commit/2a8e20a))
+
+
+
+
+
 ## [3.0.4](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.3...@settlin/formik-mui@3.0.4) (2019-07-09)
 
 
