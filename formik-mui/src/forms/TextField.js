@@ -30,7 +30,7 @@ class TextField extends React.PureComponent {
 				{...{children, fullWidth, InputProps, label}}
 				onChange={this.handleChange}
 				onBlur={this.handleBlur}
-				InputLabelProps={Object.keys(InputLabelProps).length ? InputLabelProps : (fp.type === 'date' ? {shrink: true} : {})}
+				InputLabelProps={(fp.type === 'date' ? {shrink: true, ...InputLabelProps} : {...InputLabelProps})}
 			/>
 		);
 	}

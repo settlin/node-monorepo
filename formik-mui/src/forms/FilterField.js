@@ -84,8 +84,7 @@ function inputComponent({inputRef, ...props}) {
 }
 
 function Control(props) {
-	const {label, compact, InputAdornmentProps, InputProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
-	const {InputLabelProps} = props.selectProps;
+	const {label, compact, InputAdornmentProps, InputProps, InputLabelProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
 
 	return (
 		<TextField
@@ -102,7 +101,7 @@ function Control(props) {
 				},
 			}}
 			{...(!compact && label) ? {label} : {}}
-			InputLabelProps={InputLabelProps ? InputLabelProps : {shrink: props.isFocused || props.hasValue}}
+			InputLabelProps={{shrink: props.isFocused || props.hasValue, ...InputLabelProps}}
 			{...TextFieldProps}
 		/>
 	);
@@ -220,6 +219,7 @@ class Select extends React.PureComponent {
 			valueWithLabel = Boolean(optionsAsync),
 			InputAdornmentProps: iAP,
 			TextFieldProps: tp,
+			InputLabelProps: iLP = {},
 			onChange,
 			selectComponents: pc,
 			name = field.name,
@@ -245,7 +245,7 @@ class Select extends React.PureComponent {
 			indicatorSeparator: base => ({...base, ...ss.indicatorSeparator}),
 		};
 		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus()};
-		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly};
+		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly, InputLabelProps: iLP};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
 		const valueProp = {value: this.getValueProp(value)};
