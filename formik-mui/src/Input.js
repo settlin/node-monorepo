@@ -44,7 +44,6 @@ class Input extends React.PureComponent {
 					validateFunc = v => !/^\d*$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Amount');
 					break;
 				case 'mobile':
-				case 'otp':
 					validateFunc = v => validateMobile(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Indian Mobile');
 					break;
 				case 'email':
@@ -70,7 +69,6 @@ class Input extends React.PureComponent {
 			case 'inr':
 			case 'mobile':
 			case 'pincode': return 'number';
-			case 'otp': return null;
 			case 'switch': return 'checkbox';
 			default: return type || 'text';
 		}
@@ -95,9 +93,6 @@ class Input extends React.PureComponent {
 				break;
 			case 'inr':
 				file = 'CurrencyField';
-				break;
-			case 'otp':
-				file = 'OtpField';
 				break;
 			case 'radio':
 				file = `${options ? 'RadioGroup' : 'Radio'}`;
