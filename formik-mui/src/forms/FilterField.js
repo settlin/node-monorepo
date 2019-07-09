@@ -85,6 +85,8 @@ function inputComponent({inputRef, ...props}) {
 
 function Control(props) {
 	const {label, compact, InputAdornmentProps, InputProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
+	const {InputLabelProps} = props.selectProps;
+
 	return (
 		<TextField
 			fullWidth
@@ -99,7 +101,8 @@ function Control(props) {
 					...props.innerProps,
 				},
 			}}
-			InputLabelProps={{shrink: props.isFocused || props.hasValue}}
+			{...(!compact && label) ? {label} : {}}
+			InputLabelProps={InputLabelProps ? InputLabelProps : {shrink: props.isFocused || props.hasValue}}
 			{...TextFieldProps}
 		/>
 	);

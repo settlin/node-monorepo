@@ -18,12 +18,11 @@ class TextField extends React.PureComponent {
 		if (this.props.onBlur) this.props.onBlur(event);
 	}
 	render() {
-		let {children, fullWidth = true, fast, validate, compact, InputProps, InputAdornmentProps, label, ...props} = this.props; // eslint-disable-line no-unused-vars
+		let {children, fullWidth = true, fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props} = this.props; // eslint-disable-line no-unused-vars
 		if (compact) {
 			InputProps = {...InputProps, ...(label ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' disablePointerEvents={true} {...InputAdornmentProps}>{label}</InputAdornment>} : {})};
 			label = '';
 		}
-
 		const fp = formikToMuiProps(props);
 		return (
 			<MuiTextField
@@ -31,7 +30,7 @@ class TextField extends React.PureComponent {
 				{...{children, fullWidth, InputProps, label}}
 				onChange={this.handleChange}
 				onBlur={this.handleBlur}
-				InputLabelProps={(fp.type === 'date' ? {shrink: true} : {})}
+				InputLabelProps={Object.keys(InputLabelProps).length ? InputLabelProps : (fp.type === 'date' ? {shrink: true} : {})}
 			/>
 		);
 	}
