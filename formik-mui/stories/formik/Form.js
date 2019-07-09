@@ -88,10 +88,6 @@ class DemoForm extends PureComponent {
 												{value: '2', label: '2'},
 											].filter(({value}) => !v || value === v));
 										}}
-										options={[
-											{value: '', label: 'Multiple Mui'},
-											{value: '2', label: 'Reason 2'},
-										]}
 										/>
 										<Input required name='react.select' compact={false} type='select' label='Select (React Select)' helperText='React select without compact' container={{xs: 6}} 
 										options={[
