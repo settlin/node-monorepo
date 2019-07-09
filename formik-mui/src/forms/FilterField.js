@@ -217,9 +217,7 @@ class Select extends React.PureComponent {
 			isClearable,
 			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
-			InputAdornmentProps: iAP,
-			TextFieldProps: tp,
-			InputLabelProps: iLP = {},
+			TextFieldProps: {InputAdornmentProps: iAP, ...tp} = {},
 			onChange,
 			selectComponents: pc,
 			name = field.name,
@@ -245,7 +243,7 @@ class Select extends React.PureComponent {
 			indicatorSeparator: base => ({...base, ...ss.indicatorSeparator}),
 		};
 		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus()};
-		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly, InputLabelProps: iLP};
+		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
 		const valueProp = {value: this.getValueProp(value)};

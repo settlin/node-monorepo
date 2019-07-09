@@ -95,7 +95,7 @@ class DemoForm extends PureComponent {
 											{value: '2', label: '2'},
 										]}
 										/>
-										<Input required name='react.select' compact={false} InputLabelProps={{shrink: true}} type='select' label='Select (React Select)' helperText='React select with fixed label' container={{xs: 6}} 
+										<Input required name='react.select' compact={false} TextFieldProps={{InputLabelProps: {shrink: true}}} type='select' label='Select (React Select)' helperText='React select with fixed label' container={{xs: 6}} 
 										options={[
 											{value: '1', label: '1'},
 											{value: '2', label: '2'},
@@ -118,7 +118,7 @@ class DemoForm extends PureComponent {
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input name='textArea' multiline label='Text Area' multiline container={{xs: 6}}/>
-										<Input name='textBox' label='Text Box' container={{xs: 6}} compact={false} InputLabelProps={{shrink: true}}/>
+										<Input name='textBox' label='Text Box' container={{xs: 6}} compact={false} TextFieldProps={{InputLabelProps: {shrink: true}}}/>
 									</Grid>
 								</Grid>
 							</Grid>
