@@ -1,14 +1,6 @@
 import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from './TextField';
-import withStyles from '@material-ui/core/styles/withStyles';
-import classNames from 'clsx';
-
-const styles = () => ({
-	root: {
-		height: 32,
-	},
-});
 
 const Select = ({
 	options,
@@ -17,11 +9,9 @@ const Select = ({
 	InputLabelProps,
 	SelectProps = {},
 	children, // eslint-disable-line no-unused-vars
-	classes,
 	...props
 }) => {
 	const isNative = !multiple && native;
-	if (props.compact) SelectProps.classes = {...SelectProps.classes, root: classNames((SelectProps.classes || {}).root, classes.root)};
 	return (
 		<TextField
 			{...props}
@@ -53,4 +43,4 @@ const Select = ({
 };
 Select.displayName = 'FormikMaterialUISelect';
 
-export default withStyles(styles)(Select);
+export default Select;

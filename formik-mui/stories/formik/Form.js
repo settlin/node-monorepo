@@ -77,29 +77,29 @@ class DemoForm extends PureComponent {
 											{value: '1', label: 'Reason 1'},
 											{value: '2', label: 'Reason 2'},
 										]}/>
-										<Input mui multiple name='mui.multi' type='select' helperText='`prop: mui` to use mui select (default: false)' container={{xs: 6}} options={[
+										<Input mui multiple name='mui.multi' type='select' label='Select (MUI)' compact={false} helperText='`prop: mui` to use mui select (default: false)' container={{xs: 6}} options={[
 											{value: '', label: 'Multiple Mui'},
 											{value: '2', label: 'Reason 2'},
 										]}/>
-										<Input required name='react.select' type='select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}} 
-										optionsAsync={function(v, cb) {
-											cb([
+										<Input required name='react.select' type='select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}}
+											optionsAsync={function(v, cb) {
+												cb([
+													{value: '1', label: '1'},
+													{value: '2', label: '2'},
+												].filter(({value}) => !v || value === v));
+											}}
+										/>
+										<Input required name='react.select' compact={false} type='select' label='Select (React Select)' helperText='React select without compact' container={{xs: 6}}
+											options={[
 												{value: '1', label: '1'},
 												{value: '2', label: '2'},
-											].filter(({value}) => !v || value === v));
-										}}
+											]}
 										/>
-										<Input required name='react.select' compact={false} type='select' label='Select (React Select)' helperText='React select without compact' container={{xs: 6}} 
-										options={[
-											{value: '1', label: '1'},
-											{value: '2', label: '2'},
-										]}
-										/>
-										<Input required name='react.select' compact={false} TextFieldProps={{InputLabelProps: {shrink: true}}} type='select' label='Select (React Select)' helperText='React select with fixed label' container={{xs: 6}} 
-										options={[
-											{value: '1', label: '1'},
-											{value: '2', label: '2'},
-										]}
+										<Input required name='react.select' compact={false} TextFieldProps={{InputLabelProps: {shrink: true}}} type='select' label='Select (React Select)' helperText='React select with fixed label' container={{xs: 6}}
+											options={[
+												{value: '1', label: '1'},
+												{value: '2', label: '2'},
+											]}
 										/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
