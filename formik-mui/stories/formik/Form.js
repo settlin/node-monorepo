@@ -19,7 +19,7 @@ class DemoForm extends PureComponent {
 			{value: 'p', label: 'Personal'},
 			{value: 'w', label: 'Work'},
 		]},
-		{name: 'mobile', label: 'Mobile', required: true, type: 'mobile', container: {xs: 7}},
+		{name: 'mobile', label: 'Mobile', required: true, type: 'mobile', container: {xs: 7}, validate: true},
 	]
 	validate(values) {
 		let errors = {};
