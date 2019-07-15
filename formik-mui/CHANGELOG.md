@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.7](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.6...@settlin/formik-mui@3.0.7) (2019-07-15)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** mui select field height ([7557510](http://github.com/settlin/node-monorepo/formik-mui/commit/7557510))
+
+
+
+
+
 ## [3.0.6](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.5...@settlin/formik-mui@3.0.6) (2019-07-11)
 
 
