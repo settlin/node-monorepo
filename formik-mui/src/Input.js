@@ -40,6 +40,7 @@ class Input extends React.PureComponent {
 				case 'pan':
 					validateFunc = v => !/[A-Za-z]{5}\d{4}[A-Za-z]{1}/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid PAN Number');
 					break;
+				case 'currency':
 				case 'inr':
 					validateFunc = v => !/^\d*$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Amount');
 					break;
@@ -66,6 +67,7 @@ class Input extends React.PureComponent {
 		const {type} = this.props;
 		switch (type) {
 			case 'array': return null;
+			case 'currency':
 			case 'inr':
 			case 'mobile':
 			case 'pincode': return 'number';
@@ -91,6 +93,7 @@ class Input extends React.PureComponent {
 			case 'file':
 				file = 'Dropzone';
 				break;
+			case 'currency':
 			case 'inr':
 				file = 'CurrencyField';
 				break;
