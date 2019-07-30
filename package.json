@@ -4,7 +4,9 @@
   "version": "1.0.10",
   "description": "NPM Packages maintained by Settlin",
   "main": ".eslintrc.js",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy-storybook": "storybook-to-ghpages --packages .",

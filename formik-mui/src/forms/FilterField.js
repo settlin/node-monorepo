@@ -217,6 +217,7 @@ class Select extends React.PureComponent {
 			isClearable,
 			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
+			getOptionValue = o => o.value,
 			onChange,
 			selectComponents: pc,
 			name = field.name,
@@ -267,8 +268,8 @@ class Select extends React.PureComponent {
 			...(defaultValueProp),
 			...(valueProp),
 			onChange(v) {
-				setFieldValue && setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
-				onChange && onChange(valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
+				setFieldValue && setFieldValue(name, valueWithLabel ? v : multiple ? v.map(getOptionValue) : getOptionValue(v || {}));
+				onChange && onChange(valueWithLabel ? v : multiple ? v.map(getOptionValue) : getOptionValue(v || {}));
 			},
 			onBlur() {
 				setFieldTouched && setFieldTouched(name);
