@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.9](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.8...@settlin/formik-mui@3.0.9) (2019-07-30)
+
+
+### Bug Fixes
+
+* npm update lerna hoist ([287a88d](http://github.com/settlin/node-monorepo/formik-mui/commit/287a88d))
+
+
+
+
+
 ## [3.0.8](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.7...@settlin/formik-mui@3.0.8) (2019-07-30)
 
 
