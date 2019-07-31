@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import withFormControlContext from '@material-ui/core/FormControl/withFormControlContext';
+import {useFormControl} from '@material-ui/core/FormControl';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 
@@ -41,7 +41,7 @@ export const styles = theme => ({
 		flexDirection: 'column',
 		marginLeft: 16,
 	},
-	/* Styles applied to the root element if `disabled={true}`. */
+	/* Pseudo-class applied to the root element if `disabled={true}`. */
 	disabled: {},
 	/* Styles applied to the label's Typography component. */
 	label: {
@@ -65,13 +65,13 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
 		inputRef, // eslint-disable-line no-unused-vars
 		label,
 		labelPlacement = 'end',
-		muiFormControl,
 		name, // eslint-disable-line no-unused-vars
 		offLabel,
 		onChange, // eslint-disable-line no-unused-vars
 		value, // eslint-disable-line no-unused-vars
 		...other
 	} = props;
+	const muiFormControl = useFormControl();
 
 	let disabled = disabledProp;
 	if (typeof disabled === 'undefined' && typeof control.props.disabled !== 'undefined') {
@@ -143,7 +143,7 @@ FormControlLabel.propTypes = {
    */
 	disabled: PropTypes.bool,
 	/**
-   * This property can be used to pass a ref callback to the `input` element.
+   * This prop can be used to pass a ref callback to the `input` element.
    */
 	inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 	/**
@@ -176,6 +176,4 @@ FormControlLabel.propTypes = {
 	value: PropTypes.any,
 };
 
-export default withStyles(styles, {name: 'MuiFormControlLabel'})(
-	withFormControlContext(FormControlLabel),
-);
+export default withStyles(styles, {name: 'MuiFormControlLabel'})(FormControlLabel);
