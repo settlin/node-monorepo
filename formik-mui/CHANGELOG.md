@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.10](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.9...@settlin/formik-mui@3.0.10) (2019-07-31)
+
+
+### Bug Fixes
+
+* **formik-mui:** npm update ([2528b76](http://github.com/settlin/node-monorepo/formik-mui/commit/2528b76))
+
+
+
+
+
 ## [3.0.9](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.8...@settlin/formik-mui@3.0.9) (2019-07-30)
 
 
