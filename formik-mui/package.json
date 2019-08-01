@@ -1,6 +1,6 @@
 {
   "name": "@settlin/formik-mui",
-  "version": "3.0.12",
+  "version": "3.0.13",
   "description": "A set of material style fields for formik",
   "main": "lib/index.js",
   "module": "es/index.js",
