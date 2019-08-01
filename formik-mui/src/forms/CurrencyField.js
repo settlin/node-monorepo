@@ -12,7 +12,7 @@ class CurrencyField extends React.PureComponent {
 				{...props}
 				helperText={currencifyFunc(props.value || (props.field || {}).value, currencifyOptions) || ''}
 				InputProps={{
-					startAdornment: <InputAdornment position='start' {...InputAdornmentProps}>₹</InputAdornment>,
+					startAdornment: <InputAdornment position='start'>₹</InputAdornment>,
 					...InputProps,
 				}}
 			/>
