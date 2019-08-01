@@ -196,8 +196,8 @@ class Select extends React.PureComponent {
 		if (defaultValue) setFieldValue(name, defaultValue);
 	}
 	getValueProp(value) {
-		const {options, optionsAsync, multiple, valueWithLabel = Boolean(optionsAsync)} = this.props;
-		if (!value) return multiple ? [] : undefined;  // eslint-disable-line no-undefined
+		const {options, optionsAsync, multiple, hackForceUpdate, valueWithLabel = Boolean(optionsAsync)} = this.props;
+		if (!value) return multiple ? [] : hackForceUpdate ? null : undefined;  // eslint-disable-line no-undefined
 		return valueWithLabel
 			? value
 			: multiple
@@ -222,6 +222,7 @@ class Select extends React.PureComponent {
 			selectComponents: pc,
 			name = field.name,
 			value = field.value,
+			hackForceUpdate, // eslint-disable-line no-unused-vars
 			compact, // eslint-disable-line no-unused-vars
 			openMenuOnFocus = true,
 			selectStyles: ss = {},
