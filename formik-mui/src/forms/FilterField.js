@@ -92,7 +92,7 @@ function Control(props) {
 			InputProps={{
 				...InputProps,
 				inputComponent,
-				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap', fontSize: '0.75rem', opacity: 0.85}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
+				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
 				inputProps: {
 					className: props.selectProps.classes.input,
 					inputRef: props.innerRef,
