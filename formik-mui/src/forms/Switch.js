@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react';
 import MuiSwitch from '@material-ui/core/Switch';
 import formikToMuiProps from '../forms/formikToMuiProps';
-import withStyles from '@material-ui/core/styles/withStyles';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from './FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
