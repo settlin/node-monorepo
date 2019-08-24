@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.37](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.34...@settlin/formik-mui@1.3.37) (2019-08-24)
+
+
+### Bug Fixes
+
+* bump version ([927de0b](http://github.com/settlin/node-monorepo/formik-mui/commit/927de0b))
+* **@settlin/formik-mui:** dropzone transform function ([7c3ee73](http://github.com/settlin/node-monorepo/formik-mui/commit/7c3ee73))
+* **@settlin/formik-mui:** remove dynamic imports ([3861143](http://github.com/settlin/node-monorepo/formik-mui/commit/3861143))
+* **@settlin/formik-mui:** remove rollup ([9686b3c](http://github.com/settlin/node-monorepo/formik-mui/commit/9686b3c))
+* **@settlin/formik-mui:** rollup ([8193127](http://github.com/settlin/node-monorepo/formik-mui/commit/8193127))
+* **formik-mui:**  button and currency field ([f7833f6](http://github.com/settlin/node-monorepo/formik-mui/commit/f7833f6))
+
+
+
+
+
 ## [1.3.34](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@1.3.33...@settlin/formik-mui@1.3.34) (2019-05-20)
 
 
