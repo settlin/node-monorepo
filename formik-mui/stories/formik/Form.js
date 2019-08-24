@@ -63,6 +63,7 @@ class DemoForm extends PureComponent {
 									handleUpload={(file, cb) => setTimeout(cb, 1000)}
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
 									comps={{PreviewsChildren: this.PreviewsChildren}}
+									transformFile={f => new File([f], 'name.jpg')}
 								/>
 							</Grid>
 							<Grid item xs={6}>

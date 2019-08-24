@@ -87,8 +87,8 @@ class DropzoneArea extends React.PureComponent {
 		acceptedFiles.slice(0, Math.max(limit - value.length, 0)).forEach((f) => {
 			f.preview = URL.createObjectURL(f);
 			f.processing = true;
-			if (onAdd) onAdd(f);
-			if (onDrop) onDrop(f, callbackOnFile(f, onAdd));
+			onAdd(f);
+			onDrop(f, callbackOnFile(f, onAdd));
 		});
 	}
 	render() {
@@ -185,14 +185,15 @@ class FormikMaterialUIDropzone extends React.PureComponent {
 		this.postDelete = this.postDelete.bind(this);
 	}
 	handleAdd(fileOrig) {
-		const {field = {}, form, onChange, value} = this.props;
+		const {field = {}, form, onChange, value, transformFile = f => f} = this.props;
 		let files = value || field.value || [];
+		const fileTransformed = transformFile(fileOrig);
 		const file = {
-			lastModified: fileOrig.lastModified,
-			lastModifiedDate: fileOrig.lastModifiedDate,
-			name: fileOrig.name,
-			size: fileOrig.size,
-			type: fileOrig.type,
+			lastModified: fileTransformed.lastModified,
+			lastModifiedDate: fileTransformed.lastModifiedDate,
+			name: fileTransformed.name,
+			size: fileTransformed.size,
+			type: fileTransformed.type,
 		};
 		files = files.find(f => f.name === file.name) ? files.map(f => f.name === file.name ? file : f) : [...files, file];
 		if (form) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
