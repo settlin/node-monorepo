@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import validateEmail from './utils/validate/email';
 import validateMobile from './utils/validate/mobile';
+import validateIndianMobile from './utils/validate/indianMobile';
 import validateDob from './utils/validate/dob';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -21,7 +22,7 @@ class ErrorBoundary extends React.Component {
 class Input extends React.PureComponent {
 	state = {}
 	extraProps() {
-		let {type: typeOrig, label = '', required, validate: validateOrig, compact = true, formik = true} = this.props;
+		let {type: typeOrig, label = '', required, validate: validateOrig, compact = true, formik = true, indian} = this.props;
 
 		if (!formik) return {label};
 		let validateFunc = () => { }, validateReq = () => { };
@@ -45,7 +46,7 @@ class Input extends React.PureComponent {
 					validateFunc = v => !/^\d*$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Amount');
 					break;
 				case 'mobile':
-					validateFunc = v => validateMobile(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Indian Mobile');
+					validateFunc = v => (indian ? validateIndianMobile : validateMobile)(v, typeof validateOrig === 'string' ? validateOrig : indian ? 'Invalid Indian Mobile' : 'Invalid Mobile');
 					break;
 				case 'email':
 					validateFunc = v => validateEmail(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Email');
