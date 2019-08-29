@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.5](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.4.4...@settlin/collage@1.4.5) (2019-08-29)
+
+
+### Bug Fixes
+
+* npm audit ([39278f4](http://github.com/settlin/node-monorepo/collage/commit/39278f4))
+
+
+
+
+
 ## [1.4.4](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.4.3...@settlin/collage@1.4.4) (2019-07-30)
 
 

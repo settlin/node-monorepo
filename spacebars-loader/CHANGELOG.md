@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/settlin/node-monorepo/compare/@settlin/spacebars-loader@1.0.6...@settlin/spacebars-loader@1.0.7) (2019-08-29)
+
+
+### Bug Fixes
+
+* npm audit ([39278f4](https://github.com/settlin/node-monorepo/commit/39278f4))
+
+
+
+
+
 ## [1.0.6](https://github.com/settlin/node-monorepo/compare/@settlin/spacebars-loader@1.0.5...@settlin/spacebars-loader@1.0.6) (2019-07-30)
 
 
