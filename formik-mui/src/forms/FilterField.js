@@ -197,7 +197,7 @@ class Select extends React.PureComponent {
 	}
 	getValueProp(value) {
 		const {options, optionsAsync, multiple, hackForceUpdate, valueWithLabel = Boolean(optionsAsync)} = this.props;
-		if (!value) return multiple ? [] : hackForceUpdate ? null : undefined;  // eslint-disable-line no-undefined
+		if (typeof value === 'undefined' || value === null) return multiple ? [] : hackForceUpdate ? null : undefined;  // eslint-disable-line no-undefined
 		return valueWithLabel
 			? value
 			: multiple
