@@ -92,7 +92,7 @@ function Control(props) {
 			InputProps={{
 				...InputProps,
 				inputComponent,
-				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
+				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
 				inputProps: {
 					className: props.selectProps.classes.input,
 					inputRef: props.innerRef,
@@ -196,8 +196,8 @@ class Select extends React.PureComponent {
 		if (defaultValue) setFieldValue(name, defaultValue);
 	}
 	getValueProp(value) {
-		const {options, optionsAsync, multiple, valueWithLabel = Boolean(optionsAsync)} = this.props;
-		if (!value) return multiple ? [] : undefined;  // eslint-disable-line no-undefined
+		const {options, optionsAsync, multiple, hackForceUpdate, valueWithLabel = Boolean(optionsAsync)} = this.props;
+		if (!value) return multiple ? [] : hackForceUpdate ? null : undefined;  // eslint-disable-line no-undefined
 		return valueWithLabel
 			? value
 			: multiple
@@ -217,10 +217,12 @@ class Select extends React.PureComponent {
 			isClearable,
 			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
+			getOptionValue = o => o.value,
 			onChange,
 			selectComponents: pc,
 			name = field.name,
 			value = field.value,
+			hackForceUpdate, // eslint-disable-line no-unused-vars
 			compact, // eslint-disable-line no-unused-vars
 			openMenuOnFocus = true,
 			selectStyles: ss = {},
@@ -267,8 +269,8 @@ class Select extends React.PureComponent {
 			...(defaultValueProp),
 			...(valueProp),
 			onChange(v) {
-				setFieldValue && setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
-				onChange && onChange(valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
+				setFieldValue && setFieldValue(name, valueWithLabel ? v : multiple ? v.map(getOptionValue) : getOptionValue(v || {}));
+				onChange && onChange(valueWithLabel ? v : multiple ? v.map(getOptionValue) : getOptionValue(v || {}));
 			},
 			onBlur() {
 				setFieldTouched && setFieldTouched(name);

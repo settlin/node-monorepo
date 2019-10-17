@@ -3,6 +3,107 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.17](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.16...@settlin/formik-mui@3.0.17) (2019-08-29)
+
+
+### Bug Fixes
+
+* npm audit ([39278f4](http://github.com/settlin/node-monorepo/formik-mui/commit/39278f4))
+
+
+
+
+
+## [3.0.16](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.14...@settlin/formik-mui@3.0.16) (2019-08-27)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** bump version ([50a02e6](http://github.com/settlin/node-monorepo/formik-mui/commit/50a02e6))
+* **formik-mui:** indian mobile validation added ([4eb4aa3](http://github.com/settlin/node-monorepo/formik-mui/commit/4eb4aa3))
+
+
+
+
+
+## [3.0.14](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.13...@settlin/formik-mui@3.0.14) (2019-08-01)
+
+
+### Bug Fixes
+
+* **formik-mui:** fixes ([e4b39a8](http://github.com/settlin/node-monorepo/formik-mui/commit/e4b39a8))
+
+
+
+
+
+## [3.0.13](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.12...@settlin/formik-mui@3.0.13) (2019-08-01)
+
+
+### Bug Fixes
+
+* **formik-mui:** fixes ([7598e7b](http://github.com/settlin/node-monorepo/formik-mui/commit/7598e7b))
+
+
+
+
+
+## [3.0.12](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.11...@settlin/formik-mui@3.0.12) (2019-08-01)
+
+
+### Bug Fixes
+
+* **formik-mui:** fixes ([9c521ee](http://github.com/settlin/node-monorepo/formik-mui/commit/9c521ee))
+* **formik-mui:** react-select not resetting if value is undefined ([321c8dd](http://github.com/settlin/node-monorepo/formik-mui/commit/321c8dd))
+
+
+
+
+
+## [3.0.11](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.10...@settlin/formik-mui@3.0.11) (2019-08-01)
+
+
+### Bug Fixes
+
+* **formik-mui:** compact label ([20a4a0e](http://github.com/settlin/node-monorepo/formik-mui/commit/20a4a0e))
+
+
+
+
+
+## [3.0.10](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.9...@settlin/formik-mui@3.0.10) (2019-07-31)
+
+
+### Bug Fixes
+
+* **formik-mui:** npm update ([2528b76](http://github.com/settlin/node-monorepo/formik-mui/commit/2528b76))
+
+
+
+
+
+## [3.0.9](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.8...@settlin/formik-mui@3.0.9) (2019-07-30)
+
+
+### Bug Fixes
+
+* npm update lerna hoist ([287a88d](http://github.com/settlin/node-monorepo/formik-mui/commit/287a88d))
+
+
+
+
+
+## [3.0.8](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.7...@settlin/formik-mui@3.0.8) (2019-07-30)
+
+
+### Bug Fixes
+
+* fixes ([3c9a97f](http://github.com/settlin/node-monorepo/formik-mui/commit/3c9a97f))
+
+
+
+
+
 ## [3.0.7](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@3.0.6...@settlin/formik-mui@3.0.7) (2019-07-15)
 
 
