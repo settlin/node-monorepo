@@ -12,7 +12,7 @@ const styles = (theme) => ({
 	root: {
 		display: 'flex',
 		alignItems: 'center',
-		// marginTop: '8px',
+		marginTop: '8px',
 	},
 	wrapper: {
 		margin: 'auto',
