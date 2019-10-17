@@ -53,6 +53,7 @@ class RadioGroup extends React.PureComponent {
   		RadioGroupLabelProps,
   		FormHelperTextProps = {},
   		RadioLabelProps,
+			ClearLabelProps,
   		RadioProps,
   		RadioGroupProps: {row, ...RadioGroupProps} = {},
   		compact,
@@ -107,7 +108,9 @@ class RadioGroup extends React.PureComponent {
 					))}
   				<FormControlLabel
 						{...RadioLabelProps}
-						control={<ClearButton onClick={this.handleClear}/>}
+						{...ClearLabelProps}
+						control={<ClearButton
+							onClick={this.handleClear}/>}
   				/>
   			</MuiRadioGroup>
   		</FormControl>
