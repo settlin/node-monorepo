@@ -53,19 +53,19 @@ const styles = (theme) => ({
 
 class CircularIntegration extends React.Component {
 	render() {
-  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon, fullWidth, CheckIconProps, CloudUploadIconProps, CircularProgressProps, ...rest} = this.props;
+  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, rootContainerProps, ...rest} = this.props;
   	const buttonClassname = clsx({
   		[classes.buttonSuccess]: success,
 		});
 
 		const IconComp = success ? CheckIcon : Icon;
   	return (
-			<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}}>
+			<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}} {...rootContainerProps}>
   			{fab
   				? (
   					<div className={clsx(classes.wrapper, cs.wrapper)}>
   						<Fab color={color} classes={{root: clsx(buttonClassname, cs.button)}} {...rest}>
-  							{success ? <CheckIcon {...CheckIconProps}/> : <CloudUploadIcon {...CloudUploadIconProps}/>}
+  							<IconComp {...IconProps}/>
   						</Fab>
   						{processing && <CircularProgress size={68} className={classes.fabProgress} {...CircularProgressProps}/>}
   					</div>
@@ -73,7 +73,7 @@ class CircularIntegration extends React.Component {
   				: (
   					<div className={clsx(fullWidth ? classes.wrapperFullWidth : classes.wrapper, cs.wrapper)}>
   						<Button fullWidth={fullWidth} variant={variant} color={color} classes={{root: clsx(buttonClassname, cs.button)}} disabled={processing} {...rest}>
-								{IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}}/>}
+								{IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}} {...IconProps}/>}
 								{children}
   						</Button>
   						{processing && <CircularProgress size={24} className={classes.buttonProgress} {...CircularProgressProps}/>}
