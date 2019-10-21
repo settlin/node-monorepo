@@ -31,52 +31,43 @@ const styles = (theme) => ({
 		'&:hover': {
 			backgroundColor: teal[700],
 		},
-		backgroundImage: 'url(https://static.financebuddha.com/assets/images/gradient-bg.png)',
 		backgroundSize: 'contain',
-	},
-	fabProgress: {
-		color: teal[500],
-		position: 'absolute',
-		top: -6,
-		left: -6,
-		zIndex: 1,
 	},
 	buttonProgress: {
 		color: teal[500],
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		marginTop: -12,
-		marginLeft: -12,
 	},
 });
 
 class CircularIntegration extends React.Component {
 	render() {
-  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, rootContainerProps, ...rest} = this.props;
+  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, ...rest} = this.props;
   	const buttonClassname = clsx({
   		[classes.buttonSuccess]: success,
 		});
 
 		const IconComp = success ? CheckIcon : Icon;
   	return (
-			<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}} {...rootContainerProps}>
+			<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}}>
   			{fab
   				? (
   					<div className={clsx(classes.wrapper, cs.wrapper)}>
   						<Fab color={color} classes={{root: clsx(buttonClassname, cs.button)}} {...rest}>
-  							<IconComp {...IconProps}/>
+								{processing
+									? <CircularProgress className={classes.buttonProgress} {...CircularProgressProps}/>
+									: <IconComp {...IconProps}/>
+								}
   						</Fab>
-  						{processing && <CircularProgress size={68} className={classes.fabProgress} {...CircularProgressProps}/>}
   					</div>
   				)
   				: (
   					<div className={clsx(fullWidth ? classes.wrapperFullWidth : classes.wrapper, cs.wrapper)}>
   						<Button fullWidth={fullWidth} variant={variant} color={color} classes={{root: clsx(buttonClassname, cs.button)}} disabled={processing} {...rest}>
-								{IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}} {...IconProps}/>}
+								{processing
+									? <CircularProgress className={clsx(classes.marginRight, classes.buttonProgress)} {...CircularProgressProps}/>
+									: IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}} {...IconProps}/>
+								}
 								{children}
   						</Button>
-  						{processing && <CircularProgress size={24} className={classes.buttonProgress} {...CircularProgressProps}/>}
   					</div>
   				)
   			}
