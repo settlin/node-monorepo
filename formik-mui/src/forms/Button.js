@@ -53,7 +53,7 @@ const styles = (theme) => ({
 
 class CircularIntegration extends React.Component {
 	render() {
-  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon, fullWidth, ...rest} = this.props;
+  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon, fullWidth, CheckIconProps, CloudUploadIconProps, CircularProgressProps, ...rest} = this.props;
   	const buttonClassname = clsx({
   		[classes.buttonSuccess]: success,
 		});
@@ -63,20 +63,20 @@ class CircularIntegration extends React.Component {
 			<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}}>
   			{fab
   				? (
-  					<div className={classes.wrapper}>
+  					<div className={clsx(classes.wrapper, cs.wrapper)}>
   						<Fab color={color} classes={{root: clsx(buttonClassname, cs.button)}} {...rest}>
-  							{success ? <CheckIcon/> : <CloudUploadIcon/>}
+  							{success ? <CheckIcon {...CheckIconProps}/> : <CloudUploadIcon {...CloudUploadIconProps}/>}
   						</Fab>
-  						{processing && <CircularProgress size={68} className={classes.fabProgress}/>}
+  						{processing && <CircularProgress size={68} className={classes.fabProgress} {...CircularProgressProps}/>}
   					</div>
   				)
   				: (
-  					<div className={fullWidth ? classes.wrapperFullWidth : classes.wrapper}>
+  					<div className={clsx(fullWidth ? classes.wrapperFullWidth : classes.wrapper, cs.wrapper)}>
   						<Button fullWidth={fullWidth} variant={variant} color={color} classes={{root: clsx(buttonClassname, cs.button)}} disabled={processing} {...rest}>
 								{IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}}/>}
 								{children}
   						</Button>
-  						{processing && <CircularProgress size={24} className={classes.buttonProgress}/>}
+  						{processing && <CircularProgress size={24} className={classes.buttonProgress} {...CircularProgressProps}/>}
   					</div>
   				)
   			}
