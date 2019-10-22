@@ -55,7 +55,7 @@ class Input extends React.PureComponent {
 		}
 		if (required) {
 			validateReq = v => typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
-			if (compact) label += ' *';
+			if (compact && label) label = label.replace(/\*$/, '').trim() + ' *';
 		}
 
 		const validate = typeOrig === 'array' ? null : v => validateReq(v) || validateFunc(v);
