@@ -77,7 +77,7 @@ class Input extends React.PureComponent {
 		}
 	}
 	module() {
-		let {type, mui, formik = true, options} = this.props;
+		let {type, mui, picker, formik = true, options} = this.props;
 		let file = 'TextField';
 
 		switch (type) {
@@ -108,6 +108,8 @@ class Input extends React.PureComponent {
 				file = 'Switch';
 				break;
 		}
+
+		if (picker) file = 'DateTimePicker';
 
 		return formik ? require(`./formik/${file}`).default : require(`./forms/${file}`).default;
 	}

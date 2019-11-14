@@ -3,6 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import {Formik, Form, setIn} from 'formik';
 import {Input, Button, currencify} from '../../src';
+import DayJSUtils from '@date-io/dayjs';
+import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 
 const vvv = values => ({...values, files: (values.files || []).map(f => ({
 	name: f.name,
@@ -51,7 +53,7 @@ class DemoForm extends PureComponent {
 	render() {
 		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000, files: [{name: '1.pdf'}, {name: 'very very very very long file name.pdf'}, {name: '2.json'}]};
 
-		return (
+		return <MuiPickersUtilsProvider utils={DayJSUtils}>
 			<Grid container item spacing={1} style={{padding: '2rem'}}>
 				<Formik initialValues={initialValues} enableReinitialize={true} isInitialValid={false} onSubmit={this.hSubmit} validate={this.validate}>
 					{({isSubmitting, values, errors, isValid}) => <Form  autoComplete='off' style={{width: '100%'}}>
@@ -70,6 +72,8 @@ class DemoForm extends PureComponent {
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input name='month' type='month' label='Month' container={{xs: 4}}/>
 										<Input name='date' fast={false} type='date' label='Date' container={{xs: 4}}/>
+										<Input name='date1' picker fast={false} type='date' label='Date 1' container={{xs: 4}} defaultValue={new Date('1 nov 2019')}/>
+										<Input name='date2' picker fast={false} type='datetime' label='Date Time' container={{xs: 4}} defaultValue={new Date('1 nov 2019')}/>
 										<Input name='currency' type='inr' label='Currency' container={{xs: 4}}/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
@@ -135,7 +139,7 @@ class DemoForm extends PureComponent {
 					</Form>}
 				</Formik>
 			</Grid>
-		);
+		</MuiPickersUtilsProvider>;
 	}
 }
 
