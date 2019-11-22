@@ -201,7 +201,7 @@ class Select extends React.PureComponent {
 		return valueWithLabel
 			? value
 			: multiple
-				? options.filter(o => Boolean(value.filter(v => v == o.value).length)) // eslint-disable-line eqeqeq
+				? options.filter(o => Boolean((value || []).filter(v => v == o.value).length)) // eslint-disable-line eqeqeq
 				: options.find(o => value == o.value); // eslint-disable-line eqeqeq
 	}
 	render() {

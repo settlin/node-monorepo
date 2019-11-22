@@ -72,7 +72,7 @@ class DemoForm extends PureComponent {
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input name='month' type='month' label='Month' container={{xs: 4}}/>
 										<Input name='date' fast={false} type='date' label='Date' container={{xs: 4}}/>
-										<Input name='date1' picker fast={false} type='date' label='Date 1' container={{xs: 4}} defaultValue={new Date('1 nov 2019')}/>
+										<Input name='date1' picker fast={false} type='date' label='Date 1' container={{xs: 4}} defaultValue={new Date('1 nov 2019')} maxDate={new Date('1 feb 2020')}/>
 										<Input name='date2' picker fast={false} type='datetime' label='Date Time' container={{xs: 4}} defaultValue={new Date('1 nov 2019')}/>
 										<Input name='currency' type='inr' label='Currency' container={{xs: 4}}/>
 									</Grid>
