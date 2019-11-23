@@ -35,6 +35,7 @@ class Radio extends React.PureComponent {
 
 		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'radio'});  // eslint-disable-line no-unused-vars
 		// removed type from props to ensure proper working of checkbox in formik
+		console.log(fp, 'ggub');
 		return (
 			<FormControl component='fieldset' error={error} {...FormControlProps} className={clsx(
 				{[classes.rowLabel]: row === 'all'},
