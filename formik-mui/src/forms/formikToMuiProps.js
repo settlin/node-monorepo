@@ -29,6 +29,7 @@ export default function({
 				break;
 
 			case 'checkbox':
+			case 'radio':
 				field.value = typeof field.value === 'undefined' ? '' : field.value === true ? 'checked' : field.value || '';
 				break;
 
@@ -50,6 +51,7 @@ export default function({
 	switch (props.type) {
 		case 'checkbox':
 		case 'switch':
+		case 'radio':
 			extraProps.checked = typeof checked !== 'undefined' ? checked : Boolean((field || {}).value || props.value);
 			break;
 	}
