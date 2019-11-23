@@ -92,12 +92,12 @@ class DropzoneArea extends React.PureComponent {
 		});
 	}
 	render() {
-		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name} = this.props;
+		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name, acceptedFiles, DropzoneProps} = this.props;
 		const {errors = []} = this.state;
 		if (!Array.isArray(value)) console.error('Received value is not an array', value); // eslint-disable-line no-console
 		const files = value.map(f => {
-			if (f instanceof File) {
-				f.preview = previewFunction(f);
+			if (f.new) {
+				f.preview = f.preview || previewFunction(f);
 				return f;
 			}
 			return {
@@ -112,11 +112,12 @@ class DropzoneArea extends React.PureComponent {
 			<Grid container direction='column' className={clsx(classes.dropzoneContainer, cs.dropzoneContainer)}>
 				<Grid item>
 					<Dropzone
-						accept={this.props.acceptedFiles.join(',')}
+						accept={acceptedFiles.join(',')}
 						onDrop={this.onDrop.bind(this)}
 						acceptClassName={classes.stripes}
 						rejectClassName={classes.rejectStripes}
-						maxSize={this.props.maxSize}
+						{...DropzoneProps}
+						maxSize={this.props.maxSize} // to overwrite DropzoneProps.maxSize
 					>
 						{({getRootProps, getInputProps}) => (
 							<Fragment>
@@ -184,9 +185,19 @@ class FormikMaterialUIDropzone extends React.PureComponent {
 		this.handleError = this.handleError.bind(this);
 		this.postDelete = this.postDelete.bind(this);
 	}
-	handleAdd(file) {
+	handleAdd(fileOrig) {
 		const {field = {}, form, onChange, value} = this.props;
 		let files = value || field.value || [];
+		const file = { // need this because File Object was causing some problems
+			lastModified: fileOrig.lastModified,
+			lastModifiedDate: fileOrig.lastModifiedDate,
+			name: fileOrig.name,
+			size: fileOrig.size,
+			type: fileOrig.type,
+			preview: fileOrig.preview,
+			processing: fileOrig.processing,
+			new: true,
+		};
 		files = files.find(f => f.name === file.name) ? files.map(f => f.name === file.name ? file : f) : [...files, file];
 		if (form) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
 		if (onChange) onChange(files);

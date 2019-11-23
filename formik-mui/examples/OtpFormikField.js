@@ -1,5 +1,5 @@
 import React from 'react';
-import OTP from '../forms/OtpField';
+import OTP from './OtpField';
 
 const FormikOTPField = ({children, render, fast, ...props}) => { // eslint-disable-line no-unused-vars
 	const Field = require('formik')[fast ? 'FastField' : 'Field'];

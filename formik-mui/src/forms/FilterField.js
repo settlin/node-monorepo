@@ -14,13 +14,14 @@ import {getIn} from 'formik';
 
 const styles = theme => ({
 	root: {
-		paddingTop: theme.spacing.unit,
+		paddingTop: theme.spacing(1),
 		fontSize: 'inherit',
 		width: '100%',
 	},
 	input: {
 		display: 'flex',
 		padding: 0,
+		height: 'auto',
 	},
 	valueContainer: {
 		display: 'flex',
@@ -31,7 +32,11 @@ const styles = theme => ({
 		fontSize: 'inherit',
 	},
 	chip: {
-		margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
+		margin: `${theme.spacing(0.5)}px ${theme.spacing(0.25)}px`,
+		height: `${32 - theme.spacing(1)}px`,
+	},
+	chipDeleteIcon: {
+		height: '80%',
 	},
 	chipFocused: {
 		backgroundColor: emphasize(
@@ -40,10 +45,10 @@ const styles = theme => ({
 		),
 	},
 	noOptionsMessage: {
-		padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+		padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
 	},
 	singleValue: {
-		fontSize: 'inherit',
+		// fontSize: 'inherit',
 	},
 	placeholder: {
 		position: 'absolute',
@@ -53,12 +58,12 @@ const styles = theme => ({
 	paper: {
 		position: 'absolute',
 		zIndex: 1,
-		marginTop: theme.spacing.unit,
+		marginTop: theme.spacing(1),
 		left: 0,
 		right: 0,
 	},
 	divider: {
-		height: theme.spacing.unit * 2,
+		height: theme.spacing(2),
 	},
 });
 
@@ -79,14 +84,15 @@ function inputComponent({inputRef, ...props}) {
 }
 
 function Control(props) {
-	const {label, compact, InputAdornmentProps, InputProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
+	const {label, compact, InputAdornmentProps, InputProps, InputLabelProps, ...TextFieldProps} = props.selectProps.TextFieldProps;
+
 	return (
 		<TextField
 			fullWidth
 			InputProps={{
 				...InputProps,
 				inputComponent,
-				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap'}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
+				...(compact ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} position='start' {...InputAdornmentProps}>{label}</InputAdornment>} : {}),
 				inputProps: {
 					className: props.selectProps.classes.input,
 					inputRef: props.innerRef,
@@ -94,7 +100,8 @@ function Control(props) {
 					...props.innerProps,
 				},
 			}}
-			InputLabelProps={{shrink: props.isFocused || props.hasValue}}
+			{...(!compact && label) ? {label} : {}}
+			InputLabelProps={{shrink: props.isFocused || props.hasValue, ...InputLabelProps}}
 			{...TextFieldProps}
 		/>
 	);
@@ -112,6 +119,7 @@ function Option(props) {
 			component='div'
 			style={{
 				fontWeight: props.isSelected ? 500 : 400,
+				zIndex: 2,
 			}}
 			{...props.innerProps}
 		>
@@ -153,7 +161,7 @@ function MultiValue(props) {
 				[props.selectProps.classes.chipFocused]: props.isFocused,
 			})}
 			onDelete={props.removeProps.onClick}
-			deleteIcon={<CancelIcon {...props.removeProps}/>}
+			deleteIcon={<CancelIcon className={props.selectProps.classes.chipDeleteIcon} {...props.removeProps}/>}
 		/>
 	);
 }
@@ -166,7 +174,7 @@ function Menu(props) {
 	);
 }
 
-const components = {
+const modifiedComponents = {
 	Control,
 	Input,
 	Menu,
@@ -188,18 +196,18 @@ class Select extends React.PureComponent {
 		if (defaultValue) setFieldValue(name, defaultValue);
 	}
 	getValueProp(value) {
-		const {options, optionsAsync, multiple, valueWithLabel = Boolean(optionsAsync)} = this.props;
-		if (!value) return null;
+		const {options, optionsAsync, multiple, hackForceUpdate, valueWithLabel = Boolean(optionsAsync)} = this.props;
+		if (typeof value === 'undefined' || value === null) return multiple ? [] : hackForceUpdate ? null : undefined;  // eslint-disable-line no-undefined
 		return valueWithLabel
 			? value
 			: multiple
-				? options.filter(o => Boolean(value.filter(v => v == o.value).length)) // eslint-disable-line eqeqeq
+				? options.filter(o => Boolean((value || []).filter(v => v == o.value).length)) // eslint-disable-line eqeqeq
 				: options.find(o => value == o.value); // eslint-disable-line eqeqeq
 	}
 	render() {
 		const {
 			classes, theme, label, options = [], optionsAsync, placeholder = '',
-  		field: {value, name} = {},
+  		field = {},
   		form: {dirty, touched, errors, setFieldValue, setFieldTouched} = {},
   		helperText,
 			defaultValue,
@@ -209,13 +217,25 @@ class Select extends React.PureComponent {
 			isClearable,
 			readOnly,
 			valueWithLabel = Boolean(optionsAsync),
-			InputAdornmentProps,
-			TextFieldProps: tp,
+			getOptionValue = o => o.value,
 			onChange,
-			components: pc,
+			selectComponents: pc,
+			name = field.name,
+			value = field.value,
+			hackForceUpdate, // eslint-disable-line no-unused-vars
 			compact, // eslint-disable-line no-unused-vars
+			openMenuOnFocus = true,
+			selectStyles: ss = {},
+			// props for TextField: start
+			FormHelperTextProps,
+			InputAdornmentProps: iAP,
+			InputLabelProps,
+			InputProps,
+			inputProps,
+			inputRef,
+			// props for TextField: end
   		...props
-  	} = this.props;
+		} = this.props;
 		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
 
 		const selectStyles = {
@@ -225,43 +245,50 @@ class Select extends React.PureComponent {
 				'& input': {
 					font: 'inherit',
 				},
+				...ss.selectInput,
 			}),
-			clearIndicator: base => ({...base, padding: '6px'}),
-			dropdownIndicator: base => ({...base, padding: '6px'}),
+			clearIndicator: base => ({...base, padding: '6px', ...ss.clearIndicator}),
+			dropdownIndicator: base => ({...base, padding: '6px', ...ss.dropdownIndicator}),
+			indicatorSeparator: base => ({...base, ...ss.indicatorSeparator}),
 		};
-		const TextFieldProps = {...tp, label, compact, InputAdornmentProps, placeholder, error: Boolean(message), helperText: message || helperText};
+		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus()};
+		const TextFieldProps = {label, compact, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly, FormHelperTextProps, InputAdornmentProps, InputLabelProps, InputProps, inputProps, inputRef};
 
 		const defaultValueProp = defaultValue ? {defaultValue: this.getValueProp(defaultValue)} : {};
-		const valueProp = value ? {value: this.getValueProp(value)} : {};
+		const valueProp = {value: this.getValueProp(value)};
+		const components = {...modifiedComponents, ...pc};
+
 		const commonProps = {
 			...props,
 			isMulti: multiple,
 			isDisabled: disabled || readOnly,
 			isClearable,
 			classes, placeholder, autocomplete: 'off', styles: selectStyles, TextFieldProps, name,
-			components: {...components, ...pc},
+			components,
+			openMenuOnFocus,
 			...(defaultValueProp),
 			...(valueProp),
 			onChange(v) {
-				setFieldValue && setFieldValue(name, valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
-				onChange && onChange(valueWithLabel ? v : multiple ? v.map(x => x.value) : (v || {}).value);
+				setFieldValue && setFieldValue(name, valueWithLabel ? v : multiple ? v.map(getOptionValue) : getOptionValue(v || {}));
+				onChange && onChange(valueWithLabel ? v : multiple ? v.map(getOptionValue) : getOptionValue(v || {}));
 			},
 			onBlur() {
 				setFieldTouched && setFieldTouched(name);
 			},
+			ref: ref => {this.selectRef = ref;},
 		};
 
 		if (optionsAsync) {
-			const {default: AsyncSelect} = creatable ? require('react-select/lib/AsyncCreatable') : require('react-select/lib/Async');
+			const {default: AsyncSelect} = creatable ? require('react-select/async-creatable') : require('react-select/async');
 
 			return <AsyncSelect
 				loadOptions={optionsAsync}
 				cacheOptions
-				defaultOptions
+				defaultOptions={[]}
 				{...commonProps}
 			/>;
 		}
-		const SyncSelect = creatable ? require('react-select/lib/Creatable').default : ReactSelect;
+		const SyncSelect = creatable ? require('react-select/creatable').default : ReactSelect;
 		return (
 			<SyncSelect
 				options={options || []}

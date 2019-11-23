@@ -5,14 +5,14 @@ import currencify from '../utils/currencify';
 
 class CurrencyField extends React.PureComponent {
 	render() {
-		const {InputProps, ...props} = this.props;
+		const {InputProps, currencifyOptions, currencifyFunc = currencify, ...props} = this.props;
 
   	return (
 			<TextField
 				{...props}
-				helperText={currencify({amount: props.value || (props.field || {}).value}) || ''}
+				helperText={currencifyFunc(props.value || (props.field || {}).value, currencifyOptions) || ''}
 				InputProps={{
-					startAdornment: <InputAdornment position='start'>₹</InputAdornment>,
+					startAdornment: <InputAdornment position='start'>&#8377;</InputAdornment>,
 					...InputProps,
 				}}
 			/>

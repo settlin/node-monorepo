@@ -1,5 +1,5 @@
 const pi = x => parseInt(x, 10);
-export default function({amount, abbreviated, short, numberWithCommas, fullWords, roundOff = true}) {
+export default function(amount, {abbreviated, short, numberWithCommas, fullWords, roundOff = true} = {}) {
 	if (!amount) return 0;
 	if (abbreviated || short) {
 		amount = pi(amount);
@@ -13,7 +13,7 @@ export default function({amount, abbreviated, short, numberWithCommas, fullWords
 		return roundOffAmt + ' Lakhs';
 	}
 	if (numberWithCommas) return amount.toLocaleString('en-IN', {style: 'currency', currency: 'INR', maximumFractionDigits: 0, minimumFractionDigits: 0});
-	if ((amount = amount.toString()).length > 9) return 'overflow';
+	if (amount.toString().length > 9) return 'overflow';
 
 	if (fullWords) {
 		let a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
@@ -36,9 +36,11 @@ export default function({amount, abbreviated, short, numberWithCommas, fullWords
 	var n = ('000000000' + amount).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
 	var str = '';
 	if (!n) return str;
-	str += (pi(n[1]) !== 0) ? (n[1] < 10 ? n[1][1] : n[1][0] + n[1][1]) + ' Crore' + (n[1][1] > 1 ? 's' : '') + ' ' : '';
-	str += (pi(n[2]) !== 0) ? (n[2] < 10 ? n[2][1] : n[2][0] + n[2][1]) + ' Lakh' + (n[2][1] > 1 ? 's' : '') + ' ' : '';
-	if (!roundOff) {
+	str += (pi(n[1]) !== 0)
+		? (n[1] < 10 ? n[1][1] : n[1][0] + n[1][1]) + (roundOff && pi(n[2]) !== 0 ? '.' + (pi(n[2][1]) !== 0 ? n[2][0] + n[2][1] : n[2][0])  : '') + ' Crore' + (n[1][1] > 1 ? 's' : '') + ' '
+		: (pi(n[2]) !== 0) ? (n[2] < 10 ? n[2][1] : n[2][0] + n[2][1]) + (roundOff && pi(n[3]) !== 0 ? '.' + (pi(n[3][1]) !== 0 ? n[3][0] + n[3][1] : n[3][0])  : '') + ' Lakh' + (n[2][1] > 1 ? 's' : '') + ' ' : '';
+
+	if (!str || !roundOff) {
 		str += (pi(n[3]) !== 0) ? (n[3] < 10 ? n[3][1] : n[3][0] + n[3][1]) + ' Thousand' + (n[3][1] > 1 ? 's' : '') + ' ' : '';
 		str += (pi(n[4]) !== 0) ? n[4] + ' Hundred' + (n[4][1] > 1 ? 's' : '') + ' ' : '';
 		str += (pi(n[5]) !== 0) ? (n[5] < 10 ? n[5][1] : n[5][0] + n[5][1]) : '';

@@ -8,6 +8,7 @@ export default function({
 	error,
 	multiple,
 	checked,
+	defaultValue,
 	...props
 }) {
 	const {name, onChange} = field;
@@ -20,6 +21,8 @@ export default function({
 	const extraProps = {};
 
 	if (onChange) {
+		field.value = defaultValue || field.value;
+
 		switch (props.type) {
 			case 'select':
 				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;
@@ -29,20 +32,25 @@ export default function({
 				field.value = typeof field.value === 'undefined' ? '' : field.value === true ? 'checked' : field.value || '';
 				break;
 
+			case 'switch':
+				field.value = typeof field.value === 'undefined' ? false : Boolean(field.value);
+				break;
+
 			case 'file':
 				field.value = typeof field.value === 'undefined' ? [] : field.value;
 				break;
 
 			case 'date':
-				field.value = typeof field.value === 'undefined' ? '' : isDate(field.value) ? field.value.toISOString().split('T')[0] : field.value;
+				if (!props.picker) field.value = typeof field.value === 'undefined' ? '' : isDate(field.value) ? field.value.toISOString().split('T')[0] : field.value;
 				break;
 
-			default: typeof field.value === 'undefined' ? '' : field.value;
+			default: field.value = typeof field.value === 'undefined' ? '' : field.value;
 		}
 	}
 	switch (props.type) {
 		case 'checkbox':
-			extraProps.checked = typeof checked !== 'undefined' ? checked : (field || {}).value || props.value ? 'checked' : '';
+		case 'switch':
+			extraProps.checked = typeof checked !== 'undefined' ? checked : Boolean((field || {}).value || props.value);
 			break;
 	}
 

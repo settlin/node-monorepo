@@ -7,7 +7,7 @@ const Select = ({
 	multiple = false,
 	native = false,
 	InputLabelProps,
-	SelectProps,
+	SelectProps = {},
 	children, // eslint-disable-line no-unused-vars
 	...props
 }) => {

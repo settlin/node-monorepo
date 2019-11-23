@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](http://github.com/settlin/node-monorepo/mongo-backup/compare/@settlin/mongo-backup@2.2.0...@settlin/mongo-backup@2.2.1) (2019-07-30)
+
+
+### Bug Fixes
+
+* npm update lerna hoist ([287a88d](http://github.com/settlin/node-monorepo/mongo-backup/commit/287a88d))
+
+
+
+
+
 # [2.2.0](http://github.com/settlin/node-monorepo/mongo-backup/compare/@settlin/mongo-backup@2.1.0...@settlin/mongo-backup@2.2.0) (2019-03-15)
 
 

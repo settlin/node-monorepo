@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import withFormControlContext from '@material-ui/core/FormControl/withFormControlContext';
+import {useFormControl} from '@material-ui/core/FormControl';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
+
+function capitalize(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 export const styles = theme => ({
 	/* Styles applied to the root element. */
@@ -15,7 +19,7 @@ export const styles = theme => ({
 		verticalAlign: 'middle',
 		// Remove grey highlight
 		WebkitTapHighlightColor: 'transparent',
-		marginLeft: -14,
+		marginLeft: -11,
 		marginRight: 16, // used for row presentation of radio/checkbox
 		'&$disabled': {
 			cursor: 'default',
@@ -25,7 +29,7 @@ export const styles = theme => ({
 	labelPlacementStart: {
 		flexDirection: 'row-reverse',
 		marginLeft: 16, // used for row presentation of radio/checkbox
-		marginRight: -14,
+		marginRight: -11,
 	},
 	/* Styles applied to the root element if `labelPlacement="top"`. */
 	labelPlacementTop: {
@@ -37,7 +41,7 @@ export const styles = theme => ({
 		flexDirection: 'column',
 		marginLeft: 16,
 	},
-	/* Styles applied to the root element if `disabled={true}`. */
+	/* Pseudo-class applied to the root element if `disabled={true}`. */
 	disabled: {},
 	/* Styles applied to the label's Typography component. */
 	label: {
@@ -53,21 +57,21 @@ export const styles = theme => ({
  */
 const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) {
 	const {
-		checked,
+		checked, // eslint-disable-line no-unused-vars
 		classes,
 		className: classNameProp,
 		control,
 		disabled: disabledProp,
-		inputRef,
+		inputRef, // eslint-disable-line no-unused-vars
 		label,
+		labelPlacement = 'end',
+		name, // eslint-disable-line no-unused-vars
 		offLabel,
-		labelPlacement,
-		muiFormControl,
-		name,
-		onChange,
-		value,
+		onChange, // eslint-disable-line no-unused-vars
+		value, // eslint-disable-line no-unused-vars
 		...other
 	} = props;
+	const muiFormControl = useFormControl();
 
 	let disabled = disabledProp;
 	if (typeof disabled === 'undefined' && typeof control.props.disabled !== 'undefined') {
@@ -91,7 +95,7 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
 			className={clsx(
 				classes.root,
 				{
-					[classes[`labelPlacement${labelPlacement}`]]: !offLabel && labelPlacement !== 'end',
+					[classes[`labelPlacement${capitalize(labelPlacement)}`]]: labelPlacement !== 'end',
 					[classes.disabled]: disabled,
 				},
 				classNameProp,
@@ -118,68 +122,58 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
 
 FormControlLabel.propTypes = {
 	/**
-	 * If `true`, the component appears selected.
-	 */
-	checked: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+   * If `true`, the component appears selected.
+   */
+	checked: PropTypes.bool,
 	/**
-	 * Override or extend the styles applied to the component.
-	 * See [CSS API](#css) below for more details.
-	 */
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
 	classes: PropTypes.object.isRequired,
 	/**
-	 * @ignore
-	 */
+   * @ignore
+   */
 	className: PropTypes.string,
 	/**
-	 * A control element. For instance, it can be be a `Radio`, a `Switch` or a `Checkbox`.
-	 */
+   * A control element. For instance, it can be be a `Radio`, a `Switch` or a `Checkbox`.
+   */
 	control: PropTypes.element,
 	/**
-	 * If `true`, the control will be disabled.
-	 */
+   * If `true`, the control will be disabled.
+   */
 	disabled: PropTypes.bool,
 	/**
-	 * Use that property to pass a ref callback to the native input component.
-	 */
+   * This prop can be used to pass a ref callback to the `input` element.
+   */
 	inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 	/**
-	 * The text to be used in an enclosing label element.
-	 */
+   * The text to be used in an enclosing label element.
+   */
 	label: PropTypes.node,
 	/**
-	 * The text to be used in an enclosing label element for switch's off state.
-	 */
-	offLabel: PropTypes.node,
-	/**
-	 * The position of the label.
-	 */
+   * The position of the label.
+   */
 	labelPlacement: PropTypes.oneOf(['end', 'start', 'top', 'bottom']),
 	/**
-	 * @ignore
-	 */
+   * @ignore
+   */
 	muiFormControl: PropTypes.object,
 	/*
-	 * @ignore
-	 */
+   * @ignore
+   */
 	name: PropTypes.string,
 	/**
-	 * Callback fired when the state is changed.
-	 *
-	 * @param {object} event The event source of the callback.
-	 * You can pull out the new value by accessing `event.target.checked`.
-	 * @param {boolean} checked The `checked` value of the switch
-	 */
+   * Callback fired when the state is changed.
+   *
+   * @param {object} event The event source of the callback.
+   * You can pull out the new value by accessing `event.target.checked`.
+   * @param {boolean} checked The `checked` value of the switch
+   */
 	onChange: PropTypes.func,
 	/**
-	 * The value of the component.
-	 */
-	value: PropTypes.string,
+   * The value of the component.
+   */
+	value: PropTypes.any,
 };
 
-FormControlLabel.defaultProps = {
-	labelPlacement: 'end',
-};
-
-export default withStyles(styles, {name: 'MuiFormControlLabel'})(
-	withFormControlContext(FormControlLabel),
-);
+export default withStyles(styles, {name: 'MuiFormControlLabel'})(FormControlLabel);

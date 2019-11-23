@@ -8,7 +8,7 @@ A set of material style fields for [formik](https://github.com/jaredpalmer/formi
 
 This library provides the following components:
 
-- `Input` - a generic input field with all types eg: text, radio, checkbox, buttons (button group), switch, select, hidden, date.... Some extra fields like otp and filter are also available.
+- `Input` - a generic input field with all types eg: text, radio, checkbox, buttons (button group), switch, select, hidden, date.... Some extra fields like filter are also available.
 - Formik-ed Components from MUI eg `Select` `TextField` `RadioGroup` etc...
 
 ## Documentation
@@ -71,7 +71,6 @@ export {default as CheckboxGroup} from './formik/CheckboxGroup';
 export {default as CurrencyField} from './formik/CurrencyField';
 export {default as InputArra} from './formik/InputArray';
 export {default as FilterField} from './formik/FilterField';
-export {default as OtpField} from  './formik/OtpField';
 export {default as Persist} from './formik/Persist';
 export {default as Radio} from './formik/Radio';
 export {default as Select} from './formik/Select';

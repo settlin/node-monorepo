@@ -1,13 +1,28 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import validateEmail from './utils/validate/email';
 import validateMobile from './utils/validate/mobile';
+import validateIndianMobile from './utils/validate/indianMobile';
 import validateDob from './utils/validate/dob';
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+class ErrorBoundary extends React.Component {
+	state = {error: false};
+	static getDerivedStateFromError(error) {
+		return {error};
+	}
+	componentDidCatch(error, info) {
+		console.log(error, info); // eslint-disable-line no-console
+	}
+	render() {
+		if (this.state.error) return <h1>{this.state.error.toString()}</h1>;
+		return this.props.children;
+	}
+}
 
 class Input extends React.PureComponent {
 	state = {}
 	extraProps() {
-		let {type: typeOrig, label = '', required, validate: validateOrig, formik = true} = this.props;
+		let {type: typeOrig, label = '', required, validate: validateOrig, compact = true, formik = true, indian} = this.props;
 
 		if (!formik) return {label};
 		let validateFunc = () => { }, validateReq = () => { };
@@ -26,12 +41,12 @@ class Input extends React.PureComponent {
 				case 'pan':
 					validateFunc = v => !/[A-Za-z]{5}\d{4}[A-Za-z]{1}/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid PAN Number');
 					break;
+				case 'currency':
 				case 'inr':
 					validateFunc = v => !/^\d*$/.test(v) && (typeof validateOrig === 'string' ? validateOrig : 'Invalid Amount');
 					break;
 				case 'mobile':
-				case 'otp':
-					validateFunc = v => validateMobile(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Indian Mobile');
+					validateFunc = v => (indian ? validateIndianMobile : validateMobile)(v, typeof validateOrig === 'string' ? validateOrig : indian ? 'Invalid Indian Mobile' : 'Invalid Mobile');
 					break;
 				case 'email':
 					validateFunc = v => validateEmail(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Email');
@@ -40,79 +55,80 @@ class Input extends React.PureComponent {
 		}
 		if (required) {
 			validateReq = v => typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
-			label += ' *';
+			if (compact && label) label = label.replace(/\*$/, '').trim() + ' *';
 		}
+
+		const validate = typeOrig === 'array' ? null : v => validateReq(v) || validateFunc(v);
 		return {
 			label,
-			validate: v => validateReq(v) || validateFunc(v),
+			validate,
 		};
 	}
 	type() {
 		const {type} = this.props;
 		switch (type) {
 			case 'array': return null;
+			case 'currency':
 			case 'inr':
 			case 'mobile':
 			case 'pincode': return 'number';
-			case 'otp': return null;
 			case 'switch': return 'checkbox';
 			default: return type || 'text';
 		}
 	}
 	module() {
-		let {type, mui, formik = true, options} = this.props;
+		let {type, mui, picker, formik = true, options} = this.props;
+		let file = 'TextField';
 
 		switch (type) {
 			case 'array':
-				if (!formik) return {error: '`array` type is only supported via formik. `formik` prop must be set to true in order to use it.'};
-				return {file: 'InputArray'};
+				if (!formik) throw new Error('`array` type is only supported via formik. `formik` prop must be set to true in order to use it.');
+				file = 'InputArray';
+				break;
 			case 'buttons':
-				return {file: 'ButtonGroup'};
+				file = 'ButtonGroup';
+				break;
 			case 'checkbox':
-				return {file: `${options ? 'CheckboxGroup' : 'Checkbox'}`};
+				file = options ? 'CheckboxGroup' : 'Checkbox';
+				break;
 			case 'file':
-				return {file: 'Dropzone'};
+				file = 'Dropzone';
+				break;
+			case 'currency':
 			case 'inr':
-				return {file: 'CurrencyField'};
-			case 'otp':
-				return {file: 'OtpField'};
+				file = 'CurrencyField';
+				break;
 			case 'radio':
-				return {file: `${options ? 'RadioGroup' : 'Radio'}`};
+				file = `${options ? 'RadioGroup' : 'Radio'}`;
+				break;
 			case 'select':
-				return {file: `${mui ? 'Select' : 'FilterField'}`};
+				file = `${mui ? 'Select' : 'FilterField'}`;
+				break;
 			case 'switch':
-				return {file: 'Switch'};
-			default:
-				return {file: 'TextField'};
+				file = 'Switch';
+				break;
 		}
-	}
-	componentDidMount() {
-		const {component: c, formik = true} = this.props;
-		if (c) return;
-		const {file, error} = this.module();
-		if (error) this.setState({component: error});
-		else {
-			const p = formik ? import(`./formik/${file}`) : import(`./forms/${file}`);
-			p.then(({default: component}) => this.setState({component}))
-				.catch(e => {
-					console.error(e);  // eslint-disable-line no-console
-					this.setState({component: e.message});
-				});
-		}
+
+		if (picker) file = 'DateTimePicker';
+
+		return formik ? require(`./formik/${file}`).default : require(`./forms/${file}`).default;
 	}
 	render() {
-		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.state.component, Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
-		const Grid = container ? require('@material-ui/core/Grid').default : ({children}) => children;
+		const {type: typeOrig, container, validate, label, formik = true, mui, components: {Field = this.module(), Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
+		const Container = container ? require('@material-ui/core/Grid').default : Fragment;
+		const containerProps = container ? {item: true, ...container} : {};
 
 		const type = this.type();
 		const extraProps = {...(formik ? {fast} : {}), compact, ...this.extraProps()};
 
-		return <Grid item={true} {...container}>
-			{Field
-				? <Field {...rest} {...(type ? {type} : {})} {...extraProps}/>
-				: <Loader/>
-			}
-		</Grid>;
+		return <ErrorBoundary>
+			<Container {...containerProps}>
+				{Field
+					? <Field {...rest} {...(type ? {type} : {})} {...extraProps}/>
+					: <Loader/>
+				}
+			</Container>
+		</ErrorBoundary>;
 	}
 }
 

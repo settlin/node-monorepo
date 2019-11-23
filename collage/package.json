@@ -1,6 +1,6 @@
 {
   "name": "@settlin/collage",
-  "version": "1.4.0",
+  "version": "1.4.5",
   "description": "Turns an array of images into a photo collage",
   "main": "index.js",
   "scripts": {
@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/settlin/node-monorepo/collage#readme",
   "dependencies": {
-    "bluebird": "^3.5.3",
-    "canvas": "^2.1.0",
+    "bluebird": "^3.5.5",
+    "canvas": "^2.5.0",
     "lodash.clonedeep": "^4.5.0",
     "request": "^2.88.0"
   },
@@ -37,7 +37,7 @@
     "chai-as-promised": "^7.1.1",
     "mocha": "^5.2.0"
   },
-  "gitHead": "cbcf879a3b27538b39c1220cfdd7a998d5bb35e6",
+  "gitHead": "988440648f1f4681d6aaf536f72fce549c7c34a9",
   "publishConfig": {
     "access": "public"
   }

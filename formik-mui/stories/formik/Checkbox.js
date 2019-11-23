@@ -42,7 +42,7 @@ class DemoForm extends PureComponent {
 		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000};
 
 		return (
-			<Grid container item spacing={8} style={{padding: '2rem'}}>
+			<Grid container item spacing={1} style={{padding: '2rem'}}>
 				<Formik initialValues={initialValues} enableReinitialize={true} isInitialValid={false} onSubmit={this.hSubmit} validate={this.validate}>
 					{({isSubmitting, values, errors, isValid}) => <Form autoComplete='off' style={{width: '100%'}}>
 						<Grid item xs={12}>
@@ -51,7 +51,13 @@ class DemoForm extends PureComponent {
 								<Input name='checkboxGroup.optional' type='checkbox' container={{xs: 4}} label='Checkbox Group' options={[
 									{value: 'me', label: 'Me'},
 									{value: 'you', label: 'You'},
-								]}/>
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You1234'},
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You11W'},
+									{value: 'me', label: 'Me'},
+									{value: 'you', label: 'You'},
+								]} FormGroupProps={{style: {display: 'grid', gridTemplateColumns: 'auto auto auto auto'}}}/>
 								<Input name='checkbox.optional' type='checkbox' container={{xs: 2}} label='Checkbox'/>
 								<Input name='switch.optional' type='switch' container={{xs: 3}} label='On' offLabel='Off'/>
 							</Grid>

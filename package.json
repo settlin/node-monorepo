@@ -4,11 +4,13 @@
   "version": "1.0.10",
   "description": "NPM Packages maintained by Settlin",
   "main": ".eslintrc.js",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy-storybook": "storybook-to-ghpages --packages .",
-    "publish": "lerna publish && npm run deploy-storybook"
+    "publish": "lerna publish && npm run deploy-storybook; git checkout master; git merge --ff-only dev; git push; git checkout dev"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,7 @@
   },
   "homepage": "https://github.com/settlin/node-monorepo#readme",
   "devDependencies": {
-    "@commitlint/cli": "^7.5.2",
+    "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^7.5.0",
     "@storybook/storybook-deployer": "^2.8.1",
     "babel-eslint": "^8.2.6",
