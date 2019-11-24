@@ -44,7 +44,6 @@ export default function({
 			case 'date':
 				if (!props.picker) field.value = typeof field.value === 'undefined' ? '' : isDate(field.value) ? field.value.toISOString().split('T')[0] : field.value;
 				break;
-
 			default: field.value = typeof field.value === 'undefined' ? '' : field.value;
 		}
 	}
