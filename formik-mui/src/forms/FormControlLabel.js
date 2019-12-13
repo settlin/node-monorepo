@@ -25,6 +25,9 @@ export const styles = theme => ({
 			cursor: 'default',
 		},
 	},
+	marginLeft0: {
+		marginLeft: 0,
+	},
 	/* Styles applied to the root element if `labelPlacement="start"`. */
 	labelPlacementStart: {
 		flexDirection: 'row-reverse',
@@ -97,6 +100,7 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
 				{
 					[classes[`labelPlacement${capitalize(labelPlacement)}`]]: labelPlacement !== 'end',
 					[classes.disabled]: disabled,
+					[classes.marginLeft0]: offLabel,
 				},
 				classNameProp,
 			)}
