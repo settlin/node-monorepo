@@ -121,8 +121,8 @@ class DemoForm extends PureComponent {
 										}}/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
-										<Input name='textArea' multiline label='Text Area' multiline container={{xs: 6}}/>
-										<Input name='textBox' label='Text Box' container={{xs: 6}} compact={false} TextFieldProps={{InputLabelProps: {shrink: true}}}/>
+										<Input name='textArea' type='textArea' multiline label='Text Area' multiline container={{xs: 6}}/>
+										<Input name='textBox' type='text' label='Text Box' container={{xs: 6}} compact={false} TextFieldProps={{InputLabelProps: {shrink: true}}}/>
 									</Grid>
 								</Grid>
 							</Grid>
