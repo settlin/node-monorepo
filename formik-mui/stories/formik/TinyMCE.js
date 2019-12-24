@@ -50,7 +50,7 @@ const TM = p => {
 		init={{
 			plugins: ['advlist anchor autolink charmap code fullscreen help image insertdatetime link lists media paste preview print searchreplace table table visualblocks wordcount'],
 		}}
-		{...{...fp, onChange, onBlur}}
+		{...{...fp, onEditorChange: onChange, onBlur}}
 	/>;
 };
 
