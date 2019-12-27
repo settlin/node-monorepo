@@ -102,7 +102,8 @@ class RadioGroup extends React.PureComponent {
 								{...RadioProps}
 								checked={fp.value === option.value}
 							/>}
-  						{...RadioLabelProps}
+							{...RadioLabelProps}
+							disabled={option.disabled ? true : false}
   						value={option.value}
   						label={option.label}
   					/>
