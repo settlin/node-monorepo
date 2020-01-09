@@ -8,7 +8,7 @@ import 'tinymce/themes/silver';
 import 'tinymce/skins/ui/oxide/skin.min.css';
 import 'tinymce/skins/ui/oxide/content.min.css';
 
-// Any plugins you want to use has to be imported
+// Any plugin you want to use has to be imported
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/anchor';
 import 'tinymce/plugins/autolink';
