@@ -58,7 +58,7 @@ class Input extends React.PureComponent {
 			if (compact && label) label = label.replace(/\*$/, '').trim() + ' *';
 		}
 
-		const validate = typeOrig === 'array' ? null : v => validateReq(v) || validateFunc(v);
+		const validate = typeOrig === 'array' ? null : v => validateReq(v) || (v?.toString()?.length && validateFunc(v));
 		return {
 			label,
 			validate,
