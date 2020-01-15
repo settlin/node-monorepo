@@ -20,7 +20,7 @@ import MuiTextField from '@material-ui/core/TextField';
 
 class FDateTimePicker extends React.PureComponent {
 	render() {
-		let {children, fullWidth = true, variant = 'inline', type, format = type === 'date' ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm a', fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, TextFieldProps, label, onChange, ...props} = this.props; // eslint-disable-line no-unused-vars
+		let {children, fullWidth = true, variant = 'inline', type, format = type === 'date' ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm a', fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, TextFieldProps, label, onChange, picker, ...props} = this.props; // eslint-disable-line no-unused-vars
 
 		const Comp = type === 'date' ? KeyboardDatePicker : KeyboardDateTimePicker;
 		const fp = formikToMuiProps({...props, type: 'text'});  // eslint-disable-line no-unused-vars
