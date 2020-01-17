@@ -32,9 +32,9 @@ import 'tinymce/plugins/wordcount';
 
 export default memo(p => {
 	const fp = formikToMuiProps(p);
-	const onChange = function(event) {
-		if (p.form) p.form.setFieldValue(fp.name, event.target.getContent());
-		if (p.onChange) p.onChange(event);
+	const onChange = function(content) {
+		if (p.form) p.form.setFieldValue(fp.name, content);
+		if (p.onChange) p.onChange(content);
 	};
 	const onBlur = function(event) {
 		if (p.form) p.form.setFieldValue(fp.name, event.target.getContent());
@@ -44,6 +44,6 @@ export default memo(p => {
 		init={{
 			plugins: ['advlist anchor autolink charmap code fullscreen help image insertdatetime link lists media paste preview print searchreplace table table visualblocks wordcount'],
 		}}
-		{...{...fp, onEditorChange: onChange, onBlur}}
+		{...{...fp, onChange: () => {}, onEditorChange: onChange, onBlur}}
 	/>;
 });

@@ -108,7 +108,7 @@ class Input extends React.PureComponent {
 				file = 'Switch';
 				break;
 			case 'base':
-				file = '';
+				file = 'Base';
 				break;
 		}
 
