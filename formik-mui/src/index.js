@@ -1,5 +1,6 @@
 export {default as Input} from './Input';
 
+export {default as Base} from './formik/Base';
 export {default as ButtonGroup} from './formik/ButtonGroup';
 export {default as Checkbox} from './formik/Checkbox';
 export {default as CheckboxGroup} from './formik/CheckboxGroup';
@@ -15,6 +16,7 @@ export {default as Select} from './formik/Select';
 export {default as Switch} from './formik/Switch';
 export {default as TextField} from './formik/TextField';
 
+export {default as RawBase} from './forms/Base';
 export {default as Button} from './forms/Button';
 export {default as formikToMuiProps} from './forms/formikToMuiProps';
 export {default as RawButtonGroup} from './forms/ButtonGroup';
