@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.2](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@4.2.1...@settlin/formik-mui@4.2.2) (2020-01-27)
+
+
+### Bug Fixes
+
+* **@settlin/formik-mui:** fixes ([0d3e8ae](http://github.com/settlin/node-monorepo/formik-mui/commit/0d3e8ae))
+
+
+
+
+
 ## [4.2.1](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@4.2.0...@settlin/formik-mui@4.2.1) (2020-01-27)
 
 
