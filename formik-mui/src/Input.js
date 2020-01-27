@@ -117,7 +117,7 @@ class Input extends React.PureComponent {
 		const containerProps = container ? {item: true, ...container} : {};
 
 		const type = this.type();
-		const extraProps = {...(formik ? {fast, ...(input ? {component: input} : {})} : {}), compact, ...this.extraProps()};
+		const extraProps = {...(formik ? {fast} : {}), ...(input ? {component: input} : {}), compact, ...this.extraProps()};
 
 		return <ErrorBoundary>
 			<Container {...containerProps}>
