@@ -77,7 +77,7 @@ class Input extends React.PureComponent {
 		}
 	}
 	module() {
-		let {base, type, formik = true, options} = this.props;
+		let {base, type, formik = true, options, components: {input} = {}} = this.props;
 		let file = 'TextField';
 
 		if (base) file = 'Base';
@@ -109,7 +109,7 @@ class Input extends React.PureComponent {
 			}
 		}
 
-		return formik ? require(`./formik/${file}`).default : require(`./forms/${file}`).default;
+		return formik ? require(`./formik/${file}`).default : input || require(`./forms/${file}`).default;
 	}
 	render() {
 		const {type: typeOrig, container, validate, label, formik = true, base, components: {input, Field = this.module(), Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
@@ -117,7 +117,7 @@ class Input extends React.PureComponent {
 		const containerProps = container ? {item: true, ...container} : {};
 
 		const type = this.type();
-		const extraProps = {...(formik ? {fast} : {}), ...(input ? {component: input} : {}), compact, ...this.extraProps()};
+		const extraProps = {...(formik ? {fast, ...(input ? {component: input} : {})} : {}), compact, ...this.extraProps()};
 
 		return <ErrorBoundary>
 			<Container {...containerProps}>
