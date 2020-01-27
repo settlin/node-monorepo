@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@4.1.6...@settlin/formik-mui@4.2.0) (2020-01-27)
+
+
+### Features
+
+* **@settlin/formik-mui:** remove dropzone etc\nBREAKING CHANGE: base ([818999e](http://github.com/settlin/node-monorepo/formik-mui/commit/818999e))
+
+
+
+
+
 ## [4.1.6](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@4.1.5...@settlin/formik-mui@4.1.6) (2020-01-17)
 
 
