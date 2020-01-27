@@ -47,7 +47,6 @@
     "formik": ">=1",
     "react": ">=16.8",
     "react-dom": ">=16.8",
-    "react-dropzone": ">=7",
     "react-select": ">=3"
   },
   "dependencies": {
@@ -67,10 +66,10 @@
     "@material-ui/lab": "^4.0.0-alpha.32",
     "@material-ui/pickers": "^3.2.8",
     "@material-ui/styles": "^4.6.0",
-    "@storybook/addon-actions": "^5.2.6",
-    "@storybook/addon-links": "^5.2.6",
-    "@storybook/addons": "^5.2.6",
-    "@storybook/react": "^5.2.6",
+    "@storybook/addon-actions": "^5.3.9",
+    "@storybook/addon-links": "^5.3.9",
+    "@storybook/addons": "^5.3.9",
+    "@storybook/react": "^5.3.9",
     "@storybook/storybook-deployer": "^2.8.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-dynamic-import": "^2.1.0",

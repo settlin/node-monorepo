@@ -1,10 +1,10 @@
 import React from 'react';
-import FButton from '../src/forms/Button';
+import FButton from '../../src/forms/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Input from '../src/Input';
+import Input from '../../src/Input';
 import Clear from '@material-ui/icons/Clear';
-import TextField from '../src/formik/TextField';
-import Select from '../src/forms/FilterField';
+import TextField from '../../src/formik/TextField';
+import Select from './FilterField';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
@@ -61,7 +61,7 @@ class UserPhoneOtp extends React.PureComponent {
 		this.hSetOtp = this.hSetOtp.bind(this);
 		this.hCancelOtp = this.hCancelOtp.bind(this);
 		this.hEnterOnMobile = this.hEnterOnMobile.bind(this);
-		this.hent = this.hent.bind(this);
+		this.hEnterOnOtp = this.hEnterOnOtp.bind(this);
 	}
 	hSend({resend} = {}) {
 		let {otpPurpose = 'verification', onOtpSend, field: {name, value} = {}, form: {errors = {}, setFieldError} = {}} = this.props;

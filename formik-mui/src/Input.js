@@ -77,47 +77,42 @@ class Input extends React.PureComponent {
 		}
 	}
 	module() {
-		let {type, mui, picker, formik = true, options} = this.props;
+		let {base, type, formik = true, options} = this.props;
 		let file = 'TextField';
 
-		switch (type) {
-			case 'array':
-				if (!formik) throw new Error('`array` type is only supported via formik. `formik` prop must be set to true in order to use it.');
-				file = 'InputArray';
-				break;
-			case 'buttons':
-				file = 'ButtonGroup';
-				break;
-			case 'checkbox':
-				file = options ? 'CheckboxGroup' : 'Checkbox';
-				break;
-			case 'file':
-				file = 'Dropzone';
-				break;
-			case 'currency':
-			case 'inr':
-				file = 'CurrencyField';
-				break;
-			case 'radio':
-				file = `${options ? 'RadioGroup' : 'Radio'}`;
-				break;
-			case 'select':
-				file = `${mui ? 'Select' : 'FilterField'}`;
-				break;
-			case 'switch':
-				file = 'Switch';
-				break;
-			case 'base':
-				file = 'Base';
-				break;
+		if (base) file = 'Base';
+		else {
+			switch (type) {
+				case 'array':
+					if (!formik) throw new Error('`array` type is only supported via formik. `formik` prop must be set to true in order to use it.');
+					file = 'InputArray';
+					break;
+				case 'buttons':
+					file = 'ButtonGroup';
+					break;
+				case 'checkbox':
+					file = options ? 'CheckboxGroup' : 'Checkbox';
+					break;
+				case 'currency':
+				case 'inr':
+					file = 'CurrencyField';
+					break;
+				case 'radio':
+					file = `${options ? 'RadioGroup' : 'Radio'}`;
+					break;
+				case 'select':
+					file = 'Select';
+					break;
+				case 'switch':
+					file = 'Switch';
+					break;
+			}
 		}
-
-		if (picker) file = 'DateTimePicker';
 
 		return formik ? require(`./formik/${file}`).default : require(`./forms/${file}`).default;
 	}
 	render() {
-		const {type: typeOrig, container, validate, label, formik = true, mui, components: {input, Field = this.module(), Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
+		const {type: typeOrig, container, validate, label, formik = true, base, components: {input, Field = this.module(), Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
 		const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 		const containerProps = container ? {item: true, ...container} : {};
 

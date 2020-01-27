@@ -5,7 +5,7 @@ import {Formik, Form, setIn} from 'formik';
 import {Input, Button, currencify} from '../../src';
 import DayJSUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-import TM from './TinyMCEComp';
+import TM from '../components/TinyMCE';
 
 class DemoForm extends PureComponent {
 	constructor(props) {
@@ -42,7 +42,7 @@ class DemoForm extends PureComponent {
 						<Grid container item spacing={1} xs={12}>
 							<Grid item xs={6}>
 								<Typography>Tiny MCE</Typography>
-								<Input type='base' components={{input: TM}} name='tinymce' className='tinymce' label='Text Area' container={{xs: 12}}/>
+								<Input base components={{input: TM}} name='tinymce' className='tinymce' label='Text Area' container={{xs: 12}}/>
 							</Grid>
 							<Grid container item xs={12} justify='center'>
 								<Button type='submit' variant='contained' size='small' disabled={!isValid || isSubmitting} processing={isSubmitting} label='Submit'/>

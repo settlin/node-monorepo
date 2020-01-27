@@ -7,7 +7,7 @@ import Fab from '@material-ui/core/Fab';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import grey from '@material-ui/core/colors/grey';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import isImage from '../../utils/isImage';
+import isImage from '../../../src/utils/isImage';
 import clsx from 'clsx';
 
 const styles = () => ({

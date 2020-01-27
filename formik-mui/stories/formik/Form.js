@@ -5,6 +5,9 @@ import {Formik, Form, setIn} from 'formik';
 import {Input, Button, currencify} from '../../src';
 import DayJSUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
+import Dropzone from '../components/Dropzone';
+import FilterField from '../components/FilterField';
+import DateTimePicker from '../components/DateTimePicker';
 
 const vvv = values => ({...values, files: (values.files || []).map(f => ({
 	name: f.name,
@@ -47,7 +50,7 @@ class DemoForm extends PureComponent {
 			<Input type='hidden' name={`${name}.${index}.name`}/>
 			<Input type='date' name={`${name}.${index}.dated`} fast={false} placeholder='Dated' InputProps={{classes: {input: 'mui'}}}/>
 			<Input type='text' name={`${name}.${index}.notes`} fast={false} placeholder='Notes' InputProps={{classes: {input: 'mui'}}}/>
-			<Input type='select' isClearable={false} name={`${name}.${index}.tags`} fast={false} multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} TextFieldProps={{InputProps: {classes: {input: 'font-small'}}}}/>
+			<Input components={{input: FilterField}} type='select' isClearable={false} name={`${name}.${index}.tags`} fast={false} multiple placeholder='Tag' options={[{value: 1, label: '1'}, {value: 2, label: '2'}]} InputProps={{classes: {input: 'font-small'}}}/>
 		</React.Fragment>;
 	}
 	render() {
@@ -61,10 +64,10 @@ class DemoForm extends PureComponent {
 							<Grid item xs={6}>
 								<Typography>Phones (Array of Inputs)</Typography>
 								<Input type='array' name='phones' label='Phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
-								<Input type='file' name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
+								<Input base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(cb, 1000)}
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
-									comps={{PreviewsChildren: this.PreviewsChildren}}
+									components={{PreviewsChildren: this.PreviewsChildren, input: Dropzone}}
 								/>
 							</Grid>
 							<Grid item xs={6}>
@@ -72,20 +75,20 @@ class DemoForm extends PureComponent {
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input name='month' type='month' label='Month' container={{xs: 4}}/>
 										<Input name='date' fast={false} type='date' label='Date' container={{xs: 4}}/>
-										<Input name='date1' picker fast={false} type='date' label='Date 1' container={{xs: 4}} defaultValue={new Date('1 nov 2019')} maxDate={new Date('1 feb 2020')}/>
-										<Input name='date2' picker fast={false} type='datetime' label='Date Time' container={{xs: 4}} defaultValue={new Date('1 nov 2019')}/>
+										<Input name='date1' base components={{input: DateTimePicker}} fast={false} type='date' label='Date 1' container={{xs: 4}} defaultValue={new Date('1 nov 2019')} maxDate={new Date('1 feb 2020')}/>
+										<Input name='date2' base components={{input: DateTimePicker}} fast={false} type='datetime' label='Date Time' container={{xs: 4}} defaultValue={new Date('1 nov 2019')}/>
 										<Input name='currency' type='inr' label='Currency' container={{xs: 4}}/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
-										<Input required mui name='mui' type='select' label='Select (Material UI)' helperText='`prop: mui` to use mui select (default: false)' container={{xs: 6}} options={[
+										<Input required name='mui' type='select' label='Select (Material UI)' container={{xs: 6}} options={[
 											{value: '1', label: 'Reason 1'},
 											{value: '2', label: 'Reason 2'},
 										]}/>
-										<Input mui multiple name='mui.multi' type='select' label='Select (MUI)' compact={false} helperText='`prop: mui` to use mui select (default: false)' container={{xs: 6}} options={[
+										<Input multiple name='mui.multi' type='select' label='Select (MUI)' compact={false} container={{xs: 6}} options={[
 											{value: '', label: 'Multiple Mui'},
 											{value: '2', label: 'Reason 2'},
 										]}/>
-										<Input required name='react.select' type='select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}}
+										<Input required components={{input: FilterField}} base name='react.select' label='Select (React Select)' helperText='Default select is react-select' container={{xs: 6}}
 											optionsAsync={function(v, cb) {
 												cb([
 													{value: '1', label: '1'},
@@ -93,13 +96,13 @@ class DemoForm extends PureComponent {
 												].filter(({value}) => !v || value === v));
 											}}
 										/>
-										<Input required name='react.select' compact={false} type='select' label='Select (React Select)' helperText='React select without compact' container={{xs: 6}}
+										<Input required components={{input: FilterField}} base name='react.select' compact={false} label='Select (React Select)' helperText='React select without compact' container={{xs: 6}}
 											options={[
 												{value: '1', label: '1'},
 												{value: '2', label: '2'},
 											]}
 										/>
-										<Input required name='react.select' compact={false} TextFieldProps={{InputLabelProps: {shrink: true}}} type='select' label='Select (React Select)' helperText='React select with fixed label' container={{xs: 6}}
+										<Input required components={{input: FilterField}} base name='react.select' compact={false} InputLabelProps={{shrink: true}} label='Select (React Select)' helperText='React select with fixed label' container={{xs: 6}}
 											options={[
 												{value: '1', label: '1'},
 												{value: '2', label: '2'},
@@ -107,13 +110,13 @@ class DemoForm extends PureComponent {
 										/>
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
-										<Input required disabled name='react.select' type='select' label='Select (React Select)' helperText='disabled react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
+										<Input required disabled components={{input: FilterField}} base name='react.select' label='Select (React Select)' helperText='disabled react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
 											cb([
 												{value: '1', label: '1'},
 												{value: '2', label: '2'},
 											].filter(({value}) => !v || value === v));
 										}}/>
-										<Input required readOnly name='react.select' type='select' label='Select (React Select)' helperText='readOnly react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
+										<Input required readOnly components={{input: FilterField}} base name='react.select' label='Select (React Select)' helperText='readOnly react-select' container={{xs: 6}} optionsAsync={function(v, cb) {
 											cb([
 												{value: '1', label: '1'},
 												{value: '2', label: '2'},
@@ -122,7 +125,7 @@ class DemoForm extends PureComponent {
 									</Grid>
 									<Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input name='textArea' type='textArea' multiline label='Text Area' multiline container={{xs: 6}}/>
-										<Input name='textBox' type='text' label='Text Box' container={{xs: 6}} compact={false} TextFieldProps={{InputLabelProps: {shrink: true}}}/>
+										<Input name='textBox' type='text' label='Text Box' container={{xs: 6}} compact={false} InputLabelProps={{shrink: true}}/>
 									</Grid>
 								</Grid>
 							</Grid>

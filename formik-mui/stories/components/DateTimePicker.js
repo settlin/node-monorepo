@@ -1,5 +1,5 @@
 import React from 'react';
-import formikToMuiProps from '../forms/formikToMuiProps';
+import formikToMuiProps from '../../src/forms/formikToMuiProps';
 import {KeyboardDatePicker, KeyboardDateTimePicker} from '@material-ui/pickers';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MuiTextField from '@material-ui/core/TextField';

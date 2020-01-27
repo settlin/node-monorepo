@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import formikToMuiProps from '../formikToMuiProps';
+import formikToMuiProps from '../../../src/forms/formikToMuiProps';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -9,7 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Dropzone from 'react-dropzone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Grid from '@material-ui/core/Grid';
-import convertBytesToMbsOrKbs from '../../utils/convertBytesToMbsOrKbs';
+import convertBytesToMbsOrKbs from '../../../src/utils/convertBytesToMbsOrKbs';
 import Previews from './Previews';
 import clsx from 'clsx';
 import acceptable from 'attr-accept';
@@ -92,7 +92,7 @@ class DropzoneArea extends React.PureComponent {
 		});
 	}
 	render() {
-		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, comps: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name, acceptedFiles, DropzoneProps} = this.props;
+		const {name, classes, cs = {}, FormHelperTextProps, error, helperText, value = [], showPreviews, PreviewsComponentProps, components: {PreviewsComponent = Previews, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name, acceptedFiles, DropzoneProps} = this.props;
 		const {errors = []} = this.state;
 		if (!Array.isArray(value)) console.error('Received value is not an array', value); // eslint-disable-line no-console
 		const files = value.map(f => {
@@ -164,7 +164,7 @@ DropzoneArea.defaultProps = {
 };
 DropzoneArea.propTypes = {
 	acceptedFiles: PropTypes.array,
-	comps: PropTypes.object,
+	components: PropTypes.object,
 	limit: PropTypes.number,
 	maxSize: PropTypes.number,
 	helperText: PropTypes.string,
