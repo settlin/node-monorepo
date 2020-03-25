@@ -37,10 +37,6 @@ export default function({
 				field.value = typeof field.value === 'undefined' ? false : Boolean(field.value);
 				break;
 
-			case 'file':
-				field.value = typeof field.value === 'undefined' ? [] : field.value;
-				break;
-
 			case 'date':
 				field.value = typeof field.value === 'undefined' ? '' : isDate(field.value) ? field.value.toISOString().split('T')[0] : field.value;
 				break;

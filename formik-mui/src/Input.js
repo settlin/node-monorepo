@@ -24,7 +24,9 @@ class Input extends React.PureComponent {
 	extraProps() {
 		let {type: typeOrig, label = '', required, validate: validateOrig, compact = true, formik = true, indian} = this.props;
 
+		if (required && compact && label) label = label.replace(/\*$/, '').trim() + ' *';
 		if (!formik) return {label};
+
 		let validateFunc = () => { }, validateReq = () => { };
 		if (typeof validateOrig === 'function') validateFunc = validateOrig; // original validate function
 		else if (validateOrig) {
@@ -55,7 +57,6 @@ class Input extends React.PureComponent {
 		}
 		if (required) {
 			validateReq = v => typeof v === 'undefined' && (typeof required === 'string' ? required : 'Required');
-			if (compact && label) label = label.replace(/\*$/, '').trim() + ' *';
 		}
 
 		const validate = typeOrig === 'array' ? null : v => validateReq(v) || ((v === 0 || v) && validateFunc(v));
