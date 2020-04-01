@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.6](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.4.5...@settlin/collage@1.4.6) (2020-04-01)
+
+
+### Bug Fixes
+
+* fixes ([9baf952](http://github.com/settlin/node-monorepo/collage/commit/9baf952))
+
+
+
+
+
 ## [1.4.5](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.4.4...@settlin/collage@1.4.5) (2019-08-29)
 
 
