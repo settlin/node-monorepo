@@ -6,6 +6,7 @@ import {action} from '@storybook/addon-actions';
 import TinyMCE from './formik/TinyMCE';
 import Otp from './formik/Otp';
 import Form from './formik/Form';
+import ChipSelect from './formik/ChipSelect';
 import Radio from './formik/Radio';
 import Checkbox from './formik/Checkbox';
 import Button from './formik/Button';
@@ -18,7 +19,8 @@ storiesOf('Formik', module)
 	.add('Switch, Checkbox', () => <Checkbox onSubmit={action('clicked')}/>)
 	.add('Button', () => <Button onSubmit={action('clicked')}/>)
 	.add('TinyMCE', () => <TinyMCE onSubmit={action('clicked')}/>)
-	.add('Otp', () => <Otp onSubmit={action('clicked')}/>);
+	.add('Otp', () => <Otp onSubmit={action('clicked')}/>)
+	.add('ChipSelect', () => <ChipSelect onSubmit={action('clicked')}/>);
 
 storiesOf('Form', module)
 	.add('Fields', () => <Form2 onChange={action('clicked')}/>);

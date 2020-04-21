@@ -238,6 +238,8 @@ class Select extends React.PureComponent {
 		} = this.props;
 		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
 
+		const {selectInput, clearIndicator, dropdownIndicator, indicatorSeparator, ...moreStyles} = ss;
+		console.log(moreStyles);
 		const selectStyles = {
 			input: base => ({
 				...base,
@@ -245,11 +247,12 @@ class Select extends React.PureComponent {
 				'& input': {
 					font: 'inherit',
 				},
-				...ss.selectInput,
+				...selectInput,
 			}),
-			clearIndicator: base => ({...base, padding: '6px', ...ss.clearIndicator}),
-			dropdownIndicator: base => ({...base, padding: '6px', ...ss.dropdownIndicator}),
-			indicatorSeparator: base => ({...base, ...ss.indicatorSeparator}),
+			clearIndicator: base => ({...base, padding: '6px', ...clearIndicator}),
+			dropdownIndicator: base => ({...base, padding: '6px', ...dropdownIndicator}),
+			indicatorSeparator: base => ({...base, ...indicatorSeparator}),
+			...moreStyles,
 		};
 		const InputAdornmentProps = {...iAP, onClick: () => this.selectRef.focus()};
 		const TextFieldProps = {label, compact, placeholder, error: Boolean(message), helperText: message || helperText, disabled, readOnly, FormHelperTextProps, InputAdornmentProps, InputLabelProps, InputProps, inputProps, inputRef};
