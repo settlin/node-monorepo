@@ -105,6 +105,7 @@ class DemoForm extends PureComponent {
 									display: 'grid',
 									gridTemplateColumns: '150px 150px 150px 150px 150px 150px 150px 150px 150px 150px',
 									gridGap: 4,
+									justifyContent: 'center',
 								})}}
 								selectComponents={{Menu, Option}}
 								multiple
