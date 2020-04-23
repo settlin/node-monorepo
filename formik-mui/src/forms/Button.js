@@ -77,7 +77,7 @@ class CircularIntegration extends React.Component {
 }
 
 const Button1 = withStyles(styles)(CircularIntegration);
-const Button2 = ({classes, ...props}) => <Button1 cs={classes} {...props}/>;
+const Button2 = React.forwardRef(({classes, ...props}, ref) => <Button1 ref={ref} cs={classes} {...props}/>);
 
 Button2.displayName = 'FButton';
 
