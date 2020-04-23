@@ -25,13 +25,13 @@
   },
   "homepage": "https://github.com/settlin/node-monorepo/collage#readme",
   "dependencies": {
-    "bluebird": "^3.5.5",
-    "canvas": "^2.5.0",
+    "bluebird": "^3.7.2",
+    "canvas": "^2.6.1",
     "lodash.clonedeep": "^4.5.0",
-    "request": "^2.88.0"
+    "request": "^2.88.2"
   },
   "devDependencies": {
-    "@storybook/storybook-deployer": "^2.8.1",
+    "@storybook/storybook-deployer": "^2.8.5",
     "buffer-equal": "^1.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
