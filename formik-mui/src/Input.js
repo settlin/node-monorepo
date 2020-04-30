@@ -19,7 +19,7 @@ class ErrorBoundary extends React.Component {
 	}
 }
 
-class Input extends React.PureComponent {
+class Input extends React.Component {
 	state = {}
 	extraProps() {
 		let {type: typeOrig, label = '', required, validate: validateOrig, compact = true, formik = true, indian} = this.props;

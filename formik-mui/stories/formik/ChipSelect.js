@@ -55,11 +55,6 @@ function Option(props) {
 	);
 }
 
-
-const vvv = values => ({...values, files: (values.files || []).map(f => ({
-	name: f.name,
-	...f,
-}))});
 class DemoForm extends PureComponent {
 	constructor(props) {
 		super(props);
@@ -86,7 +81,7 @@ class DemoForm extends PureComponent {
 		}, 1000);
 	}
 	render() {
-		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000, files: [{name: '1.pdf'}, {name: 'very very very very long file name.pdf'}, {name: '2.json'}]};
+		const initialValues = {};
 
 		return <MuiPickersUtilsProvider utils={DayJSUtils}>
 			<Grid container item spacing={1} style={{padding: '2rem'}}>
@@ -116,7 +111,7 @@ class DemoForm extends PureComponent {
 							<Button type='submit' variant='contained' size='small' disabled={!isValid || isSubmitting} processing={isSubmitting} label='Submit'/>
 						</Grid>
 						<Grid container item xs={12} justify='center'>
-								Values: {JSON.stringify(vvv(values))}
+								Values: {JSON.stringify(values)}
 						</Grid>
 						<Grid container item xs={12} justify='center'>
 								Errors: {JSON.stringify(errors)}
