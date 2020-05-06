@@ -28,31 +28,43 @@ class MultiValue extends PureComponent {
 		setValue(value);
 	}
 	render() {
-		let {children, selectProps: {value, classes, maxCharacters = children?.length}, isFocused, removeProps} = this.props;
+		let {children, index, selectProps: {maxValues = 1, value, classes, maxCharacters = children?.length}, isFocused, removeProps} = this.props;
 		const {showFull} = this.state;
 
-		const ind = value.findIndex(o => o.label === children);
-		if (ind < value.length - 1) return null;
+		if (index < value.length - maxValues) return null;
 		return (
 			<React.Fragment>
-				{!showFull ?
-					<Chip
-						label={`${value.length > 1 ? (value.length - 1) + '+ ' : ''}${maxCharacters < children?.length ? children.substr(0, maxCharacters - 3) + '...' : children}`}
-						className={classNames(classes.chip, {
-							[classes.chipFocused]: isFocused,
-						})}
-						// ,  background: '#fcfcfc87', color: '#890909'
-						style={{borderRadius: '10px'}}
-						onDelete={this.hDeleteLast.bind(this)}
-						onClick={() => this.setState({showFull: true})}
-						deleteIcon={<CancelIcon {...removeProps}/>}
-					/>
+				{!showFull
+					? <React.Fragment>
+						{maxValues !== 1 && index === value.length - maxValues && value.length > maxValues && <Chip
+							label={(value.length - maxValues) + ' more'}
+							className={classNames(classes.chip, {
+								[classes.chipFocused]: isFocused,
+							})}
+							// ,  background: '#fcfcfc87', color: '#890909'
+							style={{borderRadius: '10px'}}
+							onDelete={this.hDeleteLast.bind(this)}
+							onClick={() => this.setState({showFull: true})}
+							deleteIcon={<CancelIcon {...removeProps}/>}
+						/>}
+						<Chip
+							label={`${maxValues === 1 && value.length > maxValues ? (value.length - maxValues) + '+ ' : ''}${maxCharacters < children?.length ? children.substr(0, maxCharacters - 3) + '...' : children}`}
+							className={classNames(classes.chip, {
+								[classes.chipFocused]: isFocused,
+							})}
+							// ,  background: '#fcfcfc87', color: '#890909'
+							style={{borderRadius: '10px'}}
+							onDelete={this.hDeleteLast.bind(this)}
+							onClick={() => this.setState({showFull: true})}
+							deleteIcon={<CancelIcon {...removeProps}/>}
+						/>
+					</React.Fragment>
 					:
 					<div style={{position: 'absolute', zIndex: '100000', top: '0', background: '#f1f1f1', left: 0, boxShadow: '0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2)', right: 0}}>
 						<CancelIcon onClick={()=> this.setState({showFull: false})} style={{float: 'right', cursor: 'pointer'}} color='action'/>
-						{value.map((i, index)=>
+						{value.map((i, ind)=>
 							<Chip
-								key={index}
+								key={ind}
 								label={i.label}
 								className={classNames(classes.chip, {
 									[classes.chipFocused]: isFocused,
@@ -178,6 +190,7 @@ class DemoForm extends PureComponent {
 								selectComponents={{MenuList, MultiValue, Group, Option}}
 								multiple
 								hideSelectedOptions={false}
+								maxValues={1}
 							/>
 						</Grid>
 						<Grid container item xs={12} justify='center'>
