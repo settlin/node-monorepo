@@ -28,16 +28,16 @@ class MultiValue extends PureComponent {
 		setValue(value);
 	}
 	render() {
-		let {children, index, selectProps: {maxValues = 1, value, classes, maxCharacters = children?.length}, isFocused, removeProps} = this.props;
+		let {children, index, selectProps: {maxValuesToShow = 1, value, classes, maxCharacters = children?.length}, isFocused, removeProps} = this.props;
 		const {showFull} = this.state;
 
-		if (index < value.length - maxValues) return null;
+		if (index < value.length - maxValuesToShow) return null;
 		return (
 			<React.Fragment>
 				{!showFull
 					? <React.Fragment>
-						{maxValues !== 1 && index === value.length - maxValues && value.length > maxValues && <Chip
-							label={(value.length - maxValues) + ' more'}
+						{maxValuesToShow !== 1 && index === value.length - maxValuesToShow && value.length > maxValuesToShow && <Chip
+							label={(value.length - maxValuesToShow) + ' more'}
 							className={classNames(classes.chip, {
 								[classes.chipFocused]: isFocused,
 							})}
@@ -48,7 +48,7 @@ class MultiValue extends PureComponent {
 							deleteIcon={<CancelIcon {...removeProps}/>}
 						/>}
 						<Chip
-							label={`${maxValues === 1 && value.length > maxValues ? (value.length - maxValues) + '+ ' : ''}${maxCharacters < children?.length ? children.substr(0, maxCharacters - 3) + '...' : children}`}
+							label={`${maxValuesToShow === 1 && value.length > maxValuesToShow ? (value.length - maxValuesToShow) + '+ ' : ''}${maxCharacters < children?.length ? children.substr(0, maxCharacters - 3) + '...' : children}`}
 							className={classNames(classes.chip, {
 								[classes.chipFocused]: isFocused,
 							})}
@@ -190,7 +190,7 @@ class DemoForm extends PureComponent {
 								selectComponents={{MenuList, MultiValue, Group, Option}}
 								multiple
 								hideSelectedOptions={false}
-								maxValues={1}
+								maxValuesToShow={1}
 							/>
 						</Grid>
 						<Grid container item xs={12} justify='center'>
