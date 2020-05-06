@@ -197,12 +197,13 @@ class Select extends React.PureComponent {
 	}
 	getValueProp(value) {
 		const {options, optionsAsync, multiple, hackForceUpdate, valueWithLabel = Boolean(optionsAsync)} = this.props;
+		const allOptions = options.reduce((a, o) => o.options ? [...a, ...o.options] : [...a, o], []);
 		if (typeof value === 'undefined' || value === null) return multiple ? [] : hackForceUpdate ? null : undefined;  // eslint-disable-line no-undefined
 		return valueWithLabel
 			? value
 			: multiple
-				? options.filter(o => Boolean((value || []).filter(v => v == o.value).length)) // eslint-disable-line eqeqeq
-				: options.find(o => value == o.value); // eslint-disable-line eqeqeq
+				? allOptions.filter(o => Boolean((value || []).filter(v => v == o.value).length)) // eslint-disable-line eqeqeq
+				: allOptions.find(o => value == o.value); // eslint-disable-line eqeqeq
 	}
 	render() {
 		const {
@@ -239,7 +240,6 @@ class Select extends React.PureComponent {
 		const message = (dirty || (name && getIn(touched, name))) && (name && getIn(errors, name));
 
 		const {selectInput, clearIndicator, dropdownIndicator, indicatorSeparator, ...moreStyles} = ss;
-		console.log(moreStyles);
 		const selectStyles = {
 			input: base => ({
 				...base,
