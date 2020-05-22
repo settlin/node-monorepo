@@ -63,7 +63,7 @@ class CircularIntegration extends React.Component {
   					<div className={clsx(fullWidth ? classes.wrapperFullWidth : classes.wrapper, cs.wrapper)}>
   						<Button ref={ref} fullWidth={fullWidth} variant={variant} color={color} classes={{root: clsx(buttonClassname, cs.button)}} disabled={processing} {...rest}>
 								{processing
-									? <CircularProgress className={clsx(classes.marginRight, classes.buttonProgress)} {...CircularProgressProps}/>
+									? <CircularProgress className={clsx(classes.marginRight, classes.buttonProgress, cs.processing)} {...CircularProgressProps}/>
 									: IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}} {...IconProps}/>
 								}
 								{children}
