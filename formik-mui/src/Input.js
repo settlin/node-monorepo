@@ -113,12 +113,12 @@ class Input extends React.Component {
 		return formik ? require(`./formik/${file}`).default : input || require(`./forms/${file}`).default;
 	}
 	render() {
-		const {type: typeOrig, container, validate, label, formik = true, base, components: {input, Field = this.module(), Loader = LinearProgress} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
+		const {type: typeOrig, container, validate, label, formik = true, base, components: {input, Field = this.module(), Loader = LinearProgress, ...components} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
 		const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 		const containerProps = container ? {item: true, ...container} : {};
 
 		const type = this.type();
-		const extraProps = {...(formik ? {fast, ...(input ? {component: input} : {})} : {}), compact, ...this.extraProps()};
+		const extraProps = {...(formik ? {fast, ...(input ? {component: input} : {})} : {}), compact, components, ...this.extraProps()};
 
 		return <ErrorBoundary>
 			<Container {...containerProps}>
