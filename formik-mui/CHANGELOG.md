@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.2](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@4.3.1...@settlin/formik-mui@4.3.2) (2020-09-25)
+
+
+### Bug Fixes
+
+* fix toggle button group ([6e83e20](http://github.com/settlin/node-monorepo/formik-mui/commit/6e83e20d5309bdcbbd19ce62473ebb89285294b7))
+
+
+
+
+
 ## [4.3.1](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@4.3.0...@settlin/formik-mui@4.3.1) (2020-06-03)
 
 
