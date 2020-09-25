@@ -9,7 +9,7 @@
   "command": {
     "publish": {
       "conventionalCommits": true,
-      "githubRelease": true,
+			"createRelease": "github",
       "yes": true,
       "message": "chore(release): publish %s"
     }
