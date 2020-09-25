@@ -32,8 +32,8 @@ class ToggleButtonGroup extends React.Component {
 	}
 
 	handleChange(event, value) {
-  	if (this.props.field) this.props.form.setFieldValue(this.props.field.name, value);
-  	if (this.props.onChange) this.props.onChange(event.target.value);
+		if (this.props.field) this.props.form.setFieldValue(this.props.field.name, value);
+  	if (this.props.onChange) this.props.onChange(event.currentTarget.value);
 	}
 
 	handleBlur() {
