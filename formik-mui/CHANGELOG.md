@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.3](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@4.3.2...@settlin/formik-mui@4.3.3) (2020-11-07)
+
+
+### Bug Fixes
+
+* remove dynamic require ([c330b5d](http://github.com/settlin/node-monorepo/formik-mui/commit/c330b5d3f5f7a627e29d9095d06853aef1da4faf))
+
+
+
+
+
 ## [4.3.2](http://github.com/settlin/node-monorepo/formik-mui/compare/@settlin/formik-mui@4.3.1...@settlin/formik-mui@4.3.2) (2020-09-25)
 
 
