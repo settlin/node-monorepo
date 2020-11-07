@@ -79,38 +79,34 @@ class Input extends React.Component {
 	}
 	module() {
 		let {base, type, formik = true, options, components: {input} = {}} = this.props;
-		let file = 'TextField';
 
-		if (base) file = 'Base';
-		else {
-			switch (type) {
-				case 'array':
-					if (!formik) throw new Error('`array` type is only supported via formik. `formik` prop must be set to true in order to use it.');
-					file = 'InputArray';
-					break;
-				case 'buttons':
-					file = 'ButtonGroup';
-					break;
-				case 'checkbox':
-					file = options ? 'CheckboxGroup' : 'Checkbox';
-					break;
-				case 'currency':
-				case 'inr':
-					file = 'CurrencyField';
-					break;
-				case 'radio':
-					file = `${options ? 'RadioGroup' : 'Radio'}`;
-					break;
-				case 'select':
-					file = 'Select';
-					break;
-				case 'switch':
-					file = 'Switch';
-					break;
-			}
+		if (base) {
+			return formik ? require('./formik/Base').default : input || require('./forms/Base').default;
 		}
 
-		return formik ? require(`./formik/${file}`).default : input || require(`./forms/${file}`).default;
+		switch (type) {
+			case 'array':
+				if (!formik) throw new Error('`array` type is only supported via formik. `formik` prop must be set to true in order to use it.');
+				return formik ? require('./formik/InputArray').default : input || require('./forms/InputArray').default;
+			case 'buttons':
+				return formik ? require('./formik/ButtonGroup').default : input || require('./forms/ButtonGroup').default;
+			case 'checkbox':
+				return options
+					? formik ? require('./formik/CheckboxGroup').default : input || require('./forms/CheckboxGroup').default
+					: formik ? require('./formik/Checkbox').default : input || require('./forms/Checkbox').default;
+			case 'currency':
+			case 'inr':
+				return formik ? require('./formik/CurrencyField').default : input || require('./forms/CurrencyField').default;
+			case 'radio':
+				return options
+					? formik ? require('./formik/RadioGroup').default : input || require('./forms/RadioGroup').default
+					: formik ? require('./formik/Radio').default : input || require('./forms/Radio').default;
+			case 'select':
+				return formik ? require('./formik/Select').default : input || require('./forms/Select').default;
+			case 'switch':
+				return formik ? require('./formik/Switch').default : input || require('./forms/Switch').default;
+		}
+		return formik ? require('./formik/TextField').default : input || require('./forms/TextField').default;
 	}
 	render() {
 		const {type: typeOrig, container, validate, label, formik = true, base, components: {input, Field = this.module(), Loader = LinearProgress, ...components} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
