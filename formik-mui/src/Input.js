@@ -87,7 +87,7 @@ class Input extends React.Component {
 		switch (type) {
 			case 'array':
 				if (!formik) throw new Error('`array` type is only supported via formik. `formik` prop must be set to true in order to use it.');
-				return formik ? require('./formik/InputArray').default : input || require('./forms/InputArray').default;
+				return require('./formik/InputArray').default;
 			case 'buttons':
 				return formik ? require('./formik/ButtonGroup').default : input || require('./forms/ButtonGroup').default;
 			case 'checkbox':
