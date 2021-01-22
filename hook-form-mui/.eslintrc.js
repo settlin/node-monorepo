@@ -1,12 +1,17 @@
 module.exports = {
 	parser: 'babel-eslint',
-	plugins: ['react'
+	plugins: ['react','react-hooks', 'json-format'
   ],
 	env: {
 		browser: true,
 		node: true,
-		jquery: true
-  },
+		jquery: true,
+		es6: true,
+	},
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+	],
 	rules: {
     // babel inserts "use strict"; for us
     // http://eslint.org/docs/rules/strict
@@ -229,6 +234,73 @@ module.exports = {
 				afterOpening: 'never',
 				beforeClosing: 'never'
       }
-    ]
+		],
+		'react/jsx-max-props-per-line': [
+			'warn',
+			{
+				'maximum': 1,
+				'when': 'multiline',
+			},
+		],
+		'react/function-component-definition': [1, {
+			'namedComponents': 'function-declaration',
+			'unnamedComponents': 'function-expression',
+		}],
+		'react/jsx-handler-names': [1, {
+			'eventHandlerPrefix': 'h',
+		}],
+		'react/jsx-props-no-multi-spaces': 1,
+		'react/jsx-one-expression-per-line': 1,
+		'react/jsx-no-useless-fragment': 1,
+		'react/jsx-no-undef': 'error',
+		'react/jsx-no-bind': [1, {
+			'allowArrowFunctions': true,
+			'allowFunctions': true,
+		}],
+		'react/jsx-indent': [1, 'tab', {checkAttributes: true, indentLogicalExpressions: true}],
+		'react/self-closing-comp': 1,
+		'react/sort-prop-types': ['warn', {
+			'ignoreCase': true,
+			'requiredFirst': true,
+			'sortShapeProp': true,
+		}],
+		'react/react-in-jsx-scope': 2,
+		'react/prefer-stateless-function': 1,
+		'react/no-unused-prop-types': 1,
+		'react/no-unused-state': 1,
+		'react/no-multi-comp': 1,
+		'react/no-access-state-in-setstate': 1,
+		'react/no-deprecated': 'warn',
+		'react/no-did-mount-set-state': 'warn',
+		'react/no-did-update-set-state': 'warn',
+		'react/boolean-prop-naming': 'warn',
+		'react/display-name': 'warn',
+		'react/forbid-prop-types': ['warn', {
+			'forbid': ['any'],
+		}],
+		'react/jsx-first-prop-new-line': [1, 'multiline-multiprop'],
+		'react/jsx-pascal-case': 'warn',
+		'react/jsx-sort-props': 'warn',
+		'react/jsx-uses-vars': 'error',
+		'react/jsx-closing-tag-location': 'warn',
+		'react/jsx-closing-bracket-location': 'warn',
+		'react/jsx-boolean-value': ['warn', 'never'],
+		'react/jsx-equals-spacing': ['warn', 'never'],
+		'react/jsx-fragments': ['warn', 'syntax'],
+		'react/jsx-wrap-multilines': ['warn', {
+			'declaration': 'parens-new-line',
+			'assignment': 'parens-new-line',
+			'return': 'parens-new-line',
+			'arrow': 'parens-new-line',
+			'condition': 'parens-new-line',
+			'logical': 'parens-new-line',
+			'prop': 'parens-new-line',
+		}],
+		'react/no-array-index-key': 'warn',
+		'react/no-children-prop': 'error',
+		'react/no-direct-mutation-state': 'warn',
+		'react/prop-types': 'warn',
+		'react-hooks/rules-of-hooks': 'error',
+		'react-hooks/exhaustive-deps': 'warn',
   }
 };
