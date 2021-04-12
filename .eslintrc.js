@@ -1,63 +1,72 @@
 module.exports = {
 	parser: 'babel-eslint',
-	plugins: ['react'],
+	plugins: [
+		'react',
+		'react-hooks',
+	],
 	env: {
 		browser: true,
 		node: true,
-		jquery: true
+		jquery: true,
+		es6: true,
+	},
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+	],
+	// overrides: [
+	// 	{
+	// 		// for files matching this pattern
+	// 		files: ['*.ts', '*.tsx'],
+	// 		// following config will override "normal" config
+	// 		parser: '@typescript-eslint/parser',
+	// 		plugins: [
+	// 			'@typescript-eslint',
+	// 		],
+	// 		extends: ['plugin:@typescript-eslint/recommended'],
+	// 		rules: {
+	// 			'@typescript-eslint/no-var-requires': 'off',
+	//      '@typescript-eslint/no-use-before-define': ['error', 'nofunc'],
+	// 		},
+	// 	},
+	// ],
+	globals: {
+		Log: 'readonly',
+		Logger: 'readonly',
+		ServerDate: 'readonly',
+		js: 'readonly',
+		jp: 'readonly',
+		pi: 'readonly',
+		S3: 'readonly',
+		Assets: 'readonly',
+		// "var2": "writable"
 	},
 	rules: {
-		// babel inserts "use strict"; for us
+		// "graphql/template-strings": ['error', {
+		//   env: 'apollo',
+		// }],
+		// babel inserts 'use strict'; for us
 		// http://eslint.org/docs/rules/strict
 		strict: ['error', 'never'],
 		////////// Possible Errors //////////
 		'comma-dangle': ['warn', 'always-multiline'], // disallow trailing commas in object literals
-		'no-cond-assign': 'warn', // disallow assignment in conditional expressions
 		'no-console': 'warn', // disallow use of console (off by default in the node environment)
-		'no-constant-condition': 'warn', // disallow use of constant expressions in conditions
-		'no-control-regex': 'warn', // disallow control characters in regular expressions
 		'no-debugger': 'warn', // disallow use of debugger
-		'no-dupe-keys': 'warn', // disallow duplicate keys when creating object literals
-		'no-duplicate-case': 'warn', // http://eslint.org/docs/rules/no-duplicate-case
 		'block-scoped-var': 'off', // http://eslint.org/docs/rules/block-scoped-var
-		'no-empty': 'warn', // disallow empty statements
 		'no-empty-class': 'off', // disallow the use of empty character classes in regular expressions
-		'no-ex-assign': 'warn', // disallow assigning to the exception in a catch block
-		'no-extra-boolean-cast': 'off', // disallow double-negation boolean casts in a boolean context
-		'no-extra-semi': 'warn', // disallow unnecessary semicolons
-		'no-func-assign': 'warn', // disallow overwriting functions written as function declarations
-		'no-inner-declarations': 'warn', // disallow function or variable declarations in nested blocks
-		'no-invalid-regexp': 'error', // disallow invalid regular expression strings in the RegExp constructor
-		'no-irregular-whitespace': 'warn', // disallow irregular whitespace outside of strings and comments
 		'no-negated-in-lhs': 'off', // disallow negation of the left operand of an in expression
-		'no-obj-calls': 'warn', // disallow the use of object properties of the global object (Math and JSON) as functions
-		'no-regex-spaces': 'off', // disallow multiple spaces in a regular expression literal
+		'no-prototype-builtins': 'warn',
 		'no-reserved-keys': 'off', // disallow reserved words being used as object literal keys (off by default)
-		'no-sparse-arrays': 'warn', // disallow sparse arrays
 		'no-unreachable': 'warn', // disallow unreachable statements after a return, throw, continue, or break statement
-		'use-isnan': 'warn', // disallow comparisons with the value NaN
+		'no-unused-vars': 'warn', // disallow unreachable statements after a return, throw, continue, or break statement
 		'valid-jsdoc': 'warn', // Ensure JSDoc comments are valid (off by default)
-		'valid-typeof': 'warn', // Ensure that the results of typeof are compared against a valid string
 		'no-var': 'off', // http://eslint.org/docs/rules/no-var
 		////////// Variables //////////
 		'no-catch-shadow': 'off', // disallow the catch clause parameter name being the same as a variable in the outer scope (off by default in the node environment)
-		'no-delete-var': 'off', // disallow deletion of variables
 		'no-label-var': 'off', // disallow labels that share a name with a variable
 		'no-shadow': 'warn', // disallow declaration of variables already declared in the outer scope
-		'no-shadow-restricted-names': 'warn', // disallow shadowing of names such as arguments
-		'no-undef': 'off', // disallow use of undeclared variables unless mentioned in a /*global */ block
 		'no-undef-init': 'warn', // disallow use of undefined when initializing variables
 		'no-undefined': 'warn', // disallow use of undefined variable (off by default)
-		'no-use-before-define': ['warn', 'nofunc'], // disallow use of variables before they are defined
-		'no-unused-vars': [
-			'warn',
-			{
-				// // disallow declaration of variables that are not used in the code
-				vars: 'local',
-				args: 'after-used',
-				varsIgnorePattern: 'React|AppContainer|Blaze'
-			}
-		],
 		/*** Best practices */
 		'consistent-return': 'warn', // http://eslint.org/docs/rules/consistent-return
 		curly: ['warn', 'multi-line'], // http://eslint.org/docs/rules/curly
@@ -66,8 +75,8 @@ module.exports = {
 			'warn',
 			{
 				// http://eslint.org/docs/rules/dot-notation
-				allowKeywords: true
-			}
+				allowKeywords: true,
+			},
 		],
 		eqeqeq: 'warn', // http://eslint.org/docs/rules/eqeqeq
 		'guard-for-in': 'warn', // http://eslint.org/docs/rules/guard-for-in
@@ -78,11 +87,11 @@ module.exports = {
 		'no-extend-native': [
 			'warn',
 			{
-				exceptions: ['Array', 'String', 'Date']
-			}
+				exceptions: ['Array', 'String', 'Date'],
+			},
 		], // http://eslint.org/docs/rules/no-extend-native
 		'no-extra-bind': 'warn', // http://eslint.org/docs/rules/no-extra-bind
-		'no-fallthrough': 'warn', // http://eslint.org/docs/rules/no-fallthrough
+		'no-extra-semi': 'warn', // http://eslint.org/docs/rules/no-extra-bind
 		'no-floating-decimal': 'warn', // http://eslint.org/docs/rules/no-floating-decimal
 		'no-implied-eval': 'warn', // http://eslint.org/docs/rules/no-implied-eval
 		'no-lone-blocks': 'warn', // http://eslint.org/docs/rules/no-lone-blocks
@@ -92,17 +101,14 @@ module.exports = {
 		'no-new': 'warn', // http://eslint.org/docs/rules/no-new
 		'no-new-func': 'warn', // http://eslint.org/docs/rules/no-new-func
 		'no-new-wrappers': 'warn', // http://eslint.org/docs/rules/no-new-wrappers
-		'no-octal': 'warn', // http://eslint.org/docs/rules/no-octal
 		'no-octal-escape': 'warn', // http://eslint.org/docs/rules/no-octal-escape
 		'no-param-reassign': 'off', // http://eslint.org/docs/rules/no-param-reassign
 		'no-proto': 'warn', // http://eslint.org/docs/rules/no-proto
-		'no-redeclare': 'warn', // http://eslint.org/docs/rules/no-redeclare
-		'no-return-assign': 'warn', // http://eslint.org/docs/rules/no-return-assign
+		'no-return-assign': 'error', // http://eslint.org/docs/rules/no-return-assign
 		'no-script-url': 'warn', // http://eslint.org/docs/rules/no-script-url
 		'no-self-compare': 'warn', // http://eslint.org/docs/rules/no-self-compare
 		'no-sequences': 'warn', // http://eslint.org/docs/rules/no-sequences
 		'no-throw-literal': 'warn', // http://eslint.org/docs/rules/no-throw-literal
-		'no-with': 'warn', // http://eslint.org/docs/rules/no-with
 		radix: 'warn', // http://eslint.org/docs/rules/radix
 		'vars-on-top': 'off', // http://eslint.org/docs/rules/vars-on-top
 		'wrap-iife': ['warn', 'any'], // http://eslint.org/docs/rules/wrap-iife
@@ -115,35 +121,36 @@ module.exports = {
 			'warn',
 			'tab',
 			{
-				SwitchCase: 1
-			}
+				SwitchCase: 1,
+				ignoredNodes: ['TemplateLiteral'],
+			},
 		], // http://eslint.org/docs/rules/indent
 		'brace-style': [
 			'warn', // http://eslint.org/docs/rules/brace-style
 			'stroustrup',
 			{
-				allowSingleLine: true
-			}
+				allowSingleLine: true,
+			},
 		],
 		quotes: [
 			'warn',
 			'single',
-			'avoid-escape' // http://eslint.org/docs/rules/quotes
+			'avoid-escape', // http://eslint.org/docs/rules/quotes
 		],
 		camelcase: [
 			'warn',
 			{
 				// http://eslint.org/docs/rules/camelcase
-				properties: 'never'
-			}
+				properties: 'never',
+			},
 		],
 		'comma-spacing': [
 			'warn',
 			{
 				// http://eslint.org/docs/rules/comma-spacing
 				before: false,
-				after: true
-			}
+				after: true,
+			},
 		],
 		'comma-style': ['warn', 'last'], // http://eslint.org/docs/rules/comma-style
 		'eol-last': 'warn', // http://eslint.org/docs/rules/eol-last
@@ -154,8 +161,8 @@ module.exports = {
 			{
 				// http://eslint.org/docs/rules/key-spacing
 				beforeColon: false,
-				afterColon: true
-			}
+				afterColon: true,
+			},
 		],
 		'new-cap': [
 			'warn',
@@ -171,16 +178,16 @@ module.exports = {
 					'Match',
 					'Optional',
 					'Maybe',
-					'OneOf'
-				]
-			}
+					'OneOf',
+				],
+			},
 		],
 		'no-multiple-empty-lines': [
 			'warn',
 			{
 				// http://eslint.org/docs/rules/no-multiple-empty-lines
-				max: 2
-			}
+				max: 2,
+			},
 		],
 		'no-nested-ternary': 'off', // http://eslint.org/docs/rules/no-nested-ternary
 		'no-new-object': 'warn', // http://eslint.org/docs/rules/no-new-object
@@ -198,8 +205,8 @@ module.exports = {
 			{
 				// http://eslint.org/docs/rules/semi-spacing
 				before: false,
-				after: true
-			}
+				after: true,
+			},
 		],
 		'keyword-spacing': 'warn', // http://eslint.org/docs/rules/keyword-spacing
 		'space-before-blocks': 'warn', // http://eslint.org/docs/rules/space-before-blocks
@@ -207,15 +214,85 @@ module.exports = {
 		'space-infix-ops': 'warn', // http://eslint.org/docs/rules/space-infix-ops
 		'spaced-line-comment': 'off', // http://eslint.org/docs/rules/spaced-line-comment
 		'jsx-quotes': ['warn', 'prefer-single'],
-		'react/jsx-uses-vars': 'error',
 		'react/jsx-tag-spacing': [
 			'warn',
 			{
 				closingSlash: 'never',
 				beforeSelfClosing: 'never',
 				afterOpening: 'never',
-				beforeClosing: 'never'
-			}
-		]
-	}
+				beforeClosing: 'never',
+			},
+		],
+		'react/jsx-max-props-per-line': [
+			'warn',
+			{
+				'maximum': 1,
+				'when': 'multiline',
+			},
+		],
+		'react/function-component-definition': [1, {
+			'namedComponents': 'function-declaration',
+			'unnamedComponents': 'function-expression',
+		}],
+		'react/jsx-handler-names': [1, {
+			'eventHandlerPrefix': 'h',
+		}],
+		'react/jsx-props-no-multi-spaces': 1,
+		'react/jsx-one-expression-per-line': 1,
+		'react/jsx-no-useless-fragment': 1,
+		'react/jsx-no-undef': 'error',
+		'react/jsx-no-bind': [1, {
+			'allowArrowFunctions': true,
+			'allowFunctions': true,
+		}],
+		'react/jsx-indent': [1, 'tab', {checkAttributes: true, indentLogicalExpressions: true}],
+		'react/self-closing-comp': 1,
+		'react/sort-prop-types': ['warn', {
+			'ignoreCase': true,
+			'requiredFirst': true,
+			'sortShapeProp': true,
+		}],
+		'react/react-in-jsx-scope': 2,
+		'react/prefer-stateless-function': 1,
+		'react/no-unused-prop-types': 1,
+		'react/no-unused-state': 1,
+		'react/no-multi-comp': 1,
+		'react/no-access-state-in-setstate': 1,
+		'react/no-deprecated': 'warn',
+		'react/no-did-mount-set-state': 'warn',
+		'react/no-did-update-set-state': 'warn',
+		'react/boolean-prop-naming': 'warn',
+		'react/display-name': 'warn',
+		'react/forbid-prop-types': ['warn', {
+			'forbid': ['any'],
+		}],
+		'react/jsx-first-prop-new-line': [1, 'multiline-multiprop'],
+		'react/jsx-pascal-case': 'warn',
+		'react/jsx-sort-props': 'warn',
+		'react/jsx-uses-vars': 'error',
+		'react/jsx-closing-tag-location': 'warn',
+		'react/jsx-closing-bracket-location': 'warn',
+		'react/jsx-boolean-value': ['warn', 'never'],
+		'react/jsx-equals-spacing': ['warn', 'never'],
+		'react/jsx-fragments': ['warn', 'syntax'],
+		'react/jsx-wrap-multilines': ['warn', {
+			'declaration': 'parens-new-line',
+			'assignment': 'parens-new-line',
+			'return': 'parens-new-line',
+			'arrow': 'parens-new-line',
+			'condition': 'parens-new-line',
+			'logical': 'parens-new-line',
+			'prop': 'parens-new-line',
+		}],
+		'react/no-array-index-key': 'warn',
+		'react/no-children-prop': 'error',
+		'react/no-direct-mutation-state': 'warn',
+		'react/prop-types': 'warn',
+		'react-hooks/rules-of-hooks': 'error',
+		'react-hooks/exhaustive-deps': ['warn', {'additionalHooks': 'useTracker|useArrayObjectTracker|useArrayObjectEffect|useArrayObjectCallback'}],
+
+		// specific issues - https://stackoverflow.com/questions/63818415/react-was-used-before-it-was-defined/64024916#64024916
+		// 'no-use-before-define': ['error', 'nofunc'], // disallow use of variables before they are defined
+		'no-use-before-define': 'off',
+	},
 };
