@@ -3,6 +3,7 @@
     "collage",
     "formik-mui",
     "mongo-backup",
+    "react-hook-form-mui",
     "spacebars-loader"
   ],
   "version": "independent",
