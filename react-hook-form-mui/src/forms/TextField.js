@@ -7,17 +7,14 @@ function TextField({compact, InputProps, InputLabelProps = {}, InputAdornmentPro
 	if (compact) {
 		InputProps = {
 			...InputProps,
-			...(label
-				? {
-					startAdornment: (
-						<InputAdornment disablePointerEvents position='start' style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} {...InputAdornmentProps}>
-							{label}
-						</InputAdornment>
-					)}
-				: {}
-			),
-		};
-		label = '';
+			...label,
+			...(props.adornment && {startAdornment: (
+				<InputAdornment disablePointerEvents position='start' style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} {...InputAdornmentProps}>
+					{props.adornment}
+				</InputAdornment>
+			)})
+		}
+		// label = '';
 	}
 	return (
 		<MuiTextField

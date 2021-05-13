@@ -5,16 +5,13 @@ import TextField from '../forms/TextField';
 
 export default function RHFTextField({control, name, ...rest}) {
 	const {
-		field: {ref, ...inputProps},
-		// fieldState: {invalid, isTouched, isDirty},
-		// formState: {touchedFields, dirtyFields},
+		field: {ref, ...inputProps}
 	} = useController({
 		name,
 		control,
 		rules: {required: rest.required},
 		defaultValue: rest.defaultValue,
 	});
-
 	return <TextField {...inputProps} inputRef={ref} {...rest}/>;
 }
 
