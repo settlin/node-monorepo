@@ -9,7 +9,7 @@ export {default as Input} from './Input';
 // export {default as Persist} from './react-hook-form/Persist';
 // export {default as Radio} from './react-hook-form/Radio';
 // export {default as RadioGroup} from './react-hook-form/RadioGroup';
-// export {default as Select} from './react-hook-form/Select';
+export {default as Select} from './react-hook-form/Select';
 // export {default as Switch} from './react-hook-form/Switch';
 export {default as TextField} from './react-hook-form/TextField';
 

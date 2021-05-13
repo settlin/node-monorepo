@@ -2,7 +2,7 @@ import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from './TextField';
 
-const Select = ({
+function Select({
 	options,
 	multiple = false,
 	native = false,
@@ -10,13 +10,11 @@ const Select = ({
 	SelectProps = {},
 	children, // eslint-disable-line no-unused-vars
 	...props
-}) => {
+}) {
 	const isNative = !multiple && native;
 	return (
 		<TextField
 			{...props}
-			multiple={multiple}
-			select
 			InputLabelProps={{
 				...(isNative === true ? {shrink: true} : {}),
 				...InputLabelProps,
@@ -26,6 +24,8 @@ const Select = ({
 				multiple,
 				native: isNative,
 			}}
+			multiple={multiple}
+			select
 		>
 			{isNative
 				? options.map((option, i) => (
@@ -40,7 +40,7 @@ const Select = ({
 				))}
 		</TextField>
 	);
-};
-Select.displayName = 'FormikMaterialUISelect';
+}
+Select.displayName = 'MUISelect';
 
 export default Select;
