@@ -1,6 +1,6 @@
 {
   "name": "@settlin/mongo-backup",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Cli for Automated MongoDB backup",
   "author": "Settlin <developers@settlin.in>",
   "license": "MIT",

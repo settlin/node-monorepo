@@ -1,6 +1,6 @@
 {
   "name": "@settlin/collage",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "Turns an array of images into a photo collage",
   "main": "index.js",
   "scripts": {

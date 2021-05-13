@@ -1,6 +1,6 @@
 {
   "name": "@settlin/spacebars-loader",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "blaze templates loader for meteor-webpack",
   "keywords": [
     "blaze",
