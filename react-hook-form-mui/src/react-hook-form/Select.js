@@ -12,8 +12,8 @@ export default function SelectField({options, control, name, ...rest}) {
 		<TextField {...field} {...rest} select>
 			{
 				options.map((e, index) => (
-					<MenuItem key={index} value={e.code}>
-						{e.name}
+					<MenuItem key={index} value={e.value}>
+						{e.label}
 					</MenuItem>
 				))
 			}

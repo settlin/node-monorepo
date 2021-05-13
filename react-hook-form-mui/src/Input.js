@@ -5,7 +5,6 @@ import validateMobile from './utils/validate/mobile';
 import validateIndianMobile from './utils/validate/indianMobile';
 import validateDob from './utils/validate/dob';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import {TextField} from './index';
 
 class ErrorBoundary extends React.Component {
 	state = {error: false};
@@ -28,6 +27,7 @@ class ErrorBoundary extends React.Component {
 }
 
 const getExtraProps = function({type, label, required, compact, rhf, validate: validateOrig, indian}) {
+	if (required && compact && label) label = label.replace(/\*$/, '').trim() + ' *';
 	if (!rhf) return {label};
 
 	let validateFunc = () => { }, validateReq = () => { };

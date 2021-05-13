@@ -29,13 +29,13 @@ function Select({
 		>
 			{isNative
 				? options.map((option, i) => (
-					<option key={i} value={option.code}>
-						{option.name}
+					<option key={i} value={option.value}>
+						{option.label}
 					</option>
 				))
 				: options.map((option, i) => (
-					<MenuItem key={i} value={option.code}>
-						{option.name}
+					<MenuItem key={i} value={option.value}>
+						{option.label}
 					</MenuItem>
 				))}
 		</TextField>

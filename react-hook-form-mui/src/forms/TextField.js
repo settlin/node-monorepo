@@ -3,24 +3,23 @@ import React from 'react';
 import MuiTextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-function TextField({compact, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props}) {
+function TextField({compact,type,adornment, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props}) {
 	if (compact) {
 		InputProps = {
 			...InputProps,
 			...label,
-			...(props.adornment && {startAdornment: (
+			...(adornment && {startAdornment: (
 				<InputAdornment disablePointerEvents position='start' style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} {...InputAdornmentProps}>
-					{props.adornment}
+					{adornment}
 				</InputAdornment>
 			)})
 		}
-		// label = '';
 	}
 	return (
 		<MuiTextField
 			{...props}
 			{...{InputProps, label}}
-			InputLabelProps={(props.type === 'date' ? {shrink: true, ...InputLabelProps} : {...InputLabelProps})}
+			InputLabelProps={(type === 'date' ? {shrink: true, ...InputLabelProps} : {...InputLabelProps})}
 		/>
 	);
 }
