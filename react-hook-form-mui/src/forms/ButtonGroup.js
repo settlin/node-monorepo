@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
 
@@ -32,75 +33,100 @@ class ToggleButtonGroup extends React.Component {
 	}
 
 	handleChange(event, value) {
-		if (this.props.field) this.props.form.setFieldValue(this.props.field.name, value);
-  	if (this.props.onChange) this.props.onChange(event.currentTarget.value);
+		if (this.props.onChange) this.props.onChange(value);
+		if (this.props.field) this.props.field.onChange(value);
 	}
 
-	handleBlur() {
-  	// take care of touched
-		if (this.props.field) this.props.form.setFieldTouched(this.props.field.name, true);
+	handleBlur(event) {
+		// take care of touched
+		if (this.props.onBlur) this.props.onBlur(event);
+		if (this.props.field) this.props.field.onBlur(event);
 	}
 
 	render() {
-  	let {
-  		label,
+		let {
+			label,
 			FormControlProps: {classes: fClasses = {}, ...FormControlProps} = {},
-  		FormLabelProps,
-  		FormHelperTextProps = {},
-  		ToggleButtonProps = {},
-  		ToggleButtonGroupProps: {classes: tClasses = {}, ...ToggleButtonGroupProps} = {},
-  		compact,
-  		classes,
+			FormLabelProps,
+			FormHelperTextProps = {},
+			ToggleButtonProps = {},
+			ToggleButtonGroupProps: {classes: tClasses = {}, ...ToggleButtonGroupProps} = {},
+			compact,
+			classes,
 			options,
 			exclusive = true,
-  		...props
-  	} = this.props;
+			required,
+			disabled,
+			...props
+		} = this.props;
 
 		const {error, helperText, ...fp} = formikToMuiProps(props);
 		ToggleButtonProps.classes = {...ToggleButtonProps.classes, root: clsx(classes.button, (ToggleButtonProps.classes || {}).root)};
 
-  	return (
-  		<FormControl
-  			error={error}
-  			{...FormControlProps}
+		return (
+			<FormControl
+				error={error}
+				{...FormControlProps}
+				{...{required, disabled}}
 				classes={{...fClasses, root: clsx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
-  		>
-  			{label && (
-  				<FormLabel
-  					{...FormLabelProps}
-  					classes={{...(FormLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
-  				>
+			>
+				{label && (
+					<FormLabel
+						{...FormLabelProps}
+						classes={{...(FormLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
+					>
 						{label}
 						{helperText && (
 							<FormHelperText
 								{...FormHelperTextProps}
-								error={error}
 								className={FormHelperTextProps.className}
+								error={error}
 							>
 								{helperText}
 							</FormHelperText>
 						)}
-  				</FormLabel>
+					</FormLabel>
 				)}
-  			<MuiToggleButtonGroup
-  				{...ToggleButtonGroupProps}
-  				{...fp}
-					exclusive={exclusive}
-					onChange={this.handleChange}
-					onBlur={this.handleBlur}
+				<MuiToggleButtonGroup
+					{...ToggleButtonGroupProps}
+					{...fp}
 					classes={compact ? {} : {root: clsx(tClasses.root, classes.buttonGroup)}}
-  			>
-  				{options.map(option => (
-  					<ToggleButton
-  						key={option.value}
-  						{...ToggleButtonProps}
+					exclusive={exclusive}
+					onBlur={this.handleBlur}
+					onChange={this.handleChange}
+				>
+					{options.map(option => (
+						<ToggleButton
+							key={option.value}
+							{...ToggleButtonProps}
 							value={option.value}
-  					>{option.label}</ToggleButton>
-  				))}
-  			</MuiToggleButtonGroup>
-  		</FormControl>
-  	);
+						>
+							{option.label}
+
+						</ToggleButton>
+					))}
+				</MuiToggleButtonGroup>
+			</FormControl>
+		);
 	}
 }
+
+ToggleButtonGroup.propTypes = {
+	classes: PropTypes.object,
+	compact: PropTypes.bool,
+	disabled: PropTypes.bool,
+	exclusive: PropTypes.bool,
+	field: PropTypes.object,
+	FormControlProps: PropTypes.object,
+	FormHelperTextProps: PropTypes.object,
+	FormLabelProps: PropTypes.object,
+	label: PropTypes.string,
+	onBlur: PropTypes.func,
+	onChange: PropTypes.func,
+	options: PropTypes.array,
+	required: PropTypes.bool,
+	ToggleButtonGroupProps: PropTypes.object,
+	ToggleButtonProps: PropTypes.object,
+};
 
 export default withStyles(styles)(ToggleButtonGroup);

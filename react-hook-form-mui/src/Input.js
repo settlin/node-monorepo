@@ -48,6 +48,8 @@ const module = function({type, rhf, components: {input} = {}}) {
 	switch (type) {
 		case 'select':
 			return rhf ? require('./react-hook-form/Select').default : input || require('./forms/Select').default;
+		case 'buttons':
+			return rhf ? require('./react-hook-form/ButtonGroup').default : input || require('./forms/ButtonGroup').default;
 	}
 	return rhf ?  require('./react-hook-form/TextField').default : input || require('./forms/TextField').default;
 };

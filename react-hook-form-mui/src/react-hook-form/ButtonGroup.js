@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {useController} from 'react-hook-form';
-import TextField from '../forms/TextField';
+import ButtonGroup from '../forms/ButtonGroup';
 
-export default function RHFTextField({control, name, ...rest}) {
+export default function RHFButtonGroup({control, name, ...rest}) {
 	const {
 		field: {ref, ...inputProps},
 	} = useController({
@@ -12,10 +12,19 @@ export default function RHFTextField({control, name, ...rest}) {
 		rules: {required: rest.required},
 		defaultValue: rest.defaultValue,
 	});
-	return <TextField {...inputProps} inputRef={ref} {...rest}/>;
+
+	return (
+		<ButtonGroup
+			aria-label='text alignment'
+			exclusive
+			ref={ref}
+			{...inputProps}
+			{...rest}
+		/>
+	);
 }
 
-RHFTextField.propTypes = {
+RHFButtonGroup.propTypes = {
 	control: PropTypes.object,
 	name: PropTypes.string,
 };

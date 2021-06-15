@@ -148,6 +148,21 @@ function DemoForm({onSubmit}) {
 									<Input container={{xs: 6}} control={control} label='Text' name='text' type='text'/>
 									<Input container={{xs: 6}} control={control} label='Text Area' multiline name='textArea' required type='textarea'/>
 								</Grid>
+								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
+									<Input
+										container={{xs: 6}}
+										control={control}
+										label='Button Groups'
+										name='buttonGroups'
+										// components={{input: ButtonGroup}}
+										options={[
+											{value: '1', label: '1'},
+											{value: '2', label: '2'},
+										]}
+										required
+										type='buttons'
+									/>
+								</Grid>
 							</Grid>
 						</Grid>
 						<Grid container item justify='center' xs={12}>
