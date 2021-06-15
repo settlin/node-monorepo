@@ -1,4 +1,4 @@
-# @settlin/formik-mui
+# @settlin/react-hook-form-mui
 
 Heavily Inspired from
 https://github.com/stackworx/formik-material-ui
@@ -65,16 +65,16 @@ class MyForm extends Component {
 ```js
 export {default as Input} from './Input';
 
-export {default as ButtonGroup} from './formik/ButtonGroup';
-export {default as Checkbox} from './formik/Checkbox';
-export {default as CheckboxGroup} from './formik/CheckboxGroup';
-export {default as CurrencyField} from './formik/CurrencyField';
-export {default as InputArra} from './formik/InputArray';
-export {default as Persist} from './formik/Persist';
-export {default as Radio} from './formik/Radio';
-export {default as Select} from './formik/Select';
-export {default as Switch} from './formik/Switch';
-export {default as TextField} from './formik/TextField';
+export {default as ButtonGroup} from './react-hook-form/ButtonGroup';
+export {default as Checkbox} from './react-hook-form/Checkbox';
+export {default as CheckboxGroup} from './react-hook-form/CheckboxGroup';
+export {default as CurrencyField} from './react-hook-form/CurrencyField';
+export {default as InputArra} from './react-hook-form/InputArray';
+export {default as Persist} from './react-hook-form/Persist';
+export {default as Radio} from './react-hook-form/Radio';
+export {default as Select} from './react-hook-form/Select';
+export {default as Switch} from './react-hook-form/Switch';
+export {default as TextField} from './react-hook-form/TextField';
 
 export {default as Button} from './forms/Button';
 export {default as formikToMuiProps} from './forms/formikToMuiProps';
@@ -87,4 +87,4 @@ export {default as validateMobile} from './utils/validate/mobile';
 
 ## License
 
-**@settlin/formik-mui** is released under the MIT License.
+**@settlin/react-hook-form-mui** is released under the MIT License.
