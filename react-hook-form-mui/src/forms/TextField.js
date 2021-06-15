@@ -3,7 +3,7 @@ import React from 'react';
 import MuiTextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-function TextField({compact,type,adornment, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props}) {
+function TextField({compact, type, adornment, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props}) {
 	if (compact) {
 		InputProps = {
 			...InputProps,
@@ -12,8 +12,8 @@ function TextField({compact,type,adornment, InputProps, InputLabelProps = {}, In
 				<InputAdornment disablePointerEvents position='start' style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} {...InputAdornmentProps}>
 					{adornment}
 				</InputAdornment>
-			)})
-		}
+			)}),
+		};
 	}
 	return (
 		<MuiTextField
@@ -25,6 +25,7 @@ function TextField({compact,type,adornment, InputProps, InputLabelProps = {}, In
 }
 
 TextField.propTypes = {
+	adornment: PropTypes.node,
 	compact: PropTypes.bool,
 	InputAdornmentProps: PropTypes.object,
 	InputLabelProps: PropTypes.object,

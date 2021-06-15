@@ -1,4 +1,5 @@
-import React, {Fragment} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import MuiSwitch from '@material-ui/core/Switch';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from './FormControlLabel';
@@ -11,15 +12,13 @@ class Switch extends React.PureComponent {
 		this.handleBlur = this.handleBlur.bind(this);
 	}
 	handleChange(event) {
-  	if (this.props.field) this.props.field.onChange(event);
-  	if (this.props.onChange) this.props.onChange(event);
+		if (this.props.onChange) this.props.onChange(event);
 	}
 	handleBlur(event) {
-  	if (this.props.field) this.props.field.onBlur(event);
-  	if (this.props.onBlur) this.props.onBlur(event);
+		if (this.props.onBlur) this.props.onBlur(event);
 	}
 	render() {
-  	const {
+		const {
 			fullWidth = true,
 			label,
 			compact, // eslint-disable-line no-unused-vars
@@ -27,44 +26,58 @@ class Switch extends React.PureComponent {
 			FormControlProps,
 			FormControlLabelProps,
 			offLabel,
+			error,
+			helperText,
 			...props
 		} = this.props;
 
-		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'checkbox'});  // eslint-disable-line no-unused-vars
-		// removed type from props to ensure proper working of checkbox in formik
-
-  	return (
+		return (
 			<FormControl {...FormControlProps} fullWidth={fullWidth}>
-		<FormControlLabel
+				<FormControlLabel
 					{...FormControlLabelProps}
 					control={(
 						<MuiSwitch
-							{...fp}
+							{...props}
+							// eslint-disable-next-line react/jsx-handler-names
 							onBlur={this.handleBlur}
+							// eslint-disable-next-line react/jsx-handler-names
 							onChange={this.handleChange}
 						/>
 					)}
 					label={(
-						<>
-'\'\'						'{label}
-'\'\'						'{helperText && (
-							<FormHelperText
-								{...FormHelperTextProps}
-								className={FormHelperTextProps.className}
-								error={error}
-	>
-		{helperText}
-	</FormHelperText>
-						)}
-'\'\'					\'\''
-</>
+						<span>
+							{label}
+							{helperText && (
+								<FormHelperText
+									{...FormHelperTextProps}
+									className={FormHelperTextProps.className}
+									error={error}
+								>
+									{helperText}
+								</FormHelperText>
+							)}
+						</span>
 					)}
 					offLabel={offLabel}
 				/>
-	</FormControl>
+			</FormControl>
 		);
 	}
 }
+
+Switch.propTypes = {
+	compact: PropTypes.bool,
+	error: PropTypes.bool,
+	FormControlLabelProps: PropTypes.object,
+	FormControlProps: PropTypes.object,
+	FormHelperTextProps: PropTypes.object,
+	fullWidth: PropTypes.bool,
+	helperText: PropTypes.node,
+	label: PropTypes.node,
+	offLabel: PropTypes.node,
+	onBlur: PropTypes.func,
+	onChange: PropTypes.func,
+};
 Switch.displayName = 'FormikMaterialUISwitch';
 
 export default Switch;

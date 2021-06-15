@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -38,46 +39,65 @@ const styles = (theme) => ({
 	},
 });
 
-class CircularIntegration extends React.Component {
-	render() {
-  	const {classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, refButton: ref, ...rest} = this.props;
-  	const buttonClassname = clsx({
-  		[classes.buttonSuccess]: success,
-		});
+function CircularIntegration({classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, refButton: ref, ...rest}) {
+	const buttonClassname = clsx({
+		[classes.buttonSuccess]: success,
+	});
 
-		const IconComp = success ? CheckIcon : Icon;
-  	return (
-			<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}}>
-  			{fab
-  				? (
-  					<div className={clsx(classes.wrapper, cs.wrapper)}>
-  						<Fab ref={ref} color={color} classes={{root: clsx(buttonClassname, cs.button)}} {...rest}>
-								{processing
-									? <CircularProgress className={classes.buttonProgress} {...CircularProgressProps}/>
-									: <IconComp {...IconProps}/>
-								}
-  						</Fab>
-  					</div>
-  				)
-  				: (
-  					<div className={clsx(fullWidth ? classes.wrapperFullWidth : classes.wrapper, cs.wrapper)}>
-  						<Button ref={ref} fullWidth={fullWidth} variant={variant} color={color} classes={{root: clsx(buttonClassname, cs.button)}} disabled={processing} {...rest}>
-								{processing
-									? <CircularProgress className={clsx(classes.marginRight, classes.buttonProgress, cs.processing)} {...CircularProgressProps}/>
-									: IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}} {...IconProps}/>
-								}
-								{children}
-  						</Button>
-  					</div>
-  				)
-  			}
-  		</div>
-  	);
-	}
+	const IconComp = success ? CheckIcon : Icon;
+	return (
+		<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}}>
+			{fab
+				? (
+					<div className={clsx(classes.wrapper, cs.wrapper)}>
+						<Fab classes={{root: clsx(buttonClassname, cs.button)}} color={color} ref={ref} {...rest}>
+							{processing
+								? <CircularProgress className={classes.buttonProgress} {...CircularProgressProps}/>
+								: <IconComp {...IconProps}/>
+							}
+						</Fab>
+					</div>
+				)
+				: (
+					<div className={clsx(fullWidth ? classes.wrapperFullWidth : classes.wrapper, cs.wrapper)}>
+						<Button classes={{root: clsx(buttonClassname, cs.button)}} color={color} disabled={processing} fullWidth={fullWidth} ref={ref} variant={variant} {...rest}>
+							{processing
+								? <CircularProgress className={clsx(classes.marginRight, classes.buttonProgress, cs.processing)} {...CircularProgressProps}/>
+								: IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}} {...IconProps}/>
+							}
+							{children}
+						</Button>
+					</div>
+				)
+			}
+		</div>
+	);
 }
 
+CircularIntegration.propTypes = {
+	children: PropTypes.node,
+	CircularProgressProps: PropTypes.object,
+	classes: PropTypes.object,
+	color: PropTypes.string,
+	cs: PropTypes.object,
+	fab: PropTypes.bool,
+	fullWidth: PropTypes.bool,
+	Icon: PropTypes.node,
+	IconProps: PropTypes.object,
+	label: PropTypes.string,
+	processing: PropTypes.bool,
+	refButton: PropTypes.Object.assign(dest, source),
+	success: PropTypes.bool,
+	variant: PropTypes.string,
+};
+
 const Button1 = withStyles(styles)(CircularIntegration);
-const Button2 = React.forwardRef(({classes, ...props}, ref) => <Button1 refButton={ref} cs={classes} {...props}/>);
+// eslint-disable-next-line react/no-multi-comp
+const Button2 = React.forwardRef(({classes, ...props}, ref) => <Button1 cs={classes} refButton={ref} {...props}/>);
+
+Button2.propTypes = {
+	classes: PropTypes.object,
+};
 
 Button2.displayName = 'FButton';
 
