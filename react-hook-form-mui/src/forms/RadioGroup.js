@@ -1,4 +1,5 @@
-import React, {memo} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import clsx from 'clsx';
 
 import Radio from '@material-ui/core/Radio';
@@ -13,11 +14,14 @@ import IconButton from '@material-ui/core/IconButton';
 import formControl from '../styles/formControl';
 import formLabel from '../styles/formLabel';
 
-const ClearButton = memo((p) => (
-	<IconButton onClick={p.onClick}>
-		<Clear/>
-	</IconButton>
-));
+function ClearButton(p) {
+	return (
+		// eslint-disable-next-line react/jsx-handler-names
+		<IconButton onClick={p.onClick}>
+			<Clear/>
+		</IconButton>
+	);
+}
 
 const styles = {
 	formControlCompact: formControl.compact,
@@ -25,59 +29,57 @@ const styles = {
 	formLabel,
 };
 
+// eslint-disable-next-line react/no-multi-comp
 class RadioGroup extends React.PureComponent {
 	constructor(p) {
-  	super(p);
-  	this.handleChange = this.handleChange.bind(this);
-  	this.handleClear = this.handleClear.bind(this);
-  	this.handleBlur = this.handleBlur.bind(this);
+		super(p);
+		this.handleChange = this.handleChange.bind(this);
+		this.handleClear = this.handleClear.bind(this);
+		this.handleBlur = this.handleBlur.bind(this);
 	}
 	handleChange(event) {
-  	if (this.props.field) this.props.field.onChange(event);
-  	if (this.props.onChange) this.props.onChange(event.target.value);
+		if (this.props.onChange) this.props.onChange(event.target.value);
 	}
 	handleClear() {
 		let value;
-		if (this.props.field) this.props.form.setFieldValue(this.props.field.name, value);
-  	if (this.props.onChange) this.props.onChange(value);
+		if (this.props.onChange) this.props.onChange(value);
 	}
 	handleBlur() {
-  	// take care of touched
-  	if (this.props.field) this.props.form.setFieldTouched(this.props.field.name, true);
+		if (this.props.onBlur) this.props.onBlur();
 	}
 	render() {
-  	let {
+		let {
 			label,
 			ClearButtonProps,
 			showClearButton = true,
-  		FormControlProps: {classes: fClasses = {}, ...FormControlProps} = {},
-  		RadioGroupLabelProps,
-  		FormHelperTextProps = {},
-  		RadioLabelProps,
-  		RadioProps,
-  		RadioGroupProps: {row, ...RadioGroupProps} = {},
-  		compact,
-  		classes,
-  		options,
-  		...props
-  	} = this.props;
+			FormControlProps: {classes: fClasses = {}, ...FormControlProps} = {},
+			RadioGroupLabelProps,
+			FormHelperTextProps = {},
+			RadioLabelProps,
+			RadioProps,
+			RadioGroupProps: {row, ...RadioGroupProps} = {},
+			compact,
+			classes,
+			options,
+			...props
+		} = this.props;
 
 		const {error, helperText, ...fp} = formikToMuiProps(props);
 
-  	return (
-	<FormControl
-  			error={error}
-  			{...FormControlProps}
-  			classes={{...fClasses, root: clsx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
+		return (
+			<FormControl
+				error={error}
+				{...FormControlProps}
+				classes={{...fClasses, root: clsx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
 			>
 				{label && (
-			<FormLabel
-  					{...RadioGroupLabelProps}
-  					classes={{...(RadioGroupLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
+					<FormLabel
+						{...RadioGroupLabelProps}
+						classes={{...(RadioGroupLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
 					>
 						{label}
 						{helperText && (
-					<FormHelperText
+							<FormHelperText
 								{...FormHelperTextProps}
 								className={FormHelperTextProps.className}
 								error={error}
@@ -86,39 +88,63 @@ class RadioGroup extends React.PureComponent {
 							</FormHelperText>
 						)}
 					</FormLabel>
-  			)}
+				)}
 				<MuiRadioGroup
-  				{...RadioGroupProps}
-  				row={row || compact}
-  				{...fp}
-  				onBlur={this.handleBlur}
-  				onChange={this.handleChange}
-		>
-			{options.map((option, i) => (
+					{...RadioGroupProps}
+					row={row || compact}
+					{...fp}
+					// eslint-disable-next-line react/jsx-handler-names
+					onBlur={this.handleBlur}
+					// eslint-disable-next-line react/jsx-handler-names
+					onChange={this.handleChange}
+				>
+					{options.map((option, i) => (
 						<FormControlLabel
-  						control={(
-	<Radio
+							control={(
+								<Radio
 									{...RadioProps}
 									checked={fp.value === option.value}
 								/>
 							)}
+							// eslint-disable-next-line react/no-array-index-key
 							key={i}
 							{...RadioLabelProps}
 							disabled={option.disabled ? true : false}
-  						label={option.label}
-  						value={option.value}
-				/>
+							label={option.label}
+							value={option.value}
+						/>
 					))}
-			{showClearButton && (
+					{showClearButton && (
 						<FormControlLabel
 							{...RadioLabelProps}
+							// eslint-disable-next-line react/jsx-handler-names
 							control={<ClearButton {...ClearButtonProps} onClick={this.handleClear}/>}
-				/>
+						/>
 					)}
-		</MuiRadioGroup>
+				</MuiRadioGroup>
 			</FormControl>
-  	);
+		);
 	}
 }
+
+RadioGroup.propTypes = {
+	classes: PropTypes.object,
+	ClearButtonProps: PropTypes.object,
+	compact: PropTypes.bool,
+	error: PropTypes.bool,
+	FormControlLabelProps: PropTypes.object,
+	FormControlProps: PropTypes.object,
+	FormHelperTextProps: PropTypes.object,
+	helperText: PropTypes.node,
+	label: PropTypes.node,
+	onBlur: PropTypes.func,
+	onChange: PropTypes.func,
+	options: PropTypes.array,
+	RadioGroupLabelProps: PropTypes.object,
+	RadioGroupProps: PropTypes.object,
+	RadioLabelProps: PropTypes.object,
+	RadioProps: PropTypes.object,
+	showClearButton: PropTypes.bool,
+};
 
 export default withStyles(styles)(RadioGroup);
