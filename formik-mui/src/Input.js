@@ -14,11 +14,18 @@ class ErrorBoundary extends React.Component {
 		console.log(error, info); // eslint-disable-line no-console
 	}
 	render() {
-		if (this.state.error) return <h1>{this.state.error.toString()}</h1>;
+		if (this.state.error) {
+			return (
+				<h1>
+					{this.state.error.toString()}
+				</h1>
+			);
+		}
 		return this.props.children;
 	}
 }
 
+// eslint-disable-next-line react/no-multi-comp
 class Input extends React.Component {
 	state = {}
 	extraProps() {
@@ -116,14 +123,16 @@ class Input extends React.Component {
 		const type = this.type();
 		const extraProps = {...(formik ? {fast, ...(input ? {component: input} : {})} : {}), compact, components, ...this.extraProps()};
 
-		return <ErrorBoundary>
-			<Container {...containerProps}>
-				{Field
-					? <Field {...rest} {...(type ? {type} : {})} {...extraProps}/>
-					: <Loader/>
-				}
-			</Container>
-		</ErrorBoundary>;
+		return (
+			<ErrorBoundary>
+				<Container {...containerProps}>
+					{Field
+						? <Field {...rest} {...(type ? {type} : {})} {...extraProps}/>
+						: <Loader/>
+					}
+				</Container>
+			</ErrorBoundary>
+		);
 	}
 }
 
