@@ -1,9 +1,5 @@
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import validateEmail from './utils/validate/email';
-import validateMobile from './utils/validate/mobile';
-import validateIndianMobile from './utils/validate/indianMobile';
-import validateDob from './utils/validate/dob';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 class ErrorBoundary extends React.Component {
@@ -12,6 +8,7 @@ class ErrorBoundary extends React.Component {
 		return {error};
 	}
 	componentDidCatch(error, info) {
+		this.setState({error});
 		console.log(error, info); // eslint-disable-line no-console
 	}
 	render() {
@@ -26,41 +23,27 @@ class ErrorBoundary extends React.Component {
 	}
 }
 
-const getExtraProps = function({type, label, required, compact, rhf, validate: validateOrig, indian}) {
-	if (required && compact && label) label = label.replace(/\*$/, '').trim() + ' *';
-	if (!rhf) return {label};
-
-	let validateFunc = () => { }, validateReq = () => { };
-	if (typeof validateOrig === 'function') validateFunc = validateOrig; // original validate function
-	else if (validateOrig) {
-		switch (type) {
-			case 'mobile':
-				validateFunc = v => (indian ? validateIndianMobile : validateMobile)(v, typeof validateOrig === 'string' ? validateOrig : indian ? 'Invalid Indian Mobile' : 'Invalid Mobile');
-				break;
-			case 'email':
-				validateFunc = v => validateEmail(v, typeof validateOrig === 'string' ? validateOrig : 'Invalid Email');
-				break;
-		}
-	}
+ErrorBoundary.propTypes = {
+	children: PropTypes.node,
 };
 
-const module = function({type, rhf, components: {input} = {}}) {
+const module = function({type, rhf}) {
 	switch (type) {
 		case 'select':
-			return rhf ? require('./react-hook-form/Select').default : input || require('./forms/Select').default;
+			return rhf ? require('./react-hook-form/Select').default : require('./forms/Select').default;
 		case 'buttons':
-			return rhf ? require('./react-hook-form/ButtonGroup').default : input || require('./forms/ButtonGroup').default;
+			return rhf ? require('./react-hook-form/ButtonGroup').default : require('./forms/ButtonGroup').default;
 	}
-	return rhf ?  require('./react-hook-form/TextField').default : input || require('./forms/TextField').default;
+	return rhf ?  require('./react-hook-form/TextField').default : require('./forms/TextField').default;
 };
 
 
 // eslint-disable-next-line react/no-multi-comp
-function Input({type, container, validate, label, rhf = true, components: {input, Field, Loader = LinearProgress, ...components} = {}, compact = true, ...rest}) { // eslint-disable-line no-unused-vars
+function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact = true, ...rest}) { // eslint-disable-line no-unused-vars
 	const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 	const containerProps = container ? {item: true, ...container} : {};
 	Field = Field || module({type, rhf});
-	const extraProps = {...(rhf ? {...(input ? {component: input} : {})} : {}), compact, label, components, ...getExtraProps({type, label, required: rest.required, validate, compact, rhf, indian: rest.indian})};
+	const extraProps = {...{compact, type, label, components}};
 	return (
 		<ErrorBoundary>
 			<Container {...containerProps}>
@@ -77,8 +60,8 @@ Input.propTypes = {
 	compact: PropTypes.bool,
 	components: PropTypes.object,
 	container: PropTypes.object,
-	rhf: PropTypes.bool,
 	label: PropTypes.string,
+	rhf: PropTypes.bool,
 	type: PropTypes.string,
 	validate: PropTypes.func,
 };

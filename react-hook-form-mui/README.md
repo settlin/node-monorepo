@@ -1,9 +1,5 @@
 # @settlin/react-hook-form-mui
 
-Heavily Inspired from
-https://github.com/stackworx/formik-material-ui
-https://github.com/daixianceng/formik-material-fields
-
 A set of material style fields for [formik](https://github.com/jaredpalmer/formik) using [material-ui](https://github.com/mui-org/material-ui)
 
 This library provides the following components:
@@ -16,52 +12,46 @@ This library provides the following components:
 - TODO
 - Please see the code for now
 - All components in formik directory are the actual formik `Field`s which are used by the generic `Input`
-- All components in forms directory are wrappers over mui fields, which convert the formik and other props to relevant props using a function called `formikToMuiProps` 
+- All components in forms directory are wrappers over mui fields, which convert the formik and other props to relevant props using a hook called `useRMController`
 
 ## Installation
 
 Using `npm`:
 
-```
-$ npm install --save @settlin/formik-mui
+```bash
+npm install --save @settlin/react-hook-form-mui
 ```
 
 ## Usage
 
 ```js
 import React, { Component } from 'react';
-import { Formik, Form } from 'formik';
-import { Input } from '@settlin/formik-mui';
+import {useForm} from 'react-hook-form';
+import {Input} from '@settlin/react-hook-form-mui';
 
-const initialValues = {
-  username: '',
-};
+const defaultValues = {username: 'name'};
+const {handleSubmit} = useForm({defaultValues, mode: 'onChange'});
+
 
 class MyForm extends Component {
   render() {
     return (
-      <Formik
-        initialValues={initialValues}
-        onSubmit={this.props.onSubmit}
-      >
-        {({ isValid }) => (
-          <Form autoComplete="off">
-            <Input
-              name="username"
-              label="Username"
-              margin="normal"
-              fullWidth
-            />
-          </Form>
-        )}
-      </Formik>
+      <form onSubmit={handleSubmit(onSubmit)} style={{width: '100%'}}>
+        <Input
+          name="username"
+          label="Username"
+          margin="normal"
+          fullWidth
+        />
+      </form>
     );
   }
 }
 
 ```
 
-## Exposed Formik Fields
+## Exposed Fields
+
 ```js
 export {default as Input} from './Input';
 
@@ -75,9 +65,9 @@ export {default as Radio} from './react-hook-form/Radio';
 export {default as Select} from './react-hook-form/Select';
 export {default as Switch} from './react-hook-form/Switch';
 export {default as TextField} from './react-hook-form/TextField';
+export {useRMController} from './react-hook-form/useRMController';
 
 export {default as Button} from './forms/Button';
-export {default as formikToMuiProps} from './forms/formikToMuiProps';
 
 export {default as currencify} from './utils/currencify';
 export {default as validateDob} from './utils/validate/dob';
