@@ -7,7 +7,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
-import formikToMuiProps from '../forms/formikToMuiProps';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Clear from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
@@ -66,54 +65,58 @@ class RadioGroup extends React.PureComponent {
 		const {error, helperText, ...fp} = formikToMuiProps(props);
 
   	return (
-  		<FormControl
+	<FormControl
   			error={error}
   			{...FormControlProps}
   			classes={{...fClasses, root: clsx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
-  		>
-  			{label && (
-  				<FormLabel
+			>
+				{label && (
+			<FormLabel
   					{...RadioGroupLabelProps}
   					classes={{...(RadioGroupLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
-  				>
+					>
 						{label}
 						{helperText && (
-							<FormHelperText
+					<FormHelperText
 								{...FormHelperTextProps}
-								error={error}
 								className={FormHelperTextProps.className}
+								error={error}
 							>
 								{helperText}
 							</FormHelperText>
 						)}
-  				</FormLabel>
+					</FormLabel>
   			)}
-  			<MuiRadioGroup
+				<MuiRadioGroup
   				{...RadioGroupProps}
   				row={row || compact}
   				{...fp}
-  				onChange={this.handleChange}
   				onBlur={this.handleBlur}
-  			>
-  				{options.map((option, i) => (
-  					<FormControlLabel
-  						key={i}
-							control={<Radio
-								{...RadioProps}
-								checked={fp.value === option.value}
-							/>}
+  				onChange={this.handleChange}
+		>
+			{options.map((option, i) => (
+						<FormControlLabel
+  						control={(
+	<Radio
+									{...RadioProps}
+									checked={fp.value === option.value}
+								/>
+							)}
+							key={i}
 							{...RadioLabelProps}
 							disabled={option.disabled ? true : false}
-  						value={option.value}
   						label={option.label}
-  					/>
+  						value={option.value}
+				/>
 					))}
-  				{showClearButton && <FormControlLabel
-						{...RadioLabelProps}
-						control={<ClearButton {...ClearButtonProps} onClick={this.handleClear}/>}
-  				/>}
-  			</MuiRadioGroup>
-  		</FormControl>
+			{showClearButton && (
+						<FormControlLabel
+							{...RadioLabelProps}
+							control={<ClearButton {...ClearButtonProps} onClick={this.handleClear}/>}
+				/>
+					)}
+		</MuiRadioGroup>
+			</FormControl>
   	);
 	}
 }

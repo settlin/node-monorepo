@@ -1,6 +1,5 @@
 import React, {Fragment} from 'react';
 import MuiSwitch from '@material-ui/core/Switch';
-import formikToMuiProps from '../forms/formikToMuiProps';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from './FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -34,30 +33,36 @@ class Switch extends React.PureComponent {
 		const {error, helperText, type, ...fp} = formikToMuiProps({...props, type: 'checkbox'});  // eslint-disable-line no-unused-vars
 		// removed type from props to ensure proper working of checkbox in formik
 
-  	return <FormControl {...FormControlProps} fullWidth={fullWidth}>
-  		<FormControlLabel
-				{...FormControlLabelProps}
-				control={
-					<MuiSwitch
-						{...fp}
-						onChange={this.handleChange}
-						onBlur={this.handleBlur}
-					/>
-				}
-				offLabel={offLabel}
-				label={
-					<Fragment>
-						{label}
-						{helperText && <FormHelperText
-							{...FormHelperTextProps}
-							error={error}
-							className={FormHelperTextProps.className}>
-							{helperText}
-						</FormHelperText>}
-					</Fragment>
-				}
-			/>
-  	</FormControl>;
+  	return (
+			<FormControl {...FormControlProps} fullWidth={fullWidth}>
+		<FormControlLabel
+					{...FormControlLabelProps}
+					control={(
+						<MuiSwitch
+							{...fp}
+							onBlur={this.handleBlur}
+							onChange={this.handleChange}
+						/>
+					)}
+					label={(
+						<>
+'\'\'						'{label}
+'\'\'						'{helperText && (
+							<FormHelperText
+								{...FormHelperTextProps}
+								className={FormHelperTextProps.className}
+								error={error}
+	>
+		{helperText}
+	</FormHelperText>
+						)}
+'\'\'					\'\''
+</>
+					)}
+					offLabel={offLabel}
+				/>
+	</FormControl>
+		);
 	}
 }
 Switch.displayName = 'FormikMaterialUISwitch';

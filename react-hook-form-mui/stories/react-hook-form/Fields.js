@@ -154,13 +154,12 @@ function DemoForm({onSubmit}) {
 										control={control}
 										label='Button Groups'
 										name='buttonGroups'
-										// components={{input: ButtonGroup}}
 										options={[
 											{value: '1', label: '1'},
 											{value: '2', label: '2'},
 										]}
 										required
-										type='buttons'
+										type='buttons' // or components={{Field: ButtonGroup}} or components={{input: ButtonGroup}}
 									/>
 								</Grid>
 							</Grid>

@@ -7,15 +7,16 @@ import MuiToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
-import formikToMuiProps from '../forms/formikToMuiProps';
+import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import formControl from '../styles/formControl';
-import formLabel from '../styles/formLabel';
 
 const styles = {
 	formControlCompact: formControl.compact,
+	labelCompact: {
+		direction: 'column',
+	},
 	formControlNormal: formControl.normal,
-	formLabel,
 	button: {
 		height: '100%',
 	},
@@ -23,29 +24,31 @@ const styles = {
 		marginTop: '8px',
 		width: 'max-content',
 	},
+	labelContainerCompact: {
+		marginRight: 8,
+	},
 };
 
 class ToggleButtonGroup extends React.Component {
 	constructor(p) {
 		super(p);
-		this.handleChange = this.handleChange.bind(this);
-		this.handleBlur = this.handleBlur.bind(this);
+		this.hChange = this.handleChange.bind(this);
+		this.hBlur = this.handleBlur.bind(this);
 	}
 
 	handleChange(event, value) {
 		if (this.props.onChange) this.props.onChange(value);
-		if (this.props.field) this.props.field.onChange(value);
 	}
 
 	handleBlur(event) {
 		// take care of touched
 		if (this.props.onBlur) this.props.onBlur(event);
-		if (this.props.field) this.props.field.onBlur(event);
 	}
 
 	render() {
 		let {
 			label,
+			LabelContainerProps: {classes: lcClasses = {}, ...LabelContainerProps} = {},
 			FormControlProps: {classes: fClasses = {}, ...FormControlProps} = {},
 			FormLabelProps,
 			FormHelperTextProps = {},
@@ -57,10 +60,11 @@ class ToggleButtonGroup extends React.Component {
 			exclusive = true,
 			required,
 			disabled,
+			error,
+			helperText,
 			...props
 		} = this.props;
 
-		const {error, helperText, ...fp} = formikToMuiProps(props);
 		ToggleButtonProps.classes = {...ToggleButtonProps.classes, root: clsx(classes.button, (ToggleButtonProps.classes || {}).root)};
 
 		return (
@@ -70,12 +74,23 @@ class ToggleButtonGroup extends React.Component {
 				{...{required, disabled}}
 				classes={{...fClasses, root: clsx(fClasses.root, classes[`formControl${compact ? 'Compact' : 'Normal'}`])}}
 			>
-				{label && (
-					<FormLabel
-						{...FormLabelProps}
-						classes={{...(FormLabelProps || {}).classes, ...(compact ? {root: classes.formLabel} : {})}}
-					>
-						{label}
+				<Grid
+					classes={{...lcClasses, root: clsx(lcClasses.root, classes[`labelContainer${compact ? 'Compact' : 'Normal'}`])}}
+					container
+					direction={'column'}
+					{...LabelContainerProps}
+				>
+					<Grid item>
+						{label && (
+							<FormLabel
+								{...FormLabelProps}
+							>
+								{label}
+							</FormLabel>
+						)}
+					</Grid>
+					<Grid item>
+
 						{helperText && (
 							<FormHelperText
 								{...FormHelperTextProps}
@@ -85,15 +100,15 @@ class ToggleButtonGroup extends React.Component {
 								{helperText}
 							</FormHelperText>
 						)}
-					</FormLabel>
-				)}
+					</Grid>
+				</Grid>
 				<MuiToggleButtonGroup
 					{...ToggleButtonGroupProps}
-					{...fp}
+					{...props}
 					classes={compact ? {} : {root: clsx(tClasses.root, classes.buttonGroup)}}
 					exclusive={exclusive}
-					onBlur={this.handleBlur}
-					onChange={this.handleChange}
+					onBlur={this.hBlur}
+					onChange={this.hChange}
 				>
 					{options.map(option => (
 						<ToggleButton
@@ -115,12 +130,15 @@ ToggleButtonGroup.propTypes = {
 	classes: PropTypes.object,
 	compact: PropTypes.bool,
 	disabled: PropTypes.bool,
+	error: PropTypes.bool,
 	exclusive: PropTypes.bool,
 	field: PropTypes.object,
 	FormControlProps: PropTypes.object,
 	FormHelperTextProps: PropTypes.object,
 	FormLabelProps: PropTypes.object,
+	helperText: PropTypes.node,
 	label: PropTypes.string,
+	LabelContainerProps: PropTypes.object,
 	onBlur: PropTypes.func,
 	onChange: PropTypes.func,
 	options: PropTypes.array,

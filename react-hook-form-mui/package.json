@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/settlin/node-monorepo/formik-mui.git"
+    "url": "git+https://github.com/settlin/node-monorepo.git"
   },
   "keywords": [
     "react-hook-form",
@@ -35,16 +35,17 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/settlin/node-monorepo/formik-mui/issues"
+    "url": "https://github.com/settlin/node-monorepo/issues"
   },
-  "homepage": "https://github.com/settlin/node-monorepo/formik-mui#readme",
+  "homepage": "https://github.com/settlin/node-monorepo#readme",
   "peerDependencies": {
+    "@hookform/error-message": ">=2",
     "@material-ui/core": ">=4",
     "@material-ui/icons": ">=4",
     "@material-ui/lab": ">=4",
-    "react-hook-form": ">=7",
     "react": ">=16.8",
-    "react-dom": ">=16.8"
+    "react-dom": ">=16.8",
+    "react-hook-form": ">=7"
   },
   "dependencies": {
     "@date-io/dayjs": "^1.3.13",
@@ -58,6 +59,7 @@
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
+    "@hookform/error-message": "^2.0.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
@@ -72,7 +74,6 @@
     "babel-plugin-transform-dynamic-import": "^2.1.0",
     "cross-env": "^5.2.1",
     "flatpickr": "^4.6.9",
-    "formik": "^2.2.6",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react-dropzone": "^10.2.2",
