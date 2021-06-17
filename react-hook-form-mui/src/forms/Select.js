@@ -25,6 +25,7 @@ function Select({
 				multiple,
 				native: isNative,
 			}}
+			fullWidth
 			multiple={multiple}
 			select
 		>

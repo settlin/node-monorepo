@@ -5,7 +5,8 @@ import {ErrorMessage} from '@hookform/error-message';
 
 export function rhfToMuiProps({
 	field = {},
-	formState = {},
+	fieldState,
+	formState,
 	disabled = false,
 	error,
 	multiple,
@@ -63,6 +64,8 @@ export function rhfToMuiProps({
 		...props,
 		...field,
 		...extraProps,
+		formState,
+		fieldState,
 		// touched: fieldTouched,
 		error: error || Boolean(fErr),
 		helperText: fieldError || props.helperText,

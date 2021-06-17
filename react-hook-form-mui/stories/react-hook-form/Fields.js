@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-// import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 // import {Formik, Form, setIn} from 'formik';
 import {Input, Button, currencify} from '../../src';
@@ -82,15 +82,17 @@ function DemoForm({onSubmit}) {
 			<Grid container item spacing={1} style={{padding: '2rem'}}>
 				<form onSubmit={handleSubmit(onSubmit)} style={{width: '100%'}}>
 					<Grid container item spacing={1} xs={12}>
-						{/* <Grid item xs={6}>
-								<Typography>Phones (Array of Inputs)</Typography>
-								<Input formik={false} type='array' name='phones' label='Phones' metaList={DemoForm.arrayMeta} container={{xs: 12}}/>
-								<Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
+						<Grid item xs={6}>
+							<Typography>
+								Phones (Array of Inputs)
+							</Typography>
+							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/>
+							{/* <Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(cb, 1000)}
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
 									components={{PreviewsChildren: this.PreviewsChildren, input: Dropzone}}
-								/>
-							</Grid> */}
+								/> */}
+						</Grid>
 						<Grid item xs={6}>
 							<Grid container direction='column'>
 								{/* <Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
@@ -145,7 +147,7 @@ function DemoForm({onSubmit}) {
 										}}/>
 									</Grid> */}
 								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
-									<Input container={{xs: 6}} control={control} label='Text' name='text' type='text'/>
+									<Input compact container={{xs: 6}} control={control} label='Text' name='text' type='text'/>
 									<Input container={{xs: 6}} control={control} label='Text Area' multiline name='textArea' required type='textarea'/>
 								</Grid>
 								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
@@ -173,7 +175,6 @@ function DemoForm({onSubmit}) {
 				<Grid container item justify='center' xs={12}>
 					Errors:
 					{' '}
-					{console.log('errors', errors)}
 					{JSON.stringify(eee(errors))}
 				</Grid>
 			</Grid>

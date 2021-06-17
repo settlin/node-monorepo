@@ -14,22 +14,22 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:react/recommended',
 	],
-	// overrides: [
-	// 	{
-	// 		// for files matching this pattern
-	// 		files: ['*.ts', '*.tsx'],
-	// 		// following config will override "normal" config
-	// 		parser: '@typescript-eslint/parser',
-	// 		plugins: [
-	// 			'@typescript-eslint',
-	// 		],
-	// 		extends: ['plugin:@typescript-eslint/recommended'],
-	// 		rules: {
-	// 			'@typescript-eslint/no-var-requires': 'off',
-	//      '@typescript-eslint/no-use-before-define': ['error', 'nofunc'],
-	// 		},
-	// 	},
-	// ],
+	overrides: [
+		{
+			// for files matching this pattern
+			files: ['*.ts', '*.tsx'],
+			// following config will override "normal" config
+			parser: '@typescript-eslint/parser',
+			plugins: [
+				'@typescript-eslint',
+			],
+			extends: ['plugin:@typescript-eslint/recommended'],
+			rules: {
+				'@typescript-eslint/no-var-requires': 'off',
+				'@typescript-eslint/no-use-before-define': ['error', 'nofunc'],
+			},
+		},
+	],
 	globals: {
 		Log: 'readonly',
 		Logger: 'readonly',
@@ -294,5 +294,11 @@ module.exports = {
 		// specific issues - https://stackoverflow.com/questions/63818415/react-was-used-before-it-was-defined/64024916#64024916
 		// 'no-use-before-define': ['error', 'nofunc'], // disallow use of variables before they are defined
 		'no-use-before-define': 'off',
+		'no-restricted-imports': [
+			'error',
+			{
+				'patterns': ['@material-ui/*/*/*', '!@material-ui/core/test-utils/*'],
+			},
+		],
 	},
 };

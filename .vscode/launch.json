@@ -1,0 +1,44 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "RHF: Node",
+			"cwd": "${workspaceFolder}/react-hook-form-mui",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": [
+				"run",
+				"storybook"
+			],
+			"port": 9050,
+			"sourceMaps": true,
+			"restart": true,
+			"stopOnEntry": false,
+			"protocol": "inspector",
+			"timeout": 120000,
+			"console": "integratedTerminal",
+		},
+		{
+			"type": "chrome",
+			"request": "launch",
+			"port": 9072,
+			"name": "RHF: Chrome",
+			"sourceMaps": true,
+			"url": "http://localhost:6016",
+			"userDataDir": "/${env:HOME}/.config/google-chrome/debug",
+			"runtimeExecutable": "/usr/bin/google-chrome-stable",
+			"runtimeArgs": ["--disable-gpu"],
+			"webRoot": "${workspaceFolder}/react-hook-form-mui"
+		},
+	],
+	"compounds": [
+		{
+			"name": "RHF: All",
+			"configurations": [
+				"RHF: Node",
+				"RHF: Chrome"
+			]
+		},
+	]
+}

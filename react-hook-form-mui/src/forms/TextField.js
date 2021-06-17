@@ -7,7 +7,7 @@ function TextField({compact, type, adornment, InputProps, InputLabelProps = {}, 
 	if (compact) {
 		InputProps = {
 			...InputProps,
-			...label,
+			label,
 			...(adornment && {startAdornment: (
 				<InputAdornment disablePointerEvents position='start' style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} {...InputAdornmentProps}>
 					{adornment}

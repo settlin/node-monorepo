@@ -86,7 +86,10 @@ CircularIntegration.propTypes = {
 	IconProps: PropTypes.object,
 	label: PropTypes.string,
 	processing: PropTypes.bool,
-	refButton: PropTypes.Object.assign(dest, source),
+	refButton: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.shape({current: PropTypes.elementType}),
+	]),
 	success: PropTypes.bool,
 	variant: PropTypes.string,
 };
