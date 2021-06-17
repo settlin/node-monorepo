@@ -3,7 +3,7 @@ import React from 'react';
 import {useController} from 'react-hook-form';
 import ButtonGroup from '../forms/ButtonGroup';
 
-export default function RHFButtonGroup({control, name, ...rest}) {
+export default function RHFButtonGroup({control, options, name, ...rest}) {
 	const {
 		field: {ref, ...inputProps},
 	} = useController({
@@ -12,12 +12,13 @@ export default function RHFButtonGroup({control, name, ...rest}) {
 		rules: {required: rest.required},
 		defaultValue: rest.defaultValue,
 	});
-
 	return (
 		<ButtonGroup
 			aria-label='text alignment'
 			exclusive
+			options={options}
 			ref={ref}
+			required
 			{...inputProps}
 			{...rest}
 		/>

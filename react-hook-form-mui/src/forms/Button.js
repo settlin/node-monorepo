@@ -86,7 +86,7 @@ CircularIntegration.propTypes = {
 	IconProps: PropTypes.object,
 	label: PropTypes.string,
 	processing: PropTypes.bool,
-	refButton: PropTypes.Object.assign(dest, source),
+	refButton: PropTypes.Object,
 	success: PropTypes.bool,
 	variant: PropTypes.string,
 };
