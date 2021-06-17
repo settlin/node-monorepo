@@ -105,7 +105,6 @@ function DemoForm({onSubmit}) {
 		}, 1000);
 	};
 
-	console.log(10);
 	const defaultValues = {text: 'name'};
 	const {handleSubmit, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
 		defaultValues,
