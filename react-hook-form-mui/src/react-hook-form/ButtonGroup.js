@@ -13,7 +13,6 @@ export default function RHFButtonGroup(props) {
 
 	return (
 		<ButtonGroup
-			aria-label='text alignment'
 			exclusive
 			{...p}
 		/>

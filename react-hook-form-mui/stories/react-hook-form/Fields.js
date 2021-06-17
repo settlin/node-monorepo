@@ -10,11 +10,9 @@ import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 // import FilterField from '../components/FilterField';
 // import DateTimePicker from '../components/DateTimePicker';
 import {useWatch, useForm} from 'react-hook-form';
-
-// const vvv = values => ({...values, files: (values.files || []).map(f => ({
-// 	name: f.name,
-// 	...f,
-// }))});
+// import ButtonGroup from '../../src/forms/ButtonGroup';
+import MultiButtonGroup from '../../src/react-hook-form/MultiButtonGroup';
+// import CurrencyField from '../../src/react-hook-form/CurrencyField';
 
 const eee = errors => Object.entries(errors).reduce((a, [k, {message, type}]) => ({...a, [k]: {message, type}}), {});
 
@@ -26,19 +24,57 @@ const arrayMeta = [
 	{name: 'mobile', label: 'Mobile', required: true, type: 'mobile', container: {xs: 7}, validate: true},
 ];
 
-const validate = function(values) {
-	let errors = {};
-	if ((values.negotiable || {}).no || !(values.negotiable || {}).upto) return errors;
-	let diff = (values.current.value - values.negotiable.upto) * 100 / values.current.value;
-	let minDiff = values.current.value > 20000000 ? 7 : values.current.value > 10000000 ? 5 : 3, maxDiff = 10;
-	if (diff < minDiff || diff > maxDiff) {
-		errors = setIn(errors, 'negotiable.upto', diff > maxDiff
-			? `The difference must be less than ${maxDiff}%. Negotiable Upto must be more than ${currencify({amount: Math.round((100 - maxDiff) * values.current.value / 100), abbreviated: true})}`
-			: `The difference must be more than ${minDiff}%. Negotiable Upto must be less than ${currencify({amount: Math.round((100 - minDiff) * values.current.value / 100), abbreviated: true})}`
-		);
-	}
-	return errors;
-};
+const options = [
+	{value: 'a-', label: 'Apartment', options: [
+		{value: 'a', label: 'Any Apartment', finalValue: {type: 'apartment', gated: true, project: true}},
+		{value: 'a:n', label: 'Only Apartment', finalValue: {type: 'apartment', gated: true, project: true, penthouse: false, villament: false}},
+		{value: 'a:p', label: 'Penthouse', finalValue: {type: 'apartment', gated: true, project: true, penthouse: true, villament: false}},
+		{value: 'a:v', label: 'Villament', finalValue: {type: 'apartment', gated: true, project: true, villament: true, penthouse: false}},
+	]},
+	{
+		value: 'h-', label: 'House', options: [
+			// gated, project, single, villa, villaType mandatory
+			{value: 'h', label: 'Any House', finalValue: {type: 'house', villa: false}},
+			{
+				value: 'h:g-', label: 'House in Gated Community', options: [
+					{value: 'h:g', label: 'Any Gated Community House', finalValue: {type: 'house', gated: true, project: false, villa: false}},
+					{value: 'h:g:s', label: 'Single Family House (GC)', finalValue: {type: 'house', gated: true, project: false, single: true, villa: false, villaType: null}},
+					{value: 'h:g:m', label: 'Multi Family House (GC)', finalValue: {type: 'house', gated: true, project: false, single: false, villa: false, villaType: null}},
+				],
+			},
+			{value: 'h:p-', label: 'House in a Project', options: [
+				{value: 'h:p', label: 'Any House in a Project', finalValue: {type: 'house', gated: true, project: true, villa: false}},
+				{value: 'h:p:s', label: 'Single Family House in Project', finalValue: {type: 'house', gated: true, project: true, single: true, villa: false, villaType: null}},
+				{value: 'h:p:m', label: 'Multi Family House in Project', finalValue: {type: 'house', gated: true, project: true, single: false, villa: false, villaType: null}},
+			]},
+			{
+				value: 'h:i-', label: 'Independent House', options: [
+					{value: 'h:i', label: 'Any Independent House', finalValue: {type: 'house', gated: false, project: false, villa: false}},
+					{value: 'h:i:s', label: 'Single Family House (I)', finalValue: {type: 'house', gated: false, project: false, single: true, villa: false, villaType: null}},
+					{value: 'h:i:m', label: 'Multi Family House (I)', finalValue: {type: 'house', gated: false, project: false, single: false, villa: false, villaType: null}},
+				],
+			},
+		],
+	},
+	{
+		value: 'v-', label: 'Villa', options: [
+			// gated, project, single, villa, villaType mandatory
+			{value: 'v', label: 'Any Villa', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true}},
+			{value: 'v:s', label: 'Standalone (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: 'standalone'}},
+			{value: 'v:1', label: '1-2 (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: '1-2'}},
+			{value: 'v:r', label: 'Row (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: 'row'}},
+		],
+	},
+	{
+		value: 'p-', label: 'Plot', options: [
+			// gated, project mandatory
+			{value: 'p', label: 'Any Plot', finalValue: {type: 'plot'}},
+			{value: 'p:p', label: 'Gated Builder Plot', finalValue: {type: 'plot', gated: true, project: true}},
+			{value: 'p:g', label: 'Gated Community Plot', finalValue: {type: 'plot', gated: true, project: false}},
+			{value: 'p:i', label: 'Independent Plot', finalValue: {type: 'plot', gated: false, project: false}},
+		],
+	},
+];
 
 function IsolateReRender({control, name}) {
 	const values = useWatch({
@@ -47,7 +83,7 @@ function IsolateReRender({control, name}) {
 	});
 
 	return (
-		<div>
+		<div style={{marginTop: '7%'}}>
 			{JSON.stringify(values)}
 		</div>
 	); // only re-render at the component level
@@ -69,8 +105,9 @@ function DemoForm({onSubmit}) {
 		}, 1000);
 	};
 
+	console.log(10);
 	const defaultValues = {text: 'name'};
-	const {register, handleSubmit, formState: {errors, isSubmitting, isDirty, isValid}, control, getValues} = useForm({
+	const {handleSubmit, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
 		defaultValues,
 		mode: 'onChange',
 	});
@@ -80,7 +117,7 @@ function DemoForm({onSubmit}) {
 	return (
 		<MuiPickersUtilsProvider utils={DayJSUtils}>
 			<Grid container item spacing={1} style={{padding: '2rem'}}>
-				<form onSubmit={handleSubmit(onSubmit)} style={{width: '100%'}}>
+				<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
 					<Grid container item spacing={1} xs={12}>
 						<Grid item xs={6}>
 							<Typography>
@@ -149,19 +186,18 @@ function DemoForm({onSubmit}) {
 								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
 									<Input compact container={{xs: 6}} control={control} label='Text' name='text' type='text'/>
 									<Input container={{xs: 6}} control={control} label='Text Area' multiline name='textArea' required type='textarea'/>
+									{/* <Input components={{input: CurrencyField}} control={control} name='currency' type='inr'/> */}
 								</Grid>
 								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
 									<Input
+										components={{input: MultiButtonGroup}}
 										container={{xs: 6}}
 										control={control}
 										label='Button Groups'
-										name='buttonGroups'
-										options={[
-											{value: '1', label: '1'},
-											{value: '2', label: '2'},
-										]}
+										name='propertyType'
+										options={options} // or components={{Field: ButtonGroup}} or components={{input: ButtonGroup}}
 										required
-										type='buttons' // or components={{Field: ButtonGroup}} or components={{input: ButtonGroup}}
+										type='buttons'
 									/>
 								</Grid>
 							</Grid>
@@ -181,5 +217,9 @@ function DemoForm({onSubmit}) {
 		</MuiPickersUtilsProvider>
 	);
 }
+
+DemoForm.propTypes = {
+	onSubmit: PropTypes.func,
+};
 
 export default DemoForm;
