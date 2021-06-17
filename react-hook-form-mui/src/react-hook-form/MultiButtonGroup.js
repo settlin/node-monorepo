@@ -36,7 +36,7 @@ function RecursiveButtonGroup({
 				onBlur={onBlur}
 				onChange={onChange}
 				options={nextOptions}
-				value={(values[1] + (nextToNextOptions ? '-' : '')) || values[0]}
+				value={(values[1] + (nextToNextOptions ? '-' : ''))}
 				{...rest}
 			/>
 			<RecursiveButtonGroup {...{options: nextOptions, values: values.slice(1), onChange, onBlur}}/>
@@ -55,15 +55,19 @@ function getAllValues(value, startIndex = 0) {
 	if (!value || (startIndex >= value.length)) return [];
 
 	const ind = value.indexOf(':', startIndex);
+
 	if (ind === -1) {
 		const v = value.replace(/-$/, '');
 		return [
 			v,
+			// add the next value if it is already selected
 			...(v !== value ? [] : [v]),
 		];
 	}
+
 	return [
 		value.substr(0, ind),
+		// change the startIndex for next ':' find
 		...getAllValues(value, ind + 1),
 	];
 }
