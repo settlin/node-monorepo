@@ -40,6 +40,8 @@ const module = function({type, rhf}) {
 			return rhf ? require('./react-hook-form/ButtonGroup').default : require('./forms/ButtonGroup').default;
 		case 'multiLevelButtons':
 			return rhf ? require('./react-hook-form/MultiButtonGroup').default : require('./forms/ButtonGroup').default;
+		case 'inr':
+			return rhf ? require('./react-hook-form/CurrencyField').default : require('./forms/CurrencyField').default;
 	}
 	return rhf ?  require('./react-hook-form/TextField').default : require('./forms/TextField').default;
 };
