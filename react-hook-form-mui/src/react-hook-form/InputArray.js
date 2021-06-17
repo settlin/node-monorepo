@@ -19,18 +19,27 @@ function Item({prefix, index, remove, commonProps, metaList, control}) {
 	return (
 		<>
 			{metaList.map(({name, container, ...p}) => <Input control={control} key={name} name={`${prefix}${name ? '.' + name : ''}`} {...{...commonProps, ...p, container}}/>)}
-			<IconButton aria-label='Delete' onClick={() => console.log(index) || remove(index)} size='small' style={{margin: '8px 0'}}>
+			<IconButton aria-label='Delete' onClick={() => remove(index)} size='small' style={{margin: '8px 0'}}>
 				<Delete fontSize='small'/>
 			</IconButton>
 		</>
 	);
 }
 
+Item.propTypes = {
+	control: PropTypes.object.isRequired,
+	index: PropTypes.number.isRequired,
+	metaList: PropTypes.array.isRequired,
+	remove: PropTypes.func.isRequired,
+	commonProps: PropTypes.object,
+	prefix: PropTypes.string,
+};
+
 // eslint-disable-next-line react/no-multi-comp
 function InputArray({control, name, label, helperText, metaList, FormHelperTextProps = {}, compact = true, FormLabelProps, validate, ...props} = {}) { // eslint-disable-line no-unused-vars
 	const classes = useStyles();
 
-	const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
+	const {fields, append, remove} = useFieldArray({
 		control,
 		name,
 	});
