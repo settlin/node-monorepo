@@ -1,22 +1,16 @@
 import React from 'react';
-import TextField from '../forms/TextField';
-import {useController} from 'react-hook-form';
-import MenuItem from '@material-ui/core/MenuItem';
+import {useRMController} from './useRMController';
+import Select from '../forms/Select';
 
-export default function SelectField({options, control, name, ...rest}) {
-	const {field} = useController({
-		name,
-		control,
-	});
-	return (
-		<TextField {...field} {...rest} select>
-			{
-				options.map((e, index) => (
-					<MenuItem key={index} value={e.value}>
-						{e.label}
-					</MenuItem>
-				))
-			}
-		</TextField>
-	);
+export default function RHFSelect(props) {
+	const {
+		ref,
+		// eslint-disable-next-line no-unused-vars
+		fieldState,
+		// eslint-disable-next-line no-unused-vars
+		formState,
+		...rest
+	} = useRMController(props);
+
+	return <Select inputRef={ref} {...rest}/>;
 }

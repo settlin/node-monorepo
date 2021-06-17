@@ -29,6 +29,9 @@ ErrorBoundary.propTypes = {
 
 const module = function({type, rhf}) {
 	switch (type) {
+		case 'array':
+			if (!rhf) throw new Error('`array` type is only supported via rhf. `rhf` prop must be set to true in order to use it.');
+			return require('./react-hook-form/InputArray').default;
 		case 'select':
 			return rhf ? require('./react-hook-form/Select').default : require('./forms/Select').default;
 		case 'buttons':
@@ -48,7 +51,7 @@ function Input({type, container, validate, label, rhf = true, components: {input
 		<ErrorBoundary>
 			<Container {...containerProps}>
 				{Field
-					? <Field {...rest} {...type} {...extraProps}/>
+					? <Field {...rest} {...extraProps}/>
 					: <Loader/>
 				}
 			</Container>

@@ -1,0 +1,84 @@
+import PropTypes from 'prop-types';
+import React, {Fragment} from 'react';
+import Grid from '@material-ui/core/Grid';
+import Input from '../Input';
+import Add from '@material-ui/icons/Add';
+import Delete from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormLabel from '@material-ui/core/FormLabel';
+import formLabel from '../../../formik-mui/src/styles/formLabel';
+import {makeStyles} from '@material-ui/styles';
+import clsx from 'clsx';
+import {useFieldArray} from 'react-hook-form';
+
+const useStyles = makeStyles({formLabel});
+
+function Item({prefix, index, remove, commonProps, metaList, control}) {
+	return (
+		<>
+			{metaList.map(({name, container, ...p}) => <Input control={control} key={name} name={`${prefix}${name ? '.' + name : ''}`} {...{...commonProps, ...p, container}}/>)}
+			<IconButton aria-label='Delete' onClick={() => console.log(index) || remove(index)} size='small' style={{margin: '8px 0'}}>
+				<Delete fontSize='small'/>
+			</IconButton>
+		</>
+	);
+}
+
+// eslint-disable-next-line react/no-multi-comp
+function InputArray({control, name, label, helperText, metaList, FormHelperTextProps = {}, compact = true, FormLabelProps, validate, ...props} = {}) { // eslint-disable-line no-unused-vars
+	const classes = useStyles();
+
+	const {fields, append, prepend, remove, swap, move, insert} = useFieldArray({
+		control,
+		name,
+	});
+
+	if (!metaList) return null;
+	return (
+		<>
+			{label && (
+				<FormLabel
+					{...FormLabelProps}
+					classes={{...(FormLabelProps || {}).classes, ...(compact ? {root: clsx(classes.formLabel, ((FormLabelProps || {}).classes || {}).root)} : {})}}
+				>
+					{label}
+					{helperText && (
+						<FormHelperText
+							{...FormHelperTextProps}
+							className={FormHelperTextProps.className}
+							error={error}
+						>
+							{helperText}
+						</FormHelperText>
+					)}
+				</FormLabel>
+			)}
+			{fields.map((field, index) => (
+				<Grid container key={field.id} spacing={3}>
+					<Item prefix={`${name}.${index}`} {...{...props, metaList, remove, index, control}}/>
+				</Grid>
+			))}
+			<Grid container justify='center' spacing={3}>
+				<Button aria-label='Add' onClick={() => append({})} size='small' style={{margin: '8px 0'}}>
+					Add Item
+				</Button>
+			</Grid>
+		</>
+	);
+}
+
+InputArray.propTypes = {
+	compact: PropTypes.bool,
+	control: PropTypes.object,
+	FormHelperTextProps: PropTypes.object,
+	FormLabelProps: PropTypes.object,
+	helperText: PropTypes.node,
+	label: PropTypes.node,
+	metaList: PropTypes.array,
+	name: PropTypes.string,
+	validate: PropTypes.func,
+};
+
+export default InputArray;
