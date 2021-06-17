@@ -19,14 +19,19 @@ export function rhfToMuiProps({
 	const fErr = name && get(errors, name);
 	const fieldTouched = (name && get(touchedFields, name));
 	const fieldDirty = (name && get(dirtyFields, name));
+	//
 
-
-	// const fieldError = (fieldDirty || fieldTouched) && fErr
-	// 	? 
-	// 	<ErrorMessage errors={errors} message={fErr.type === 'required' ? fErr.message || 'Required' 
-	// 	: 
-	// 	fErr.message || null} name={name}/>
-	// 	: null;
+	const fieldError = (fieldDirty || fieldTouched) && fErr
+		? (
+			<ErrorMessage
+				errors={errors}
+				message={fErr.type === 'required' ? fErr.message || 'Required'
+					:
+					fErr.message || null}
+				name={name}
+			/>
+		)
+		: null;
 
 	const extraProps = {};
 
@@ -72,6 +77,6 @@ export function rhfToMuiProps({
 		fieldState,
 		// touched: fieldTouched,
 		error: error || Boolean(fErr),
-		// helperText: fieldError || props.helperText,
+		helperText: fieldError || props.helperText,
 	};
 }
