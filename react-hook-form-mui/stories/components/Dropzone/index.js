@@ -219,7 +219,6 @@ function RHFMaterialUIDropzone(props) {
 	};
 	const handleDeleted = (index) => {
 		const {field = {}, value, handleDelete} = props;
-		console.log('on delete', handleDelete, index);
 		let files = value || field.value || [];
 		const file = new File([files[index]], files[index].name, {type: files[index].type});
 		file.processing = true;
