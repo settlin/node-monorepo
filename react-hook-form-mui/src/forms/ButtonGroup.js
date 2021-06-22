@@ -135,16 +135,6 @@ function ToggleButtonGroup(props) {
 
 				))
 				}
-				{option?.map(eachOption => (
-					<ToggleButton
-						className={classesStyle.nextLevelbuttonGroup}
-						key={eachOption.value}
-						value={eachOption.value}
-						{...ToggleButtonProps}
-					>
-						{eachOption.label}
-					</ToggleButton>
-				))}
 			</MuiToggleButtonGroup>
 		</FormControl>
 	);

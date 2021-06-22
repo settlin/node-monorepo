@@ -13,8 +13,9 @@ export function rhfToMuiProps({
 	defaultValue,
 	...props
 }) {
+	console.log('Here', formState, props);
 	const {name, onChange} = field;
-	const {errors = {}, touchedFields = {}, dirtyFields = {}, isSubmitting} = formState;
+	// const {errors = {}, touchedFields = {}, dirtyFields = {}, isSubmitting} = formState;
 
 	const fErr = name && get(errors, name);
 	const fieldTouched = (name && get(touchedFields, name));
@@ -69,14 +70,14 @@ export function rhfToMuiProps({
 	}
 
 	return {
-		disabled: isSubmitting || disabled,
+		// disabled: isSubmitting || disabled,
 		...props,
 		...field,
 		...extraProps,
 		formState,
 		fieldState,
 		// touched: fieldTouched,
-		error: error || Boolean(fErr),
-		helperText: fieldError || props.helperText,
+		// error: error || Boolean(fErr),
+		// helperText: fieldError || props.helperText,
 	};
 }
