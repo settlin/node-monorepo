@@ -1,6 +1,6 @@
 {
   "name": "@settlin/react-hook-form-mui",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "A set of material style fields for react-hook-form",
   "main": "lib/index.js",
   "module": "es/index.js",
