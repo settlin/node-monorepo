@@ -1,6 +1,6 @@
 {
   "name": "@settlin/collage",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "Turns an array of images into a photo collage",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   "homepage": "https://github.com/settlin/node-monorepo/collage#readme",
   "dependencies": {
     "bluebird": "^3.7.2",
-    "canvas": "^2.7.0",
+    "canvas": "2.6.1",
     "lodash.clonedeep": "^4.5.0",
     "request": "^2.88.2"
   },
