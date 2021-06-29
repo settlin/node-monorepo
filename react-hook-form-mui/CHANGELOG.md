@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.2.0 (2021-06-29)
+
+
+### Bug Fixes
+
+* fixes ([e16b0fb](https://github.com/settlin/node-monorepo/commit/e16b0fb954a2b4e1bfd98e22e8979beaa116d693))
+* fixes ([dfce98b](https://github.com/settlin/node-monorepo/commit/dfce98b42e6ca2617ab34801a071bde66960bab3))
+* fixes ([b7b7cfa](https://github.com/settlin/node-monorepo/commit/b7b7cfa21718d21154b223c21604d06370cb2927))
+* fixes ([b882bac](https://github.com/settlin/node-monorepo/commit/b882bacc45d17be2845a565304bb5f07241305c2))
+* fixes ([22919af](https://github.com/settlin/node-monorepo/commit/22919af2a25e6f50abd5561c081af50a78e905f5))
+* fixes ([e8c4ed8](https://github.com/settlin/node-monorepo/commit/e8c4ed8f1c5d722d351d66a5bb08bedc4b277439))
+* fixes ([49cb5ca](https://github.com/settlin/node-monorepo/commit/49cb5ca19cad6b7f52e067e7153d18a4c49aa80e))
+* fixes ([cfe9621](https://github.com/settlin/node-monorepo/commit/cfe9621d1fb6c12c90f89dc8c2ec68f6e1af4e7f))
+* fixes ([e77178e](https://github.com/settlin/node-monorepo/commit/e77178e4ec341febf2c49421e9b0bf0f85dbfef2))
+* fixes ([2546f47](https://github.com/settlin/node-monorepo/commit/2546f47d3e71af3230aa71ff59b8ec0f2b23b047))
+* fixes ([491931d](https://github.com/settlin/node-monorepo/commit/491931d4861f3a7cfc95e8d30543a36bce05a76d))
+
+
+### Features
+
+* new package react-hook-form-mui ([6e64c7d](https://github.com/settlin/node-monorepo/commit/6e64c7d62548e5f9de545d1748ad9ef801a6abd0))
+
+
+
+
+
 # 0.1.0 (2021-06-28)
 
 

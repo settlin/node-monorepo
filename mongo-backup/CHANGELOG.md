@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.6](http://github.com/settlin/node-monorepo/mongo-backup/compare/@settlin/mongo-backup@2.2.4...@settlin/mongo-backup@2.2.6) (2021-06-29)
+
+
+### Bug Fixes
+
+* fixes ([389d76e](http://github.com/settlin/node-monorepo/mongo-backup/commit/389d76ec619ae8c847e50ee3b42438c82cd33890))
+
+
+
+
+
 ## [2.2.5](http://github.com/settlin/node-monorepo/mongo-backup/compare/@settlin/mongo-backup@2.2.4...@settlin/mongo-backup@2.2.5) (2021-06-28)
 
 
