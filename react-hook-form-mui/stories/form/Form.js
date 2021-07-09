@@ -16,12 +16,15 @@ class DemoForm extends PureComponent {
 		return (
 			<Grid container item spacing={1} style={{padding: '2rem'}}>
 				<Grid item xs={12}>
-					<Typography variant='h5'>Compact: true (default)</Typography>
+					<Typography variant='h5'>
+						Compact: true (default)
+					</Typography>
 					<Grid container>
-						<Input formik={false} checked={ro} name='radio.optional' type='radio' container={{xs: 3}} label='On' onChange={e => this.setState({'radio.optional': e.currentTarget.checked}) || onChange}/>
-						<Input formik={false} checked={co} name='checkbox.optional' type='checkbox' container={{xs: 3}} label='On' onChange={e => this.setState({'checkbox.optional': e.currentTarget.checked}) || onChange}/>
-						<Input formik={false} checked={so} name='switch.optional' type='switch' container={{xs: 3}} label='On' offLabel='Off' onChange={e => this.setState({'switch.optional': e.currentTarget.checked}) || onChange}/>
-						<Input formik={false} checked={so} name='buttons' type='buttons' container={{xs: 3}} options={options} onChange={e => this.setState({'buttons': e}) || onChange}/>
+						<Input checked={ro} container={{xs: 3}} formik={false} label='On' name='radio.optional' onChange={e => this.setState({'radio.optional': e.currentTarget.checked}) || onChange} type='radio'/>
+						<Input checked={ro} container={{xs: 3}} formik={false} label='On' name='radio.optional' onChange={e => this.setState({'radio.optional': e.currentTarget.checked}) || onChange} type='radio'/>
+						<Input checked={co} container={{xs: 3}} formik={false} label='On' name='checkbox.optional' onChange={e => this.setState({'checkbox.optional': e.currentTarget.checked}) || onChange} type='checkbox'/>
+						<Input checked={so} container={{xs: 3}} formik={false} label='On' name='switch.optional' offLabel='Off' onChange={e => this.setState({'switch.optional': e.currentTarget.checked}) || onChange} type='switch'/>
+						<Input checked={so} container={{xs: 3}} formik={false} name='buttons' onChange={e => this.setState({'buttons': e}) || onChange} options={options} type='buttons'/>
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>

@@ -13,6 +13,7 @@ import {useWatch, useForm} from 'react-hook-form';
 // import ButtonGroup from '../../src/forms/ButtonGroup';
 import MultiButtonGroup from '../../src/react-hook-form/MultiButtonGroup';
 // import CurrencyField from '../../src/react-hook-form/CurrencyField';
+import Autocomplete from '../../src/react-hook-form/Autocomplete';
 
 const eee = errors => Object.entries(errors).reduce((a, [k, {message, type}]) => ({...a, [k]: {message, type}}), {});
 
@@ -123,6 +124,15 @@ function DemoForm({onSubmit}) {
 								Phones (Array of Inputs)
 							</Typography>
 							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/>
+							<Autocomplete
+								container={{xs: 12}}
+								control={control}
+								getOptionLabel={(option) => (typeof option === 'string' ? option : option.label)}
+								label='Auto'
+								name='auto'
+								options={options}
+								// renderInput={p => <Input rhf={false} {...p}/>}
+							/>
 							{/* <Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(cb, 1000)}
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
