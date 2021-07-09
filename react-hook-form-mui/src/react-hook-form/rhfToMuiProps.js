@@ -13,9 +13,9 @@ export function rhfToMuiProps({
 	defaultValue,
 	...props
 }) {
-	console.log('Here', formState, props);
+	console.log('formState', formState, field);
 	const {name, onChange} = field;
-	// const {errors = {}, touchedFields = {}, dirtyFields = {}, isSubmitting} = formState;
+	const {errors = {}, touchedFields = {}, dirtyFields = {}, isSubmitting} = formState;
 
 	const fErr = name && get(errors, name);
 	const fieldTouched = (name && get(touchedFields, name));
@@ -38,7 +38,6 @@ export function rhfToMuiProps({
 
 	if (onChange) {
 		field.value = defaultValue || field.value;
-
 		switch (props.type) {
 			case 'autocomplete':
 			case 'select':
@@ -70,14 +69,14 @@ export function rhfToMuiProps({
 	}
 
 	return {
-		// disabled: isSubmitting || disabled,
+		disabled: isSubmitting || disabled,
 		...props,
 		...field,
 		...extraProps,
 		formState,
 		fieldState,
-		// touched: fieldTouched,
-		// error: error || Boolean(fErr),
-		// helperText: fieldError || props.helperText,
+		touched: fieldTouched,
+		error: error || Boolean(fErr),
+		helperText: fieldError || props.helperText,
 	};
 }

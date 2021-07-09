@@ -76,7 +76,6 @@ function DropzoneArea(props) {
 	const classesStyle = styles();
 	const [errors, setErrors] = useState({});
 
-
 	const onDrop = (acceptedFiles, rejectedFiles) => {
 		const {limit, onError, onAdd, onDrop, accept} = props;
 		let errors = [];
@@ -90,7 +89,7 @@ function DropzoneArea(props) {
 		setErrors({errors});
 		acceptedFiles.slice(0, Math.max(limit - value.length, 0)).forEach((f) => {
 			f.preview = URL.createObjectURL(f);
-			f.processing = true;
+			f.processing = false;
 			if (onAdd) onAdd(f);
 			if (onDrop) onDrop(f, callbackOnFile(f, onAdd));
 		});
@@ -143,17 +142,15 @@ function DropzoneArea(props) {
 							</Grid>
 							<Grid className={clsx(classesStyle.previewsContainer, cs.previewsContainer)} item onClick={e => e.stopPropagation()}>
 								{showPreviews && (
-									<>
-										<PreviewsComponent
-											files={files}
-											handleDelete={onDelete}
-											name={name}
-											showFileNames={props.showFileNamesInPreview}
-											{...PreviewsComponentProps}
-										>
-											{PreviewsChildren && <PreviewsChildren/>}
-										</PreviewsComponent>
-									</>
+									<PreviewsComponent
+										files={files}
+										handleDelete={onDelete}
+										name={name}
+										showFileNames={props.showFileNamesInPreview}
+										{...PreviewsComponentProps}
+									>
+										{PreviewsChildren && <PreviewsChildren/>}
+									</PreviewsComponent>
 								)
 								}
 							</Grid>
@@ -222,27 +219,13 @@ function RHFMaterialUIDropzone(props) {
 	};
 	const handleDeleted = (index) => {
 		const {field = {}, value, handleDelete} = props;
+		console.log('on delete', handleDelete, index);
 		let files = value || field.value || [];
 		const file = new File([files[index]], files[index].name, {type: files[index].type});
 		file.processing = true;
 		handleAdd(file); // to update processing
 		if (handleDelete) handleDeleted(file, callbackOnFile(file, postDelete));
 		else postDelete(file);
-	};
-	const handleFileUpload = (file, cb) => {
-		const reader = new FileReader();
-		reader.onload = () => {
-			const binary = reader.result;
-			uploadFunc({name: file.name, binary, cb});
-		};
-		reader.readAsBinaryString(file);
-	};
-	const handleUpload = (file, cb) => {
-		const {onUploadDdp, ddpUploadInfo, createVersions} = props;
-		if (onUploadDdp && typeof onUploadDdp === 'function' && ddpUploadInfo) onUploadDdp(file, createVersions ? delayedCb(`${Meteor.settings.public.s3Prefix}/application/${ddpUploadInfo.name}`, cb) : cb);
-		// else if (createVersions) handleImageUpload(file, cb);
-		// else handleFileUpload(file, cb);
-		handleFileUpload(file, cb);
 	};
 	const handleError = (msg) => {
 		const {value, field, form, onError} = props;

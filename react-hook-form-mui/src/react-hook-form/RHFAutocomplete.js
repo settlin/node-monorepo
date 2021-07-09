@@ -1,8 +1,8 @@
 import React from 'react';
 import {useRMController} from './useRMController';
-import TextField from '../forms/TextField';
+import MUIAutocomplete from '@material-ui/lab/Autocomplete';
 
-export default function RHFTextField(props) {
+export default function RHFAutocomplete(props) {
 	const {
 		ref,
 		// eslint-disable-next-line no-unused-vars
@@ -11,5 +11,6 @@ export default function RHFTextField(props) {
 		formState,
 		...rest
 	} = useRMController(props);
-	return <TextField inputRef={ref} {...rest}/>;
+
+	return <MUIAutocomplete inputRef={ref} {...rest}/>;
 }

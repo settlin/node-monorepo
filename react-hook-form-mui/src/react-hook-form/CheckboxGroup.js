@@ -11,6 +11,5 @@ export default function RHFSelect(props) {
 		formState,
 		...rest
 	} = useRMController(props);
-	console.log(props, 'props in checkbox');
-	return <CheckboxGroup inputRef={ref} options={props.options} {...rest}/>;
+	return <CheckboxGroup inputRef={ref} {...rest}/>;
 }

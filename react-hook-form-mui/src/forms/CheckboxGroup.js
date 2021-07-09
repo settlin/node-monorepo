@@ -19,11 +19,6 @@ const styles = makeStyles({
 
 function CheckboxGroup(props) {
 	const classesStyle = styles();
-	// constructor(p) {
-	// 	super(p);
-	// 	this.handleChange = this.handleChange.bind(this);
-	// 	this.handleBlur = this.handleBlur.bind(this);
-	// }
 	const handleChange = (event, v) => {
 		const {name, value = [], setFieldValue, onChange} = props;
 
@@ -53,8 +48,8 @@ function CheckboxGroup(props) {
 		value,
 		error,
 		helperText,
+		setFieldValue,
 	} = props;
-	console.log('options received', options);
 	return (
 		<FormControl
 			error={error}
@@ -80,33 +75,26 @@ function CheckboxGroup(props) {
 			)}
 			<FormGroup {...FormGroupProps} row={(FormGroupProps || {}).row || compact}>
 				{options.map((option, i) => (
-					<Field
-						// eslint-disable-next-line react/no-array-index-key
+
+					<Checkbox
 						key={i}
+						{...option}
+						{...CheckboxProps}
+						checked={value.includes(option.value)}
 						name={name}
-						{...props}
-					>
-						{({form}) => (
-							<Checkbox
-								{...option}
-								{...CheckboxProps}
-								checked={value.includes(option.value)}
-								name={name}
-								// eslint-disable-next-line react/jsx-handler-names
-								onBlur={handleBlur}
-								onChange={() => {
-									if (value.includes(option.value)) {
-										const nextValue = value.filter(v => v !== option.value);
-										form.setFieldValue(name, nextValue);
-									}
-									else {
-										const nextValue = value.concat(option.value);
-										form.setFieldValue(name, nextValue);
-									}
-								}}
-							/>
-						)}
-					</Field>
+						// eslint-disable-next-line react/jsx-handler-names
+						onBlur={handleBlur}
+						onChange={() => {
+							if (value.includes(option.value)) {
+								const nextValue = value.filter(v => v !== option.value);
+								setFieldValue(name, nextValue);
+							}
+							else {
+								const nextValue = value.concat(option.value);
+								setFieldValue(name, nextValue);
+							}
+						}}
+					/>
 				))}
 			</FormGroup>
 		</FormControl>
