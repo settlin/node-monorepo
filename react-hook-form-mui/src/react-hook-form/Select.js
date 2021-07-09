@@ -11,6 +11,5 @@ export default function RHFSelect(props) {
 		formState,
 		...rest
 	} = useRMController(props);
-
 	return <Select inputRef={ref} {...rest}/>;
 }

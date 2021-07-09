@@ -9,6 +9,5 @@ export function useRMController({control, name, ...rest}) {
 		rules: {required: rest.required},
 		defaultValue: rest.defaultValue,
 	});
-
 	return rhfToMuiProps({...p, ...rest});
 }

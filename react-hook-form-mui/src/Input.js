@@ -44,6 +44,8 @@ const module = function({type, rhf}) {
 			return rhf ? require('./react-hook-form/CurrencyField').default : require('./forms/CurrencyField').default;
 		case 'checkbox':
 			return rhf ? require('./react-hook-form/CheckboxGroup').default : require('./forms/CheckboxGroup').default;
+		case 'autocomplete':
+			return require('./react-hook-form/RHFAutocomplete').default;
 	}
 	return rhf ?  require('./react-hook-form/TextField').default : require('./forms/TextField').default;
 };

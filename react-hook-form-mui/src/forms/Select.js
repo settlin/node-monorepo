@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from './TextField';
 
 function Select({
 	options,
+	optionsAsync,
+	creatable,
+	classes,
+	name,
+	components,
 	multiple = false,
 	native = false,
 	InputLabelProps,
@@ -12,7 +17,37 @@ function Select({
 	children, // eslint-disable-line no-unused-vars
 	...props
 }) {
+	const commonProps = {
+		...props,
+		isMulti: multiple,
+		classes,
+		name,
+		components,
+		onChange(v) {
+			onChange && onChange(v);
+		},
+	};
+	// console.log('common props are', props);
+	// const [cacheOptions, setCacheOptions] = useState(true);
+
 	const isNative = !multiple && native;
+	// console.log('select', multiple, isNative, props);
+	// if (optionsAsync) {
+	// 	const {default: AsyncSelect} = creatable ? require('react-select/async-creatable') : require('react-select/async');
+
+	// 	return (
+	// 		<AsyncSelect
+	// 			cacheOptions={cacheOptions}
+	// 			defaultOptions={[]}
+	// 			loadOptions={(val, cb) => optionsAsync(val, function(arr) {
+	// 				if (!arr?.length) setCacheOptions(false);
+	// 				cb(arr);
+	// 			})}
+	// 			{...commonProps}
+	// 			{...props}
+	// 		/>
+	// 	);
+	// }
 	return (
 		<TextField
 			{...props}

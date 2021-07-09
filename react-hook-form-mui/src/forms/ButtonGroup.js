@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import MuiToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
@@ -26,10 +26,6 @@ const styles = makeStyles({
 	labelContainerCompact: {
 		marginRight: 8,
 	},
-	nextLevelbuttonGroup: {
-		marginTop: '10%',
-		// position: 'absolute',
-	},
 });
 
 function ToggleButtonGroup(props) {
@@ -42,7 +38,6 @@ function ToggleButtonGroup(props) {
 		ToggleButtonProps = {},
 		ToggleButtonGroupProps: {classes: tClasses = {}, ...ToggleButtonGroupProps} = {},
 		compact,
-		classes,
 		options,
 		exclusive = true,
 		required,
@@ -51,10 +46,9 @@ function ToggleButtonGroup(props) {
 		helperText,
 	} = props;
 
-	const [option, setOption] = useState();
 	const classesStyle = styles();
 	const handleChange = (event, value) => {
-		getOptions(value, options);
+		console.log('value', value)
 		if (props.onChange) props.onChange(value);
 	};
 
@@ -62,24 +56,6 @@ function ToggleButtonGroup(props) {
 		// take care of touched
 		if (props.onBlur) props.onBlur(event);
 	};
-
-	const getOptions = (v, options) => {
-		let option;
-		const compare = options.find(o => o.value === v);
-		if (compare) {
-			option = compare.options.map(({value, label}) => {return ({value, label});});
-			setOption(option);
-		}
-		else if (v) {
-			for (let i = 0; i < options.length; i++) {
-				if (options[i].options) option = getOptions(v, options[i].options);
-				if (option) return option;
-			}
-		}
-		return null;
-	};
-	// ToggleButtonProps.classes = {...ToggleButtonProps.classes, root: clsx(classesStyle.button, (ToggleButtonProps.classes || {}).root)};
-
 	return (
 		<FormControl
 			error={error}
@@ -127,12 +103,11 @@ function ToggleButtonGroup(props) {
 					<ToggleButton
 						key={option.value}
 						{...ToggleButtonProps}
+						style={{height: '2.5rem'}}
 						value={option.value}
 					>
 						{option.label}
-
 					</ToggleButton>
-
 				))
 				}
 			</MuiToggleButtonGroup>
