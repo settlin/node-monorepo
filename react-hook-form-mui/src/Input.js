@@ -32,6 +32,8 @@ const module = function({type, rhf}) {
 		case 'array':
 			if (!rhf) throw new Error('`array` type is only supported via rhf. `rhf` prop must be set to true in order to use it.');
 			return require('./react-hook-form/InputArray').default;
+		case 'autocomplete':
+			return rhf ? require('./react-hook-form/Autocomplete').default : require('./forms/Autocomplete').default;
 		case 'select':
 			return rhf ? require('./react-hook-form/Select').default : require('./forms/Select').default;
 		case 'buttons':
@@ -44,7 +46,7 @@ const module = function({type, rhf}) {
 
 
 // eslint-disable-next-line react/no-multi-comp
-function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact = true, ...rest}) { // eslint-disable-line no-unused-vars
+function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact, ...rest}) { // eslint-disable-line no-unused-vars
 	const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 	const containerProps = container ? {item: true, ...container} : {};
 	Field = Field || module({type, rhf});

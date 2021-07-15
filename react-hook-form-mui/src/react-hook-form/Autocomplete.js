@@ -1,7 +1,6 @@
 import React from 'react';
 import {useRMController} from './useRMController';
-import MUIAutocomplete from '@material-ui/lab/Autocomplete';
-import TextField from '@material-ui/core/TextField';
+import MUIAutocomplete from '../forms/Autocomplete';
 
 export default function RHFAutocomplete(props) {
 	const {
@@ -21,7 +20,6 @@ export default function RHFAutocomplete(props) {
 	return (
 		<MUIAutocomplete
 			inputRef={ref}
-			renderInput={(params) => <TextField {...params} label={rest.label}/>}
 			{...rest}
 			onChange={onChange}
 		/>

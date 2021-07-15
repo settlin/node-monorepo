@@ -9,7 +9,6 @@ export function rhfToMuiProps({
 	formState,
 	disabled = false,
 	error,
-	multiple,
 	checked,
 	defaultValue,
 	...props
@@ -32,8 +31,9 @@ export function rhfToMuiProps({
 		field.value = defaultValue || field.value;
 
 		switch (props.type) {
+			case 'autocomplete':
 			case 'select':
-				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;
+				field.value = typeof field.value === 'undefined' ? props.multiple ? [] : '' : field.value;
 				break;
 
 			case 'checkbox':
