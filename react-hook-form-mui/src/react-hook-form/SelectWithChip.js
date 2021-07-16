@@ -1,8 +1,8 @@
 import React from 'react';
 import {useRMController} from './useRMController';
-import MUIAutocomplete from '@material-ui/lab/Autocomplete';
+import Select from '../forms/SelectWithChip';
 
-export default function RHFAutocomplete(props) {
+export default function RHFSelectChip(props) {
 	const {
 		ref,
 		// eslint-disable-next-line no-unused-vars
@@ -11,6 +11,6 @@ export default function RHFAutocomplete(props) {
 		formState,
 		...rest
 	} = useRMController(props);
-
-	return <MUIAutocomplete inputRef={ref} {...rest}/>;
+	console.log('rest are', rest);
+	return <Select inputRef={ref} {...rest}/>;
 }
