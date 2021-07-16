@@ -45,7 +45,9 @@ const module = function({type, rhf}) {
 		case 'checkbox':
 			return rhf ? require('./react-hook-form/CheckboxGroup').default : require('./forms/CheckboxGroup').default;
 		case 'autocomplete':
-			return require('./react-hook-form/RHFAutocomplete').default;
+			return require('./react-hook-form/Autocomplete').default;
+		case 'selectchip':
+			return rhf ? require('./react-hook-form/SelectWithChip').default : require('./forms/SelectWithChip');
 	}
 	return rhf ?  require('./react-hook-form/TextField').default : require('./forms/TextField').default;
 };

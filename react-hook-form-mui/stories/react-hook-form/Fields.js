@@ -5,8 +5,9 @@ import Grid from '@material-ui/core/Grid';
 // import {Formik, Form, setIn} from 'formik';
 import {Input, Button} from '../../src';
 import DayJSUtils from '@date-io/dayjs';
+import DateTimePicker from '../../src/react-hook-form/DateTimePicker';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-import Autocomplete from '../components/AutoComplete';
+// import Autocomplete from '../components/AutoComplete';
 import Dropzone from '../components/Dropzone';
 import PreviewsChildren from '../components/Dropzone/Previews';
 // import FilterField from '../components/FilterField';
@@ -29,55 +30,49 @@ const arrayMeta = [
 	{name: 'mobile', label: 'Mobile', required: true, type: 'mobile', container: {xs: 7}, validate: true},
 ];
 
-// const options = [
-// 	{value: 'a-', label: 'Apartment', options: [
-// 		{value: 'a', label: 'Any Apartment', finalValue: {type: 'apartment', gated: true, project: true}},
-// 		{value: 'a:n', label: 'Only Apartment', finalValue: {type: 'apartment', gated: true, project: true, penthouse: false, villament: false}},
-// 		{value: 'a:p', label: 'Penthouse', finalValue: {type: 'apartment', gated: true, project: true, penthouse: true, villament: false}},
-// 		{value: 'a:v', label: 'Villament', finalValue: {type: 'apartment', gated: true, project: true, villament: true, penthouse: false}},
-// 	]},
-// 	{
-// 		value: 'h-', label: 'House', options: [
-// 			// gated, project, single, villa, villaType mandatory
-// 			{value: 'h', label: 'Any House', finalValue: {type: 'house', villa: false}},
-// 			{
-// 				value: 'h:g-', label: 'House in Gated Community', options: [
-// 					{value: 'h:g', label: 'Any Gated Community House', finalValue: {type: 'house', gated: true, project: false, villa: false}},
-// 					{value: 'h:g:s', label: 'Single Family House (GC)', finalValue: {type: 'house', gated: true, project: false, single: true, villa: false, villaType: null}},
-// 					{value: 'h:g:m', label: 'Multi Family House (GC)', finalValue: {type: 'house', gated: true, project: false, single: false, villa: false, villaType: null}},
-// 				],
-// 			},
-// 			{value: 'h:p-', label: 'House in a Project', options: [
-// 				{value: 'h:p', label: 'Any House in a Project', finalValue: {type: 'house', gated: true, project: true, villa: false}},
-// 				{value: 'h:p:s', label: 'Single Family House in Project', finalValue: {type: 'house', gated: true, project: true, single: true, villa: false, villaType: null}},
-// 				{value: 'h:p:m', label: 'Multi Family House in Project', finalValue: {type: 'house', gated: true, project: true, single: false, villa: false, villaType: null}},
-// 			]},
-// 			{
-// 				value: 'h:i-', label: 'Independent House', options: [
-// 					{value: 'h:i', label: 'Any Independent House', finalValue: {type: 'house', gated: false, project: false, villa: false}},
-// 					{value: 'h:i:s', label: 'Single Family House (I)', finalValue: {type: 'house', gated: false, project: false, single: true, villa: false, villaType: null}},
-// 					{value: 'h:i:m', label: 'Multi Family House (I)', finalValue: {type: 'house', gated: false, project: false, single: false, villa: false, villaType: null}},
-// 				],
-// 			},
-// 		],
-// 	},
-// 	{
-// 		value: 'v-', label: 'Villa', options: [
-// 			// gated, project, single, villa, villaType mandatory
-// 			{value: 'v', label: 'Any Villa', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true}},
-// 			{value: 'v:s', label: 'Standalone (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: 'standalone'}},
-// 			{value: 'v:1', label: '1-2 (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: '1-2'}},
-// 			{value: 'v:r', label: 'Row (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: 'row'}},
-// 		],
-// 	},
-// ];
-
 const options = [
-	{value: 'apple', label: 'Apple'},
-	{value: 'mango', label: 'Mango'},
-	{value: 'banana', label: 'Banana'},
-	{value: 'orange', label: 'Orange'},
+	{value: 'a-', label: 'Apartment', options: [
+		{value: 'a', label: 'Any Apartment', finalValue: {type: 'apartment', gated: true, project: true}},
+		{value: 'a:n', label: 'Only Apartment', finalValue: {type: 'apartment', gated: true, project: true, penthouse: false, villament: false}},
+		{value: 'a:p', label: 'Penthouse', finalValue: {type: 'apartment', gated: true, project: true, penthouse: true, villament: false}},
+		{value: 'a:v', label: 'Villament', finalValue: {type: 'apartment', gated: true, project: true, villament: true, penthouse: false}},
+	]},
+	{
+		value: 'h-', label: 'House', options: [
+			// gated, project, single, villa, villaType mandatory
+			{value: 'h', label: 'Any House', finalValue: {type: 'house', villa: false}},
+			{
+				value: 'h:g-', label: 'House in Gated Community', options: [
+					{value: 'h:g', label: 'Any Gated Community House', finalValue: {type: 'house', gated: true, project: false, villa: false}},
+					{value: 'h:g:s', label: 'Single Family House (GC)', finalValue: {type: 'house', gated: true, project: false, single: true, villa: false, villaType: null}},
+					{value: 'h:g:m', label: 'Multi Family House (GC)', finalValue: {type: 'house', gated: true, project: false, single: false, villa: false, villaType: null}},
+				],
+			},
+			{value: 'h:p-', label: 'House in a Project', options: [
+				{value: 'h:p', label: 'Any House in a Project', finalValue: {type: 'house', gated: true, project: true, villa: false}},
+				{value: 'h:p:s', label: 'Single Family House in Project', finalValue: {type: 'house', gated: true, project: true, single: true, villa: false, villaType: null}},
+				{value: 'h:p:m', label: 'Multi Family House in Project', finalValue: {type: 'house', gated: true, project: true, single: false, villa: false, villaType: null}},
+			]},
+			{
+				value: 'h:i-', label: 'Independent House', options: [
+					{value: 'h:i', label: 'Any Independent House', finalValue: {type: 'house', gated: false, project: false, villa: false}},
+					{value: 'h:i:s', label: 'Single Family House (I)', finalValue: {type: 'house', gated: false, project: false, single: true, villa: false, villaType: null}},
+					{value: 'h:i:m', label: 'Multi Family House (I)', finalValue: {type: 'house', gated: false, project: false, single: false, villa: false, villaType: null}},
+				],
+			},
+		],
+	},
+	{
+		value: 'v-', label: 'Villa', options: [
+			// gated, project, single, villa, villaType mandatory
+			{value: 'v', label: 'Any Villa', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true}},
+			{value: 'v:s', label: 'Standalone (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: 'standalone'}},
+			{value: 'v:1', label: '1-2 (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: '1-2'}},
+			{value: 'v:r', label: 'Row (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: 'row'}},
+		],
+	},
 ];
+
 const checkBoxOptions = [
 	{value: 'amphiTheatre', label: 'Amphi Theatre', icon: 'icon-movie-film', order: 1, importance: 0, type: ['entertainment'], category: 'openCommonSpots'},
 	{value: 'atm', label: 'ATM', icon: 'icon-bank-notes-atm', order: 2, importance: 0, type: ['lifestyle']},
@@ -241,7 +236,16 @@ function DemoForm({onSubmit}) {
 				<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
 					<Grid container item spacing={1} xs={12}>
 						<Grid item xs={6}>
-							<Typography>
+							<Input
+								control={control}
+								format='DD/MM/YYYY'
+								label='Construted on'
+								name='constructedOn'
+								openTo='month'
+								type='date'
+								views={['year', 'month', 'date']}
+							/>
+							{/* <Typography>
 								Phones (Array of Inputs)
 							</Typography>
 							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/>
@@ -343,7 +347,7 @@ function DemoForm({onSubmit}) {
 						<Grid container item justify='center' xs={12}>
 							<Button disabled={(isDirty && !isValid) || isSubmitting} label='Submit' processing={isSubmitting} size='small' type='submit' variant='contained'/>
 						</Grid>
-					</Grid>
+					{/* </Grid> */}
 				</form>
 				<IsolateReRender control={control}>
 					{JSON.stringify}
