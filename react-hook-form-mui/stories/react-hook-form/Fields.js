@@ -1,26 +1,20 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 // import {Formik, Form, setIn} from 'formik';
-import {Input, Button} from '../../src';
+import {Input, Button, currencify} from '../../src';
 import DayJSUtils from '@date-io/dayjs';
-import DateTimePicker from '../../src/react-hook-form/DateTimePicker';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-// import Autocomplete from '../components/AutoComplete';
-import Dropzone from '../components/Dropzone';
-import PreviewsChildren from '../components/Dropzone/Previews';
+// import Dropzone from '../components/Dropzone';
 // import FilterField from '../components/FilterField';
 // import DateTimePicker from '../components/DateTimePicker';
 import {useWatch, useForm} from 'react-hook-form';
 // import ButtonGroup from '../../src/forms/ButtonGroup';
 import MultiButtonGroup from '../../src/react-hook-form/MultiButtonGroup';
-import CheckboxGroup from '../../src/react-hook-form/CheckboxGroup';
 // import CurrencyField from '../../src/react-hook-form/CurrencyField';
 
 const eee = errors => Object.entries(errors).reduce((a, [k, {message, type}]) => ({...a, [k]: {message, type}}), {});
-
-// let value = [{name: require('/home/akshay/Pictures/bug.png')}, {name: require('/home/akshay/Pictures/icon.png')}];
 
 const arrayMeta = [
 	{name: 'type', label: 'Type', required: true, type: 'select', container: {xs: 4}, options: [
@@ -71,18 +65,15 @@ const options = [
 			{value: 'v:r', label: 'Row (Villa)', finalValue: {type: 'house', gated: true, project: true, villa: true, single: true, villaType: 'row'}},
 		],
 	},
-];
-
-const checkBoxOptions = [
-	{value: 'amphiTheatre', label: 'Amphi Theatre', icon: 'icon-movie-film', order: 1, importance: 0, type: ['entertainment'], category: 'openCommonSpots'},
-	{value: 'atm', label: 'ATM', icon: 'icon-bank-notes-atm', order: 2, importance: 0, type: ['lifestyle']},
-	{value: 'auditorium', label: 'Auditorium', icon: 'icon-mask-double', order: 3, importance: 0, type: ['entertainment'], category: 'openCommonSpots'},
-	{value: 'badmintonCourt', label: 'Badminton Court', icon: 'icon-ball-badminton', order: 1, importance: 1, type: ['sports', 'health'], category: 'sportsArea'},
-	{value: 'basketballCourt', label: 'Basketball Court', icon: 'icon-ball-basketball', order: 1, importance: 1, type: ['sports', 'health'], category: 'sportsArea'},
-	{value: 'café', label: 'Café', icon: 'icon-coffee-cup-2', order: 2, importance: 0, type: ['sports', 'health'], category: 'openCommonSpots'},
-	{value: 'cardsRoom', label: 'Cards room', icon: 'icon-cards-1', order: 3, importance: 1, type: ['entertainment']},
-	{value: 'carromRoom', label: 'Carrom room', icon: '', order: 3, importance: 1, type: ['entertainment']},
-	{value: 'cctv', label: 'CCTV', icon: 'icon-content-edition-view-2 t-red', order: 9, importance: 4, type: ['security']},
+	{
+		value: 'p-', label: 'Plot', options: [
+			// gated, project mandatory
+			{value: 'p', label: 'Any Plot', finalValue: {type: 'plot'}},
+			{value: 'p:p', label: 'Gated Builder Plot', finalValue: {type: 'plot', gated: true, project: true}},
+			{value: 'p:g', label: 'Gated Community Plot', finalValue: {type: 'plot', gated: true, project: false}},
+			{value: 'p:i', label: 'Independent Plot', finalValue: {type: 'plot', gated: false, project: false}},
+		],
+	},
 ];
 
 const top100Films = [
@@ -222,12 +213,12 @@ function DemoForm({onSubmit}) {
 	};
 
 	const defaultValues = {text: 'name'};
-	const {handleSubmit, watch, setValue, getValues, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
+	const {handleSubmit, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
 		defaultValues,
 		mode: 'onChange',
 	});
 	// console.log(watch('textArea')); // watch input value by passing the name of it
-	const [dropZoneValue, setDropZoneValue] = useState([]);
+
 
 	return (
 		<MuiPickersUtilsProvider utils={DayJSUtils}>
@@ -235,19 +226,10 @@ function DemoForm({onSubmit}) {
 				<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
 					<Grid container item spacing={1} xs={12}>
 						<Grid item xs={6}>
-							{/* <Input
-								control={control}
-								format='DD/MM/YYYY'
-								label='Construted on'
-								name='constructedOn'
-								openTo='month'
-								type='date'
-								views={['year', 'month', 'date']}
-							/>
 							<Typography>
 								Phones (Array of Inputs)
 							</Typography>
-							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/> */}
+							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/>
 							<Input
 								container={{xs: 12}}
 								control={control}
@@ -318,13 +300,13 @@ function DemoForm({onSubmit}) {
 											].filter(({value}) => !v || value === v));
 										}}/>
 									</Grid> */}
-								{/* <Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
+								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
 									<Input compact container={{xs: 6}} control={control} label='Text' name='text' type='text'/>
 									<Input container={{xs: 6}} control={control} label='Text Area' multiline name='textArea' required type='textarea'/>
-									<Input components={{input: CurrencyField}} control={control} name='currency' type='inr'/>
-								</Grid> */}
+									{/* <Input components={{input: CurrencyField}} control={control} name='currency' type='inr'/> */}
+								</Grid>
 								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
-									{/* <Input
+									<Input
 										components={{input: MultiButtonGroup}}
 										container={{xs: 6}}
 										control={control}
@@ -332,9 +314,8 @@ function DemoForm({onSubmit}) {
 										name='propertyType'
 										options={options} // or components={{Field: ButtonGroup}} or components={{input: ButtonGroup}}
 										required
-										// type='buttons'
-									/> */}
-									{/* <Input components={{input: CheckboxGroup}} control={control} label='Amenities' name='amenities' options={checkBoxOptions} type='checkbox'/> */}
+										type='buttons'
+									/>
 								</Grid>
 							</Grid>
 						</Grid>
