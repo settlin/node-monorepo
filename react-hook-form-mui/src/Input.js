@@ -54,7 +54,7 @@ const module = function({type, rhf}) {
 
 
 // eslint-disable-next-line react/no-multi-comp
-function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact = true, ...rest}) {// eslint-disable-lineno-unused-varsno-unused-vars
+function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact, ...rest}) {// eslint-disable-lineno-unused-varsno-unused-vars
 	const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 	const containerProps = container ? {item: true, ...container} : {};
 	Field = Field || module({type, rhf});
