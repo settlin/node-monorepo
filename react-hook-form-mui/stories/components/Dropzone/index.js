@@ -1,18 +1,16 @@
-/* eslint-disable react/no-multi-comp */
-import React, {Fragment, useState} from 'react';
-import {rhfToMuiProps} from '../../../src/react-hook-form/rhfToMuiProps';
+import React, {useState, useEffect} from 'react';
+import {useRMController} from '../../../src/react-hook-form/useRMController';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-
 import PropTypes from 'prop-types';
 import {makeStyles} from '@material-ui/core/styles';
 import Dropzone from 'react-dropzone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Grid from '@material-ui/core/Grid';
-import convertBytesToMbsOrKbs from '../../../src/utils/convertBytesToMbsOrKbs';
 import Previews from './Previews';
 import clsx from 'clsx';
+import convertBytesToMbsOrKbs from '../../../src/utils/convertBytesToMbsOrKbs';
 import acceptable from 'attr-accept';
 
 const styles = makeStyles({
@@ -26,6 +24,7 @@ const styles = makeStyles({
 	},
 	formLabel: {
 		margin: '16px 0 8px 0',
+		textAlign: 'center',
 	},
 	dropzoneContainer: {
 		position: 'relative',
@@ -66,36 +65,38 @@ const callbackOnFile = function(file, cb) {
 		const f = new File([file], file.name, {type: file.type});
 		if (e) f.error = f.name + ' - ' + e.message;
 		else f.uploaded = true;
+		f.preview = file.preview;
 		return cb(f);
 	};
 };
 
 function DropzoneArea(props) {
 	// state = {}
-	const {name, maxSize, cs = {}, state, FormHelperTextProps, error, helperText, value, showPreviews = true, PreviewsComponentProps, components: {PreviewsComponent = Previews, onDelete, PreviewsChildren} = {}, prefixFunction = () => '', previewFunction = f => f.name, acceptedFiles, DropzoneProps} = props;
+	const {name, maxSize, cs = {}, FormHelperTextProps, error, helperText, value, showPreviews = true, PreviewsComponentProps, components: {PreviewsComponent = Previews} = {}, prefixFunction = () => '', previewFunction = f => f.name, acceptedFiles, PreviewsChildren, DropzoneProps} = props;
 	const classesStyle = styles();
-	const [errors, setErrors] = useState({});
-
+	const [errors, setErrors] = useState();
+	console.log('val ', value);
 	const onDrop = (acceptedFiles, rejectedFiles) => {
 		const {limit, onError, onAdd, onDrop, accept} = props;
 		let errors = [];
-		if (value.length + acceptedFiles.length > limit && onError) errors.push(`Only ${limit} files can be uploaded at max`);
+		if (value?.length + acceptedFiles.length > limit && onError) errors.push(`Only ${limit} files can be uploaded at max`);
 		rejectedFiles.map(f => {
 			let message = `Rejected ${f.name}`;
 			if (!acceptable(f, accept)) message += ': file type not supported';
 			else if (f.size > maxSize) message += `: file too big. Limit: ${convertBytesToMbsOrKbs(maxSize)}`;
 			errors.push(message);
 		});
-		setErrors({errors});
-		acceptedFiles.slice(0, Math.max(limit - value.length, 0)).forEach((f) => {
+		setErrors(errors);
+		acceptedFiles.slice(0, Math.max(limit - value?.length, 0)).forEach((f) => {
 			f.preview = URL.createObjectURL(f);
 			f.processing = false;
 			if (onAdd) onAdd(f);
 			if (onDrop) onDrop(f, callbackOnFile(f, onAdd));
 		});
 	};
-	// if (!Array.isArray(value)) return 'Received value is not an array' + value; // eslint-disable-line no-console
-	const files = value?.map(f => {
+	if (!Array.isArray(value)) return 'Received value is not an array' + value; // eslint-disable-line no-console
+
+	let files = value?.map(f => {
 		// if (f.new) {
 		// 	return {
 		// 		...f,
@@ -125,7 +126,7 @@ function DropzoneArea(props) {
 					{({getRootProps, getInputProps}) => (
 						<Grid container {...getRootProps()} className={clsx(cs.dropzone, classesStyle.helperTextStyle)}>
 							<input {...getInputProps({className: 'dropzone'})}/>
-							{/* <Grid item xs={12}>
+							<Grid item xs={12}>
 								{helperText && (
 									<FormHelperText style={{textAlign: 'inherit'}} {...FormHelperTextProps} error={error}>
 										{helperText}
@@ -136,7 +137,7 @@ function DropzoneArea(props) {
 										{e}
 									</FormHelperText>
 								))}
-							</Grid> */}
+							</Grid>
 							<Grid item xs={12}>
 								<CloudUploadIcon className={classesStyle.uploadIconSize}/>
 							</Grid>
@@ -144,7 +145,7 @@ function DropzoneArea(props) {
 								{showPreviews && (
 									<PreviewsComponent
 										files={files}
-										handleDelete={onDelete}
+										handleDelete={props.onDelete}
 										name={name}
 										showFileNames={props.showFileNamesInPreview}
 										{...PreviewsComponentProps}
@@ -172,25 +173,56 @@ DropzoneArea.defaultProps = {
 	clearOnUnmount: true,
 };
 DropzoneArea.propTypes = {
+	accept: PropTypes.string,
 	acceptedFiles: PropTypes.array,
+	classes: PropTypes.object,
+	clearOnUnmount: PropTypes.bool,
 	components: PropTypes.object,
+	cs: PropTypes.object,
+	DropzoneProps: PropTypes.object,
+	error: PropTypes.bool,
+	FormHelperTextProps: PropTypes.object,
+	helperText: PropTypes.string,
 	limit: PropTypes.number,
 	maxSize: PropTypes.number,
-	helperText: PropTypes.string,
-	showPreviews: PropTypes.bool,
-	showFileNamesInPreview: PropTypes.bool,
-	clearOnUnmount: PropTypes.bool,
+	name: PropTypes.string,
 	onAdd: PropTypes.func,
 	onDelete: PropTypes.func,
 	onDrop: PropTypes.func,
 	onDropRejected: PropTypes.func,
+	onError: PropTypes.func,
+	prefixFunction: PropTypes.func,
+	previewFunction: PropTypes.func,
+	PreviewsComponentProps: PropTypes.object,
+	showFileNamesInPreview: PropTypes.bool,
+	showPreviews: PropTypes.bool,
+	value: PropTypes.array,
 };
 
+// eslint-disable-next-line react/no-multi-comp
 function RHFMaterialUIDropzone(props) {
-	const classesStyle = styles();
+	const {
+		label,
+		compact, // eslint-disable-line no-unused-vars
+		FormControlProps,
+		FormLabelProps: {classes: fClasses, ...FormLabelProps} = {},
+		handleUpload,
+		setFieldValue,
+		name,
+		onChange,
+		handleDelete, // eslint-disable-line no-unused-vars
+	} = props;
+
+	const fp = useRMController(props);
+	let files = fp.value;
+	console.log('files', files);
+	useEffect(() => {
+		if (fp.value === '') setFieldValue(name, []);
+	}, []);
+
+	const classesStyles = styles();
+
 	const handleAdd = (fileOrig) => {
-		const {onChange, value, setValue, state, name, watch} = props;
-		let files = value || field.value || [];
 		const file = { // need this because File Object was causing some problems
 			lastModified: fileOrig.lastModified,
 			lastModifiedDate: fileOrig.lastModifiedDate,
@@ -201,57 +233,41 @@ function RHFMaterialUIDropzone(props) {
 			processing: fileOrig.processing,
 			// new: true,
 		};
-		files = files.find(f => f.name === file.name) ? files.map(f => f.name === file.name ? file : f) : [...files, file];
-		state(files);
-		if (files) setValue(name, files);
+		if (files.map(p => p.name).includes(file.name)) return;
+		files = [...files, file];
+		if (files) setFieldValue(name, files);
 		if (onChange) onChange(files);
 	};
+
 	const postDelete = (file) => {
-		if (file.error) {
-			handleAdd(file); // to update error
-			return;
-		}
-		const {field = {}, form, onChange, value} = props;
-		let files = value || field.value || [];
 		files = files.filter(f => f.name !== file.name);
-		if (form) form.setFieldValue(field.name, files, false); // third argument is to skip validate form
+		if (files) setFieldValue(name, files);
 		if (onChange) onChange(files);
 	};
+
 	const handleDeleted = (index) => {
-		const {field = {}, value, handleDelete} = props;
-		console.log('on delete', handleDelete, index);
-		let files = value || field.value || [];
 		const file = new File([files[index]], files[index].name, {type: files[index].type});
 		file.processing = true;
-		handleAdd(file); // to update processing
-		if (handleDelete) handleDeleted(file, callbackOnFile(file, postDelete));
-		else postDelete(file);
+		if (handleDelete) handleDelete(file, callbackOnFile(file, postDelete));
+		postDelete(file);
 	};
+
 	const handleError = (msg) => {
-		const {value, field, form, onError} = props;
+		const {values, form, onError} = props;
 		if (form) {
-			form.setFieldTouched(field.name, true, false); // third argument is to skip validate form
-			form.setFieldError(field.name, msg);
+			form.setFieldTouched(name, true, false); // third argument is to skip validate form
+			form.setFieldError(name, msg);
 		}
-		if (onError) onError(value || field.value);
+		if (onError) onError(values);
 	};
-	let {
-		label,
-		compact, // eslint-disable-line no-unused-vars
-		FormControlProps,
-		FormLabelProps: {classes: fClasses, ...FormLabelProps} = {},
-		handleDelete, // eslint-disable-line no-unused-vars
-		// classes: {formLabel, ...classes},
-	} = props;
-	const fp = rhfToMuiProps(props);
+
 	return (
-		<FormControl error={props.error} fullWidth {...FormControlProps}>
+		<FormControl component='fieldset' error={props.error} fullWidth {...FormControlProps}>
 			<FormLabel
 				{...FormLabelProps}
-				classes={{...fClasses, ...(compact ? {root: classesStyle.formLabel} : {})}}
+				classes={{...fClasses, ...(compact ? {root: classesStyles.formLabel} : {})}}
 			>
 				{label}
-
 			</FormLabel>
 			<DropzoneArea
 				{...fp}
@@ -259,16 +275,28 @@ function RHFMaterialUIDropzone(props) {
 				onDelete={handleDeleted}
 				onDrop={handleUpload}
 				onError={handleError}
-				type='text'
 			/>
 		</FormControl>
 	);
 }
 
-const RHFMaterialUIDropzone1 = RHFMaterialUIDropzone;
-RHFMaterialUIDropzone = function({classes, ...props}) {
-	return <RHFMaterialUIDropzone1 cs={classes} {...props}/>;
-};
 
+const RHFMaterialUIDropzone1 = RHFMaterialUIDropzone;
 RHFMaterialUIDropzone1.displayName = 'RHFMaterialUIDropzone';
-export default RHFMaterialUIDropzone;
+export default function({classes, ...props}) {
+	return <RHFMaterialUIDropzone1 cs={classes} {...props}/>;
+}
+
+RHFMaterialUIDropzone.propTypes = {
+	classes: PropTypes.object,
+	compact: PropTypes.bool,
+	field: PropTypes.object,
+	form: PropTypes.object,
+	FormControlProps: PropTypes.object,
+	FormLabelProps: PropTypes.object,
+	handleDelete: PropTypes.func,
+	handleUpload: PropTypes.func,
+	label: PropTypes.string,
+	onChange: PropTypes.func,
+	onError: PropTypes.func,
+};
