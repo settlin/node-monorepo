@@ -48,7 +48,6 @@ function ToggleButtonGroup(props) {
 
 	const classesStyle = styles();
 	const handleChange = (event, value) => {
-		console.log('value', value)
 		if (props.onChange) props.onChange(value);
 	};
 

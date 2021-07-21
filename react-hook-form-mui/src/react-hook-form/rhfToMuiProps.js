@@ -16,7 +16,6 @@ export function rhfToMuiProps({
 }) {
 	const {name, onChange} = field;
 	const {errors = {}, touchedFields = {}, dirtyFields = {}, isSubmitting} = formState;
-	// console.log('err in rhf', errors);
 	const fErr = name && get(errors, name);
 	const fieldTouched = (name && get(touchedFields, name));
 	const fieldDirty = (name && get(dirtyFields, name));
