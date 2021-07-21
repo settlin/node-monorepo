@@ -45,7 +45,7 @@ const module = function({type, rhf}) {
 		case 'checkbox':
 			return rhf ? require('./react-hook-form/CheckboxGroup').default : require('./forms/CheckboxGroup').default;
 		case 'autocomplete':
-			return require('./react-hook-form/Autocomplete').default;
+			return rhf ? require('./react-hook-form/Autocomplete').default : require('./forms/Autocomplete').default;
 		case 'selectchip':
 			return rhf ? require('./react-hook-form/SelectWithChip').default : require('./forms/SelectWithChip');
 	}
@@ -54,11 +54,12 @@ const module = function({type, rhf}) {
 
 
 // eslint-disable-next-line react/no-multi-comp
-function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact, ...rest}) { // eslint-disable-line no-unused-vars
+function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact = true, ...rest}) {// eslint-disable-lineno-unused-varsno-unused-vars
 	const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 	const containerProps = container ? {item: true, ...container} : {};
 	Field = Field || module({type, rhf});
 	const extraProps = {...{compact, type, label, components}};
+	// console.log('control in input', rest);
 	return (
 		<ErrorBoundary>
 			<Container {...containerProps}>

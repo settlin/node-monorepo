@@ -236,7 +236,7 @@ function DemoForm({onSubmit}) {
 				<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
 					<Grid container item spacing={1} xs={12}>
 						<Grid item xs={6}>
-							<Input
+							{/* <Input
 								control={control}
 								format='DD/MM/YYYY'
 								label='Construted on'
@@ -245,10 +245,10 @@ function DemoForm({onSubmit}) {
 								type='date'
 								views={['year', 'month', 'date']}
 							/>
-							{/* <Typography>
+							<Typography>
 								Phones (Array of Inputs)
 							</Typography>
-							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/>
+							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/> */}
 							<Input
 								container={{xs: 12}}
 								control={control}
@@ -347,7 +347,7 @@ function DemoForm({onSubmit}) {
 						<Grid container item justify='center' xs={12}>
 							<Button disabled={(isDirty && !isValid) || isSubmitting} label='Submit' processing={isSubmitting} size='small' type='submit' variant='contained'/>
 						</Grid>
-					{/* </Grid> */}
+					</Grid>
 				</form>
 				<IsolateReRender control={control}>
 					{JSON.stringify}

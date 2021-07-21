@@ -11,6 +11,5 @@ export default function RHFSelectChip(props) {
 		formState,
 		...rest
 	} = useRMController(props);
-	console.log('rest are', rest);
 	return <Select inputRef={ref} {...rest}/>;
 }

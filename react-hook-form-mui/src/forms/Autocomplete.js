@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Input from '../Input';
-import MuiAutocomplete from '@material-ui/lab/Autocomplete';
+import MuiAutocomplete, {createFilterOptions} from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import parse from 'autosuggest-highlight/parse';
@@ -28,8 +28,10 @@ export default function Autocomplete({
 }) {
 	const [inputValue, setInputValue] = useState('');
 	const [options, setOptions] = useState([]);
+	const filterOption = createFilterOptions();
 
 	const optionsAsyncDebounced = useDebounceCallback(optionsAsync, 200);
+	console.log('optionsAsyncDebounced', optionsAsyncDebounced);
 	// const optionsAsyncDebounced = React.useCallback((active) => debounce(() => optionsAsync(inputValue, setOptions, active)), [inputValue, setOptions, optionsAsync]);
 
 	React.useEffect(() => {
@@ -51,20 +53,31 @@ export default function Autocomplete({
 	return (
 		<MuiAutocomplete
 			autoComplete
-			filterOptions={(x) => x}
+			filterOptions={(values, params) => {
+				const filter = filterOption(values, params);
+				if (params.inputValue !== '') {
+					filter.push({
+						label: params.inputValue,
+						value: params.inputValue.toLowerCase(),
+					});
+				}
+				return filter;
+			}}
 			getOptionLabel={(option) =>
 				typeof option === 'string' ? option : option.label
 			}
-			// getOptionSelected={(option, value) =>
-			// 	Array.isArray(option)
-			// 		? option.find(o => o.label === value.label)
-			// 		: option.label === value.label
-			// }
+			getOptionSelected={(option, value) =>
+				Array.isArray(option)
+					? option.find(o => o.label === value.label)
+					: option.label === value.label
+			}
 			includeInputInList
 			multiple
 			onInputChange={(event, newInputValue) => {
+				console.log('val', newInputValue);
 				setInputValue(newInputValue);
 			}}
+			// onInputChange={optionsAsync}
 			options={optionsSync || options}
 			renderInput={(params) => (
 				<Input
@@ -78,17 +91,19 @@ export default function Autocomplete({
 						container,
 					}}
 					{...params}
+					InputLabelProps={{...params.InputLabelProps, className: props.InputLabelProps?.classes}}
 					InputProps={{...params.InputProps, ...InputProps}}
 					fullWidth
-					inputProps={{...params.inputProps, ...inputProps}}
+					inputProps={{...params.inputProps, className: params.inputProps.className + ' ' + 'mui'}}
 					rhf={false}
 				/>
 			)}
 			renderOption={(option) => {
+				console.log('OPtions', option);
 				option.inputValue = inputValue;
 				var matches = match(option.label, inputValue);
 				const parts = parse(option.label, matches);
-
+				console.log('matches', matches, parts);
 				if (selectComponents?.Option) return <selectComponents.Option {...option} parts={parts}/>;
 				return (
 					<Grid alignItems='center' container key={option.value}>
