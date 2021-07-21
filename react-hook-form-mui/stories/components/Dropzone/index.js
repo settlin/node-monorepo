@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useEffect} from 'react';
 import {useRMController} from '../../../src/react-hook-form/useRMController';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -76,7 +76,6 @@ function DropzoneArea(props) {
 	const {name, maxSize, cs = {}, FormHelperTextProps, error, helperText, value, showPreviews = true, PreviewsComponentProps, components: {PreviewsComponent = Previews} = {}, prefixFunction = () => '', previewFunction = f => f.name, acceptedFiles, PreviewsChildren, DropzoneProps} = props;
 	const classesStyle = styles();
 	const [errors, setErrors] = useState();
-	console.log('val ', value);
 	const onDrop = (acceptedFiles, rejectedFiles) => {
 		const {limit, onError, onAdd, onDrop, accept} = props;
 		let errors = [];
@@ -215,7 +214,6 @@ function RHFMaterialUIDropzone(props) {
 
 	const fp = useRMController(props);
 	let files = fp.value;
-	console.log('files', files);
 	useEffect(() => {
 		if (fp.value === '') setFieldValue(name, []);
 	}, []);

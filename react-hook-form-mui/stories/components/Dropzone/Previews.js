@@ -73,7 +73,6 @@ function Previews({files = [], handleDelete, showFileNames, FormHelperTextProps 
 	const classesStyle = styles();
 	const onClick = i => e => { e.preventDefault(); e.stopPropagation(); handleDelete(i); };
 	if (!files.length) return null;
-	console.log('files are in preview', files);
 	FormHelperTextProps.classes = {...FormHelperTextProps.classes, root: clsx(classesStyle.center, (FormHelperTextProps.classes || {}).root)};
 	return (
 		<div className={clsx(classesStyle.allPreviewsContainer, cs.allPreviewsContainer)}>

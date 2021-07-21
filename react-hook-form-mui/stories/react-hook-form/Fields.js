@@ -213,7 +213,7 @@ function DemoForm({onSubmit}) {
 		}, 1000);
 	};
 
-	const defaultValues = {text: 'name'};
+	const defaultValues = {text: 'name', auto: []};
 	const {handleSubmit, setValue, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
 		defaultValues,
 		mode: 'onChange',
