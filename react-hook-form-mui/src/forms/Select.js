@@ -13,6 +13,7 @@ function Select({
 	...props
 }) {
 	const isNative = !multiple && native;
+
 	return (
 		<TextField
 			{...props}

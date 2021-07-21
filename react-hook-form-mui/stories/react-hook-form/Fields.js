@@ -214,7 +214,7 @@ function DemoForm({onSubmit}) {
 	};
 
 	const defaultValues = {text: 'name', auto: []};
-	const {handleSubmit, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
+	const {handleSubmit, setValue, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
 		defaultValues,
 		mode: 'onChange',
 	});
@@ -240,6 +240,11 @@ function DemoForm({onSubmit}) {
 								optionsAsync={(inputValue, setOptions) => setOptions(top100Films.filter(o => o.label.includes(inputValue)))}
 								type='autocomplete'
 							/>
+							{/* <Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
+									handleUpload={(file, cb) => setTimeout(cb, 1000)}
+									handleDelete={(file, cb) => setTimeout(cb, 1000)}
+									components={{PreviewsChildren: this.PreviewsChildren, input: Dropzone}}
+								/> */}
 							<Input
 								base
 								components={{input: Dropzone}}
@@ -251,6 +256,7 @@ function DemoForm({onSubmit}) {
 								handleUpload={(file, cb) => setTimeout(cb, 1000)}
 								label='File Drop'
 								name='files'
+								setFieldValue={setValue}
 							/>
 						</Grid>
 						<Grid item xs={6}>

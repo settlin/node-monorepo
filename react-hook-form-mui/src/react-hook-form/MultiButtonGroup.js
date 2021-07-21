@@ -29,6 +29,7 @@ function RecursiveButtonGroup({
 	const nextOptions = getNextOptions({values, options});
 	if (!nextOptions) return null;
 	const nextToNextOptions = getNextOptions({options: nextOptions, values: values.slice(1)});
+
 	return (
 		<>
 			<ButtonGroup
@@ -64,7 +65,6 @@ function getAllValues(value, startIndex = 0) {
 			...(v !== value ? [] : [v]),
 		];
 	}
-
 	return [
 		value.substr(0, ind),
 		// change the startIndex for next ':' find
@@ -81,12 +81,9 @@ export default function RHFMultiButtonGroup(props) {
 		formState,
 		...p
 	} = useRMController(props);
-
 	const {options} = props;
 	const {value, onChange, onBlur} = p;
-
 	const values = getAllValues(value);
-
 	return (
 		<>
 			<ButtonGroup

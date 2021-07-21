@@ -1,5 +1,5 @@
 import React from 'react';
-import formikToMuiProps from '../../src/forms/formikToMuiProps';
+import {useRMController} from '../../src/react-hook-form/useRMController';
 import {KeyboardDatePicker, KeyboardDateTimePicker} from '@material-ui/pickers';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MuiTextField from '@material-ui/core/TextField';
@@ -18,39 +18,42 @@ import MuiTextField from '@material-ui/core/TextField';
 // 		.substr(0, 10);
 // };
 
-class FDateTimePicker extends React.PureComponent {
-	render() {
-		let {children, fullWidth = true, variant = 'inline', type, format = type === 'date' ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm a', fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, TextFieldProps, label, onChange, picker, ...props} = this.props; // eslint-disable-line no-unused-vars
+function RHFDateTimePicker(props) {
+	let {children, fullWidth = true, variant = 'inline', setFieldValue, type, format = type === 'date' ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm a', fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, TextFieldProps, label, onChange, picker} = props; // eslint-disable-line no-unused-vars
+	const Comp = type === 'date' ? KeyboardDatePicker : KeyboardDateTimePicker;
+	const fp = useRMController(props);  // eslint-disable-line no-unused-vars
 
-		const Comp = type === 'date' ? KeyboardDatePicker : KeyboardDateTimePicker;
-		const fp = formikToMuiProps({...props, type: 'text'});  // eslint-disable-line no-unused-vars
+	if (compact) {
+		InputProps = {...InputProps, ...(label ? {startAdornment:
+			<InputAdornment disablePointerEvents position='start' style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} {...InputAdornmentProps}>
+				{label}
+			</InputAdornment>} : {})};
+		label = '';
+	}
 
-		if (compact) {
-			InputProps = {...InputProps, ...(label ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} position='start' disablePointerEvents={true} {...InputAdornmentProps}>{label}</InputAdornment>} : {})};
-			label = '';
-		}
+	onChange = onChange || (date => setFieldValue(fp.name, date));
 
-		onChange = onChange || (date => props.form.setFieldValue(fp.name, date));
-
-		return (
-			<Comp
-				{...{label, fullWidth, variant, format}}
-				{...fp}
-				{...{
-					onChange,
-					mask: '__/__/____',
-					// rifmFormatter: formatDate,
-					TextFieldComponent: p => <MuiTextField {...{
+	return (
+		<Comp
+			{...{label, fullWidth, variant, format}}
+			{...fp}
+			{...{
+				onChange,
+				mask: '__/__/____',
+				// rifmFormatter: formatDate,
+				TextFieldComponent: p => (
+					<MuiTextField {...{
 						...p,
 						InputProps: {...p.InputProps, ...InputProps},
 						...InputLabelProps,
 						...TextFieldProps,
-					}}/>,
-				}}
-			/>
-		);
-	}
+					}}
+					/>
+				),
+			}}
+		/>
+	);
 }
 
-FDateTimePicker.displayName = 'FormikDateTimePicker';
-export default FDateTimePicker;
+RHFDateTimePicker.displayName = 'RHFDateTimePicker';
+export default RHFDateTimePicker;
