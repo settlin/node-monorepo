@@ -10,17 +10,18 @@ export function rhfToMuiProps({
 	disabled = false,
 	error,
 	checked,
+	multiple,
 	defaultValue,
 	...props
 }) {
 	const {name, onChange} = field;
 	const {errors = {}, touchedFields = {}, dirtyFields = {}, isSubmitting} = formState;
-	console.log('err in rhf', errors);
+	// console.log('err in rhf', errors);
 	const fErr = name && get(errors, name);
 	const fieldTouched = (name && get(touchedFields, name));
 	const fieldDirty = (name && get(dirtyFields, name));
 
-	const fieldError = (fieldDirty || fieldTouched) && fErr
+	const fieldError = (fieldTouched || fieldDirty) && fErr
 		? (
 			<ErrorMessage
 				errors={errors}
@@ -39,7 +40,7 @@ export function rhfToMuiProps({
 		switch (props.type) {
 			case 'autocomplete':
 			case 'select':
-				field.value = typeof field.value === 'undefined' ? props.multiple ? [] : '' : field.value;
+				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;
 				break;
 			case 'selectchip':
 				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;

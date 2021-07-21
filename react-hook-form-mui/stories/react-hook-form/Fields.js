@@ -235,7 +235,7 @@ function DemoForm({onSubmit}) {
 				<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
 					<Grid container item spacing={1} xs={12}>
 						<Grid item xs={6}>
-							<Input
+							{/* <Input
 								control={control}
 								format='DD/MM/YYYY'
 								label='Construted on'
@@ -244,10 +244,10 @@ function DemoForm({onSubmit}) {
 								type='date'
 								views={['year', 'month', 'date']}
 							/>
-							{/* <Typography>
+							<Typography>
 								Phones (Array of Inputs)
 							</Typography>
-							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/>
+							<Input container={{xs: 12}} control={control} label='Phones' metaList={arrayMeta} name='phones' type='array'/> */}
 							<Input
 								container={{xs: 12}}
 								control={control}
@@ -258,7 +258,7 @@ function DemoForm({onSubmit}) {
 								optionsAsync={(inputValue, setOptions) => setOptions(top100Films.filter(o => o.label.includes(inputValue)))}
 								type='autocomplete'
 								// renderInput={p => <Input rhf={false} {...p}/>}
-							/> */}
+							/>
 							{/* <Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(cb, 1000)}
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
