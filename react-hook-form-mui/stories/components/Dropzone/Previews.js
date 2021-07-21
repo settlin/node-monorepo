@@ -107,7 +107,7 @@ function Previews({files = [], handleDelete, showFileNames, FormHelperTextProps 
 						<Fab
 							aria-label='Delete'
 							className={classesStyle.removeBtn}
-							onClick={() => {console.log('Delete icon clicked'); onClick(i);}}
+							onClick={onClick(i)}
 						>
 							<DeleteIcon/>
 						</Fab>
@@ -122,4 +122,3 @@ const Previews1 = Previews;
 export default function({classes, ...props}) {
 	return <Previews1 cs={classes} {...props}/>;
 }
-

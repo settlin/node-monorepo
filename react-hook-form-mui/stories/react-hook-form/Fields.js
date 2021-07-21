@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import {Input, Button, currencify} from '../../src';
 import DayJSUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-// import Dropzone from '../components/Dropzone';
+import Dropzone from '../components/Dropzone';
 // import FilterField from '../components/FilterField';
 // import DateTimePicker from '../components/DateTimePicker';
 import {useWatch, useForm} from 'react-hook-form';
@@ -214,7 +214,7 @@ function DemoForm({onSubmit}) {
 	};
 
 	const defaultValues = {text: 'name'};
-	const {handleSubmit, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
+	const {handleSubmit, setValue, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
 		defaultValues,
 		mode: 'onChange',
 	});
@@ -251,6 +251,7 @@ function DemoForm({onSubmit}) {
 								handleUpload={(file, cb) => setTimeout(cb, 1000)}
 								label='File Drop'
 								name='files'
+								setFieldValue={setValue}
 							/>
 						</Grid>
 						<Grid item xs={6}>

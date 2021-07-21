@@ -157,6 +157,7 @@ import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 import PropTypes from 'prop-types';
 import {useDebounceCallback} from '@react-hook/debounce';
+import Chip from '@material-ui/core/Chip';
 
 export default function Autocomplete({
 	optionsAsync,
@@ -211,10 +212,11 @@ export default function Autocomplete({
 			// 		: option.label === value.label
 			// }
 			includeInputInList
-			multiple
-			onInputChange={(event, newInputValue) => {
-				setInputValue(newInputValue);
-			}}
+			multiple={multiple}
+			// onInputChange={(event, newInputValue) => {
+			// 	setInputValue(newInputValue);
+			// }}
+			onInputChange={optionsAsync}
 			options={optionsSync || options}
 			renderInput={(params) => (
 				<Input
