@@ -258,10 +258,6 @@ function RHFMaterialUIDropzone(props) {
 		}
 		if (onError) onError(values);
 	};
-<<<<<<< HEAD
-=======
-
->>>>>>> 07c07993e36986f5454d2f71b0eb5abd05599f9f
 	return (
 		<FormControl component='fieldset' error={props.error} fullWidth {...FormControlProps}>
 			<FormLabel
