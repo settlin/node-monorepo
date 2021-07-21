@@ -10,14 +10,14 @@ import FormLabel from '@material-ui/core/FormLabel';
 import formLabel from '../../../formik-mui/src/styles/formLabel';
 import {makeStyles} from '@material-ui/styles';
 import clsx from 'clsx';
-import {useFieldArray} from 'react-hook-form';
+import {useFieldArray, useFormContext} from 'react-hook-form';
 
 const useStyles = makeStyles({formLabel});
 
-function Item({prefix, index, remove, commonProps, metaList, control}) {
+function Item({prefix, index, remove, commonProps, metaList}) {
 	return (
 		<>
-			{metaList.map(({name, container, ...p}) => <Input control={control} key={name} name={`${prefix}${name ? '.' + name : ''}`} {...{...commonProps, ...p, container}}/>)}
+			{metaList.map(({name, container, ...p}) => <Input key={name} name={`${prefix}${name ? '.' + name : ''}`} {...{...commonProps, ...p, container}}/>)}
 			<IconButton aria-label='Delete' onClick={() => remove(index)} size='small' style={{margin: '8px 0'}}>
 				<Delete fontSize='small'/>
 			</IconButton>
@@ -26,7 +26,6 @@ function Item({prefix, index, remove, commonProps, metaList, control}) {
 }
 
 Item.propTypes = {
-	control: PropTypes.object.isRequired,
 	index: PropTypes.number.isRequired,
 	metaList: PropTypes.array.isRequired,
 	remove: PropTypes.func.isRequired,
@@ -35,12 +34,20 @@ Item.propTypes = {
 };
 
 // eslint-disable-next-line react/no-multi-comp
-function InputArray({control, name, label, helperText, metaList, FormHelperTextProps = {}, compact = true, FormLabelProps, validate, ...props} = {}) { // eslint-disable-line no-unused-vars
+function InputArray({name, label, helperText, metaList, FormHelperTextProps = {}, compact = true, FormLabelProps, validate, ...props} = {}) { // eslint-disable-line no-unused-vars
 	const classes = useStyles();
 
-	const {fields, append, remove} = useFieldArray({
+	const {control, watch} = useFormContext();
+	const {fields: fs, append, remove} = useFieldArray({
 		control,
 		name,
+	});
+	const watchFieldArray = watch(name);
+	const fields = fs.map((field, index) => {
+		return {
+			...field,
+			...watchFieldArray[index],
+		};
 	});
 
 	if (!metaList) return null;
@@ -86,7 +93,7 @@ InputArray.propTypes = {
 	label: PropTypes.node,
 	metaList: PropTypes.array,
 	name: PropTypes.string,
-	validate: PropTypes.func,
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 };
 
 export default InputArray;

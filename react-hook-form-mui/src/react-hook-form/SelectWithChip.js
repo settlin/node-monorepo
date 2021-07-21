@@ -1,8 +1,8 @@
 import React from 'react';
 import {useRMController} from './useRMController';
-import TextField from '../forms/TextField';
+import Select from '../forms/SelectWithChip';
 
-export default function RHFTextField(props) {
+export default function RHFSelectChip(props) {
 	const {
 		ref,
 		// eslint-disable-next-line no-unused-vars
@@ -11,5 +11,5 @@ export default function RHFTextField(props) {
 		formState,
 		...rest
 	} = useRMController(props);
-	return <TextField inputRef={ref} {...rest}/>;
+	return <Select inputRef={ref} {...rest}/>;
 }

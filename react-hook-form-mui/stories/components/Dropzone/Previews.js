@@ -9,6 +9,8 @@ import {grey} from '@material-ui/core/colors';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import isImage from '../../../src/utils/isImage';
 import clsx from 'clsx';
+import {useFieldArray} from 'react-hook-form';
+
 
 const styles = makeStyles({
 	allPreviewsContainer: {
@@ -69,11 +71,12 @@ const styles = makeStyles({
 });
 
 const opacity = file => ({opacity: file.processing ? 0.5 : file.error ? 0.1 : 1});
-function Previews({files = [], handleDelete, showFileNames, FormHelperTextProps = {}, classes, children, cs = {}, ...props}) {
+function Previews({files = [], handleDelete, showFileNames, FormHelperTextProps = {}, classes: cs = {}, children, name, ...props}) {
 	const classesStyle = styles();
+
 	const onClick = i => e => { e.preventDefault(); e.stopPropagation(); handleDelete(i); };
 	if (!files.length) return null;
-	console.log('files are in preview', files);
+	console.log('files are in preview', files, children);
 	FormHelperTextProps.classes = {...FormHelperTextProps.classes, root: clsx(classesStyle.center, (FormHelperTextProps.classes || {}).root)};
 	return (
 		<div className={clsx(classesStyle.allPreviewsContainer, cs.allPreviewsContainer)}>
@@ -101,13 +104,13 @@ function Previews({files = [], handleDelete, showFileNames, FormHelperTextProps 
 						)}
 						{file.uploaded && (
 							<Grid item xs={12}>
-								{React.Children.map(children, (child, j) => React.cloneElement(child, {...props, key: i + '' + j, file, index: i}))}
+								{children && children({...props, name, file, index: i})}
 							</Grid>
 						)}
 						<Fab
 							aria-label='Delete'
 							className={classesStyle.removeBtn}
-							onClick={() => {console.log('Delete icon clicked'); onClick(i);}}
+							onClick={onClick(i)}
 						>
 							<DeleteIcon/>
 						</Fab>
@@ -118,8 +121,4 @@ function Previews({files = [], handleDelete, showFileNames, FormHelperTextProps 
 	);
 }
 
-const Previews1 = Previews;
-export default function({classes, ...props}) {
-	return <Previews1 cs={classes} {...props}/>;
-}
-
+export default Previews;

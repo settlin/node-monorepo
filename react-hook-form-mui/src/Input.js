@@ -40,17 +40,24 @@ const module = function({type, rhf}) {
 			return rhf ? require('./react-hook-form/ButtonGroup').default : require('./forms/ButtonGroup').default;
 		case 'multiLevelButtons':
 			return rhf ? require('./react-hook-form/MultiButtonGroup').default : require('./forms/ButtonGroup').default;
+		case 'inr':
+			return rhf ? require('./react-hook-form/CurrencyField').default : require('./forms/CurrencyField').default;
+		case 'checkbox':
+			return rhf ? require('./react-hook-form/CheckboxGroup').default : require('./forms/CheckboxGroup').default;
+		case 'selectchip':
+			return rhf ? require('./react-hook-form/SelectWithChip').default : require('./forms/SelectWithChip');
 	}
 	return rhf ?  require('./react-hook-form/TextField').default : require('./forms/TextField').default;
 };
 
 
 // eslint-disable-next-line react/no-multi-comp
-function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact, ...rest}) { // eslint-disable-line no-unused-vars
+function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact, ...rest}) {// eslint-disable-lineno-unused-varsno-unused-vars
 	const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 	const containerProps = container ? {item: true, ...container} : {};
 	Field = Field || module({type, rhf});
 	const extraProps = {...{compact, type, label, components}};
+	// console.log('control in input', rest);
 	return (
 		<ErrorBoundary>
 			<Container {...containerProps}>
@@ -70,7 +77,7 @@ Input.propTypes = {
 	label: PropTypes.string,
 	rhf: PropTypes.bool,
 	type: PropTypes.string,
-	validate: PropTypes.func,
+	validate: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 };
 
 export default Input;

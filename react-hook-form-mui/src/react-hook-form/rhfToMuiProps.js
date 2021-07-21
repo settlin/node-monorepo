@@ -10,32 +10,41 @@ export function rhfToMuiProps({
 	disabled = false,
 	error,
 	checked,
+	multiple,
 	defaultValue,
 	...props
 }) {
 	const {name, onChange} = field;
 	const {errors = {}, touchedFields = {}, dirtyFields = {}, isSubmitting} = formState;
-
+	// console.log('err in rhf', errors);
 	const fErr = name && get(errors, name);
 	const fieldTouched = (name && get(touchedFields, name));
 	const fieldDirty = (name && get(dirtyFields, name));
 
-
-	const fieldError = (fieldDirty || fieldTouched) && fErr
-		? <ErrorMessage errors={errors} message={fErr.type === 'required' ? fErr.message || 'Required' : fErr.message || null} name={name}/>
+	const fieldError = (fieldTouched || fieldDirty) && fErr
+		? (
+			<ErrorMessage
+				errors={errors}
+				message={fErr.type === 'required' ? fErr.message || 'Required'
+					:
+					fErr.message || fErr || null}
+				name={name}
+			/>
+		)
 		: null;
 
 	const extraProps = {};
 
 	if (onChange) {
 		field.value = defaultValue || field.value;
-
 		switch (props.type) {
 			case 'autocomplete':
 			case 'select':
-				field.value = typeof field.value === 'undefined' ? props.multiple ? [] : '' : field.value;
+				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;
 				break;
-
+			case 'selectchip':
+				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;
+				break;
 			case 'checkbox':
 			case 'radio':
 				field.value = typeof field.value === 'undefined' ? '' : field.value === true ? 'checked' : field.value || '';
@@ -59,15 +68,15 @@ export function rhfToMuiProps({
 			extraProps.checked = typeof checked !== 'undefined' ? checked : Boolean((field || {}).value || props.value);
 			break;
 	}
-
 	return {
 		disabled: isSubmitting || disabled,
 		...props,
 		...field,
+		multiple,
 		...extraProps,
 		formState,
 		fieldState,
-		// touched: fieldTouched,
+		touched: fieldTouched,
 		error: error || Boolean(fErr),
 		helperText: fieldError || props.helperText,
 	};
