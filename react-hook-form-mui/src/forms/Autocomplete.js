@@ -22,8 +22,8 @@ export default function Autocomplete({
 	selectComponents,
 	InputProps,
 	placeholder,
-	AutocompleteProps,
 	multiple,
+	inputProps,
 	...props
 }) {
 	const [inputValue, setInputValue] = useState('');
@@ -61,12 +61,11 @@ export default function Autocomplete({
 			// 		: option.label === value.label
 			// }
 			includeInputInList
-			multiple={multiple}
+			multiple
 			onInputChange={(event, newInputValue) => {
 				setInputValue(newInputValue);
 			}}
 			options={optionsSync || options}
-			{...props}
 			renderInput={(params) => (
 				<Input
 					{...{
@@ -78,10 +77,10 @@ export default function Autocomplete({
 						compact,
 						container,
 					}}
-					// {...props}
 					{...params}
 					InputProps={{...params.InputProps, ...InputProps}}
 					fullWidth
+					inputProps={{...params.inputProps, ...inputProps}}
 					rhf={false}
 				/>
 			)}
@@ -108,22 +107,31 @@ export default function Autocomplete({
 					</Grid>
 				);
 			}}
-			{...AutocompleteProps}
+			{...props}
+			{...(multiple
+				? {}
+				: {
+					onChange(event, newValue, reason, details) {
+						props.onChange(event, newValue.slice(-1), reason, details);
+					},
+				}
+			)}
 		/>
 	);
 }
 
 Autocomplete.propTypes = {
-	AutocompleteProps: PropTypes.object,
 	compact: PropTypes.bool,
 	container: PropTypes.object,
 	error: PropTypes.bool,
 	helperText: PropTypes.string,
 	InputProps: PropTypes.object,
+	inputProps: PropTypes.object,
 	inputRef: PropTypes.func,
 	isClearable: PropTypes.bool,
 	label: PropTypes.string,
 	multiple: PropTypes.bool,
+	onChange: PropTypes.func,
 	options: PropTypes.object,
 	optionsAsync: PropTypes.func,
 	placeholder: PropTypes.string,

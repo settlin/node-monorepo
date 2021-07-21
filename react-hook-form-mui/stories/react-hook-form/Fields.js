@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import {Input, Button, currencify} from '../../src';
 import DayJSUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
-// import Dropzone from '../components/Dropzone';
+import Dropzone from '../components/Dropzone';
 // import FilterField from '../components/FilterField';
 // import DateTimePicker from '../components/DateTimePicker';
 import {useWatch, useForm} from 'react-hook-form';
@@ -183,7 +183,7 @@ const top100Films = [
 	{label: 'Monty Python and the Holy Grail', value: 1975},
 ];
 
-function IsolateReRender({control, name}) {
+function IsolateReRender({control, name, children}) {
 	const values = useWatch({
 		control,
 		name, // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
@@ -191,12 +191,13 @@ function IsolateReRender({control, name}) {
 
 	return (
 		<div style={{marginTop: '7%'}}>
-			{JSON.stringify(values)}
+			{children(values)}
 		</div>
 	); // only re-render at the component level
 }
 
 IsolateReRender.propTypes = {
+	children: PropTypes.func,
 	control: PropTypes.object,
 	name: PropTypes.PropTypes.oneOfType([
 		PropTypes.string, PropTypes.arrayOf(PropTypes.string),
@@ -212,7 +213,7 @@ function DemoForm({onSubmit}) {
 		}, 1000);
 	};
 
-	const defaultValues = {text: 'name'};
+	const defaultValues = {text: 'name', auto: []};
 	const {handleSubmit, formState: {errors, isSubmitting, isDirty, isValid}, control} = useForm({
 		defaultValues,
 		mode: 'onChange',
@@ -235,17 +236,22 @@ function DemoForm({onSubmit}) {
 								control={control}
 								getOptionLabel={(option) => (typeof option === 'string' ? option : option.label)}
 								label='Autocomplete'
-								multiple
 								name='auto'
 								optionsAsync={(inputValue, setOptions) => setOptions(top100Films.filter(o => o.label.includes(inputValue)))}
 								type='autocomplete'
-								// renderInput={p => <Input rhf={false} {...p}/>}
 							/>
-							{/* <Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
-									handleUpload={(file, cb) => setTimeout(cb, 1000)}
-									handleDelete={(file, cb) => setTimeout(cb, 1000)}
-									components={{PreviewsChildren: this.PreviewsChildren, input: Dropzone}}
-								/> */}
+							<Input
+								base
+								components={{input: Dropzone}}
+								container={{xs: 12}}
+								control={control}
+								filesLimit={10}
+								formik={false}
+								handleDelete={(file, cb) => setTimeout(cb, 1000)}
+								handleUpload={(file, cb) => setTimeout(cb, 1000)}
+								label='File Drop'
+								name='files'
+							/>
 						</Grid>
 						<Grid item xs={6}>
 							<Grid container direction='column'>
@@ -324,7 +330,9 @@ function DemoForm({onSubmit}) {
 						</Grid>
 					</Grid>
 				</form>
-				<IsolateReRender control={control}/>
+				<IsolateReRender control={control}>
+					{JSON.stringify}
+				</IsolateReRender>
 				<Grid container item justify='center' xs={12}>
 					Errors:
 					{' '}
