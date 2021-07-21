@@ -55,7 +55,7 @@ function DemoForm({onSubmit}) {
 		}, 1000);
 	};
 
-	const defaultValues = {text: 'name'};
+	const defaultValues = {text: 'name', auto: []};
 	const form = useForm({
 		defaultValues,
 		mode: 'onChange',
@@ -79,7 +79,6 @@ function DemoForm({onSubmit}) {
 									container={{xs: 12}}
 									getOptionLabel={(option) => (typeof option === 'string' ? option : option.label)}
 									label='Autocomplete'
-									multiple
 									name='auto'
 									optionsAsync={(inputValue, setOptions) => setOptions(top100Films.filter(o => o.label.includes(inputValue)))}
 									type='autocomplete'
