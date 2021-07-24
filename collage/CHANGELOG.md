@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.4.11...@settlin/collage@2.0.0) (2021-07-24)
+
+
+### chore
+
+* **collage:** canvas > 2.6.1 ([ad97203](http://github.com/settlin/node-monorepo/collage/commit/ad97203ef988f4d964e48a4b859e3f36b3582391))
+
+
+### BREAKING CHANGES
+
+* **collage:** canvas > 2.6.1 requires a modern system
+
+
+
+
+
 ## [1.4.11](http://github.com/settlin/node-monorepo/collage/compare/@settlin/collage@1.4.10...@settlin/collage@1.4.11) (2021-06-29)
 
 
