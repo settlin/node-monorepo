@@ -52,12 +52,7 @@
     "@tinymce/tinymce-react": "^3.12.6",
     "autosuggest-highlight": "^3.1.1",
     "clsx": "^1.1.1",
-<<<<<<< HEAD
-    "dayjs": "^1.10.6",
-    "tar": "^6.1.6"
-=======
     "dayjs": "^1.10.6"
->>>>>>> 91806a0 (fix: changes)
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
