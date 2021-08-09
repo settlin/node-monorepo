@@ -57,7 +57,6 @@ function Input({type, container, validate, label, rhf = true, components: {input
 	const containerProps = container ? {item: true, ...container} : {};
 	Field = Field || module({type, rhf});
 	const extraProps = {...{compact, type, label, components}};
-	// console.log('control in input', rest);
 	return (
 		<ErrorBoundary>
 			<Container {...containerProps}>

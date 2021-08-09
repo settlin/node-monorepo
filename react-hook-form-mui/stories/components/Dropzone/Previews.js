@@ -9,8 +9,6 @@ import {grey} from '@material-ui/core/colors';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import isImage from '../../../src/utils/isImage';
 import clsx from 'clsx';
-import {useFieldArray} from 'react-hook-form';
-
 
 const styles = makeStyles({
 	allPreviewsContainer: {

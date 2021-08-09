@@ -16,7 +16,6 @@ export function rhfToMuiProps({
 }) {
 	const {name, onChange} = field;
 	const {errors = {}, touchedFields = {}, dirtyFields = {}, isSubmitting} = formState;
-	// console.log('err in rhf', errors);
 	const fErr = name && get(errors, name);
 	const fieldTouched = (name && get(touchedFields, name));
 	const fieldDirty = (name && get(dirtyFields, name));
@@ -27,7 +26,7 @@ export function rhfToMuiProps({
 				errors={errors}
 				message={fErr.type === 'required' ? fErr.message || 'Required'
 					:
-					fErr.message || fErr || null}
+					fErr.message || null}
 				name={name}
 			/>
 		)
@@ -38,12 +37,10 @@ export function rhfToMuiProps({
 	if (onChange) {
 		field.value = defaultValue || field.value;
 		switch (props.type) {
+			case 'selectchip':
 			case 'autocomplete':
 			case 'select':
-				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;
-				break;
-			case 'selectchip':
-				field.value = typeof field.value === 'undefined' ? multiple ? [] : '' : field.value;
+				field.value = typeof field.value === 'undefined' ? multiple ? [] : [] : field.value;
 				break;
 			case 'checkbox':
 			case 'radio':
