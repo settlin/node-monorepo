@@ -14,6 +14,7 @@ export {default as Select} from './react-hook-form/Select';
 export {default as TextField} from './react-hook-form/TextField';
 
 export {useRMController} from './react-hook-form/useRMController';
+export {rhfToMuiProps} from './react-hook-form/rhfToMuiProps';
 
 export {default as RawBase} from './forms/Base';
 export {default as Button} from './forms/Button';
