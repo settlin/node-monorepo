@@ -35,6 +35,7 @@ function CheckboxGroup(props) {
 		error,
 		helperText,
 	} = props;
+	// console.log('Value is', value);
 	return (
 		<FormControl
 			error={error}
