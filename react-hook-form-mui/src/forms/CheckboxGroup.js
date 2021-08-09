@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
-
 import Checkbox from '../forms/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -50,6 +49,7 @@ function CheckboxGroup(props) {
 		helperText,
 		setFieldValue,
 	} = props;
+	// console.log('Value is', value);
 	return (
 		<FormControl
 			error={error}

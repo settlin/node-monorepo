@@ -25,6 +25,13 @@ const arrayMeta = [
 	{name: 'mobile', label: 'Mobile', required: true, type: 'mobile', container: {xs: 7}, validate: true},
 ];
 
+const option = [
+	{value: 'backYards',   label: 'Back Yard'},
+	{value: 'balconies',  label: 'Balcony'},
+	{value: 'bathrooms',  label: 'Bathroom'},
+];
+
+
 function IsolateReRender({control, name, children}) {
 	const values = useWatch({
 		control,
@@ -77,10 +84,10 @@ function DemoForm({onSubmit}) {
 								<Input container={{xs: 12}} label='Phones' metaList={arrayMeta} name='phones' type='array'/>
 								<Input
 									container={{xs: 12}}
-									getOptionLabel={(option) => (typeof option === 'string' ? option : option.label)}
+									// getOptionLabel={(option) => (typeof option === 'string' ? option : option.label)}
 									label='Autocomplete'
 									name='auto'
-									optionsAsync={(inputValue, setOptions) => setOptions(top100Films.filter(o => o.label.includes(inputValue)))}
+									optionsAsync={(inputValue, setOptions) =>setOptions(top100Films.filter(o => o.label.includes(inputValue)))}
 									type='autocomplete'
 								// renderInput={p => <Input rhf={false} {...p}/>}
 								/>
@@ -89,8 +96,8 @@ function DemoForm({onSubmit}) {
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
 									components={{PreviewsChildren: this.PreviewsChildren, input: Dropzone}}
 								/> */}
-								<Input
-									PreviewsChildren={({name, index, ...p}) => console.log(1, p, name, index) || <Input control={control} name={`${name}.${index}.tags`} placeholder='Tags' type='text'/>}
+								{/* <Input
+									PreviewsChildren={({name, index, ...p}) => <Input control={control} multiple name={`${name}.${index}.tags`} options={option} placeholder='Tags' type='select'/>}
 									base
 									components={{input: Dropzone}}
 									container={{xs: 12}}
@@ -100,7 +107,7 @@ function DemoForm({onSubmit}) {
 									// handleDelete={(file, cb) => setTimeout(cb, 1000)}
 									label='File Drop'
 									name='files'
-								/>
+								/> */}
 							</Grid>
 							<Grid item xs={6}>
 								<Grid container direction='column'>

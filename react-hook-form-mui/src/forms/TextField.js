@@ -6,7 +6,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 
 function TextField({compact, type, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props}) {
-	// console.log('Input props in textfield', InputProps, InputAdornmentProps, type);
 	if (compact) {
 		InputProps = {
 			...InputProps,

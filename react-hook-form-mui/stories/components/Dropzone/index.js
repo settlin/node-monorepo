@@ -259,7 +259,7 @@ function RHFMaterialUIDropzone({
 	};
 
 	const postDelete = (file) => {
-		const ind = fields.indexOf(f => f.name === file.name);
+		const ind = fields.findIndex(f => f.name === file.name);
 		remove(ind);
 		if (onChange) onChange(fields.filter(f => f.name !== file.name));
 	};

@@ -75,6 +75,7 @@ function ToggleButtonGroup(props) {
 				<Grid item>
 					{label && (
 						<FormLabel
+							// style={{fontSize: '.8rem'}}
 							{...FormLabelProps}
 						>
 							{label}
