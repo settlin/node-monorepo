@@ -27,7 +27,9 @@ export default function Autocomplete({
 	InputLabelProps = {},
 	...props
 }) {
+	// console.log('Props in autocomplete', props, InputProps);
 	const [inputValue, setInputValue] = useState('');
+	// console.log('Input value is', inputValue);
 	const [options, setOptions] = useState([]);
 	const filterOption = createFilterOptions();
 
