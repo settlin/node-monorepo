@@ -8,16 +8,16 @@ import CancelIcon from '@material-ui/icons/Cancel';
 function SelectChip({
 	options,
 	multiple = false,
-	native = false,
 	label,
 	name,
-	setFieldValue,
+	setValue,
 	helperText,
+	ChipProps = {},
 	...props
 }) {
 	const initOptions = [...options];
 	const handleDelete = (value) => {
-		setFieldValue(name, props.value.filter(v => v !== value));
+		setValue(name, props.value.filter(v => v !== value));
 	};
 	return (
 		<FormControl>
@@ -33,9 +33,10 @@ function SelectChip({
 				renderValue={(value) => (
 					Array.isArray(value) ?
 						(value?.map(val => (
-							<Chip deleteIcon={<CancelIcon/>} key={val} label={initOptions.find(o => o.value === val)?.label} onDelete={()=>handleDelete(val)} onMouseDown={(e) => e.stopPropagation()} style={{marginLeft: '1%'}}/>
+							<Chip className={ChipProps} deleteIcon={<CancelIcon/>} key={val} label={initOptions.find(o => o.value === val)?.label} onDelete={()=>handleDelete(val)} onMouseDown={(e) => e.stopPropagation()} style={{marginLeft: '1%'}}/>
 						))) : (
 							<Chip
+								className={ChipProps}
 								label={initOptions.find(o => o.value === value)?.label}
 							/>
 						)
