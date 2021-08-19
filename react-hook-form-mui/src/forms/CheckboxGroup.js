@@ -49,7 +49,7 @@ function CheckboxGroup(props) {
 		helperText,
 		setValue,
 	} = props;
-	// console.log('Value is', value);
+
 	return (
 		<FormControl
 			error={error}
