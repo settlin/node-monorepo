@@ -3,7 +3,7 @@ export {default as Input} from './Input';
 // export {default as Base} from './react-hook-form/Base';
 export {default as ButtonGroup} from './react-hook-form/ButtonGroup';
 // export {default as Checkbox} from './react-hook-form/Checkbox';
-// export {default as CheckboxGroup} from './react-hook-form/CheckboxGroup';
+export {default as CheckboxGroup} from './react-hook-form/CheckboxGroup';
 export {default as CurrencyField} from './react-hook-form/CurrencyField';
 // export {default as InputArray} from './react-hook-form/InputArray';
 // export {default as Persist} from './react-hook-form/Persist';
