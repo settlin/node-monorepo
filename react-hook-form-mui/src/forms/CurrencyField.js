@@ -4,7 +4,8 @@ import TextField from '../forms/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import currencify from '../utils/currencify';
 
-function CurrencyField({InputProps, currencifyOptions, currencifyFunc = currencify, ...props}) {
+function CurrencyField({InputProps, currencifyOptions, fieldState, currencifyFunc = currencify, ...props}) {
+	const {error} = fieldState || {};
 	return (
 		<TextField
 			{...props}
@@ -16,7 +17,7 @@ function CurrencyField({InputProps, currencifyOptions, currencifyFunc = currenci
 				),
 				...InputProps,
 			}}
-			helperText={currencifyFunc(props.value, currencifyOptions) || ''}
+			helperText={currencifyFunc(props.value, currencifyOptions) || error?.message || ''}
 		/>
 	);
 }
@@ -24,6 +25,7 @@ function CurrencyField({InputProps, currencifyOptions, currencifyFunc = currenci
 CurrencyField.propTypes = {
 	currencifyFunc: PropTypes.func,
 	currencifyOptions: PropTypes.object,
+	fieldState: PropTypes.object,
 	InputProps: PropTypes.object,
 	value: PropTypes.number,
 };
