@@ -5,7 +5,7 @@ export {default as ButtonGroup} from './react-hook-form/ButtonGroup';
 // export {default as Checkbox} from './react-hook-form/Checkbox';
 export {default as CheckboxGroup} from './react-hook-form/CheckboxGroup';
 export {default as CurrencyField} from './react-hook-form/CurrencyField';
-export {default as InputArray} from './react-hook-form/InputArray';
+// export {default as InputArray} from './react-hook-form/InputArray';
 // export {default as Persist} from './react-hook-form/Persist';
 // export {default as Radio} from './react-hook-form/Radio';
 // export {default as RadioGroup} from './react-hook-form/RadioGroup';
