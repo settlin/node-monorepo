@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/settlin/node-monorepo/compare/@settlin/react-hook-form-mui@0.2.4...@settlin/react-hook-form-mui@0.2.5) (2021-08-31)
+
+
+### Bug Fixes
+
+* checkbox bug fix ([54cbc7b](https://github.com/settlin/node-monorepo/commit/54cbc7b518c76ca2c57d8a6b039fc8b5d5877662))
+
+
+
+
+
 ## [0.2.4](https://github.com/settlin/node-monorepo/compare/@settlin/react-hook-form-mui@0.2.2...@settlin/react-hook-form-mui@0.2.4) (2021-08-31)
 
 
