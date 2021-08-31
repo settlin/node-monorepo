@@ -24,15 +24,12 @@ export default function Autocomplete({
 	placeholder,
 	multiple,
 	inputProps,
+	InputLabelProps = {},
 	...props
 }) {
-	// console.log('Props in autocomplete', props, InputProps);
 	const [inputValue, setInputValue] = useState('');
-	// console.log('Input value is', inputValue);
 	const [options, setOptions] = useState([]);
-	// console.log('options are', optionsSync, options);
 	const filterOption = createFilterOptions();
-
 
 	const optionsAsyncDebounced = useDebounceCallback(optionsAsync, 200);
 	// const optionsAsyncDebounced = React.useCallback((active) => debounce(() => optionsAsync(inputValue, setOptions, active)), [inputValue, setOptions, optionsAsync]);
@@ -84,7 +81,7 @@ export default function Autocomplete({
 						helperText: helperText,
 						placeholder: placeholder,
 						inputRef,
-						label, // causes problem - TODO
+						label,
 						compact,
 						container,
 					}}
@@ -93,6 +90,7 @@ export default function Autocomplete({
 					fullWidth
 					inputProps={{...params.inputProps, className: params.inputProps.className + ' ' + 'mui', ...inputProps}}
 					rhf={false}
+					{...InputLabelProps}
 				/>
 			)}
 			renderOption={(option) => {
@@ -136,6 +134,7 @@ Autocomplete.propTypes = {
 	container: PropTypes.object,
 	error: PropTypes.bool,
 	helperText: PropTypes.string,
+	InputLabelProps: PropTypes.object,
 	InputProps: PropTypes.object,
 	inputProps: PropTypes.object,
 	inputRef: PropTypes.func,

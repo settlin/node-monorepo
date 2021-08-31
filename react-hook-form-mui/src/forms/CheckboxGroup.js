@@ -18,17 +18,6 @@ const styles = makeStyles({
 
 function CheckboxGroup(props) {
 	const classesStyle = styles();
-	const handleChange = (event, v) => {
-		const {name, value = [], setValue, onChange} = props;
-
-		const target = event.currentTarget;
-		let valueArray = [...value] || [];
-
-		if (target.checked) valueArray.push(v);
-		else valueArray.splice(valueArray.indexOf(v), 1);
-		if (setValue) setValue(name, valueArray);
-		if (onChange) onChange(valueArray);
-	};
 	const handleBlur = () => {
 		if (props.onBlur) props.onBlur();
 	};
@@ -42,14 +31,11 @@ function CheckboxGroup(props) {
 		FormHelperTextProps = {},
 		CheckboxProps,
 		FormGroupProps,
-		classes,
-		Field = () => <span/>,
 		value,
 		error,
 		helperText,
-		setValue,
 	} = props;
-	
+
 	return (
 		<FormControl
 			error={error}
@@ -75,9 +61,8 @@ function CheckboxGroup(props) {
 			)}
 			<FormGroup {...FormGroupProps} row={(FormGroupProps || {}).row || compact}>
 				{options.map((option, i) => (
-
 					<Checkbox
-						key={i}
+						key={option.value || i}
 						{...option}
 						{...CheckboxProps}
 						checked={value.includes(option.value)}
