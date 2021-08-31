@@ -10,5 +10,5 @@ export function useRMController({name, ...rest}) {
 		rules: {required: rest.required},
 		defaultValue: rest.defaultValue,
 	});
-	return rhfToMuiProps({...p, setValue, ...rest});
+	return rhfToMuiProps({...p, setFieldValue: setValue, ...rest});
 }

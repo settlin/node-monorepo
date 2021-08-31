@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/settlin/node-monorepo/compare/@settlin/react-hook-form-mui@0.2.2...@settlin/react-hook-form-mui@0.2.4) (2021-08-31)
+
+
+### Bug Fixes
+
+* changes ([a5ef44c](https://github.com/settlin/node-monorepo/commit/a5ef44cced243e98c99b502f50955e88217a65e2))
+* changes ([0ab2302](https://github.com/settlin/node-monorepo/commit/0ab2302cfa9786c2a92f9b1cdded13593101dc75))
+* changes ([d6fe370](https://github.com/settlin/node-monorepo/commit/d6fe3706354c40ac96af5150e200609f54f913ff))
+* changes ([9979a74](https://github.com/settlin/node-monorepo/commit/9979a74377eae59bc5519a80de43c98495da269f))
+* fixes ([2cee2d5](https://github.com/settlin/node-monorepo/commit/2cee2d5b29716afea4aab83ce77ba7e763bc43de))
+* fixes ([0e5cb4f](https://github.com/settlin/node-monorepo/commit/0e5cb4fb23758c0db4e48f1ca13b530a39e96f3b))
+* passing style props in select chip, passing setvalue from provider ([d4e1aa6](https://github.com/settlin/node-monorepo/commit/d4e1aa65b8de0c14eb9affa8b986b9f6ccce1d3a))
+* passing style props in select chip, passing setvalue from provider ([30ca774](https://github.com/settlin/node-monorepo/commit/30ca77475dc9f625d809897d3393b8cb5760cc9e))
+* passing style props in select chip, passing setvalue from provider ([7990c68](https://github.com/settlin/node-monorepo/commit/7990c68d243a9d70a7cc596c6d2a5d8b5c11d0b9))
+* passing style props in select chip, passing setvalue from provider ([7fd07f0](https://github.com/settlin/node-monorepo/commit/7fd07f04b0d7ef0d2a99046d18f76aa921ed603d))
+* passing style props in select chip, passing setvalue from provider ([a1b7cb9](https://github.com/settlin/node-monorepo/commit/a1b7cb981da3193637d3cb5a835ad7e228a6b1f9))
+* show error in currencyfield ([138fa2b](https://github.com/settlin/node-monorepo/commit/138fa2b0e2f4eaea00eeb3f8e916bc81401ea308))
+* show error in currencyfield ([f23f20f](https://github.com/settlin/node-monorepo/commit/f23f20fb88cff02e3d006d918f5263744f6c2c8a))
+* show error in currencyfield ([f851aa9](https://github.com/settlin/node-monorepo/commit/f851aa991070bed14100e2c6632355504abd3de2))
+* show error in currencyfield ([2c2c3b2](https://github.com/settlin/node-monorepo/commit/2c2c3b266102aee2f5e591fa1de00d744ca8f914))
+* tar package update ([bf68193](https://github.com/settlin/node-monorepo/commit/bf68193cb547adc59aa6d9daf5f6deee161d6bfe))
+
+
+
+
+
 ## [0.2.2](https://github.com/settlin/node-monorepo/compare/@settlin/react-hook-form-mui@0.2.1...@settlin/react-hook-form-mui@0.2.2) (2021-08-09)
 
 
