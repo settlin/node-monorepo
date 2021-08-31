@@ -33,6 +33,7 @@ function CheckboxGroup(props) {
 		FormGroupProps,
 		value,
 		error,
+		setValue,
 		helperText,
 	} = props;
 
@@ -108,7 +109,7 @@ CheckboxGroup.propTypes = {
 	RadioGroupProps: PropTypes.object,
 	RadioLabelProps: PropTypes.object,
 	RadioProps: PropTypes.object,
-	setFieldValue: PropTypes.func,
+	setValue: PropTypes.func,
 	showClearButton: PropTypes.bool,
 	value: PropTypes.array,
 };
