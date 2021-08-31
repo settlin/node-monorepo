@@ -36,6 +36,7 @@ function CheckboxGroup(props) {
 		setFieldValue,
 		helperText,
 	} = props;
+
 	return (
 		<FormControl
 			error={error}
