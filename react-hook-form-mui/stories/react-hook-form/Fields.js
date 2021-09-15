@@ -62,7 +62,7 @@ function DemoForm({onSubmit}) {
 		}, 1000);
 	};
 
-	const defaultValues = {text: 'name', auto: [], slider: ''};
+	const defaultValues = {text: 'name', auto: []};
 	const form = useForm({
 		defaultValues,
 		mode: 'onChange',
@@ -70,9 +70,9 @@ function DemoForm({onSubmit}) {
 	const {handleSubmit, setValue, formState: {errors, isSubmitting, isDirty, isValid}, control} = form;
 	// console.log(watch('textArea')); // watch input value by passing the name of it
 
-	const hChange = (e, newValue) => {
-		setValue('slider', newValue);
-	};
+	// const hChange = (e, newValue) => {
+	// 	setValue('slider', newValue);
+	// };
 
 	return (
 		<MuiPickersUtilsProvider utils={DayJSUtils}>
@@ -83,13 +83,13 @@ function DemoForm({onSubmit}) {
 							<Grid item xs={6}>
 								<Input
 									color='secondary'
-									// defaultValue={20}
+									displayValue
 									label='Slider'
-									// marks
-									// maxValue={100}
-									// minValue={10}
+									maxValue={100}
+									minValue={0}
 									name='slider'
-									onChange={(e, v)=> hChange(e, v)}
+									range
+									style={{width: '20rem'}}
 									// step={10}
 									type='slider'
 								/>
