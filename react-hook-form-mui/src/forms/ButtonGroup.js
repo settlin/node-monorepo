@@ -20,8 +20,9 @@ const styles = makeStyles({
 		height: '100%',
 	},
 	buttonGroup: {
-		marginTop: '8px',
-		width: 'max-content',
+		// width: 'max-content',
+		// marginTop:'8px',
+		display: 'block',
 	},
 	labelContainerCompact: {
 		marginRight: 8,
@@ -45,6 +46,7 @@ function ToggleButtonGroup(props) {
 		disabled,
 		error,
 		helperText,
+		orientation,
 		...p
 	} = props;
 
@@ -75,7 +77,6 @@ function ToggleButtonGroup(props) {
 				<Grid item>
 					{label && (
 						<FormLabel
-							// style={{fontSize: '.8rem'}}
 							{...FormLabelProps}
 						>
 							{label}
@@ -102,6 +103,8 @@ function ToggleButtonGroup(props) {
 				exclusive={exclusive}
 				onBlur={handleBlur}
 				onChange={handleChange}
+				orientation={orientation}
+				size='small'
 			>
 				{options.map(option => (
 					<ToggleButton
@@ -135,6 +138,7 @@ ToggleButtonGroup.propTypes = {
 	onBlur: PropTypes.func,
 	onChange: PropTypes.func,
 	options: PropTypes.array,
+	orientation: PropTypes.string,
 	refB: PropTypes.oneOfType([
 		PropTypes.func,
 		PropTypes.shape({current: PropTypes.elementType}),
