@@ -62,7 +62,7 @@ function DemoForm({onSubmit}) {
 		}, 1000);
 	};
 
-	const defaultValues = {text: 'name', auto: []};
+	const defaultValues = {text: 'name', auto: [], slider: ''};
 	const form = useForm({
 		defaultValues,
 		mode: 'onChange',
@@ -70,6 +70,9 @@ function DemoForm({onSubmit}) {
 	const {handleSubmit, setValue, formState: {errors, isSubmitting, isDirty, isValid}, control} = form;
 	// console.log(watch('textArea')); // watch input value by passing the name of it
 
+	const hChange = (e, newValue) => {
+		setValue('slider', newValue);
+	};
 
 	return (
 		<MuiPickersUtilsProvider utils={DayJSUtils}>
@@ -78,11 +81,23 @@ function DemoForm({onSubmit}) {
 					<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
 						<Grid container item spacing={1} xs={12}>
 							<Grid item xs={6}>
-								<Typography>
+								<Input
+									color='secondary'
+									// defaultValue={20}
+									label='Slider'
+									// marks
+									// maxValue={100}
+									// minValue={10}
+									name='slider'
+									onChange={(e, v)=> hChange(e, v)}
+									// step={10}
+									type='slider'
+								/>
+								{/* <Typography>
 									Phones (Array of Inputs)
 								</Typography>
-								<Input container={{xs: 12}} label='Phones' metaList={arrayMeta} name='phones' type='array'/>
-								<Input
+								<Input container={{xs: 12}} label='Phones' metaList={arrayMeta} name='phones' type='array'/> */}
+								{/* <Input
 									container={{xs: 12}}
 									// getOptionLabel={(option) => (typeof option === 'string' ? option : option.label)}
 									label='Autocomplete'
@@ -90,7 +105,7 @@ function DemoForm({onSubmit}) {
 									optionsAsync={(inputValue, setOptions) =>setOptions(top100Films.filter(o => o.label.includes(inputValue)))}
 									type='autocomplete'
 								// renderInput={p => <Input rhf={false} {...p}/>}
-								/>
+								/> */}
 								{/* <Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(cb, 1000)}
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
@@ -163,9 +178,9 @@ function DemoForm({onSubmit}) {
 										}}/>
 									</Grid> */}
 									<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
-										<Input compact container={{xs: 6}} control={control} label='Text' name='text' type='text'/>
-										<Input container={{xs: 6}} control={control} label='Text Area' multiline name='textArea' required type='textarea'/>
-										{/* <Input components={{input: CurrencyField}} control={control} name='currency' type='inr'/> */}
+										<Input compact container={{xs: 6}} label='Text' name='text' type='text'/>
+										<Input container={{xs: 6}} label='Text Area' multiline name='textArea' required type='textarea'/>
+										{/* <Input components={{input: CurrencyField}} name='currency' type='inr'/> */}
 									</Grid>
 									<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
 										<Input

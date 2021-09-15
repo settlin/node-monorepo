@@ -46,6 +46,8 @@ const module = function({type, rhf}) {
 			return rhf ? require('./react-hook-form/CheckboxGroup').default : require('./forms/CheckboxGroup').default;
 		case 'selectchip':
 			return rhf ? require('./react-hook-form/SelectWithChip').default : require('./forms/SelectWithChip');
+		case 'slider':
+			return rhf ? require('./react-hook-form/Slider').default : require('./forms/Slider');
 	}
 	return rhf ?  require('./react-hook-form/TextField').default : require('./forms/TextField').default;
 };
