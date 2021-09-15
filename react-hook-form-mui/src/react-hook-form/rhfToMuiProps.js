@@ -11,6 +11,7 @@ export function rhfToMuiProps({
 	error,
 	checked,
 	multiple,
+	range,
 	defaultValue,
 	...props
 }) {
@@ -37,6 +38,9 @@ export function rhfToMuiProps({
 	if (onChange) {
 		field.value = defaultValue || field.value;
 		switch (props.type) {
+			case 'slider':
+				field.value = typeof field.value === 'undefined' ? range ? [0, 0] : '' : field.value;
+				break;
 			case 'selectchip':
 			case 'autocomplete':
 			case 'select':
