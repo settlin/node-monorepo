@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Typography, Slider, Grid, Tooltip, InputLabel, FormControl, FormHelperText} from '@material-ui/core';
+import {Typography, Slider, Grid, Tooltip, FormControl, FormLabel, FormHelperText} from '@material-ui/core';
 import currencify from '../utils/currencify';
 
 function ValueLabelComponent({children, value}) {
@@ -12,19 +12,47 @@ function ValueLabelComponent({children, value}) {
 	);
 }
 
-function SliderButton({totalStep, helperText, SliderProps = {}, label, marks, displayValue, name, minValue, value, setValue, maxValue, ...props}) {
+ValueLabelComponent.propTypes = {
+	children: PropTypes.element,
+	value: PropTypes.string,
+};
+
+// eslint-disable-next-line react/prop-types
+function SliderButton({totalStep, SliderProps = {}, FormControlProps = {}, helperText, label, showMarks = false, displayValue = 'auto', name, valueLabelFormat, minValue, value, setValue, maxValue, ...props}) {
+	// console.log('props are', props);
 	const handleChange = (event, newVal) => {
 		setValue(name, newVal);
 	};
 
+	// const changeVal = (v) => {
+	// 	return v + 5000;
+	// };
+
 	return (
-		<Grid>
-			<Typography>
+		// <Grid style={{marginTop: '0.6rem'}}>
+		// 	<Typography>
+		// 		{label}
+		// 	</Typography>
+		// 	<Slider
+		// 		className={SliderProps}
+		// 		marks={showMarks}
+		// 		max={maxValue}
+		// 		min={minValue}
+		// 		step={totalStep}
+		// 		{...props}
+		// 		ValueLabelComponent={ValueLabelComponent}
+		// 		onChange={handleChange}
+		// 		value={value}
+		// 		valueLabelDisplay={displayValue}
+		// 	/>
+		// </Grid>
+		<FormControl {...FormControlProps}>
+			<FormLabel>
 				{label}
-			</Typography>
+			</FormLabel>
 			<Slider
 				className={SliderProps}
-				marks={marks}
+				marks={showMarks}
 				max={maxValue}
 				min={minValue}
 				step={totalStep}
@@ -32,42 +60,25 @@ function SliderButton({totalStep, helperText, SliderProps = {}, label, marks, di
 				ValueLabelComponent={ValueLabelComponent}
 				onChange={handleChange}
 				value={value}
+				// value={()=>changeVal(value)}
 				valueLabelDisplay={displayValue}
+				valueLabelFormat={(v)=>valueLabelFormat(v)}
 			/>
-		</Grid>
+			<FormHelperText>
+				{helperText}
+			</FormHelperText>
+		</FormControl>
 	);
-	// return (
-	// 	<FormControl>
-	// 		<InputLabel>
-	// 			{label}
-	// 		</InputLabel>
-	// 		<Slider
-	// 			className={SliderProps}
-	// 			marks={marks}
-	// 			max={maxValue}
-	// 			min={minValue}
-	// 			step={totalStep}
-	// 			{...props}
-	// 			ValueLabelComponent={ValueLabelComponent}
-	// 			onChange={handleChange}
-	// 			value={value}
-	// 			valueLabelDisplay={displayValue}
-	// 		/>
-	// 		<FormHelperText>
-	// 			{helperText}
-	// 		</FormHelperText>
-	// 	</FormControl>
-	// );
 }
 
 SliderButton.propTypes = {
 	displayValue: PropTypes.string,
 	label: PropTypes.string,
-	marks: PropTypes.bool,
 	maxValue: PropTypes.number,
 	minValue: PropTypes.number,
 	name: PropTypes.string,
 	setValue: PropTypes.func,
+	showMarks: PropTypes.bool,
 	SliderProps: PropTypes.object,
 	totalStep: PropTypes.number,
 };
