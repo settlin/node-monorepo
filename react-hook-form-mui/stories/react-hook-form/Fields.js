@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-// import {Formik, Form, setIn} from 'formik';
 import {Input, Button, currencify} from '../../src';
 import DayJSUtils from '@date-io/dayjs';
 import {MuiPickersUtilsProvider} from '@material-ui/pickers';
@@ -30,6 +29,13 @@ const option = [
 	{value: 'balconies',  label: 'Balcony'},
 	{value: 'bathrooms',  label: 'Bathroom'},
 ];
+
+const rangeHandler = (v) => {
+	// console.log('here', v, typeof v);
+	if (v > 1000000) v = v + 500000;
+	console.log('increment by', v);
+	return v;
+};
 
 
 function IsolateReRender({control, name, children}) {
@@ -75,29 +81,31 @@ function DemoForm({onSubmit}) {
 	// };
 
 	return (
-		<MuiPickersUtilsProvider utils={DayJSUtils}>
-			<Grid container item spacing={1} style={{padding: '2rem'}}>
-				<FormProvider {...form}>
-					<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
-						<Grid container item spacing={1} xs={12}>
-							<Grid item xs={6}>
-								<Input
-									color='secondary'
-									displayValue
-									label='Slider'
-									maxValue={100}
-									minValue={0}
-									name='slider'
-									range
-									style={{width: '20rem'}}
-									// step={10}
-									type='slider'
-								/>
-								{/* <Typography>
+		// <MuiPickersUtilsProvider utils={DayJSUtils}>
+		<Grid container item spacing={1} style={{padding: '2rem'}}>
+			<FormProvider {...form}>
+				<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
+					<Grid container item spacing={1} xs={12}>
+						<Grid item xs={6}>
+							<Input
+								color='secondary'
+								// displayValue='auto'
+								label='Slider'
+								maxValue={100000000}
+								minValue={1000000}
+								name='slider'
+								range
+								// step={(v)=>rangeHandler(v)}
+								// step={1000000}
+								style={{width: '21rem'}}
+								type='slider'
+								valueLabelFormat={rangeHandler}
+							/>
+							{/* <Typography>
 									Phones (Array of Inputs)
 								</Typography>
 								<Input container={{xs: 12}} label='Phones' metaList={arrayMeta} name='phones' type='array'/> */}
-								{/* <Input
+							{/* <Input
 									container={{xs: 12}}
 									// getOptionLabel={(option) => (typeof option === 'string' ? option : option.label)}
 									label='Autocomplete'
@@ -106,12 +114,12 @@ function DemoForm({onSubmit}) {
 									type='autocomplete'
 								// renderInput={p => <Input rhf={false} {...p}/>}
 								/> */}
-								{/* <Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
+							{/* <Input formik={false} base name='files' label='File Drop' container={{xs: 12}} filesLimit={10}
 									handleUpload={(file, cb) => setTimeout(cb, 1000)}
 									handleDelete={(file, cb) => setTimeout(cb, 1000)}
 									components={{PreviewsChildren: this.PreviewsChildren, input: Dropzone}}
 								/> */}
-								{/* <Input
+							{/* <Input
 									PreviewsChildren={({name, index, ...p}) => <Input control={control} multiple name={`${name}.${index}.tags`} options={option} placeholder='Tags' type='select'/>}
 									base
 									components={{input: Dropzone}}
@@ -123,10 +131,10 @@ function DemoForm({onSubmit}) {
 									label='File Drop'
 									name='files'
 								/> */}
-							</Grid>
-							<Grid item xs={6}>
-								<Grid container direction='column'>
-									{/* <Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
+						</Grid>
+						<Grid item xs={6}>
+							<Grid container direction='column'>
+								{/* <Grid container item style={{marginTop: '16px'}} xs={12} spacing={1}>
 										<Input formik={false} name='month' type='month' label='Month' container={{xs: 4}}/>
 										<Input formik={false} name='date' fast={false} type='date' label='Date' container={{xs: 4}}/>
 										<Input formik={false} name='date1' base components={{input: DateTimePicker}} fast={false} type='date' label='Date 1' container={{xs: 4}} defaultValue={new Date('1 nov 2019')} maxDate={new Date('1 feb 2020')}/>
@@ -177,40 +185,40 @@ function DemoForm({onSubmit}) {
 											].filter(({value}) => !v || value === v));
 										}}/>
 									</Grid> */}
-									<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
-										<Input compact container={{xs: 6}} label='Text' name='text' type='text'/>
-										<Input container={{xs: 6}} label='Text Area' multiline name='textArea' required type='textarea'/>
-										{/* <Input components={{input: CurrencyField}} name='currency' type='inr'/> */}
-									</Grid>
-									<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
-										<Input
-											components={{input: MultiButtonGroup}}
-											container={{xs: 6}}
-											label='Button Groups'
-											name='propertyType'
-											options={options} // or components={{Field: ButtonGroup}} or components={{input: ButtonGroup}}
-											required
-											type='buttons'
-										/>
-									</Grid>
+								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
+									<Input compact container={{xs: 6}} label='Text' name='text' type='text'/>
+									<Input container={{xs: 6}} label='Text Area' multiline name='textArea' required type='textarea'/>
+									{/* <Input components={{input: CurrencyField}} name='currency' type='inr'/> */}
+								</Grid>
+								<Grid container item spacing={1} style={{marginTop: '16px'}} xs={12}>
+									<Input
+										components={{input: MultiButtonGroup}}
+										container={{xs: 6}}
+										label='Button Groups'
+										name='propertyType'
+										options={options} // or components={{Field: ButtonGroup}} or components={{input: ButtonGroup}}
+										required
+										type='buttons'
+									/>
 								</Grid>
 							</Grid>
-							<Grid container item justify='center' xs={12}>
-								<Button disabled={(isDirty && !isValid) || isSubmitting} label='Submit' processing={isSubmitting} size='small' type='submit' variant='contained'/>
-							</Grid>
 						</Grid>
-					</form>
-				</FormProvider>
-				<IsolateReRender control={control}>
-					{JSON.stringify}
-				</IsolateReRender>
-				<Grid container item justify='center' xs={12}>
-					Errors:
-					{' '}
-					{JSON.stringify(eee(errors))}
-				</Grid>
+						<Grid container item justify='center' xs={12}>
+							<Button disabled={(isDirty && !isValid) || isSubmitting} label='Submit' processing={isSubmitting} size='small' type='submit' variant='contained'/>
+						</Grid>
+					</Grid>
+				</form>
+			</FormProvider>
+			<IsolateReRender control={control}>
+				{JSON.stringify}
+			</IsolateReRender>
+			<Grid container item justify='center' xs={12}>
+				Errors:
+				{' '}
+				{JSON.stringify(eee(errors))}
 			</Grid>
-		</MuiPickersUtilsProvider>
+		</Grid>
+		// </MuiPickersUtilsProvider>
 	);
 }
 
