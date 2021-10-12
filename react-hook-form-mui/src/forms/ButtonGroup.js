@@ -44,15 +44,20 @@ function ToggleButtonGroup(props) {
 		refB: ref,
 		required,
 		disabled,
+		name,
 		error,
 		helperText,
+		setValue,
 		orientation,
 		...p
 	} = props;
 
 	const classesStyle = styles();
 	const handleChange = (event, value) => {
-		if (props.onChange) props.onChange(value);
+		if (props.onChange) {
+			props.onChange(value);
+			if (setValue) setValue(name, value.replace(/-$/, ''));
+		}
 	};
 
 	const handleBlur = (event) => {
@@ -135,6 +140,7 @@ ToggleButtonGroup.propTypes = {
 	helperText: PropTypes.node,
 	label: PropTypes.string,
 	LabelContainerProps: PropTypes.object,
+	name: PropTypes.string,
 	onBlur: PropTypes.func,
 	onChange: PropTypes.func,
 	options: PropTypes.array,
@@ -144,6 +150,7 @@ ToggleButtonGroup.propTypes = {
 		PropTypes.shape({current: PropTypes.elementType}),
 	]),
 	required: PropTypes.bool,
+	setValue: PropTypes.func,
 	ToggleButtonGroupProps: PropTypes.object,
 	ToggleButtonProps: PropTypes.object,
 };
