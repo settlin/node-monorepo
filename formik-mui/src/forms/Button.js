@@ -1,12 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
-import withStyles from '@material-ui/core/styles/withStyles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import teal from '@material-ui/core/colors/teal';
-import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import CheckIcon from '@material-ui/icons/Check';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import withStyles from '@mui/styles/withStyles';
+import CircularProgress from '@mui/material/CircularProgress';
+import teal from '@mui/material/colors/teal';
+import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
+import CheckIcon from '@mui/icons-material/Check';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 const styles = (theme) => ({
 	root: {

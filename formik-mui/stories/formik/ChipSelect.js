@@ -1,15 +1,15 @@
 import React, {PureComponent} from 'react';
-import Grid from '@material-ui/core/Grid';
-import Chip from '@material-ui/core/Chip';
-import Avatar from '@material-ui/core/Avatar';
+import Grid from '@mui/material/Grid';
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
 import {Formik, Form, setIn} from 'formik';
 import {Input, currencify, Button} from '../../src';
-import DayJSUtils from '@date-io/dayjs';
-import {MuiPickersUtilsProvider} from '@material-ui/pickers';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import {LocalizationProvider} from '@mui/lab';
 import FilterField from '../components/FilterField';
-import {makeStyles} from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {components} from 'react-select';
-import CancelIcon from '@material-ui/icons/Cancel';
+import CancelIcon from '@mui/icons-material/Cancel';
 import classNames from 'clsx';
 
 class MultiValue extends PureComponent {
@@ -175,37 +175,39 @@ class DemoForm extends PureComponent {
 	render() {
 		const initialValues = {};
 
-		return <MuiPickersUtilsProvider utils={DayJSUtils}>
-			<Grid container item spacing={1} style={{padding: '2rem'}}>
-				<Formik initialValues={initialValues} enableReinitialize={true} isInitialValid={false} onSubmit={this.hSubmit} validate={this.validate}>
-					{({isSubmitting, values, errors, isValid}) => <Form  autoComplete='off' style={{width: '100%'}}>
-						<Grid container item spacing={1} xs={12}>
-							<Input name='choice' base
-								components={{input: FilterField}}
-								menuIsOpen={true}
-								options={options}
-								type='select'
-								label='Select Locations'
-								container={{xs: 12}}
-								selectComponents={{MenuList, MultiValue, Group, Option}}
-								multiple
-								hideSelectedOptions={false}
-								maxValuesToShow={1}
-							/>
-						</Grid>
-						<Grid container item xs={12} justify='center'>
-							<Button type='submit' variant='contained' size='small' disabled={!isValid || isSubmitting} processing={isSubmitting} label='Submit'/>
-						</Grid>
-						<Grid container item xs={12} justify='center'>
-								Values: {JSON.stringify(values)}
-						</Grid>
-						<Grid container item xs={12} justify='center'>
-								Errors: {JSON.stringify(errors)}
-						</Grid>
-					</Form>}
-				</Formik>
-			</Grid>
-		</MuiPickersUtilsProvider>;
+		return (
+             <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <Grid container item spacing={1} style={{padding: '2rem'}}>
+                    <Formik initialValues={initialValues} enableReinitialize={true} isInitialValid={false} onSubmit={this.hSubmit} validate={this.validate}>
+                        {({isSubmitting, values, errors, isValid}) => <Form  autoComplete='off' style={{width: '100%'}}>
+                            <Grid container item spacing={1} xs={12}>
+                                <Input name='choice' base
+                                    components={{input: FilterField}}
+                                    menuIsOpen={true}
+                                    options={options}
+                                    type='select'
+                                    label='Select Locations'
+                                    container={{xs: 12}}
+                                    selectComponents={{MenuList, MultiValue, Group, Option}}
+                                    multiple
+                                    hideSelectedOptions={false}
+                                    maxValuesToShow={1}
+                                />
+                            </Grid>
+                            <Grid container item xs={12} justifyContent='center'>
+                                <Button type='submit' variant='contained' size='small' disabled={!isValid || isSubmitting} processing={isSubmitting} label='Submit'/>
+                            </Grid>
+                            <Grid container item xs={12} justifyContent='center'>
+                                    Values: {JSON.stringify(values)}
+                            </Grid>
+                            <Grid container item xs={12} justifyContent='center'>
+                                    Errors: {JSON.stringify(errors)}
+                            </Grid>
+                        </Form>}
+                    </Formik>
+                </Grid>
+            </LocalizationProvider>
+        );
 	}
 }
 
