@@ -45,7 +45,11 @@ class FDateTimePicker extends React.PureComponent {
 						InputProps: {...p.InputProps, ...InputProps},
 						...InputLabelProps,
 						...TextFieldProps,
+<<<<<<< HEAD
 						variant:'standard'
+=======
+						variant:"standard"
+>>>>>>> upgrade(formik-ui): material ui 4 to 5 migration
 					}}/>,
 				}}
 			/>

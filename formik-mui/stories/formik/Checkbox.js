@@ -42,7 +42,7 @@ class DemoForm extends PureComponent {
 		const initialValues = {phones: [{mobile: '80808080'}], currency: 900000};
 
 		return (
-			<Grid container item spacing={1} style={{padding: '2rem'}}>
+            <Grid container item spacing={1} style={{padding: '2rem'}}>
 				<Formik initialValues={initialValues} enableReinitialize={true} isInitialValid={false} onSubmit={this.hSubmit} validate={this.validate}>
 					{({isSubmitting, values, errors, isValid}) => <Form autoComplete='off' style={{width: '100%'}}>
 						<Grid item xs={12}>
@@ -99,7 +99,7 @@ class DemoForm extends PureComponent {
 					</Form>}
 				</Formik>
 			</Grid>
-		);
+        );
 	}
 }
 
