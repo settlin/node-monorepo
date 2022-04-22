@@ -1,14 +1,14 @@
 import React, {Fragment} from 'react';
 import formikToMuiProps from '../../../src/forms/formikToMuiProps';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from '@mui/styles/withStyles';
 import Dropzone from 'react-dropzone';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Grid from '@material-ui/core/Grid';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Grid from '@mui/material/Grid';
 import convertBytesToMbsOrKbs from '../../../src/utils/convertBytesToMbsOrKbs';
 import Previews from './Previews';
 import clsx from 'clsx';
@@ -107,7 +107,6 @@ class DropzoneArea extends React.PureComponent {
 				uploaded: true,
 			};
 		});
-
 		return (
 			<Grid container direction='column' className={clsx(classes.dropzoneContainer, cs.dropzoneContainer)}>
 				<Grid item>
