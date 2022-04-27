@@ -6,7 +6,7 @@ import withStyles from '@mui/styles/withStyles';
 import Typography from '@mui/material/Typography';
 
 function capitalize(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export const styles = theme => ({
@@ -173,11 +173,13 @@ FormControlLabel.propTypes = {
    * You can pull out the new value by accessing `event.target.checked`.
    * @param {boolean} checked The `checked` value of the switch
    */
-	onChange: PropTypes.func,
-	/**
+  onChange: PropTypes.func,
+  /**
    * The value of the component.
    */
 	value: PropTypes.any,
 };
 
-export default withStyles(styles, {name: 'MuiFormControlLabel'})(FormControlLabel);
+export default withStyles(styles, { name: 'MuiFormControlLabel' })(
+  FormControlLabel
+);
