@@ -1,7 +1,7 @@
 import React from 'react';
-import MuiTextField from '@material-ui/core/TextField';
+import MuiTextField from '@mui/material/TextField';
 import formikToMuiProps from '../forms/formikToMuiProps';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import InputAdornment from '@mui/material/InputAdornment';
 
 class TextField extends React.PureComponent {
 	constructor(p) {
@@ -18,19 +18,20 @@ class TextField extends React.PureComponent {
 		if (this.props.onBlur) this.props.onBlur(event);
 	}
 	render() {
-		let {children, fullWidth = true, fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props} = this.props; // eslint-disable-line no-unused-vars
+		let { children, fullWidth = true, fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props } = this.props; // eslint-disable-line no-unused-vars
 		if (compact) {
-			InputProps = {...InputProps, ...(label ? {startAdornment: <InputAdornment style={{whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85}} position='start' disablePointerEvents={true} {...InputAdornmentProps}>{label}</InputAdornment>} : {})};
+			InputProps = { ...InputProps, ...(label ? { startAdornment: <InputAdornment style={{ whiteSpace: 'nowrap', fontSize: '0.8rem', opacity: 0.85 }} position='start' disablePointerEvents={true} {...InputAdornmentProps}>{label}</InputAdornment> } : {}) };
 			label = '';
 		}
 		const fp = formikToMuiProps(props);
 		return (
 			<MuiTextField
 				{...fp}
-				{...{children, fullWidth, InputProps, label}}
+				{...{ children, fullWidth, InputProps, label }}
 				onChange={this.handleChange}
 				onBlur={this.handleBlur}
-				InputLabelProps={(fp.type === 'date' ? {shrink: true, ...InputLabelProps} : {...InputLabelProps})}
+				variant="standard"
+				InputLabelProps={(fp.type === 'date' ? { shrink: true, ...InputLabelProps } : { ...InputLabelProps })}
 			/>
 		);
 	}

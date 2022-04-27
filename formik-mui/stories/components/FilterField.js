@@ -2,22 +2,24 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import ReactSelect, {components as comps} from 'react-select';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
-import MenuItem from '@material-ui/core/MenuItem';
-import CancelIcon from '@material-ui/icons/Cancel';
-import {emphasize} from '@material-ui/core/styles/colorManipulator';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { emphasize } from '@mui/material/styles';
+import withStyles from '@mui/styles/withStyles';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Chip from '@mui/material/Chip';
+import MenuItem from '@mui/material/MenuItem';
+import CancelIcon from '@mui/icons-material/Cancel';
+import InputAdornment from '@mui/material/InputAdornment';
 import FInput from '../../src/Input';
 import {getIn} from 'formik';
 
-import IconButton from '@material-ui/core/IconButton';
-import Close from '@material-ui/icons/Close';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import IconButton from '@mui/material/IconButton';
+import Close from '@mui/icons-material/Close';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
-const styles = theme => ({
+const styles = theme => {
+	console.log(theme);
+	return {
 	root: {
 		paddingTop: theme.spacing(1),
 		fontSize: 'inherit',
@@ -37,7 +39,7 @@ const styles = theme => ({
 		fontSize: 'inherit',
 	},
 	chip: {
-		margin: `${theme.spacing(0.25)}px`,
+		margin: theme.spacing(0.25),
 		height: `${32 - theme.spacing(1)}px`,
 	},
 	chipDeleteIcon: {
@@ -45,12 +47,12 @@ const styles = theme => ({
 	},
 	chipFocused: {
 		backgroundColor: emphasize(
-			theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
+			theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
 			0.08,
 		),
 	},
 	noOptionsMessage: {
-		padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+		padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
 	},
 	singleValue: {
 		// fontSize: 'inherit',
@@ -70,7 +72,7 @@ const styles = theme => ({
 	divider: {
 		height: theme.spacing(2),
 	},
-});
+}};
 
 function NoOptionsMessage(props) {
 	return (

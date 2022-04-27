@@ -1,21 +1,21 @@
 import React, {memo} from 'react';
 import clsx from 'clsx';
 
-import Radio from '@material-ui/core/Radio';
-import MuiRadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
+import Radio from '@mui/material/Radio';
+import MuiRadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
 import formikToMuiProps from '../forms/formikToMuiProps';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Clear from '@material-ui/icons/Clear';
-import IconButton from '@material-ui/core/IconButton';
+import withStyles from '@mui/styles/withStyles';
+import Clear from '@mui/icons-material/Clear';
+import IconButton from '@mui/material/IconButton';
 import formControl from '../styles/formControl';
 import formLabel from '../styles/formLabel';
 
 const ClearButton = memo((p) => (
-	<IconButton onClick={p.onClick}>
+	<IconButton onClick={p.onClick} size="large">
 		<Clear/>
 	</IconButton>
 ));

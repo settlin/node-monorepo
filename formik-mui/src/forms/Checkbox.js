@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
-import MuiCheckbox from '@material-ui/core/Checkbox';
+import MuiCheckbox from '@mui/material/Checkbox';
 import formikToMuiProps from '../forms/formikToMuiProps';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 
 class Checkbox extends React.PureComponent {
 	constructor(p) {
