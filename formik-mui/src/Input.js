@@ -122,7 +122,6 @@ class Input extends React.Component {
 
 		const type = this.type();
 		const extraProps = {...(formik ? {fast, ...(input ? {component: input} : {})} : {}), compact, components, ...this.extraProps()};
-
 		return (
 			<ErrorBoundary>
 				<Container {...containerProps}>
