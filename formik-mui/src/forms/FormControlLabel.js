@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import {useFormControl} from '@material-ui/core/FormControl';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
+import { useFormControl } from '@mui/material/FormControl';
+import withStyles from '@mui/styles/withStyles';
+import Typography from '@mui/material/Typography';
 
 function capitalize(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1);
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export const styles = theme => ({
@@ -21,7 +21,7 @@ export const styles = theme => ({
 		WebkitTapHighlightColor: 'transparent',
 		marginLeft: -11,
 		marginRight: 16, // used for row presentation of radio/checkbox
-		'&$disabled': {
+		'&.Mui-disabled': {
 			cursor: 'default',
 		},
 	},
@@ -48,7 +48,7 @@ export const styles = theme => ({
 	disabled: {},
 	/* Styles applied to the label's Typography component. */
 	label: {
-		'&$disabled': {
+		'&.Mui-disabled': {
 			color: theme.palette.text.disabled,
 		},
 	},
@@ -173,11 +173,13 @@ FormControlLabel.propTypes = {
    * You can pull out the new value by accessing `event.target.checked`.
    * @param {boolean} checked The `checked` value of the switch
    */
-	onChange: PropTypes.func,
-	/**
+  onChange: PropTypes.func,
+  /**
    * The value of the component.
    */
 	value: PropTypes.any,
 };
 
-export default withStyles(styles, {name: 'MuiFormControlLabel'})(FormControlLabel);
+export default withStyles(styles, { name: 'MuiFormControlLabel' })(
+  FormControlLabel
+);

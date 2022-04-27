@@ -1,9 +1,9 @@
-import React, {Fragment} from 'react';
-import MuiSwitch from '@material-ui/core/Switch';
+import React, { Fragment } from 'react';
+import MuiSwitch from '@mui/material/Switch';
 import formikToMuiProps from '../forms/formikToMuiProps';
-import FormControl from '@material-ui/core/FormControl';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from './FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormHelperText from '@mui/material/FormHelperText';
 
 class Switch extends React.PureComponent {
 	constructor(p) {
@@ -42,6 +42,7 @@ class Switch extends React.PureComponent {
 						{...fp}
 						onChange={this.handleChange}
 						onBlur={this.handleBlur}
+						color={fp.color ? fp.color :"secondary"}
 					/>
 				}
 				offLabel={offLabel}

@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import {Formik, Form, setIn} from 'formik';
 import {Input, Button, currencify} from '../../src';
 
@@ -86,13 +86,13 @@ class DemoForm extends PureComponent {
 								<Input required compact={false} name='checkbox.required' type='checkbox' container={{xs: 2}} label='Checkbox'/>
 								<Input required compact={false} name='switch.required' type='switch' container={{xs: 3}} label='Switch'/>
 							</Grid>
-							<Grid container item xs={12} justify='center'>
+							<Grid container item xs={12} justifyContent='center'>
 								<Button type='submit' variant='contained' size='small' disabled={!isValid || isSubmitting} processing={isSubmitting} label='Submit'/>
 							</Grid>
-							<Grid container item xs={12} justify='center'>
+							<Grid container item xs={12} justifyContent='center'>
 								Values: {JSON.stringify(values)}
 							</Grid>
-							<Grid container item xs={12} justify='center'>
+							<Grid container item xs={12} justifyContent='center'>
 								Errors: {JSON.stringify(errors)}
 							</Grid>
 						</Grid>

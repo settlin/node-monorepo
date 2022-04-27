@@ -1,9 +1,9 @@
 import React, {Fragment} from 'react';
-import MuiRadio from '@material-ui/core/Radio';
+import MuiRadio from '@mui/material/Radio';
 import formikToMuiProps from '../forms/formikToMuiProps';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import clsx from 'clsx';
 
 class Radio extends React.PureComponent {

@@ -1,8 +1,8 @@
 import React from 'react';
 import formikToMuiProps from '../../src/forms/formikToMuiProps';
-import {KeyboardDatePicker, KeyboardDateTimePicker} from '@material-ui/pickers';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import MuiTextField from '@material-ui/core/TextField';
+import {DatePicker, DateTimePicker} from '@mui/lab';
+import InputAdornment from '@mui/material/InputAdornment';
+import MuiTextField from '@mui/material/TextField';
 
 // const parseDigits = string => (string.match(/\d+/g) || []).join('');
 
@@ -22,7 +22,7 @@ class FDateTimePicker extends React.PureComponent {
 	render() {
 		let {children, fullWidth = true, variant = 'inline', type, format = type === 'date' ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm a', fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, TextFieldProps, label, onChange, picker, ...props} = this.props; // eslint-disable-line no-unused-vars
 
-		const Comp = type === 'date' ? KeyboardDatePicker : KeyboardDateTimePicker;
+		const Comp = type === 'date' ? DatePicker : DateTimePicker;
 		const fp = formikToMuiProps({...props, type: 'text'});  // eslint-disable-line no-unused-vars
 
 		if (compact) {
@@ -40,11 +40,12 @@ class FDateTimePicker extends React.PureComponent {
 					onChange,
 					mask: '__/__/____',
 					// rifmFormatter: formatDate,
-					TextFieldComponent: p => <MuiTextField {...{
+					renderInput: p => <MuiTextField {...{
 						...p,
 						InputProps: {...p.InputProps, ...InputProps},
 						...InputLabelProps,
 						...TextFieldProps,
+						variant:'standard'
 					}}/>,
 				}}
 			/>
