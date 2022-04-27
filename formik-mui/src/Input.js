@@ -3,7 +3,7 @@ import validateEmail from './utils/validate/email';
 import validateMobile from './utils/validate/mobile';
 import validateIndianMobile from './utils/validate/indianMobile';
 import validateDob from './utils/validate/dob';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 
 class ErrorBoundary extends React.Component {
 	state = {error: false};
@@ -117,12 +117,11 @@ class Input extends React.Component {
 	}
 	render() {
 		const {type: typeOrig, container, validate, label, formik = true, base, components: {input, Field = this.module(), Loader = LinearProgress, ...components} = {}, fast = true, compact = true, ...rest} = this.props;  // eslint-disable-line no-unused-vars
-		const Container = container ? require('@material-ui/core/Grid').default : Fragment;
+		const Container = container ? require('@mui/material/Grid').default : Fragment;
 		const containerProps = container ? {item: true, ...container} : {};
 
 		const type = this.type();
 		const extraProps = {...(formik ? {fast, ...(input ? {component: input} : {})} : {}), compact, components, ...this.extraProps()};
-
 		return (
 			<ErrorBoundary>
 				<Container {...containerProps}>

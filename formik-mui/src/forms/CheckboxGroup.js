@@ -2,12 +2,12 @@ import React from 'react';
 import clsx from 'clsx';
 
 import Checkbox from '../forms/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormGroup from '@material-ui/core/FormGroup';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
 import {connect, getIn} from 'formik';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from '@mui/styles/withStyles';
 import formControl from '../styles/formControl';
 import formLabel from '../styles/formLabel';
 

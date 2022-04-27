@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import {Formik, Form} from 'formik';
 import {Button} from '../../src';
-import DoneAllIcon from '@material-ui/icons/DoneAll';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 class DemoForm extends PureComponent {
 	constructor(props) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from '../forms/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import InputAdornment from '@mui/material/InputAdornment';
 import currencify from '../utils/currencify';
 
 class CurrencyField extends React.PureComponent {
