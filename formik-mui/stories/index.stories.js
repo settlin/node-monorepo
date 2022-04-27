@@ -15,19 +15,20 @@ import { muiTheme } from 'storybook-addon-material-ui5';
 
 import Form2 from './form/Form';
 
+const theme = muiTheme([{
+	palette: {
+		primary: { main: '#e0454b' },
+		secondary: { main: '#e4a91d' },
+		mode: 'light',
+		text: { primary: '#786464' },
+	},
+	typography: {
+		useNextVariants: true,
+	},
+}]);
 
 storiesOf('Formik', module)
-	.addDecorator(muiTheme([{
-		palette: {
-			primary: { main: '#e0454b' },
-			secondary: { main: '#e4a91d' },
-			mode: 'light',
-			text: { primary: '#786464' },
-		},
-		typography: {
-			useNextVariants: true,
-		},
-	}]))
+	.addDecorator(theme)
 	.add('Fields', () => <Form onSubmit={action('clicked')} />)
 	.add('Radio, ButtonGroup', () => <Radio onSubmit={action('clicked')} />)
 	.add('Switch, Checkbox', () => <Checkbox onSubmit={action('clicked')} />)
@@ -38,4 +39,5 @@ storiesOf('Formik', module)
 	.add('Flatpickr', () => <Flatpickr onSubmit={action('clicked')} />);
 
 storiesOf('Form', module)
+	.addDecorator(theme)
 	.add('Fields', () => <Form2 onChange={action('clicked')} />);
