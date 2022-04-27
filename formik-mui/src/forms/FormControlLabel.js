@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import {useFormControl} from '@mui/material/FormControl';
-import withStyles from '@mui/styles/withStyles';
-import Typography from '@mui/material/Typography';
+import React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { useFormControl } from "@mui/material/FormControl";
+import withStyles from "@mui/styles/withStyles";
+import Typography from "@mui/material/Typography";
 
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
