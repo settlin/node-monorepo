@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import {Formik, Form, setIn} from 'formik';
 import {Input, Button, currencify} from '../../src';
 import Otp from '../components/OtpField';
@@ -28,13 +28,13 @@ class DemoForm extends PureComponent {
 							<Grid container>
 								<Input name='mobile' base container={{xs: 4}} label='Mobile' components={{input: Otp}}/>
 							</Grid>
-							<Grid container item xs={12} justify='center'>
+							<Grid container item xs={12} justifyContent='center'>
 								<Button type='submit' variant='contained' size='small' disabled={!isValid || isSubmitting} processing={isSubmitting} label='Submit'/>
 							</Grid>
-							<Grid container item xs={12} justify='center'>
+							<Grid container item xs={12} justifyContent='center'>
 								Values: {JSON.stringify(values)}
 							</Grid>
-							<Grid container item xs={12} justify='center'>
+							<Grid container item xs={12} justifyContent='center'>
 								Errors: {JSON.stringify(errors)}
 							</Grid>
 						</Grid>

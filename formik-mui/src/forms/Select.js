@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from '@mui/material/MenuItem';
 import TextField from './TextField';
 
 const Select = ({
@@ -34,7 +34,7 @@ const Select = ({
 					</option>
 				))
 				: options.map((option, i) => (
-					<MenuItem key={i} value={option.value}>
+					<MenuItem key={i} value={option.value} >
 						{option.label}
 					</MenuItem>
 				))}

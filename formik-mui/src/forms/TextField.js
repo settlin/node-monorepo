@@ -1,7 +1,7 @@
 import React from 'react';
-import MuiTextField from '@material-ui/core/TextField';
+import MuiTextField from '@mui/material/TextField';
 import formikToMuiProps from '../forms/formikToMuiProps';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import InputAdornment from '@mui/material/InputAdornment';
 
 class TextField extends React.PureComponent {
 	constructor(p) {

@@ -1,13 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import MuiToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
+import ToggleButton from '@mui/material/ToggleButton';
+import MuiToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
 import formikToMuiProps from '../forms/formikToMuiProps';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from '@mui/styles/withStyles';
 import formControl from '../styles/formControl';
 import formLabel from '../styles/formLabel';
 
