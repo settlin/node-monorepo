@@ -1,9 +1,10 @@
 import React from 'react';
 import {useRMController} from './useRMController';
-import {MuiPickersUtilsProvider, KeyboardDatePicker, KeyboardDateTimePicker} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/dayjs';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import MuiTextField from '@material-ui/core/TextField';
+import { LocalizationProvider, DatePicker, DateTimePicker, AdapterDateFns } from '@mui/x-date-pickers';
+import '@mui/lab';
+// import DateFnsUtils from '@date-io/dayjs';
+import InputAdornment from '@mui/material/InputAdornment';
+import MuiTextField from '@mui/material/TextField';
 
 export default function RHFDateTimePicker(props) {
 	const {
@@ -16,20 +17,20 @@ export default function RHFDateTimePicker(props) {
 	} = useRMController(props);
 	const {views, variant, openTo, format, inputProps, helperText} = rest;
 	const {type} = props;
-	const Comp = (type === 'month' ? KeyboardDatePicker : KeyboardDateTimePicker);
+	const Comp = (type === 'month' ? DatePicker : DateTimePicker);
 
 	const onChange = function(event, value) {
 		rest.onChange(value);
 	};
 
 	return (
-		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<Comp
 				mask='__/____'
 				onChange={onChange}
 				{...{...views, variant, openTo, format, inputProps, helperText}}
 			/>
-		</MuiPickersUtilsProvider>
+		</LocalizationProvider>
 	);
 }
 

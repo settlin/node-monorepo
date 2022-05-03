@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import MuiTextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import MuiTextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
 
 
 function TextField({compact, type, InputProps, InputLabelProps = {}, InputAdornmentProps, label, ...props}) {

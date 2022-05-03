@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import {Input, Button, currencify} from '../../src';
-import DayJSUtils from '@date-io/dayjs';
-import {MuiPickersUtilsProvider} from '@material-ui/pickers';
+// import DayJSUtils from '@date-io/dayjs';
+// import {MuiPickersUtilsProvider} from '@material-ui/pickers';
 import Dropzone from '../components/Dropzone';
 // import FilterField from '../components/FilterField';
 // import DateTimePicker from '../components/DateTimePicker';
@@ -81,8 +81,9 @@ function DemoForm({onSubmit}) {
 	// };
 
 	return (
-		// <MuiPickersUtilsProvider utils={DayJSUtils}>
-		<Grid container item spacing={1} style={{padding: '2rem'}}>
+        // <MuiPickersUtilsProvider utils={DayJSUtils}>
+        // </MuiPickersUtilsProvider>
+        <Grid container item spacing={1} style={{padding: '2rem'}}>
 			<FormProvider {...form}>
 				<form onSubmit={handleSubmit(hSubmit)} style={{width: '100%'}}>
 					<Grid container item spacing={1} xs={12}>
@@ -203,7 +204,7 @@ function DemoForm({onSubmit}) {
 								</Grid>
 							</Grid>
 						</Grid>
-						<Grid container item justify='center' xs={12}>
+						<Grid container item justifyContent='center' xs={12}>
 							<Button disabled={(isDirty && !isValid) || isSubmitting} label='Submit' processing={isSubmitting} size='small' type='submit' variant='contained'/>
 						</Grid>
 					</Grid>
@@ -212,14 +213,13 @@ function DemoForm({onSubmit}) {
 			<IsolateReRender control={control}>
 				{JSON.stringify}
 			</IsolateReRender>
-			<Grid container item justify='center' xs={12}>
+			<Grid container item justifyContent='center' xs={12}>
 				Errors:
 				{' '}
 				{JSON.stringify(eee(errors))}
 			</Grid>
 		</Grid>
-		// </MuiPickersUtilsProvider>
-	);
+    );
 }
 
 DemoForm.propTypes = {

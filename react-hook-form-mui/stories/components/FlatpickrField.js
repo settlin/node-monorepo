@@ -1,10 +1,10 @@
 import React from 'react';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import InputAdornment from '@mui/material/InputAdornment';
 import Flatpickr from './Flatpickr';
 import Input from '../../src/Input';
 import formikToMuiProps from '../../src/forms/formikToMuiProps';
-import IconButton from '@material-ui/core/IconButton';
-import Close from '@material-ui/icons/Close';
+import IconButton from '@mui/material/IconButton';
+import Close from '@mui/icons-material/Close';
 import dateRanges from './dateRanges';
 import moment from 'moment';
 import 'flatpickr/dist/themes/material_red.css';

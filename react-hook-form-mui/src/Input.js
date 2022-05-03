@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 
 class ErrorBoundary extends React.Component {
 	state = {error: false};
@@ -55,7 +55,7 @@ const module = function({type, rhf}) {
 
 // eslint-disable-next-line react/no-multi-comp
 function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact, ...rest}) {// eslint-disable-lineno-unused-varsno-unused-vars
-	const Container = container ? require('@material-ui/core/Grid').default : Fragment;
+	const Container = container ? require('@mui/material/Grid').default : Fragment;
 	const containerProps = container ? {item: true, ...container} : {};
 	Field = Field || module({type, rhf});
 	const extraProps = {...{compact, type, label, components}};
@@ -63,7 +63,7 @@ function Input({type, container, validate, label, rhf = true, components: {input
 		<ErrorBoundary>
 			<Container {...containerProps}>
 				{Field
-					? <Field {...rest} {...extraProps}/>
+					? <Field {...rest} {...extraProps} variant="standard"/>
 					: <Loader/>
 				}
 			</Container>

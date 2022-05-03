@@ -1,8 +1,9 @@
 import React from 'react';
 import {useRMController} from '../../src/react-hook-form/useRMController';
-import {KeyboardDatePicker, KeyboardDateTimePicker} from '@material-ui/pickers';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import MuiTextField from '@material-ui/core/TextField';
+import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
+import '@mui/lab';
+import InputAdornment from '@mui/material/InputAdornment';
+import MuiTextField from '@mui/material/TextField';
 
 // const parseDigits = string => (string.match(/\d+/g) || []).join('');
 
@@ -20,7 +21,7 @@ import MuiTextField from '@material-ui/core/TextField';
 
 function RHFDateTimePicker(props) {
 	let {children, fullWidth = true, variant = 'inline', setFieldValue, type, format = type === 'date' ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm a', fast, validate, compact, InputProps, InputLabelProps = {}, InputAdornmentProps, TextFieldProps, label, onChange, picker} = props; // eslint-disable-line no-unused-vars
-	const Comp = type === 'date' ? KeyboardDatePicker : KeyboardDateTimePicker;
+	const Comp = type === 'date' ? DatePicker : DateTimePicker;
 	const fp = useRMController(props);  // eslint-disable-line no-unused-vars
 
 	if (compact) {

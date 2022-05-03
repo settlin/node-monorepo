@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import MuiSwitch from '@material-ui/core/Switch';
-import FormControl from '@material-ui/core/FormControl';
+import MuiSwitch from '@mui/material/Switch';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from './FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormHelperText from '@mui/material/FormHelperText';
 
 class Switch extends React.PureComponent {
 	constructor(p) {

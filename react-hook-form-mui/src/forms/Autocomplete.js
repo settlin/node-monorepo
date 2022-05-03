@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import Input from '../Input';
-import MuiAutocomplete, {createFilterOptions} from '@material-ui/lab/Autocomplete';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import MuiAutocomplete, {createFilterOptions} from '@mui/material/Autocomplete';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 import PropTypes from 'prop-types';
