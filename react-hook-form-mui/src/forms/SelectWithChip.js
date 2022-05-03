@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import MuiSelect from '@material-ui/core/Select';
-import {Chip, InputLabel, FormControl, FormHelperText} from '@material-ui/core';
-import CancelIcon from '@material-ui/icons/Cancel';
+import MenuItem from '@mui/material/MenuItem';
+import MuiSelect from '@mui/material/Select';
+import {Chip, InputLabel, FormControl, FormHelperText} from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 function SelectChip({
 	options,

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import MuiRadio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import MuiRadio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import clsx from 'clsx';
 
 class Radio extends React.PureComponent {

@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
 import Checkbox from '../forms/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import {makeStyles} from '@material-ui/core/styles';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
+import makeStyles from '@mui/styles/makeStyles';
 import formControl from '../styles/formControl';
 import formLabel from '../styles/formLabel';
 

@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import Input from '../Input';
-import Delete from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
+import Delete from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
 import formLabel from '../styles/formLabel';
-import {makeStyles} from '@material-ui/styles';
+import {makeStyles} from '@mui/styles';
 import clsx from 'clsx';
 import {useFieldArray, useFormContext} from 'react-hook-form';
 
@@ -51,37 +51,35 @@ function InputArray({name, label, helperText, metaList, FormHelperTextProps = {}
 	});
 
 	if (!metaList) return null;
-	return (
-		<>
-			{label && (
-				<FormLabel
-					{...FormLabelProps}
-					classes={{...(FormLabelProps || {}).classes, ...(compact ? {root: clsx(classes.formLabel, ((FormLabelProps || {}).classes || {}).root)} : {})}}
-				>
-					{label}
-					{helperText && (
-						<FormHelperText
-							{...FormHelperTextProps}
-							className={FormHelperTextProps.className}
-							error={error}
-						>
-							{helperText}
-						</FormHelperText>
-					)}
-				</FormLabel>
-			)}
-			{fields.map((field, index) => (
-				<Grid container key={field.id} spacing={3}>
-					<Item prefix={`${name}.${index}`} {...{...props, metaList, remove, index, control}}/>
-				</Grid>
-			))}
-			<Grid container justify='center' spacing={3}>
-				<Button aria-label='Add' onClick={() => append({})} size='small' style={{margin: '8px 0'}}>
-					Add Item
-				</Button>
-			</Grid>
-		</>
-	);
+	return <>
+        {label && (
+            <FormLabel
+                {...FormLabelProps}
+                classes={{...(FormLabelProps || {}).classes, ...(compact ? {root: clsx(classes.formLabel, ((FormLabelProps || {}).classes || {}).root)} : {})}}
+            >
+                {label}
+                {helperText && (
+                    <FormHelperText
+                        {...FormHelperTextProps}
+                        className={FormHelperTextProps.className}
+                        error={error}
+                    >
+                        {helperText}
+                    </FormHelperText>
+                )}
+            </FormLabel>
+        )}
+        {fields.map((field, index) => (
+            <Grid container key={field.id} spacing={3}>
+                <Item prefix={`${name}.${index}`} {...{...props, metaList, remove, index, control}}/>
+            </Grid>
+        ))}
+        <Grid container justifyContent='center' spacing={3}>
+            <Button aria-label='Add' onClick={() => append({})} size='small' style={{margin: '8px 0'}}>
+                Add Item
+            </Button>
+        </Grid>
+    </>;
 }
 
 InputArray.propTypes = {

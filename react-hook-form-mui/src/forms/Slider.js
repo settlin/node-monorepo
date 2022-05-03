@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Slider, Tooltip, FormControl, FormLabel, FormHelperText} from '@material-ui/core';
+import {Slider, Tooltip, FormControl, FormLabel, FormHelperText} from '@mui/material';
 
 function ValueLabelComponent({children, value}) {
 	return (
