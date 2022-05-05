@@ -13,7 +13,6 @@
     "build": "npm run build:commonjs",
     "clean": "rimraf lib dist es coverage",
     "prepare": "npm run clean && npm run build",
-    "dev": "rollup -c -w",
     "test": "node tests/test.js",
     "start": "start-storybook -p 6016",
     "storybook": "BROWSER=none start-storybook -p 6016",
@@ -83,11 +82,6 @@
     "react-hook-form": "^7.12.0",
     "react-select": "^3.2.0",
     "rimraf": "^2.7.1",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-uglify": "^6.0.4",
     "tinymce": "^5.8.2"
   },
   "publishConfig": {
