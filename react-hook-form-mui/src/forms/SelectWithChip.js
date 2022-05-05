@@ -14,7 +14,7 @@ function SelectChip({
 	helperText,
 	ChipProps = {},
 	InputLabelProps = {},
-    helperTextProps = {},
+	helperTextProps = {},
 	...props
 }) {
 	const initOptions = [...options];
@@ -71,7 +71,7 @@ SelectChip.propTypes = {
 	SelectProps: PropTypes.object,
 	setValue: PropTypes.func,
 	value: PropTypes.string,
-    helperTextProps: PropTypes.object,
+	helperTextProps: PropTypes.object,
 };
 SelectChip.displayName = 'MUISelectWithChip';
 
