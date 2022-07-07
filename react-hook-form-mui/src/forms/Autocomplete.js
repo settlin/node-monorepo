@@ -62,7 +62,7 @@ export default function Autocomplete({
 				return filter;
 			}}
 			getOptionLabel={(option) =>typeof option === 'string' ? option : option.label}
-			getOptionSelected={(option, value) =>
+			isOptionEqualToValue={(option, value) =>
 				Array.isArray(option)
 					? option.find(o => o.label === value.label)
 					: option.label === value.label
@@ -93,14 +93,14 @@ export default function Autocomplete({
 					{...InputLabelProps}
 				/>
 			)}
-			renderOption={(option) => {
+			renderOption={(props, option) => {
 				option.inputValue = inputValue;
 				var matches = match(option.label, inputValue);
 				const parts = parse(option.label, matches);
 
 				if (selectComponents?.Option) return <selectComponents.Option {...option} parts={parts}/>;
 				return (
-					<Grid alignItems='center' container key={option.value}>
+					<Grid alignItems='center' container key={option.value} {...props}>
 						<Grid item xs>
 							<Typography color='textSecondary' variant='body2'>
 								{parts.map((part) => (
