@@ -1,7 +1,7 @@
 # @settlin/react-hook-form-mui
 
-v1.x.x - MUI v5
-v0.x.x - MUI v4
+**v1.x.x - MUI v5**  
+**v0.x.x - MUI v4**
 
 A set of material style fields for [formik](https://github.com/jaredpalmer/formik) using [material-ui](https://github.com/mui-org/material-ui)
 

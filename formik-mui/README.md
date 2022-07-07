@@ -1,7 +1,7 @@
 # @settlin/formik-mui
 
-v5.x.x - MUI v5
-v4.x.x - MUI v4
+**v5.x.x - MUI v5**  
+**v4.x.x - MUI v4**
 
 Heavily Inspired from
 https://github.com/stackworx/formik-material-ui
