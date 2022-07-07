@@ -26,8 +26,7 @@ class ErrorBoundary extends React.Component {
 ErrorBoundary.propTypes = {
 	children: PropTypes.node,
 };
-
-const module = function({type, rhf}) {
+const module = ({type, rhf}) => {
 	switch (type) {
 		case 'array':
 			if (!rhf) throw new Error('`array` type is only supported via rhf. `rhf` prop must be set to true in order to use it.');
@@ -51,12 +50,11 @@ const module = function({type, rhf}) {
 	}
 	return rhf ?  require('./react-hook-form/TextField').default : require('./forms/TextField').default;
 };
-
-
 // eslint-disable-next-line react/no-multi-comp
 function Input({type, container, validate, label, rhf = true, components: {input, Field = input, Loader = LinearProgress, ...components} = {}, compact, ...rest}) {// eslint-disable-lineno-unused-varsno-unused-vars
 	const Container = container ? require('@material-ui/core/Grid').default : Fragment;
 	const containerProps = container ? {item: true, ...container} : {};
+
 	Field = Field || module({type, rhf});
 	const extraProps = {...{compact, type, label, components}};
 	return (
