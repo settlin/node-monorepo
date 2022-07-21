@@ -53,6 +53,7 @@ export const styles = theme => ({
 		},
 	},
 });
+
 /**
  * Drop in replacement of the `Radio`, `Switch` and `Checkbox` component.
  * Use this component if you want to display an extra label.
