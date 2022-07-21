@@ -26,12 +26,12 @@ class TextField extends React.PureComponent {
 		const fp = formikToMuiProps(props);
 		return (
 			<MuiTextField
+				variant="standard"
+				{...fp}
 				{...{ children, fullWidth, InputProps, label }}
 				onChange={this.handleChange}
 				onBlur={this.handleBlur}
-				variant="standard"
 				InputLabelProps={(fp.type === 'date' ? { shrink: true, ...InputLabelProps } : { ...InputLabelProps })}
-				{...fp}
 			/>
 		);
 	}
