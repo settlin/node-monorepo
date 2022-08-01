@@ -28,18 +28,18 @@ export const styles = theme => ({
 	marginLeft0: {
 		marginLeft: 0,
 	},
-	/* Styles applied to the root element if `labelPlacement='start'`. */
+	/* Styles applied to the root element if `labelPlacement="start"`. */
 	labelPlacementStart: {
 		flexDirection: 'row-reverse',
 		marginLeft: 16, // used for row presentation of radio/checkbox
 		marginRight: -11,
 	},
-	/* Styles applied to the root element if `labelPlacement='top'`. */
+	/* Styles applied to the root element if `labelPlacement="top"`. */
 	labelPlacementTop: {
 		flexDirection: 'column-reverse',
 		marginLeft: 16,
 	},
-	/* Styles applied to the root element if `labelPlacement='bottom'`. */
+	/* Styles applied to the root element if `labelPlacement="bottom"`. */
 	labelPlacementBottom: {
 		flexDirection: 'column',
 		marginLeft: 16,
