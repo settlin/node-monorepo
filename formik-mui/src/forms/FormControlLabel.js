@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
-import { useFormControl } from "@mui/material/FormControl";
-import withStyles from "@mui/styles/withStyles";
-import Typography from "@mui/material/Typography";
+import React from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import { useFormControl } from '@mui/material/FormControl';
+import withStyles from '@mui/styles/withStyles';
+import Typography from '@mui/material/Typography';
 
 function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
@@ -28,18 +28,18 @@ export const styles = theme => ({
 	marginLeft0: {
 		marginLeft: 0,
 	},
-	/* Styles applied to the root element if `labelPlacement="start"`. */
+	/* Styles applied to the root element if `labelPlacement='start'`. */
 	labelPlacementStart: {
 		flexDirection: 'row-reverse',
 		marginLeft: 16, // used for row presentation of radio/checkbox
 		marginRight: -11,
 	},
-	/* Styles applied to the root element if `labelPlacement="top"`. */
+	/* Styles applied to the root element if `labelPlacement='top'`. */
 	labelPlacementTop: {
 		flexDirection: 'column-reverse',
 		marginLeft: 16,
 	},
-	/* Styles applied to the root element if `labelPlacement="bottom"`. */
+	/* Styles applied to the root element if `labelPlacement='bottom'`. */
 	labelPlacementBottom: {
 		flexDirection: 'column',
 		marginLeft: 16,
