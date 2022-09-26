@@ -26,7 +26,20 @@ class ErrorBoundary extends React.Component {
 ErrorBoundary.propTypes = {
 	children: PropTypes.node,
 };
-const module = ({type, rhf}) => {
+
+const typeValue = (type) => {
+	switch (type) {
+		case 'array': return null;
+		case 'currency':
+		case 'inr':
+		case 'mobile':
+		case 'pincode': return 'number';
+		case 'switch': return 'checkbox';
+		default: return type || 'text';
+	}
+}
+
+const module = function({type, rhf}) {
 	switch (type) {
 		case 'array':
 			if (!rhf) throw new Error('`array` type is only supported via rhf. `rhf` prop must be set to true in order to use it.');
@@ -56,6 +69,7 @@ function Input({type, container, validate, label, rhf = true, components: {input
 	const containerProps = container ? {item: true, ...container} : {};
 
 	Field = Field || module({type, rhf});
+	type = typeValue(type)
 	const extraProps = {...{compact, type, label, components}};
 	return (
 		<ErrorBoundary>
