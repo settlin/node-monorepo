@@ -36,7 +36,7 @@ export function rhfToMuiProps({
 	const extraProps = {};
 
 	if (onChange) {
-		field.value = defaultValue || field.value;
+		field.value = field.value || defaultValue;
 		switch (props.type) {
 			case 'slider':
 				field.value = typeof field.value === 'undefined' ? range ? [0, 0] : '' : field.value;
