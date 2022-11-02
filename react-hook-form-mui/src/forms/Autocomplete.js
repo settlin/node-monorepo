@@ -25,6 +25,7 @@ export default function Autocomplete({
 	multiple,
 	inputProps,
 	InputLabelProps = {},
+	includeInputInList = true,
 	...props
 }) {
 	const [inputValue, setInputValue] = useState('');
@@ -59,7 +60,7 @@ export default function Autocomplete({
 						value: params.inputValue.toLowerCase(),
 					});
 				}
-				return filter;
+				return includeInputInList ? filter : filter.slice(0, filter.length - 1);
 			}}
 			getOptionLabel={(option) =>typeof option === 'string' ? option : option.label}
 			isOptionEqualToValue={(option, value) =>
@@ -67,7 +68,6 @@ export default function Autocomplete({
 					? option.find(o => o.label === value.label)
 					: option.label === value.label
 			}
-			includeInputInList
 			inputValue={inputValue}
 			multiple
 			onInputChange={(event, newInputValue) => {
