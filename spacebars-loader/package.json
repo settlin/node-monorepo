@@ -28,7 +28,7 @@
     "url": "https://github.com/settlin/node-monorepo/issues"
   },
   "dependencies": {
-    "loader-utils": "0.2.x",
+    "loader-utils": "1.4.x",
     "lodash": "^4.17.15",
     "meteor-blaze-tools": "^1.2.4",
     "meteor-core": "^1.2.4",
