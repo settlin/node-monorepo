@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import ReactSelect, {components as comps} from 'react-select';
-import { emphasize } from '@mui/material/styles';
+import {emphasize} from '@mui/material/styles';
 import withStyles from '@mui/styles/withStyles';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -11,7 +11,18 @@ import MenuItem from '@mui/material/MenuItem';
 import CancelIcon from '@mui/icons-material/Cancel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FInput from '../../src/Input';
-import {getIn} from 'formik';
+function getIn(
+	obj,
+	key,
+	p = 0
+) {
+	const path = toPath(key);
+	while (obj && p < path.length) {
+		obj = obj[path[p++]];
+	}
+	return obj === undefined ? def : obj;
+}
+
 
 import IconButton from '@mui/material/IconButton';
 import Close from '@mui/icons-material/Close';
@@ -75,8 +86,8 @@ const styles = theme => ({
 function NoOptionsMessage(props) {
 	return (
 		<Typography
-			color='textSecondary'
 			className={props.selectProps.classes.noOptionsMessage}
+			color='textSecondary'
 			{...props.innerProps}
 		>
 			{props.children}
@@ -106,8 +117,7 @@ function Control(props) {
 
 	return (
 		<FInput
-			formik={false}
-			fullWidth
+			InputLabelProps={{shrink: props.isFocused || props.hasValue, ...InputLabelProps}}
 			InputProps={{
 				...InputProps,
 				inputComponent,
@@ -119,8 +129,9 @@ function Control(props) {
 					...props.innerProps,
 				},
 			}}
+			formik={false}
 			// {...(!compact && label) ? {label} : {}}
-			InputLabelProps={{shrink: props.isFocused || props.hasValue, ...InputLabelProps}}
+			fullWidth
 			{...TextFieldProps}
 		/>
 	);
@@ -137,20 +148,24 @@ Control.propTypes = {
 	]),
 };
 
-const Input = function(props) {
+function Input(props) {
 	return <comps.Input {...props} autoComplete='none'/>;
-};
+}
 
-const ClearIndicator = props => <comps.DropdownIndicator {...props}>
+function ClearIndicator(props) {
+  return <comps.DropdownIndicator {...props}>
 	<IconButton size='small' style={props.getStyles('clearIndicator', props)}><Close fontSize='small'/></IconButton>
-</comps.DropdownIndicator>;
+</comps.DropdownIndicator>
+}
 ClearIndicator.propTypes = {
 	getStyles: PropTypes.func,
 };
 
-const DropdownIndicator = (props) => <comps.DropdownIndicator {...props}>
+function DropdownIndicator(props) {
+  return <comps.DropdownIndicator {...props}>
 	<IconButton size='small' style={props.getStyles('dropdownIndicator', props)}><ExpandMore/></IconButton>
-</comps.DropdownIndicator>;
+</comps.DropdownIndicator>
+}
 DropdownIndicator.propTypes = {
 	getStyles: PropTypes.func,
 };
@@ -159,8 +174,8 @@ function Option(props) {
 	return (
 		<MenuItem
 			buttonRef={props.innerRef}
-			selected={props.isFocused}
 			component='div'
+			selected={props.isFocused}
 			style={{
 				fontWeight: props.isSelected ? 500 : 400,
 				zIndex: 2,
@@ -186,8 +201,8 @@ Option.propTypes = {
 function Placeholder(props) {
 	return (
 		<Typography
-			color='textSecondary'
 			className={props.selectProps.classes.placeholder}
+			color='textSecondary'
 			{...props.innerProps}
 		>
 			{props.children}
@@ -204,9 +219,11 @@ function SingleValue(props) {
 	const {selectProps: {value, classes}, children} = props;
 	return value?.label
 		? value.label
-		: <Typography className={classes.singleValue} {...props.innerProps}>
+		: (
+<Typography className={classes.singleValue} {...props.innerProps}>
 			{children}
-		</Typography>;
+		</Typography>
+);
 }
 SingleValue.propTypes = {
 	selectProps: PropTypes.object,
@@ -215,7 +232,9 @@ SingleValue.propTypes = {
 };
 
 function ValueContainer(props) {
-	return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
+	return <div className={props.selectProps.classes.valueContainer}>
+{props.children}
+</div>;
 }
 ValueContainer.propTypes = {
 	selectProps: PropTypes.object,
@@ -225,13 +244,13 @@ ValueContainer.propTypes = {
 function MultiValue(props) {
 	return (
 		<Chip
-			tabIndex={-1}
-			label={props.children}
 			className={clsx(props.selectProps.classes.chip, {
 				[props.selectProps.classes.chipFocused]: props.isFocused,
 			})}
-			onDelete={props.removeProps.onClick}
 			deleteIcon={<CancelIcon className={props.selectProps.classes.chipDeleteIcon} {...props.removeProps}/>}
+			label={props.children}
+			onDelete={props.removeProps.onClick}
+			tabIndex={-1}
 		/>
 	);
 }
@@ -246,7 +265,7 @@ MultiValue.propTypes = {
 
 function Menu(props) {
 	return (
-		<Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
+		<Paper className={props.selectProps.classes.paper} square {...props.innerProps}>
 			{props.children}
 		</Paper>
 	);
@@ -271,7 +290,7 @@ const modifiedComponents = {
 	DropdownIndicator,
 };
 
-const Select = function({
+function Select({
 	classes, theme, label, options = [], optionsAsync, placeholder = '',
 	field = {},
 	form: {dirty, touched, errors, setFieldValue, setFieldTouched} = {},
@@ -387,7 +406,7 @@ const Select = function({
 			{...commonProps}
 		/>
 	);
-};
+}
 
 Select.propTypes = {
 	classes: PropTypes.object,
