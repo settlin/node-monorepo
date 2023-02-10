@@ -8,7 +8,7 @@ import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-const styles = (theme) => ({
+const styles = ({theme}) => ({
 	root: {
 		display: 'flex',
 		alignItems: 'center',
