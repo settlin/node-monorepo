@@ -35,7 +35,7 @@
     "buffer-equal": "^1.0.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "mocha": "^5.2.0"
+    "mocha": "^10.2.0"
   },
   "gitHead": "988440648f1f4681d6aaf536f72fce549c7c34a9",
   "publishConfig": {
