@@ -39,7 +39,7 @@ const typeValue = (type) => {
 	}
 }
 
-const module1 = function({type, rhf}) {
+const module = function({type, rhf}) {
 	switch (type) {
 		case 'array':
 			if (!rhf) throw new Error('`array` type is only supported via rhf. `rhf` prop must be set to true in order to use it.');
@@ -68,7 +68,7 @@ function Input({type, container, validate, label, rhf = true, components: {input
 	const Container = container ? require('@mui/material/Grid').default : Fragment;
 	const containerProps = container ? {item: true, ...container} : {};
 
-	Field = Field || module1({type, rhf});
+	Field = Field || module({type, rhf});
 	type = typeValue(type)
 	const extraProps = {...{compact, type, label, components}};
 	return (
