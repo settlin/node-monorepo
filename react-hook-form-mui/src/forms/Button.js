@@ -9,7 +9,9 @@ import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-const styles = (theme) => ({
+const styles = (theme) => {
+	console.log(theme);
+	return{
 	root: {
 		display: 'flex',
 		alignItems: 'center',
@@ -20,7 +22,7 @@ const styles = (theme) => ({
 		position: 'relative',
 	},
 	marginRight: {
-		marginRight: theme.spacing(1),
+		// marginRight: theme?.spacing(1),
 	},
 	wrapperFullWidth: {
 		margin: 'auto',
@@ -37,7 +39,7 @@ const styles = (theme) => ({
 	buttonProgress: {
 		color: teal[500],
 	},
-});
+}};
 
 function CircularIntegration({ classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, refButton: ref, ...rest }) {
 	const buttonClassname = clsx({
