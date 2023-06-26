@@ -1,6 +1,7 @@
 import React from 'react';
 import {useRMController} from './useRMController';
 import CheckboxGroup from '../forms/CheckboxGroup';
+import Checkbox from '../forms/Checkbox';
 
 export default function RHFSelect(props) {
 	const {
@@ -9,7 +10,8 @@ export default function RHFSelect(props) {
 		fieldState,
 		// eslint-disable-next-line no-unused-vars
 		formState,
-		...rest
+    isSingle = false,
+    ...rest
 	} = useRMController(props);
-	return <CheckboxGroup inputRef={ref} {...rest}/>;
+	return isSingle ? (<Checkbox inputRef={ref} {...rest}/>) : (<CheckboxGroup inputRef={ref} {...rest}/>);
 }

@@ -17,9 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import Close from '@mui/icons-material/Close';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-const styles = theme => {
-	console.log(theme);
-	return {
+const styles = theme => ({
 	root: {
 		paddingTop: theme.spacing(1),
 		fontSize: 'inherit',
@@ -72,7 +70,7 @@ const styles = theme => {
 	divider: {
 		height: theme.spacing(2),
 	},
-}};
+});
 
 function NoOptionsMessage(props) {
 	return (
