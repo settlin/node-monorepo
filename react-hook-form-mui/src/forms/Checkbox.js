@@ -34,6 +34,7 @@ class Checkbox extends React.PureComponent {
 			<FormControl component='fieldset' error={error} {...FormControlProps}>
 				<FormControlLabel
 					{...FormControlLabelProps}
+					onChange={this.handleChange}
 					control={(
 						<MuiCheckbox
 							{...props}
