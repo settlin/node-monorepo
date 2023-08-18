@@ -1,12 +1,10 @@
 import React from 'react';
-import {addDecorator} from '@storybook/react';
-
 import {action} from '@storybook/addon-actions';
+import {withThemeFromJSXProvider} from '@storybook/addon-styling';
+import {createTheme} from '@mui/material';
+import {CssBaseline, ThemeProvider} from '@mui/material';
 
-import Fields from './react-hook-form/Fields';
-import {muiTheme} from 'storybook-addon-material-ui5'
-
-const defaultTheme = muiTheme({
+const theme = createTheme({
 	palette: {
 		default: {main: '#786464'},
 		primary: {main: '#e0454b'},
@@ -28,10 +26,26 @@ const defaultTheme = muiTheme({
 		},
 	},
 });
-addDecorator(defaultTheme)
+
+
+const decorators = [
+	withThemeFromJSXProvider({
+		themes: {
+			light: theme,
+			dark: theme,
+		},
+		defaultTheme: 'light',
+		Provider: ThemeProvider,
+		GlobalStyles: CssBaseline,
+	}),
+];
+
+import Fields from './react-hook-form/Fields';
+
 export default {
 	title: 'React Hook Form with MUI',
 	component: FieldsStory,
+	decorators,
 };
 
 export function FieldsStory() {

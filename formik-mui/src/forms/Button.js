@@ -97,7 +97,7 @@ CircularIntegration.propTypes = {
 	cs: PropTypes.object,
 	fab: PropTypes.bool,
 	fullWidth: PropTypes.bool,
-	Icon: PropTypes.node,
+	Icon: PropTypes.element,
 	IconProps: PropTypes.object,
 	label: PropTypes.string,
 	processing: PropTypes.bool,
@@ -107,7 +107,9 @@ CircularIntegration.propTypes = {
 };
 
 // eslint-disable-next-line react/no-multi-comp, react/prop-types
-const Button2 = React.forwardRef(({classes, ...props}, ref) => <CircularIntegration cs={classes} refButton={ref} {...props}/>);
+const Button2 = React.forwardRef(function Button1({classes, ...props}, ref) {
+	return <CircularIntegration cs={classes} refButton={ref} {...props}/>;
+});
 
 Button2.displayName = 'FButton';
 

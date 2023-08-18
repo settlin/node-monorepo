@@ -300,5 +300,6 @@ module.exports = {
 				'patterns': ['@material-ui/*/*/*', '!@material-ui/core/test-utils/*'],
 			},
 		],
+		extends: ['plugin:storybook/recommended'],
 	},
 };
