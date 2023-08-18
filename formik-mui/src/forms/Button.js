@@ -97,7 +97,7 @@ CircularIntegration.propTypes = {
 	cs: PropTypes.object,
 	fab: PropTypes.bool,
 	fullWidth: PropTypes.bool,
-	Icon: PropTypes.element,
+	Icon: PropTypes.elementType,
 	IconProps: PropTypes.object,
 	label: PropTypes.string,
 	processing: PropTypes.bool,
