@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import teal from '@mui/material/colors/teal';
 import Button from '@mui/material/Button';
@@ -9,34 +9,47 @@ import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		display: 'flex',
-		alignItems: 'center',
-		marginTop: '8px',
-	},
-	wrapper: {
-		margin: 'auto',
-		position: 'relative',
-	},
-	marginRight: {
-		marginRight: theme.spacing(1),
-	},
-	wrapperFullWidth: {
-		margin: 'auto',
-		position: 'relative',
-		width: '100%',
-	},
-	buttonSuccess: {
+const Root = styled('div')(({ theme, fullWidth }) => ({
+	display: 'flex',
+	alignItems: 'center',
+	marginTop: '8px',
+	width: fullWidth ? '100%' : 'auto'
+}));
+
+const Wrapper = styled('div')(({ theme, fullWidth }) => ({
+	margin: 'auto',
+	position: 'relative',
+	...(fullWidth && {
+		width: '100%'
+	})
+}));
+
+const StyledButton = styled(Button)(({ theme, success }) => ({
+	...(success && {
 		backgroundColor: teal[500],
 		'&:hover': {
 			backgroundColor: teal[700],
 		},
 		backgroundSize: 'contain',
-	},
-	buttonProgress: {
-		color: teal[500],
-	},
+	})
+}));
+
+const StyledFab = styled(Fab)(({ theme, success }) => ({
+	...(success && {
+		backgroundColor: teal[500],
+		'&:hover': {
+			backgroundColor: teal[700],
+		},
+		backgroundSize: 'contain',
+	})
+}));
+
+const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
+	color: teal[500]
+}));
+
+const IconWrapper = styled('span')(({ theme }) => ({
+	marginRight: theme.spacing(1)
 }));
 
 function CircularIntegration({
@@ -55,38 +68,45 @@ function CircularIntegration({
 	refButton: ref,
 	...rest
 }) {
-	const classes = useStyles();
-	const buttonClassname = clsx({
-		[classes.buttonSuccess]: success,
-	});
-
 	const IconComp = success ? CheckIcon : Icon;
 	return (
-		<div className={clsx(classes.root, cs.root)} style={{width: fullWidth ? '100%' : 'auto'}}>
-			{fab
-				? (
-					<div className={clsx(classes.wrapper, cs.wrapper)}>
-						<Fab classes={{root: clsx(buttonClassname, cs.button)}} color={color} ref={ref} {...rest}>
-							{processing
-								? <CircularProgress className={classes.buttonProgress} {...CircularProgressProps}/>
-								: <IconComp {...IconProps}/>
-							}
-						</Fab>
-					</div>
-				)
-				: (
-					<div className={clsx(fullWidth ? classes.wrapperFullWidth : classes.wrapper, cs.wrapper)}>
-						<Button classes={{root: clsx(buttonClassname, cs.button)}} color={color} disabled={processing} fullWidth={fullWidth} ref={ref} variant={variant} {...rest}>
-							{processing
-								? <CircularProgress className={clsx(classes.marginRight, classes.buttonProgress, cs.processing)} {...CircularProgressProps}/>
-								: IconComp && <IconComp classes={{root: clsx(classes.marginRight, cs.icon)}} {...IconProps}/>
-							}
-							{children}
-						</Button>
-					</div>
-				)
-			}
-		</div>
+		<Root className={cs.root} fullWidth={fullWidth}>
+			{fab ? (
+				<Wrapper className={cs.wrapper}>
+					<StyledFab success={success} className={cs.button} color={color} ref={ref} {...rest}>
+						{processing ? (
+							<StyledCircularProgress {...CircularProgressProps} />
+						) : (
+							<IconComp {...IconProps} />
+						)}
+					</StyledFab>
+				</Wrapper>
+			) : (
+				<Wrapper className={cs.wrapper} fullWidth={fullWidth}>
+					<StyledButton
+						success={success}
+						className={cs.button}
+						color={color}
+						disabled={processing}
+						fullWidth={fullWidth}
+						ref={ref}
+						variant={variant}
+						{...rest}
+					>
+						{processing ? (
+							<StyledCircularProgress className={cs.processing} {...CircularProgressProps} />
+						) : (
+							IconComp && (
+								<IconWrapper className={cs.icon}>
+									<IconComp {...IconProps} />
+								</IconWrapper>
+							)
+						)}
+						{children}
+					</StyledButton>
+				</Wrapper>
+			)}
+		</Root>
 	);
 }
 
