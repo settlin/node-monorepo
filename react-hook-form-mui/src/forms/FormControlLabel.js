@@ -4,14 +4,27 @@ import clsx from 'clsx';
 import {useFormControl} from '@mui/material/FormControl';
 import withStyles from '@mui/styles/withStyles';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material';
+
+const PREFIX = 'MuiFormControlLabel';
+
+const classes = {
+	root: `${PREFIX}-root`,
+	label: `${PREFIX}-label`,
+	labelPlacementStart: `${PREFIX}-labelPlacementStart`,
+	labelPlacementTop: `${PREFIX}-labelPlacementTop`,
+	labelPlacementBottom: `${PREFIX}-labelPlacementBottom`,
+	disabled: `${PREFIX}-disabled`,
+	marginLeft0: `${PREFIX}-marginLeft0`,
+};
 
 function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export const styles = theme => ({
+const StyledLabel = styled('label')(({theme}) => ({
 	/* Styles applied to the root element. */
-	root: {
+	[`&.${classes.root}`]: {
 		display: 'inline-flex',
 		alignItems: 'center',
 		cursor: 'pointer',
@@ -25,34 +38,35 @@ export const styles = theme => ({
 			cursor: 'default',
 		},
 	},
-	marginLeft0: {
+	[`&.${classes.marginLeft0}`]: {
 		marginLeft: 0,
 	},
 	/* Styles applied to the root element if `labelPlacement="start"`. */
-	labelPlacementStart: {
+	[`&.${classes.labelPlacementStart}`]: {
 		flexDirection: 'row-reverse',
 		marginLeft: 16, // used for row presentation of radio/checkbox
 		marginRight: -11,
 	},
 	/* Styles applied to the root element if `labelPlacement="top"`. */
-	labelPlacementTop: {
+	[`&.${classes.labelPlacementTop}`]: {
 		flexDirection: 'column-reverse',
 		marginLeft: 16,
 	},
 	/* Styles applied to the root element if `labelPlacement="bottom"`. */
-	labelPlacementBottom: {
+	[`&.${classes.labelPlacementBottom}`]: {
 		flexDirection: 'column',
 		marginLeft: 16,
 	},
 	/* Pseudo-class applied to the root element if `disabled={true}`. */
-	disabled: {},
+	[`& .${classes.disabled}`]: {},
+	[`&.${classes.disabled}`]: {},
 	/* Styles applied to the label's Typography component. */
-	label: {
+	[`& .${classes.label}`]: {
 		'&$disabled': {
 			color: theme.palette.text.disabled,
 		},
 	},
-});
+}));
 
 /**
  * Drop in replacement of the `Radio`, `Switch` and `Checkbox` component.
@@ -94,7 +108,7 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
 	});
 
 	return (
-		<label
+		<StyledLabel
 			className={clsx(
 				classes.root,
 				{
@@ -120,7 +134,7 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
 			>
 				{label}
 			</Typography>
-		</label>
+		</StyledLabel>
 	);
 });
 
@@ -179,5 +193,5 @@ FormControlLabel.propTypes = {
    */
 	value: PropTypes.any,
 };
-
-export default withStyles(styles, {name: 'MuiFormControlLabel'})(FormControlLabel);
+FormControlLabel.displayName = 'MuiFormControlLabel';
+export default FormControlLabel;

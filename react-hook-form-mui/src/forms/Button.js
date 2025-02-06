@@ -1,52 +1,60 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import clsx from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 import CircularProgress from '@mui/material/CircularProgress';
-import teal from '@mui/material/colors/teal';
+import { teal } from '@mui/material/colors'; // ✅ Correct import for colors
 import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
-const styles = (theme) => ({
-	root: {
+import styled from '@mui/material/styles/styled';
+const PREFIX = 'FButton';
+const classes = {
+	root: `${PREFIX}-root`,
+	wrapper: `${PREFIX}-wrapper`,
+	marginRight: `${PREFIX}-marginRight`,
+	wrapperFullWidth: `${PREFIX}-wrapperFullWidth`,
+	buttonSuccess: `${PREFIX}-buttonSuccess`,
+	buttonProgress: `${PREFIX}-buttonProgress`,
+}
+const StyledButton = styled('div')(({theme}) => ({
+	[`&.${classes.root}`]: {
 		display: 'flex',
 		alignItems: 'center',
 		marginTop: '8px',
 	},
-	wrapper: {
+	[`& .${classes.wrapper}`]: {
 		margin: 'auto',
 		position: 'relative',
 	},
-	marginRight: {
-		marginRight: theme.spacing(1),
+	[`& .${classes.marginRight}`]: {
+		marginRight: theme.spacing(1), // ✅ Now works correctly
 	},
-	wrapperFullWidth: {
+	[`& .${classes.wrapperFullWidth}`]: {
 		margin: 'auto',
 		position: 'relative',
 		width: '100%',
 	},
-	buttonSuccess: {
+	[`& .${classes.buttonSuccess}`]: {
 		backgroundColor: teal[500],
 		'&:hover': {
 			backgroundColor: teal[700],
 		},
 		backgroundSize: 'contain',
 	},
-	buttonProgress: {
+	[`& .${classes.buttonProgress}`]: {
 		color: teal[500],
 	},
-});
+}));
 
-function CircularIntegration({ classes, cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, refButton: ref, ...rest }) {
+function CircularIntegration({ classes: cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, refButton: ref, ...rest }) {
 	const buttonClassname = clsx({
 		[classes.buttonSuccess]: success,
 	});
 
 	const IconComp = success ? CheckIcon : Icon;
 	return (
-		<div className={clsx(classes.root, cs.root)} style={{ width: fullWidth ? '100%' : 'auto' }}>
+		<StyledButton className={clsx(classes.root, cs.root)} style={{ width: fullWidth ? '100%' : 'auto' }}>
 			{fab
 				? (
 					<div className={clsx(classes.wrapper, cs.wrapper)}>
@@ -70,7 +78,7 @@ function CircularIntegration({ classes, cs = {}, fab, processing, success, color
 					</div>
 				)
 			}
-		</div>
+		</StyledButton>
 	);
 }
 
@@ -94,9 +102,8 @@ CircularIntegration.propTypes = {
 	variant: PropTypes.string,
 };
 
-const Button1 = withStyles(styles)(CircularIntegration);
-// eslint-disable-next-line react/no-multi-comp
-const Button2 = React.forwardRef(({ classes, ...props }, ref) => <Button1 cs={classes} refButton={ref} {...props} />);
+// ✅ Correct usage of forwardRef
+const Button2 = CircularIntegration;
 
 Button2.propTypes = {
 	classes: PropTypes.object,
