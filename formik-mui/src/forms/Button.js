@@ -8,21 +8,23 @@ import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
-const Root = styled('div')(({ theme, fullWidth }) => ({
+const RootDiv = styled('div')(({ theme, fullWidth }) => ({
 	display: 'flex',
 	alignItems: 'center',
 	marginTop: '8px',
 	width: fullWidth ? '100%' : 'auto'
 }));
 
-const Wrapper = styled('div')(({ theme, fullWidth }) => ({
+const WrapperDiv = styled('div')({
 	margin: 'auto',
 	position: 'relative',
-	...(fullWidth && {
-		width: '100%'
-	})
-}));
+});
+
+const FullWidthWrapperDiv = styled('div')({
+	margin: 'auto',
+	position: 'relative',
+	width: '100%',
+});
 
 const StyledButton = styled(Button)(({ theme, success }) => ({
 	...(success && {
@@ -44,93 +46,84 @@ const StyledFab = styled(Fab)(({ theme, success }) => ({
 	})
 }));
 
-const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
-	color: teal[500]
-}));
-
-const IconWrapper = styled('span')(({ theme }) => ({
-	marginRight: theme.spacing(1)
-}));
-
-function CircularIntegration({
-	cs = {},
-	fab,
-	processing,
-	success,
-	color = 'primary',
-	variant = 'contained',
-	label = 'Submit',
-	children = label,
-	Icon = fab ? CloudUploadIcon : null,
-	fullWidth,
-	IconProps,
-	CircularProgressProps,
-	refButton: ref,
-	...rest
-}) {
-	const IconComp = success ? CheckIcon : Icon;
-	return (
-		<Root className={cs.root} fullWidth={fullWidth}>
-			{fab ? (
-				<Wrapper className={cs.wrapper}>
-					<StyledFab success={success} className={cs.button} color={color} ref={ref} {...rest}>
-						{processing ? (
-							<StyledCircularProgress {...CircularProgressProps} />
-						) : (
-							<IconComp {...IconProps} />
-						)}
-					</StyledFab>
-				</Wrapper>
-			) : (
-				<Wrapper className={cs.wrapper} fullWidth={fullWidth}>
-					<StyledButton
-						success={success}
-						className={cs.button}
-						color={color}
-						disabled={processing}
-						fullWidth={fullWidth}
-						ref={ref}
-						variant={variant}
-						{...rest}
-					>
-						{processing ? (
-							<StyledCircularProgress className={cs.processing} {...CircularProgressProps} />
-						) : (
-							IconComp && (
-								<IconWrapper className={cs.icon}>
-									<IconComp {...IconProps} />
-								</IconWrapper>
-							)
-						)}
-						{children}
-					</StyledButton>
-				</Wrapper>
-			)}
-		</Root>
-	);
-}
-
-CircularIntegration.propTypes = {
-	children: PropTypes.node,
-	CircularProgressProps: PropTypes.object,
-	color: PropTypes.string,
-	cs: PropTypes.object,
-	fab: PropTypes.bool,
-	fullWidth: PropTypes.bool,
-	Icon: PropTypes.elementType,
-	IconProps: PropTypes.object,
-	label: PropTypes.string,
-	processing: PropTypes.bool,
-	refButton: PropTypes.object,
-	success: PropTypes.bool,
-	variant: PropTypes.string,
-};
-
-// eslint-disable-next-line react/no-multi-comp, react/prop-types
-const Button2 = React.forwardRef(function Button1({classes, ...props}, ref) {
-	return <CircularIntegration cs={classes} refButton={ref} {...props}/>;
+const ProgressIcon = styled(CircularProgress)({
+	color: teal[500],
 });
 
-Button2.displayName = 'FButton';
+const MarginRightIcon = styled('span')(({ theme }) => ({
+	marginRight: theme.spacing(1),
+}));
+const CircularIntegration = React.forwardRef((props, ref) => {
+	const {cs = {}, fab, processing, success, color = 'primary', variant = 'contained', label = 'Submit', children = label, Icon = fab ? CloudUploadIcon : null, fullWidth, IconProps, CircularProgressProps, ...rest} = props;
+	
+	const IconComp = success ? CheckIcon : Icon;
+	
+	return (
+		<RootDiv className={cs.root} fullWidth={fullWidth}>
+			{fab
+				? (
+					<WrapperDiv className={cs.wrapper}>
+						<StyledFab ref={ref} color={color} success={success} className={cs.button} {...rest}>
+							{processing
+								? <ProgressIcon {...CircularProgressProps}/>
+								: <IconComp {...IconProps}/>
+							}
+						</StyledFab>
+					</WrapperDiv>
+				)
+				: (
+					fullWidth ? (
+						<FullWidthWrapperDiv className={cs.wrapper}>
+							<StyledButton 
+								ref={ref} 
+								fullWidth={fullWidth} 
+								variant={variant} 
+								color={color} 
+								success={success}
+								className={cs.button} 
+								disabled={processing} 
+								{...rest}
+							>
+								{processing
+									? <ProgressIcon component={MarginRightIcon} className={cs.processing} {...CircularProgressProps}/>
+									: IconComp && (
+										<MarginRightIcon className={cs.icon}>
+											<IconComp {...IconProps}/>
+										</MarginRightIcon>
+									)
+								}
+								{children}
+							</StyledButton>
+						</FullWidthWrapperDiv>
+					) : (
+						<WrapperDiv className={cs.wrapper}>
+							<StyledButton 
+								ref={ref} 
+								fullWidth={fullWidth} 
+								variant={variant} 
+								color={color} 
+								success={success}
+								className={cs.button} 
+								disabled={processing} 
+								{...rest}
+							>
+								{processing
+									? <ProgressIcon component={MarginRightIcon} className={cs.processing} {...CircularProgressProps}/>
+									: IconComp && (
+										<MarginRightIcon className={cs.icon}>
+											<IconComp {...IconProps}/>
+										</MarginRightIcon>
+									)
+								}
+								{children}
+							</StyledButton>
+						</WrapperDiv>
+					)
+				)
+			}
+		</RootDiv>
+	);
+});
+CircularIntegration.displayName = 'FButton';
 
-export default Button2;
+export default CircularIntegration;
