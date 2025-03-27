@@ -2,57 +2,61 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {useFormControl} from '@mui/material/FormControl';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 function capitalize(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export const styles = theme => ({
+const StyledLabel = styled('label', {
+	name: 'MuiFormControlLabel',
+	shouldForwardProp: (prop) => 
+		prop !== 'labelPlacement' && prop !== 'disabled' && prop !== 'offLabel'
+})(({ theme, labelPlacement, disabled, offLabel }) => ({
 	/* Styles applied to the root element. */
-	root: {
-		display: 'inline-flex',
-		alignItems: 'center',
-		cursor: 'pointer',
-		// For correct alignment with the text.
-		verticalAlign: 'middle',
-		// Remove grey highlight
-		WebkitTapHighlightColor: 'transparent',
-		marginLeft: -11,
-		marginRight: 16, // used for row presentation of radio/checkbox
-		'&.Mui-disabled': {
-			cursor: 'default',
-		},
+	display: 'inline-flex',
+	alignItems: 'center',
+	cursor: 'pointer',
+	// For correct alignment with the text.
+	verticalAlign: 'middle',
+	// Remove grey highlight
+	WebkitTapHighlightColor: 'transparent',
+	marginLeft: offLabel ? 0 : -11,
+	marginRight: 16, // used for row presentation of radio/checkbox
+	'&.Mui-disabled': {
+		cursor: 'default',
 	},
-	marginLeft0: {
-		marginLeft: 0,
-	},
+	
 	/* Styles applied to the root element if `labelPlacement="start"`. */
-	labelPlacementStart: {
+	...(labelPlacement === 'start' && {
 		flexDirection: 'row-reverse',
 		marginLeft: 16, // used for row presentation of radio/checkbox
 		marginRight: -11,
-	},
+	}),
+	
 	/* Styles applied to the root element if `labelPlacement="top"`. */
-	labelPlacementTop: {
+	...(labelPlacement === 'top' && {
 		flexDirection: 'column-reverse',
 		marginLeft: 16,
-	},
+	}),
+	
 	/* Styles applied to the root element if `labelPlacement="bottom"`. */
-	labelPlacementBottom: {
+	...(labelPlacement === 'bottom' && {
 		flexDirection: 'column',
 		marginLeft: 16,
-	},
-	/* Pseudo-class applied to the root element if `disabled={true}`. */
-	disabled: {},
+	}),
+}));
+
+const StyledTypography = styled(Typography, {
+	name: 'MuiFormControlLabel',
+	shouldForwardProp: (prop) => prop !== 'disabled'
+})(({ theme, disabled }) => ({
 	/* Styles applied to the label's Typography component. */
-	label: {
-		'&.Mui-disabled': {
-			color: theme.palette.text.disabled,
-		},
+	'&.Mui-disabled': {
+		color: theme.palette.text.disabled,
 	},
-});
+}));
 
 /**
  * Drop in replacement of the `Radio`, `Switch` and `Checkbox` component.
@@ -61,7 +65,6 @@ export const styles = theme => ({
 const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) {
 	const {
 		checked, // eslint-disable-line no-unused-vars
-		classes,
 		className: classNameProp,
 		control,
 		disabled: disabledProp,
@@ -94,33 +97,35 @@ const FormControlLabel = React.forwardRef(function FormControlLabel(props, ref) 
 	});
 
 	return (
-		<label
+		<StyledLabel
 			className={clsx(
-				classes.root,
 				{
-					[classes[`labelPlacement${capitalize(labelPlacement)}`]]: labelPlacement !== 'end',
-					[classes.disabled]: disabled,
-					[classes.marginLeft0]: offLabel,
+					'Mui-disabled': disabled,
 				},
 				classNameProp,
 			)}
 			ref={ref}
+			labelPlacement={labelPlacement}
+			disabled={disabled}
+			offLabel={offLabel}
 			{...other}
 		>
-			{offLabel && <Typography
+			{offLabel && <StyledTypography
 				component='span'
-				className={clsx(classes.label, {[classes.disabled]: disabled})}
+				className={clsx({ 'Mui-disabled': disabled })}
+				disabled={disabled}
 			>
 				{offLabel}
-			</Typography>}
+			</StyledTypography>}
 			{React.cloneElement(control, controlProps)}
-			<Typography
+			<StyledTypography
 				component='span'
-				className={clsx(classes.label, {[classes.disabled]: disabled})}
+				className={clsx({ 'Mui-disabled': disabled })}
+				disabled={disabled}
 			>
 				{label}
-			</Typography>
-		</label>
+			</StyledTypography>
+		</StyledLabel>
 	);
 });
 
@@ -129,11 +134,6 @@ FormControlLabel.propTypes = {
    * If `true`, the component appears selected.
    */
 	checked: PropTypes.bool,
-	/**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-	classes: PropTypes.object.isRequired,
 	/**
    * @ignore
    */
@@ -180,4 +180,4 @@ FormControlLabel.propTypes = {
 	value: PropTypes.any,
 };
 
-export default withStyles(styles, {name: 'MuiFormControlLabel'})(FormControlLabel);
+export default FormControlLabel;
