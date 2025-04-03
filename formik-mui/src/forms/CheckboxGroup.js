@@ -19,7 +19,7 @@ const StyledFormLabel = styled(MuiFormLabel)({
   ...formLabel
 });
 
-const CheckboxGroup = ({name, formik: {errors, values, touched, dirty} = {}, options, label, compact, FormControlProps = {}, FormLabelProps = {}, FormHelperTextProps = {}, CheckboxProps = {}, FormGroupProps = {}}) => {
+const CheckboxGroup = ({name, formik: {errors, values, touched, dirty, setFieldTouched, setFieldValue} = {}, options, label, compact, FormControlProps = {}, FormLabelProps = {}, FormHelperTextProps = {}, CheckboxProps = {}, FormGroupProps = {}}) => {
 	const value = getIn(values, name) || [];
 	const error = getIn(errors, name);
 	const helperText = (dirty || (name && getIn(touched, name)) && typeof error === 'string' ? error : null);
@@ -56,14 +56,14 @@ const CheckboxGroup = ({name, formik: {errors, values, touched, dirty} = {}, opt
 						onChange={() => {
 							if (value.includes(option.value)) {
 								const nextValue = value.filter(v => v !== option.value);
-								formik.setFieldValue(name, nextValue);
+								setFieldValue(name, nextValue);
 							}
 							else {
 								const nextValue = value.concat(option.value);
-								formik.setFieldValue(name, nextValue);
+								setFieldValue(name, nextValue);
 							}
 						}}
-						onBlur={() => formik.setFieldTouched(name, true)}
+						onBlur={() => setFieldTouched(name, true)}
 					/>
 				))}
 			</FormGroup>
